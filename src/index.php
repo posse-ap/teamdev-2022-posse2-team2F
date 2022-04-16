@@ -2,9 +2,6 @@
 session_start();
 require(dirname(__FILE__) . "/dbconnect.php");
 
-$stmt = $db->query('SELECT id, title FROM events');
-$events = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
