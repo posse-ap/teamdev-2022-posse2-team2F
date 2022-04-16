@@ -8,7 +8,7 @@ if (isset($_POST['login'])) {
   $email = $_POST['email'];
   $password = sha1($_POST['password']);
   
-  $sql = 'SELECT count(*) FROM users WHERE email = ? AND password = ?';
+  $sql = 'SELECT count(*) FROM craft_users WHERE email = ? AND password = ?';
   $stmt = $db->prepare($sql);
   $stmt->execute(array($email, $password));
   $result = $stmt->fetch();

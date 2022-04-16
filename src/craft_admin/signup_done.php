@@ -13,7 +13,7 @@ require('../dbconnect.php');
   <title>ユーザー登録完了画面</title>
 </head>
 <body>
-  <p>ユーザー登録が完了いたしました</p>
+  <p>新規管理者登録が完了いたしました</p>
   <a href="./login.php">ログイン画面に戻る</a>
 </body>
 </html>

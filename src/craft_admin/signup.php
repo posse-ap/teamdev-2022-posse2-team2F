@@ -10,7 +10,7 @@ if (isset($_POST['signup'])) {
   if ($password !== $password_conf) {
     echo 'パスワードが一致していません。';
   } else {
-    $sql = 'INSERT INTO users(email, password, password_conf)
+    $sql = 'INSERT INTO craft_users(email, password, password_conf)
           VALUES(?, ?, ?)';
     $stmt = $db->prepare($sql);
     $stmt->execute(array($email, $password, $password_conf));
