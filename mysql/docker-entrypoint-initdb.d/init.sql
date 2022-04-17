@@ -26,7 +26,8 @@ CREATE TABLE agent_users (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   email VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL,
-  password_conf VARCHAR(255) NOT NULL
+  password_conf VARCHAR(255) NOT NULL,
+  agent_name VARCHAR(255) NOT NULL
 );
 
 INSERT INTO
@@ -34,4 +35,5 @@ INSERT INTO
 SET
   email = 'admin@agent.com',
   password = sha1('password'),
-  password_conf = sha1('password');
+  password_conf = sha1('password'),
+  agent_name = 'agent1'; 
