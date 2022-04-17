@@ -37,3 +37,17 @@ SET
   password = sha1('password'),
   password_conf = sha1('password'),
   agent_name = 'agent1'; 
+
+DROP TABLE IF EXISTS agents;
+
+CREATE TABLE agents (
+  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  agent_name VARCHAR(255) NOT NULL,
+  agent_pic VARCHAR(255) NOT NULL
+);
+
+INSERT INTO
+  agents
+SET
+  agent_name = 'agent1',
+  agent_pic = 'agent1.png';
