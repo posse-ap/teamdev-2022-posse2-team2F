@@ -19,7 +19,7 @@ $results = $stmt->fetchAll();
 <body>
   <?php foreach ($results as $result) : ?>
     <p><?= $result['agent_name'] ?></p>
-    <img src="./<?= $result['agent_pic'] ?>" alt="" style="width: 500px">
+    <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="width: 500px">
     <a href="./edit.php?id=<?= $result['id'] ?>" style="text-decoration: none">
       <button>編集</button>
     </a>
