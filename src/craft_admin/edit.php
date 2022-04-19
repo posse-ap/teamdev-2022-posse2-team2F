@@ -2,23 +2,27 @@
 
 require('../dbconnect.php');
 
+// warning とりあえず隠せたけど解決はしてない、、、、、
+// error_reporting(0);
 
-$target_dir = "images/";
-$target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+// URLからIDを取得
+$id = $_GET['id'];
 
-if (move_uploaded_file($_FILES["agent_pic"]["tmp_name"], $target_file)) {
-  // URLからIDを取得
-  $id = $_GET['id'];
-  // echo "The file ". htmlspecialchars( basename( $_FILES["agent_pic"]["name"])). " has been uploaded.";
-  $sql = "UPDATE agents SET agent_pic = '".$_FILES['agent_pic']['name']."' WHERE id = '$id'";
-  $stmt = $db->query($sql);
-} else {
-  echo "Sorry, there was an error uploading your file.";
-}
 
+// 既存データの表示
+$stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
+$result = $stmt->fetch();
+
+// array key exists 、 if文で先に弾く
+// key があれば進んでいく
+// なかったら先に指定しておく
+
+
+
+
+// 画像以外の更新
 if (isset($_POST['submit'])) {
+
 
   $agent_name = $_POST['agent_name'];
   $agent_tag = $_POST['agent_tag'];
@@ -32,14 +36,30 @@ if (isset($_POST['submit'])) {
 
   $sql = 'UPDATE agents
         SET agent_name = ?, agent_tag = ?, agent_info = ?, agent_display = ?
-        WHERE id = 1';
+        WHERE id = ?';
   $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $agent_tag, $agent_info, $agent_display));
-  $stmt = null;
-  $db = null;
+  $stmt->execute(array($agent_name, $agent_tag, $agent_info, $agent_display, $id));
+
+  // 画像更新
+  $target_dir = "images/";
+  $target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
+  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+  if (move_uploaded_file($_FILES["agent_pic"]["tmp_name"], $target_file)) {
+    // echo "The file ". htmlspecialchars( basename( $_FILES["agent_pic"]["name"])). " has been uploaded.";
+    // 既存データの表示
+    $sql = "UPDATE agents SET agent_pic = '".$_FILES['agent_pic']['name']."' WHERE id = '$id'";
+    $stmt = $db->query($sql);
+  } else {
+    // echo "Sorry, there was an error uploading your file.";
+  }
+
+
   header('Location: http://localhost/craft_admin/home.php');
   exit;
 }
+
+
 
 
 // }
@@ -53,15 +73,15 @@ if (isset($_POST['submit'])) {
 <form action="" method="post" enctype="multipart/form-data">
   <p>
     <label for="agent_name">エージェント名：</label>
-    <input type="text" name="agent_name" required>
+    <input type="text" name="agent_name" value="<?= $result['agent_name'] ?>" required>
   </p>
   <p>
     <label for="agent_tag">エージェントタグ：</label>
-    <input type="text" name="agent_tag" required>
+    <input type="text" name="agent_tag" value="<?= $result['agent_tag'] ?>" required>
   </p>
   <p>
     <label for="agent_info">エージェント説明：</label>
-    <input type="textarea" name="agent_info" required>
+    <input type="textarea" name="agent_info" value="<?= $result['agent_info'] ?>" required>
   </p>
   <p>
     <label for="agent_display">掲載期間：</label>
@@ -76,11 +96,13 @@ if (isset($_POST['submit'])) {
 
 
   Select image to upload:
-  <input type="file" name="agent_pic">
+  <input type="image" src="images/<?= $result['agent_pic'] ?>" style="width: 500px">
+  <input id="image" type="file" name="agent_pic">
   <br>
   
   <input type="submit" value="Update Profile" name="submit">
 </form>
+
 
 </body>
 </html>

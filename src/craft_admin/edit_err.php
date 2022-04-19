@@ -3,88 +3,66 @@ session_start();
 require('../dbconnect.php');
 
 
-// 画像 & エージェント名表示用（元のデータを表示、画像はできてない）
-$stmt = $db->query("SELECT * FROM agents");
-$result = $stmt->fetch();
-
 // URLからIDを取得
-$id = $_GET['id'];
+// $id = $_GET['id'];
 
 
-if (isset($_POST['save'])) {
+if (isset($_REQUEST['save'])) {
 
-  $agent_name = $_POST['agent_name'];
-  $agent_tag = $_POST['agent_tag'];
-  // $agent_pic = $_POST['agent_pic'];
-  // $agent_pic = $_POST['agent_pic'];
-  $agent_info = $_POST['agent_info'];
-  // $agent_display = $_POST['agent_display'];
-  if(isset($_POST['agent_display'])) {
+  $agent_name = $_REQUEST['agent_name'];
+  $agent_tag = $_REQUEST['agent_tag'];
+  // $agent_pic = $_REQUEST['agent_pic'];
+  $agent_info = $_REQUEST['agent_info'];
+  // $agent_display = $_REQUEST['agent_display'];
+  if(isset($_REQUEST['agent_display'])) {
     // セレクトボックスで選択された値を受け取る
-    $agent_display = $_POST['agent_display'];
+    $agent_display = $_REQUEST['agent_display'];
+  }
+  $agent_pic = $_FILES['agent_pic']['name'];
+
+  // $target_dir = "images/";
+  // $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+  // $uploadOk = 1;
+  // $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    // if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+    //   // URLからIDを取得
+    //   echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+    //   $sql = "UPDATE agents SET agent_pic = '".$_FILES['fileToUpload']['name']."' WHERE id = 1";
+    //   $stmt = $db->query($sql);
+    // } else {
+    //   echo "Sorry, there was an error uploading your file.";
+    // }
+
+
+  // $sql = 'UPDATE agents
+  //       SET agent_name = ?, agent_tag = ?, agent_info = ?, agent_display = ?
+  //       WHERE id = ?';
+  // $stmt = $db->prepare($sql);
+  // $stmt->execute(array($agent_name, $agent_tag, $agent_info, $agent_display, $id));
+  // $stmt = null;
+  // $db = null;
+  // header('Location: http://localhost/craft_admin/home.php');
+  // exit;
+
+  if ((!empty($agent_name)) && (!empty($agent_tag)) && (!empty($agent_info))) {
+    $db->query("UPDATE agents SET agent_name = '$agent_name', agent_tag = '$agent_tag', agent_info = '$agent_info'");
   }
 
-  $target_dir = "images/";
-  $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-  $uploadOk = 1;
-  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-  // // Check if image file is a actual image or fake image
-  // if(isset($_POST["submit"])) {
-  //   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-  //   if($check !== false) {
-  //     echo "File is an image - " . $check["mime"] . ".";
-  //     $uploadOk = 1;
-  //   } else {
-  //     echo "File is not an image.";
-  //     $uploadOk = 0;
-  //   }
-  // }
-
-  // Check if file already exists
-  // if (file_exists($target_file)) {
-  //   echo "Sorry, file already exists.";
-  //   $uploadOk = 0;
-  // }
-
-  // Check file size
-  // if ($_FILES["fileToUpload"]["size"] > 500000) {
-  //   echo "Sorry, your file is too large.";
-  //   $uploadOk = 0;
-  // }
-
-  // Allow certain file formats
-  // if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-  // && $imageFileType != "gif" ) {
-  //   echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-  //   $uploadOk = 0;
-  // }
-
-  // Check if $uploadOk is set to 0 by an error
-  // if ($uploadOk == 0) {
-  //   echo "Sorry, your file was not uploaded.";
-  // if everything is ok, try to upload file
-  // } else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-      // URLからIDを取得
-      echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-      $sql = "UPDATE agents SET agent_pic = '".$_FILES['fileToUpload']['name']."' WHERE id = 1";
-      $stmt = $db->query($sql);
-    } else {
-      echo "Sorry, there was an error uploading your file.";
-    }
+  if (!empty($agent_pic)) {
+    $tmpName = $_FILES["agent_pic"]["tmp_name"];
+    $uploadDir = "images/";
+    move_uploaded_file($tmpName, $uploadDir.$agent_pic);
+    $db->query("UPDATE agents SET agent_pic = '$agent_pic'");
+  }
 
 
-  $sql = 'UPDATE agents
-        SET agent_name = ?, agent_tag = ?, agent_info = ?, agent_display = ?
-        WHERE id = ?';
-  $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $agent_tag, $agent_info, $agent_display, $id));
-  $stmt = null;
-  $db = null;
-  header('Location: http://localhost/craft_admin/home.php');
-  exit;
+
+
+
+
 }
+
 
 
 
