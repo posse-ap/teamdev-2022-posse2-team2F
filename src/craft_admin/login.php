@@ -2,6 +2,7 @@
 session_start();
 require('../dbconnect.php');
 
+
 $err_msg = "";
 
 if (isset($_POST['login'])) {
@@ -40,15 +41,16 @@ if (isset($_POST['login'])) {
 </head>
 
 <body>
+  <?php include '../_header.php'; ?>
   <div class="login_box">
     <h1 class="login_title">管理者ログイン</h1>
     <form action="/craft_admin/login.php" method="POST">
     <?php if ($err_msg !== null && $err_msg !== '') { echo $err_msg .  "<br>";} ?>
-    <p>
+    <p class="login_text">
       <label for="email">メールアドレス</label>
       <input class="login_textbox" type="email" name="email" required>
     </p>
-    <p>
+    <p class="login_text">
       <label for="password">パスワード</label>
       <input class="login_textbox" type="password" name="password" required>
     </p>
