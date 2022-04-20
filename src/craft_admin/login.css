@@ -20,18 +20,41 @@ body {
   font-weight: bold;
   text-align: center;
   margin: 5% auto;
+  font-size: 2rem;
 }
+
+.login_error {
+  color: #852930;
+  background-color: #fddce0;
+  padding: 5px 0;
+  margin: 0 200px;
+  border-radius: 5px;
+}
+
 
 .login_text {
   /* vertical-align: middle; */
   text-align: left;
+  padding-left: 30%;
 
   /* line-height: 20px; */
 }
 
-label {
-  font-size: 1.4rem;
+form {
+  text-align: center;
 }
+
+label {
+  font-size: 1.2rem;
+  width: 180px;
+  display: block;
+  float: left;
+  padding-top: 5px;
+}
+
+/* input {
+  text-align: right;
+} */
 
 .login_textbox {
   width: 30%;
@@ -49,6 +72,7 @@ label {
   font-size: 1.5rem;
 }
 
-.login_new {
+.login_links {
+  text-decoration: underline;
   color: #52A49A;
 }

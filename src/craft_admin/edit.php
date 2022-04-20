@@ -93,14 +93,15 @@ if (isset($_POST['submit'])) {
       </select>
       <span>ヶ月</span>
   </p>
-
-
-  Select image to upload:
-  <input type="image" src="images/<?= $result['agent_pic'] ?>" style="width: 500px">
-  <input id="image" type="file" name="agent_pic">
-  <br>
+  <p>
+    <label for="agent_pic">エージェント画像：</label>
+    <br>
+    <img src="images/<?= $result['agent_pic'] ?>" alt="" style="width: 500px">
+    <!-- <input type="image" src=" ?>" style="width: 500px"> -->
+    <input id="image" type="file" name="agent_pic">
+  </p>
   
-  <input type="submit" value="Update Profile" name="submit">
+  <input type="submit" value="変更を保存" name="submit">
 </form>
 
 
