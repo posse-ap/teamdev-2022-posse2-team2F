@@ -70,6 +70,8 @@ if (isset($_POST['submit'])) {
 <html>
 <body>
 
+<a href=""></a>
+
 <form action="" method="post" enctype="multipart/form-data">
   <p>
     <label for="agent_name">エージェント名：</label>
