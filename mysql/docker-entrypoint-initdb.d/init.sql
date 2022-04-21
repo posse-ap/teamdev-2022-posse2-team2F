@@ -81,15 +81,21 @@ CREATE TABLE students (
 );
 
 INSERT INTO
-  students
-SET
-  name = '山田太郎',
-  email = 'taroyamada@gmail.com',
-  phone = 1111111,
-  university = '〇〇大学',
-  faculty = '〇〇学科',
-  address = '東京都〇〇区1-1-1',
-  grad_year = 25,
-  agent = 'agent1';
-
-
+  students (name, email, phone, university, faculty, address, grad_year, agent) 
+VALUES
+('山田太郎',
+'taroyamada@gmail.com',
+1111111,
+'〇〇大学',
+'〇〇学科',
+'東京都〇〇区1-1-1',
+25,
+'agent1'),
+('山田太郎',
+'taroyamada@gmail.com',
+1111111,
+'〇〇大学',
+'〇〇学科',
+'東京都〇〇区1-1-1',
+25,
+'agent1');
