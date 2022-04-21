@@ -1,3 +1,70 @@
+.agent_container {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.agent_leftcontainer {
+  width: 340px;
+  height: 100%;
+  background-color: #E5E5E5;
+  text-align: center;
+}
+
+.agent_leftcontainer div {
+  font-size: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 65px;
+}
+
+.agent_leftcontainer .agent_manage {
+  color: #52A49A;
+  background-color: white;
+}
+
+.agent_leftcontainer .agent_manage a {
+  text-decoration: none;
+}
+
+.agent_leftcontainer .agent_add {
+  border: 1px solid #C4C4C4;
+}
+
+.agent_leftcontainer .agent_add a {
+  text-decoration: none;
+  color: black;
+}
+
+.agent_leftcontainer .tag_manage {
+  border: 1px solid #C4C4C4;
+}
+
+.agent_leftcontainer .tag_manage a {
+  text-decoration: none;
+  color: black;
+}
+
+.agent_leftcontainer .usersite {
+  border: 1px solid #C4C4C4;
+}
+
+.agent_leftcontainer .usersite a {
+  text-decoration: none;
+  color: black;
+}
+
 /*
 1440~768 pc~tablet
 768~     tablet~smartphone
@@ -6,35 +73,42 @@ li {
   list-style: none;
 }
 
-a {
-  text-decoration: none;
-  color: #ffffff;
-}
-
 /*
 =====================HEADER=====================
 */
 .header {
   background: #52a49a;
   width: 100vw;
-  height: 25vh;
+  height: 15vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
+
 .header_logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
+
 .header_logo p {
   font-size: 2em;
   color: #ffffff;
   font-weight: 700;
 }
+
 @media screen and (max-width: 768px) {
   .header_logo p {
     font-size: 1em;
   }
 }
+
 @media screen and (max-width: 768px) {
   .header_logo img {
     width: 100px;
@@ -47,15 +121,27 @@ a {
 .footer {
   background: #52a49a;
   width: 100vw;
-  height: 25vh;
+  height: 10vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
+
 .footer_logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
+
 @media screen and (max-width: 768px) {
   .footer_logo img {
     width: 100px;

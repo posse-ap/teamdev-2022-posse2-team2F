@@ -1,0 +1,52 @@
+.agent_container{
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.agent_leftcontainer{
+  width: 340px;
+  height: 100%;
+  background-color: #E5E5E5;
+  text-align: center;
+
+  div{
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65px;
+  }
+
+  .agent_manage{
+    color: #52A49A;
+    background-color: white;
+    a{
+      text-decoration: none;
+    }
+  }
+
+  .agent_add{
+    border: 1px solid #C4C4C4;
+    a{
+      text-decoration: none;
+      color: black;
+    }
+  }
+
+  .tag_manage{
+    border: 1px solid #C4C4C4;
+    a{
+      text-decoration: none;
+      color: black;
+    }
+  }
+
+  .usersite{
+    border: 1px solid #C4C4C4;
+    a{
+      text-decoration: none;
+      color: black;
+    }
+  }
+}

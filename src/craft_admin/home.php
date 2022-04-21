@@ -17,18 +17,39 @@ $results = $stmt->fetchAll();
   <title>Document</title>
 </head>
 <body>
-  <?php foreach ($results as $result) : ?>
-    <p><?= $result['agent_name'] ?></p>
-    <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="width: 500px">
-    <a href="./edit.php?id=<?= $result['id'] ?>" style="text-decoration: none">
-      <button>編集</button>
-    </a>
-    <a href="" style="text-decoration: none">
-      <button>削除</button>
-    </a>
-    <a href="" style="text-decoration: none">
-      <button>申込一覧</button>
-    </a>
-  <?php endforeach; ?>
+  <?php require ('../_header.php'); ?>
+  <div class="agent_container">
+    <div class="agent_leftcontainer">
+      <div class="agent_manage">
+        エージェント管理
+      </div>
+      <div class="agent_add">
+        <a href="">エージェント追加</a>
+      </div>
+      <div class="tag_manage">
+        <a href="">タグ編集・追加</a>
+      </div>
+      <div class="usersite">
+        <a href="">ユーザー用サイトへ</a>
+      </div>
+    </div>
+    <div class="agent_rightcontainer">
+
+      <?php foreach ($results as $result) : ?>
+        <p><?= $result['agent_name'] ?></p>
+        <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="width: 500px">
+        <a href="./edit.php?id=<?= $result['id'] ?>" style="text-decoration: none">
+          <button>編集</button>
+        </a>
+        <a href="" style="text-decoration: none">
+          <button>削除</button>
+        </a>
+        <a href="" style="text-decoration: none">
+          <button>申込一覧</button>
+        </a>
+      <?php endforeach; ?>
+      <?php require ('../_footer.php'); ?>
+    </div>
+  </div>
 </body>
 </html>
