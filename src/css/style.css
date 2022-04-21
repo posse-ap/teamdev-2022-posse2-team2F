@@ -42,6 +42,13 @@ a {
 }
 
 /*
+=====================TABLE admin_student_info.php=====================
+*/
+.table_container {
+  padding: 5% 5%;
+}
+
+/*
 =====================FOOTER=====================
 */
 .footer {
