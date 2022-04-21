@@ -1,0 +1,32 @@
+@mixin tb {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.footer {
+  background: #52a49a;
+  width: 100vw;
+  height: 25vh;
+  display: flex;
+  justify-content: center;
+
+  &_logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & img{
+      @include tb {
+        width: 100px;
+      }
+    }
+  }
+}

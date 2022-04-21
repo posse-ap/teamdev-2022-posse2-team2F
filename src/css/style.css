@@ -1,7 +1,3 @@
-/*
-1440~768 pc~tablet
-768~     tablet~smartphone
-*/
 li {
   list-style: none;
 }
@@ -11,9 +7,6 @@ a {
   color: #ffffff;
 }
 
-/*
-=====================HEADER=====================
-*/
 .header {
   background: #52a49a;
   width: 100vw;
@@ -41,9 +34,15 @@ a {
   }
 }
 
-/*
-=====================FOOTER=====================
-*/
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
 .footer {
   background: #52a49a;
   width: 100vw;
@@ -60,5 +59,18 @@ a {
   .footer_logo img {
     width: 100px;
   }
+}
+
+/*
+1440~768 pc~tablet
+768~     tablet~smartphone
+*/
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
 }
 /*# sourceMappingURL=style.css.map */

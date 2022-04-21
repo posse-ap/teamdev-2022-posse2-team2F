@@ -40,6 +40,8 @@ if (isset($_POST['login'])) {
 </head>
 
 <body>
+<?php require ("../_header.php"); ?>
+
   <div class="login_box">
     <h1 class="login_title">担当者ログイン</h1>
     <form action="/agent_admin/login.php" method="POST">
@@ -58,6 +60,8 @@ if (isset($_POST['login'])) {
     <br>
     <a class="login_new" href="./signup.php">新規登録はこちら</a>
   </div>
+
+  <?php require ("../_footer.php"); ?>
 </body>
 
 </html>
