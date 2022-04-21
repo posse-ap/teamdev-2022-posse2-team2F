@@ -17,6 +17,10 @@ $results = $stmt->fetchAll();
   <title>Document</title>
 </head>
 <body>
+
+
+  <a href="/craft_admin/add.php">エージェント新規追加</a>
+
   <?php foreach ($results as $result) : ?>
     <p><?= $result['agent_name'] ?></p>
     <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="width: 500px">

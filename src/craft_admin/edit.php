@@ -2,9 +2,6 @@
 
 require('../dbconnect.php');
 
-// warning とりあえず隠せたけど解決はしてない、、、、、
-// error_reporting(0);
-
 // URLからIDを取得
 $id = $_GET['id'];
 
@@ -13,17 +10,11 @@ $id = $_GET['id'];
 $stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
 $result = $stmt->fetch();
 
-// array key exists 、 if文で先に弾く
-// key があれば進んでいく
-// なかったら先に指定しておく
 
 
-
-
-// 画像以外の更新
 if (isset($_POST['submit'])) {
 
-
+  // 画像以外の更新
   $agent_name = $_POST['agent_name'];
   $agent_tag = $_POST['agent_tag'];
   // $agent_pic = $_POST['agent_pic'];
@@ -60,17 +51,12 @@ if (isset($_POST['submit'])) {
 }
 
 
-
-
-// }
-
 ?>
 
 <!DOCTYPE html>
 <html>
 <body>
 
-<a href=""></a>
 
 <form action="" method="post" enctype="multipart/form-data">
   <p>
