@@ -1,5 +1,6 @@
-@use 'header';
-@use 'footer';
+@import 'header';
+@import 'footer';
+@import 'login';
 
 /*
 1440~768 pc~tablet
@@ -14,8 +15,4 @@
 
 li {
   list-style: none;
-}
-a {
-  text-decoration: none;
-  color: #ffffff;
 }

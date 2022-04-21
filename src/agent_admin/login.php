@@ -34,13 +34,15 @@ if (isset($_POST['login'])) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="/src/css/normalize.css">
+  <link rel="stylesheet" href="/src/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
   <title>担当者ログイン</title>
 </head>
 
 <body>
 <?php require ("../_header.php"); ?>
+<div class="login_container">
 
   <div class="login_box">
     <h1 class="login_title">担当者ログイン</h1>
@@ -56,10 +58,17 @@ if (isset($_POST['login'])) {
     </p>
     <input type="submit" name="login" value="ログイン" class="login_button">
     </form>
-    <a class="login_new" href="./signup.php">パスワードをお忘れの方はこちら</a>
+    <div class="login_forget">
+
+      <a class="login_new" href="./signup.php">新規登録はこちら</a>
+    </div>
     <br>
-    <a class="login_new" href="./signup.php">新規登録はこちら</a>
+    <div class="login_forget">
+
+      <a class="login_new" href="./signup.php">パスワードをお忘れの方はこちら</a>
+    </div>
   </div>
+</div>
 
   <?php require ("../_footer.php"); ?>
 </body>

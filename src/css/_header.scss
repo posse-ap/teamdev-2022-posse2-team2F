@@ -15,7 +15,7 @@ a {
 .header {
   background: #52a49a;
   width: 100vw;
-  height: 25vh;
+  height: 15vh;
   display: flex;
   justify-content: center;
 
@@ -28,6 +28,8 @@ a {
 .header_logo {
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: #ffffff;
 
   & p {
     font-size: 2em;
