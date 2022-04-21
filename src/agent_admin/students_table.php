@@ -37,5 +37,5 @@ foreach ($all_students_info as $student_info) {
 
         echo "</tr>";
 
-        echo "</table>";
     }; 
+    echo "</table>";
