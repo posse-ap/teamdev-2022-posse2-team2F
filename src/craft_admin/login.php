@@ -47,8 +47,8 @@ if (isset($_POST['login'])) {
 
     <div class="login_box">
       <h1 class="login_title">管理者ログイン</h1>
-      <form action="/craft_admin/login.php" method="POST">
       <?php if ($err_msg !== null && $err_msg !== '') { echo $err_msg .  "<br>";} ?>
+      <form action="/craft_admin/login.php" method="POST">
       <p class="login_text">
         <label for="email">メールアドレス</label>
         <input class="login_textbox" type="email" name="email" required>
