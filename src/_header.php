@@ -12,12 +12,11 @@
 
 <body>
     <header class="header">
-        <h1  class="header_logo">
-            <a  class="header_logo" href="index.php">
+        <h1 class="header_logo">
+            <a class="header_logo" href="index.php">
                 CRAFT by
-                <img src="img/syukatudotcom_logo_white.png" alt="就活.comのロゴ">
+                <img src="../img/syukatudotcom_logo_white.png" alt="就活.comのロゴ">
             </a>
         </h1>
     </header>
     <main>
-
