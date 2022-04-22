@@ -11,7 +11,6 @@
 .agent_leftcontainer {
   width: 340px;
   height: 100%;
-  background-color: #E5E5E5;
   text-align: center;
 }
 
@@ -27,6 +26,16 @@
       -ms-flex-align: center;
           align-items: center;
   height: 65px;
+}
+
+.agent_leftcontainer div::before {
+  left: 3px;
+  width: 4px;
+  height: 4px;
+  border-top: 2px solid #7a0;
+  border-right: 2px solid #7a0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .agent_leftcontainer .agent_manage {
@@ -63,6 +72,18 @@
 .agent_leftcontainer .usersite a {
   text-decoration: none;
   color: black;
+}
+
+.agent_rightcontainer {
+  width: 1000px;
+  height: 750px;
+  background-color: white;
+}
+
+.agent_rightcontainer h2 {
+  width: 1000px;
+  height: 75px;
+  font-size: 36px;
 }
 
 /*

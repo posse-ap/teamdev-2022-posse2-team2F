@@ -32,24 +32,28 @@ $results = $stmt->fetchAll();
       <div class="usersite">
         <a href="">ユーザー用サイトへ</a>
       </div>
+      <div class="sample5-2">サンプル</div>
     </div>
     <div class="agent_rightcontainer">
+      <h2>エージェント管理</h2>
+      <div class="agent_smallrightcontainer">
 
-      <?php foreach ($results as $result) : ?>
-        <p><?= $result['agent_name'] ?></p>
-        <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="width: 500px">
-        <a href="./edit.php?id=<?= $result['id'] ?>" style="text-decoration: none">
-          <button>編集</button>
-        </a>
-        <a href="" style="text-decoration: none">
-          <button>削除</button>
-        </a>
-        <a href="" style="text-decoration: none">
-          <button>申込一覧</button>
-        </a>
-      <?php endforeach; ?>
-      <?php require ('../_footer.php'); ?>
+        <?php foreach ($results as $result) : ?>
+          <p><?= $result['agent_name'] ?></p>
+          <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="width: 500px">
+          <a href="./edit.php?id=<?= $result['id'] ?>" style="text-decoration: none">
+            <button>編集</button>
+          </a>
+          <a href="" style="text-decoration: none">
+            <button>削除</button>
+          </a>
+          <a href="" style="text-decoration: none">
+            <button>申込一覧</button>
+          </a>
+        <?php endforeach; ?>
+      </div>
     </div>
   </div>
+      <?php require ('../_footer.php'); ?>
 </body>
 </html>
