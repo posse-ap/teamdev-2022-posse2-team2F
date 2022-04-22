@@ -10,14 +10,16 @@ $results = $stmt->fetchAll();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
-  <?php require ('../_header.php'); ?>
+  <?php require('../_header.php'); ?>
   <div class="agent_container">
     <div class="agent_leftcontainer">
       <div class="agent_manage">
@@ -32,28 +34,47 @@ $results = $stmt->fetchAll();
       <div class="usersite">
         <a href="">ユーザー用サイトへ</a>
       </div>
-      <div class="sample5-2">サンプル</div>
     </div>
     <div class="agent_rightcontainer">
-      <h2>エージェント管理</h2>
+      <h2>
+        <div class="agent_titile">
+
+          エージェント管理
+        </div>
+      </h2>
       <div class="agent_smallrightcontainer">
+        <div class="agent_smallrightcontainer_container">
+          <div class="agent_smallcontainer_title">エージェント</div>
+          <div class="agent_smallcontainer_control">操作</div>
+
+        </div>
 
         <?php foreach ($results as $result) : ?>
-          <p><?= $result['agent_name'] ?></p>
-          <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="width: 500px">
-          <a href="./edit.php?id=<?= $result['id'] ?>" style="text-decoration: none">
-            <button>編集</button>
-          </a>
-          <a href="" style="text-decoration: none">
-            <button>削除</button>
-          </a>
-          <a href="" style="text-decoration: none">
-            <button>申込一覧</button>
-          </a>
+          <div class="agent_all">
+
+            <div class="agent_ind">
+
+              <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="height: 150px">
+              <p><?= $result['agent_name'] ?></p>
+            </div>
+            <div class="agent_buttons">
+              <a href="./edit.php?id=<?= $result['id'] ?>" style="text-decoration: none">
+
+                <button class="hensyu">編集</button>
+              </a>
+              <a href="" style="text-decoration: none">
+                <button class="sakujyo">削除</button>
+              </a>
+              <a href="" style="text-decoration: none">
+                <button class="moushikomi">申込一覧</button>
+            </div>
+            </a>
+          </div>
         <?php endforeach; ?>
       </div>
     </div>
   </div>
-      <?php require ('../_footer.php'); ?>
+  <?php require('../_footer.php'); ?>
 </body>
+
 </html>

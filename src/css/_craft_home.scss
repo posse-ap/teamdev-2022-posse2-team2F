@@ -2,12 +2,13 @@
   height: 100%;
   display: flex;
   justify-content: space-between;
+  background-color: #EBEDF1;
 }
 
 .agent_leftcontainer{
   width: 340px;
-  height: 100%;
-  // background-color: #E5E5E5;
+  height: 75vh;
+  background-color: #E5E5E5;
   text-align: center;
 
   div{
@@ -16,15 +17,6 @@
     justify-content: center;
     align-items: center;
     height: 65px;
-    &::before{
-      left: 3px;
-    width: 4px;
-    height: 4px;
-    border-top: 2px solid #7a0;
-    border-right: 2px solid #7a0;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    }
   }
 
   .agent_manage{
@@ -61,12 +53,121 @@
 }
 
 .agent_rightcontainer{
-  width: 1000px;
-  height: 750px;
+  width: 1050px;
+  height: 570px;
   background-color: white;
+  border: 1px solid #C4C4C4;
+  margin: 20px 20px 0 20px;
+  position: relative;
+
   h2{
-    width: 1000px;
-    height: 75px;
-    font-size: 36px;
+    width: 1050px;
+    height: 50px;
+    border-bottom: 1px solid #C4C4C4;
+    margin: 0;
+    font-weight: lighter;
+    display: flex;
+    align-items: center;
+    // padding-left: 10px;
+    // padding-right: 20px;
+    .agent_titile{
+      font-size: 30px;
+      padding-left: 20px;
+    }
+  }
+
+  .agent_smallrightcontainer{
+    width: 920px;
+    height: 460px;
+    border: 1px solid #91C9C4;
+    position: absolute;
+    left: calc(50% - 460px);
+    top: calc(50% - 205px);
+    overflow-y: scroll;
+    .agent_smallrightcontainer_container{
+      width: 920px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      .agent_smallcontainer_title{
+        width: 644px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #52A49A;
+        color: white;
+        border-right: 1px solid #91C9C4;
+
+      }
+      .agent_smallcontainer_control{
+        width: 276px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #52A49A;
+        color: white;
+      }
+    }
   }
 }
+
+.agent_all{
+  display: flex;
+}
+
+.agent_ind{
+  width: 644px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #91C9C4;
+  border-right: 1px solid #91C9C4;
+  img{
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    object-fit: cover;
+  }
+  p{
+    font-size: 26px;
+    width: 244px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.agent_buttons{
+  width: 276px;
+  height: 150px;
+  border-bottom: 1px solid #91C9C4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  button{
+    width: 90px;
+    height: 35px;
+    border-style: none;
+    font-size: 14px;
+    box-shadow: 3px 2px #C4C4C4 1px;
+  }
+
+  .hensyu{
+    background-color: #91C9C4;
+    color: white;
+  }
+
+  .sakujyo{
+    background-color: #CF7C7C;
+    color: white;
+  }
+
+  .moushikomi{
+    background-color: #C4C4C4;
+    color: white;
+  }
+}
+
+
