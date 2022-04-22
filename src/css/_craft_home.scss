@@ -219,5 +219,27 @@
   }
 }
 
+#modal_complete {
+  width: 900px;
+  height: 500px;
+  display: none;
+  background-color: white;
+  z-index: 1;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  p{
+    font-size: 46px;
+    position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  }
+
+}
+
 
 
