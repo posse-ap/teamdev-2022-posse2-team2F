@@ -62,9 +62,10 @@ $results = $stmt->fetchAll();
 
                 <button class="hensyu">編集</button>
               </a>
-              <a href="" style="text-decoration: none">
-                <button class="sakujyo">削除</button>
-              </a>
+
+              <button class="sakujyo" onclick="modalOpen()">削除</button>
+
+
               <a href="" style="text-decoration: none">
                 <button class="moushikomi">申込一覧</button>
             </div>
@@ -74,7 +75,34 @@ $results = $stmt->fetchAll();
       </div>
     </div>
   </div>
+
+  <!-- ここからmodal -->
+  <div id="modal">
+    <div class="modal_container">
+
+      <p class="alert">本当に削除しますか？</p>
+      <div class="delete_buttons">
+        <button class="no" onclick="modalClose()">いいえ</button>
+        <a href="./delete.php?id=<?= $result['id'] ?>" style="text-decoration: none">
+        <button class="yes">はい</button>
+        </a>
+      </div>
+    </div>
+  </div>
+  <script>
+    const modal = document.getElementById('modal');
+
+    function modalOpen() {
+      modal.style.display = 'block';
+    }
+
+    function modalClose() {
+      modal.style.display = 'none';
+    }
+  </script>
+
   <?php require('../_footer.php'); ?>
+
 </body>
 
 </html>
