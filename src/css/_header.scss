@@ -1,0 +1,49 @@
+@mixin tb {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.header {
+  background: #52a49a;
+  width: 100vw;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+
+  @include tb {
+    // margin: 0;
+    // text-align: center;
+  }
+}
+
+.header_logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #ffffff;
+
+  & p {
+    font-size: 2em;
+    color: #ffffff;
+    font-weight: 700;
+
+    @include tb {
+      font-size: 1em;
+    }
+  }
+
+  & img {
+    @include tb {
+        width: 100px;
+      }
+  }
+}
