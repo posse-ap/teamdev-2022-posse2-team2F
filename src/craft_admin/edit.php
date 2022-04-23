@@ -2,9 +2,6 @@
 
 require('../dbconnect.php');
 
-// warning とりあえず隠せたけど解決はしてない、、、、、
-// error_reporting(0);
-
 // URLからIDを取得
 $id = $_GET['id'];
 
@@ -13,17 +10,11 @@ $id = $_GET['id'];
 $stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
 $result = $stmt->fetch();
 
-// array key exists 、 if文で先に弾く
-// key があれば進んでいく
-// なかったら先に指定しておく
 
 
-
-
-// 画像以外の更新
 if (isset($_POST['submit'])) {
 
-
+  // 画像以外の更新
   $agent_name = $_POST['agent_name'];
   $agent_tag = $_POST['agent_tag'];
   // $agent_pic = $_POST['agent_pic'];
@@ -60,15 +51,12 @@ if (isset($_POST['submit'])) {
 }
 
 
-
-
-// }
-
 ?>
 
 <!DOCTYPE html>
 <html>
 <body>
+
 
 <form action="" method="post" enctype="multipart/form-data">
   <p>
@@ -93,14 +81,15 @@ if (isset($_POST['submit'])) {
       </select>
       <span>ヶ月</span>
   </p>
-
-
-  Select image to upload:
-  <input type="image" src="images/<?= $result['agent_pic'] ?>" style="width: 500px">
-  <input id="image" type="file" name="agent_pic">
-  <br>
+  <p>
+    <label for="agent_pic">エージェント画像：</label>
+    <br>
+    <img src="images/<?= $result['agent_pic'] ?>" alt="" style="width: 500px">
+    <!-- <input type="image" src=" ?>" style="width: 500px"> -->
+    <input id="image" type="file" name="agent_pic">
+  </p>
   
-  <input type="submit" value="Update Profile" name="submit">
+  <input type="submit" value="変更を保存" name="submit">
 </form>
 
 
