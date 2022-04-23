@@ -273,7 +273,7 @@ a {
   position: absolute;
   left: calc(50% - 460px);
   top: calc(50% - 205px);
-  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 .agent_rightcontainer .agent_smallrightcontainer .agent_smallrightcontainer_container {
@@ -324,6 +324,7 @@ a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  overflow-x: scroll;
 }
 
 .agent_ind {
@@ -349,8 +350,8 @@ a {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .agent_ind p {
@@ -407,6 +408,83 @@ a {
 .agent_buttons .moushikomi {
   background-color: #C4C4C4;
   color: white;
+}
+
+#modal {
+  width: 900px;
+  height: 500px;
+  display: none;
+  background-color: white;
+  z-index: 1;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+}
+
+#modal .modal_container {
+  width: 900px;
+  height: 500px;
+  position: relative;
+}
+
+#modal .modal_container p {
+  font-size: 46px;
+  text-align: center;
+  margin-top: 100px;
+}
+
+#modal .modal_container .delete_buttons {
+  width: 600px;
+  margin: 120px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#modal .modal_container .delete_buttons button {
+  width: 220px;
+  height: 80px;
+  border-style: none;
+  font-size: 24px;
+  color: white;
+  -webkit-box-shadow: 0px 6px 6px #C4C4C4;
+          box-shadow: 0px 6px 6px #C4C4C4;
+  cursor: pointer;
+}
+
+#modal .modal_container .delete_buttons .no {
+  background-color: #91C9C4;
+}
+
+#modal .modal_container .delete_buttons .yes {
+  background-color: #CF7C7C;
+}
+
+#modal_complete {
+  width: 900px;
+  height: 500px;
+  display: none;
+  background-color: white;
+  z-index: 1;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+}
+
+#modal_complete p {
+  font-size: 46px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
 }
 
 /*

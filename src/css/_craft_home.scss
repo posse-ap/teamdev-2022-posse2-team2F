@@ -83,7 +83,7 @@
     position: absolute;
     left: calc(50% - 460px);
     top: calc(50% - 205px);
-    overflow-y: scroll;
+    overflow-x: scroll;
     .agent_smallrightcontainer_container{
       width: 920px;
       height: 30px;
@@ -115,6 +115,7 @@
 
 .agent_all{
   display: flex;
+  overflow-x: scroll;
 }
 
 .agent_ind{
@@ -129,7 +130,7 @@
     width: 400px;
     display: flex;
     justify-content: center;
-    object-fit: cover;
+    object-fit: contain;
   }
   p{
     font-size: 26px;
@@ -172,5 +173,74 @@
     color: white;
   }
 }
+
+#modal{
+  width: 900px;
+  height: 500px;
+  display: none;
+  background-color: white;
+  z-index: 1;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  
+  .modal_container{
+      width: 900px;
+      height: 500px;
+      position: relative;
+
+    p{
+      font-size: 46px;
+      text-align: center;
+      margin-top: 100px;
+    }
+  
+    .delete_buttons{
+      width: 600px;
+      margin: 120px auto;
+      display: flex;
+      justify-content: space-between;
+      button{
+        width: 220px;
+        height: 80px;
+        border-style: none;
+        font-size: 24px;
+        color: white;
+        box-shadow: 0px 6px 6px #C4C4C4;
+        cursor: pointer;
+      }
+      .no{
+        background-color: #91C9C4;
+      }
+      .yes{
+        background-color: #CF7C7C;
+      }
+    }
+  }
+}
+
+#modal_complete {
+  width: 900px;
+  height: 500px;
+  display: none;
+  background-color: white;
+  z-index: 1;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  p{
+    font-size: 46px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
+  }
+}
+
 
 
