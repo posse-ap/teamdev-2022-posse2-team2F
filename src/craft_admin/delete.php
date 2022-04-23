@@ -19,4 +19,5 @@ if (!$success) {
   die($db->error);
 }
 
+header('Location: home.php');
 ?>

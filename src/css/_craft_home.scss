@@ -208,6 +208,7 @@
         font-size: 24px;
         color: white;
         box-shadow: 0px 6px 6px #C4C4C4;
+        cursor: pointer;
       }
       .no{
         background-color: #91C9C4;
@@ -233,12 +234,11 @@
   p{
     font-size: 46px;
     position: absolute;
-  top: 55%;
+  top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   -webkit-transform: translateY(-50%) translateX(-50%);
   }
-
 }
 
 

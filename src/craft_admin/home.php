@@ -83,60 +83,42 @@ $results = $stmt->fetchAll();
       <p class="alert">本当に削除しますか？</p>
       <div class="delete_buttons">
         <button class="no" onclick="modalClose()">いいえ</button>
-        <!-- <a href="./delete.php?id=<?= $result['id'] ?>" style="text-decoration: none"> -->
-        <button class="yes" onclick="deleteAgent()">はい</button>
-        <!-- </a> -->
+        <a href="./delete.php?id=<?= $result['id'] ?>" style="text-decoration: none">
+        <button class="yes" onclick="deleteAgent()">はい
+    </button>
+        </a>
       </div>
     </div>
   </div>
   <!-- ここから削除完了画面 -->
   <div id="modal_complete">
-    <p>削除されました</p>
+    <p>削除されました。</p>
   </div>
+
+  <?php require('../_footer.php'); ?>
+
 
   <script>
     const modal = document.getElementById('modal');
+
     const modalComplete = document.getElementById('modal_complete');
 
     function modalOpen() {
       modal.style.display = 'block';
-    }
+    };
 
     function modalClose() {
       modal.style.display = 'none';
-    }
+    };
 
     function deleteAgent() {
       modal.style.display = 'none';
-      <?php
-      $id = $_GET['id'];
-
-      $stmt = $db->prepare('delete from agents where id=?');
       
-      if (!$stmt) {
-        die($db->error);
-      }
-      $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-      if (!$id) {
-        echo 'エージェントが正しく指定されていません';
-        exit();
-      }
-      $stmt->bindParam(1, $id);
-      $success = $stmt->execute();
-      if (!$success) {
-        die($db->error);
-      }
-      ?>
-      setTimeout(
-        function(){
-
-          modalComplete.style.display = 'block';
-        }, 2000
-      );
-    }
+      modalComplete.style.display = 'block';
+    };
+    
   </script>
 
-  <?php require('../_footer.php'); ?>
 
 </body>
 

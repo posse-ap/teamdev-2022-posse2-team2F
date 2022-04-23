@@ -453,6 +453,7 @@ a {
   color: white;
   -webkit-box-shadow: 0px 6px 6px #C4C4C4;
           box-shadow: 0px 6px 6px #C4C4C4;
+  cursor: pointer;
 }
 
 #modal .modal_container .delete_buttons .no {
@@ -461,6 +462,28 @@ a {
 
 #modal .modal_container .delete_buttons .yes {
   background-color: #CF7C7C;
+}
+
+#modal_complete {
+  width: 900px;
+  height: 500px;
+  display: none;
+  background-color: white;
+  z-index: 1;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+}
+
+#modal_complete p {
+  font-size: 46px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
 }
 
 /*
