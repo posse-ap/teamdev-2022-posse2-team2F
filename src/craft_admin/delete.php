@@ -18,6 +18,6 @@ $success = $stmt->execute();
 if (!$success) {
   die($db->error);
 }
-
+sleep(1);
 header('Location: home.php');
 ?>

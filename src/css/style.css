@@ -273,7 +273,7 @@ a {
   position: absolute;
   left: calc(50% - 460px);
   top: calc(50% - 205px);
-  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 .agent_rightcontainer .agent_smallrightcontainer .agent_smallrightcontainer_container {
@@ -324,6 +324,7 @@ a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  overflow-x: scroll;
 }
 
 .agent_ind {
@@ -349,8 +350,8 @@ a {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .agent_ind p {
@@ -480,7 +481,7 @@ a {
 #modal_complete p {
   font-size: 46px;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   -webkit-transform: translateY(-50%) translateX(-50%);

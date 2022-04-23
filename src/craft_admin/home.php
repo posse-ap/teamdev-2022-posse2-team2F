@@ -26,7 +26,7 @@ $results = $stmt->fetchAll();
         エージェント管理
       </div>
       <div class="agent_add">
-        <a href="">エージェント追加</a>
+        <a href="/craft_admin/add.php">エージェント追加</a>
       </div>
       <div class="tag_manage">
         <a href="">タグ編集・追加</a>
@@ -54,7 +54,7 @@ $results = $stmt->fetchAll();
 
             <div class="agent_ind">
 
-              <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="height: 150px">
+              <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="height: 148px">
               <p><?= $result['agent_name'] ?></p>
             </div>
             <div class="agent_buttons">
@@ -118,7 +118,6 @@ $results = $stmt->fetchAll();
     };
     
   </script>
-
 
 </body>
 

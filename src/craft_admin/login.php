@@ -43,6 +43,28 @@ if (isset($_POST['login'])) {
 
 <body>
   <?php include '../_header.php'; ?>
+<<<<<<< HEAD
+  <div class="login_box">
+    <h1 class="login_title">管理者ログイン</h1>
+    <form action="/craft_admin/login.php" method="POST">
+
+    <!-- ログインできない時の警告 -->
+    <?php if ($err_msg !== null && $err_msg !== '') { echo "<p class=\"login_error\">" . $err_msg .  "</p>";} ?>
+
+    <p class="login_text">
+      <label for="email">メールアドレス</label>
+      <input class="login_textbox" type="email" name="email" required>
+    </p>
+    <p class="login_text">
+      <label for="password">パスワード</label>
+      <input class="login_textbox" type="password" name="password" required>
+    </p>
+    <input type="submit" name="login" value="ログイン" class="login_button">
+    </form>
+    <a class="login_links" href="./signup.php">パスワードをお忘れの方はこちら</a>
+    <br>
+    <a class="login_links" href="./signup.php">新規登録はこちら</a>
+=======
   <div class="login_container">
 
     <div class="login_box">
@@ -69,6 +91,7 @@ if (isset($_POST['login'])) {
         <a class="login_new" href="./signup.php">パスワードをお忘れの方はこちら</a>
       </div>
     </div>
+>>>>>>> 0a956db257cacfd5fbabcb09f3cba3ab80459356
   </div>
 </body>
 
