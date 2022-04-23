@@ -19,25 +19,6 @@ $results = $stmt->fetchAll();
 </head>
 
 <body>
-<<<<<<< HEAD
-
-
-  <a href="/craft_admin/add.php">エージェント新規追加</a>
-
-  <?php foreach ($results as $result) : ?>
-    <p><?= $result['agent_name'] ?></p>
-    <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="width: 500px">
-    <a href="./edit.php?id=<?= $result['id'] ?>" style="text-decoration: none">
-      <button>編集</button>
-    </a>
-    <a href="" style="text-decoration: none">
-      <button>削除</button>
-    </a>
-    <a href="" style="text-decoration: none">
-      <button>申込一覧</button>
-    </a>
-  <?php endforeach; ?>
-=======
   <?php require('../_header.php'); ?>
   <div class="agent_container">
     <div class="agent_leftcontainer">
@@ -94,7 +75,6 @@ $results = $stmt->fetchAll();
     </div>
   </div>
   <?php require('../_footer.php'); ?>
->>>>>>> 0a956db257cacfd5fbabcb09f3cba3ab80459356
 </body>
 
 </html>
