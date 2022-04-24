@@ -10,7 +10,7 @@ a {
 .header {
   background: #52a49a;
   width: 100vw;
-  height: 15vh;
+  height: 10vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -60,7 +60,7 @@ a {
 .footer {
   background: #52a49a;
   width: 100vw;
-  height: 10vh;
+  height: 8vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -182,14 +182,14 @@ a {
 }
 
 .agent_leftcontainer {
-  width: 340px;
-  height: 75vh;
+  width: 180px;
+  height: 82vh;
   background-color: #E5E5E5;
   text-align: center;
 }
 
 .agent_leftcontainer div {
-  font-size: 24px;
+  font-size: 16px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -199,16 +199,17 @@ a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 65px;
+  height: 60px;
 }
 
 .agent_leftcontainer .agent_manage {
-  color: #52A49A;
   background-color: white;
 }
 
 .agent_leftcontainer .agent_manage a {
+  color: #52A49A;
   text-decoration: none;
+  margin-right: 15px;
 }
 
 .agent_leftcontainer .agent_add {
@@ -218,6 +219,7 @@ a {
 .agent_leftcontainer .agent_add a {
   text-decoration: none;
   color: black;
+  margin-right: 15px;
 }
 
 .agent_leftcontainer .tag_manage {
@@ -227,6 +229,17 @@ a {
 .agent_leftcontainer .tag_manage a {
   text-decoration: none;
   color: black;
+  margin-right: 15px;
+}
+
+.agent_leftcontainer .tag_add {
+  border: 1px solid #C4C4C4;
+}
+
+.agent_leftcontainer .tag_add a {
+  text-decoration: none;
+  color: black;
+  margin-right: 15px;
 }
 
 .agent_leftcontainer .usersite {
@@ -236,11 +249,12 @@ a {
 .agent_leftcontainer .usersite a {
   text-decoration: none;
   color: black;
+  margin-right: 15px;
 }
 
 .agent_rightcontainer {
-  width: 1050px;
-  height: 570px;
+  width: 80vw;
+  height: 80vh;
   background-color: white;
   border: 1px solid #C4C4C4;
   margin: 20px 20px 0 20px;
@@ -248,7 +262,7 @@ a {
 }
 
 .agent_rightcontainer h2 {
-  width: 1050px;
+  width: 80vw;
   height: 50px;
   border-bottom: 1px solid #C4C4C4;
   margin: 0;
@@ -267,17 +281,17 @@ a {
 }
 
 .agent_rightcontainer .agent_smallrightcontainer {
-  width: 920px;
-  height: 460px;
+  width: 64vw;
+  height: 64vh;
   border: 1px solid #91C9C4;
   position: absolute;
-  left: calc(50% - 460px);
-  top: calc(50% - 205px);
+  left: calc(50% - 32vw);
+  top: calc(50% - 27vh);
   overflow-x: scroll;
 }
 
 .agent_rightcontainer .agent_smallrightcontainer .agent_smallrightcontainer_container {
-  width: 920px;
+  width: 64vw;
   height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -288,7 +302,7 @@ a {
 }
 
 .agent_rightcontainer .agent_smallrightcontainer .agent_smallrightcontainer_container .agent_smallcontainer_title {
-  width: 644px;
+  width: 44.8vw;
   height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -305,7 +319,7 @@ a {
 }
 
 .agent_rightcontainer .agent_smallrightcontainer .agent_smallrightcontainer_container .agent_smallcontainer_control {
-  width: 276px;
+  width: 19.2vw;
   height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -328,8 +342,8 @@ a {
 }
 
 .agent_ind {
-  width: 644px;
-  height: 150px;
+  width: 44.8vw;
+  height: 19vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -338,12 +352,12 @@ a {
           align-items: center;
   border-bottom: 1px solid #91C9C4;
   border-right: 1px solid #91C9C4;
-  -webkit-box-shadow: -1px 3px 3px #c4c4c4;
-          box-shadow: -1px 3px 3px #c4c4c4;
+  -webkit-box-shadow: 1px 3px 3px #c4c4c4;
+          box-shadow: 1px 3px 3px #c4c4c4;
 }
 
 .agent_ind img {
-  width: 400px;
+  width: 27.8vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -356,7 +370,7 @@ a {
 
 .agent_ind p {
   font-size: 26px;
-  width: 244px;
+  width: 17vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -366,8 +380,8 @@ a {
 }
 
 .agent_buttons {
-  width: 276px;
-  height: 150px;
+  width: 19.2vw;
+  height: 19vh;
   border-bottom: 1px solid #91C9C4;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -386,10 +400,10 @@ a {
 }
 
 .agent_buttons button {
-  width: 90px;
-  height: 35px;
+  width: 6.25vw;
+  height: 4.4vh;
   border-style: none;
-  font-size: 14px;
+  font-size: 1vw;
   -webkit-box-shadow: 0px 3px 3px #C4C4C4;
           box-shadow: 0px 3px 3px #C4C4C4;
   cursor: pointer;
@@ -416,6 +430,7 @@ a {
   display: none;
   background-color: white;
   z-index: 1;
+  border: 1px;
   position: absolute;
   top: 55%;
   left: 50%;

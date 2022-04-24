@@ -23,13 +23,17 @@ $results = $stmt->fetchAll();
   <div class="agent_container">
     <div class="agent_leftcontainer">
       <div class="agent_manage">
-        エージェント管理
+        <a href="/craft_admin/home.php">エージェント管理</a>
+
       </div>
       <div class="agent_add">
         <a href="/craft_admin/add.php">エージェント追加</a>
       </div>
       <div class="tag_manage">
-        <a href="">タグ編集・追加</a>
+        <a href="">タグ編集</a>
+      </div>
+      <div class="tag_add">
+        <a href="">タグ追加</a>
       </div>
       <div class="usersite">
         <a href="">ユーザー用サイトへ</a>
@@ -84,8 +88,8 @@ $results = $stmt->fetchAll();
       <div class="delete_buttons">
         <button class="no" onclick="modalClose()">いいえ</button>
         <a href="./delete.php?id=<?= $result['id'] ?>" style="text-decoration: none">
-        <button class="yes" onclick="deleteAgent()">はい
-    </button>
+          <button class="yes" onclick="deleteAgent()">はい
+          </button>
         </a>
       </div>
     </div>
@@ -113,10 +117,9 @@ $results = $stmt->fetchAll();
 
     function deleteAgent() {
       modal.style.display = 'none';
-      
+
       modalComplete.style.display = 'block';
     };
-    
   </script>
 
 </body>
