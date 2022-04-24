@@ -275,7 +275,7 @@ a {
           align-items: center;
 }
 
-.agent_rightcontainer h2 .agent_titile {
+.agent_rightcontainer h2 .agent_title {
   font-size: 30px;
   padding-left: 20px;
 }
@@ -500,6 +500,119 @@ a {
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   -webkit-transform: translateY(-50%) translateX(-50%);
+}
+
+.agent_informarion {
+  width: 64vw;
+  height: 80vh;
+  margin: 20px 30px;
+}
+
+.agent_informarion p {
+  width: 70vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 15px;
+}
+
+.agent_informarion p label {
+  font-size: 1.3vw;
+  font-weight: 500;
+}
+
+.agent_informarion p input {
+  padding-left: 10px;
+  width: 48vw;
+  height: 3.5vh;
+  border-style: none;
+  background-color: #EBEDF1;
+  border-radius: 1vh;
+  font-size: 1.4vw;
+}
+
+.agent_informarion p textarea {
+  padding-left: 10px;
+  width: 48vw;
+  height: 3.5vh;
+  border-style: none;
+  background-color: #EBEDF1;
+  border-radius: 1vh;
+  font-size: 1.4vw;
+  color: black;
+}
+
+.agent_informarion p #image {
+  background-color: transparent;
+}
+
+.agent_informarion .agent_img {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.agent_informarion .agent_img .agent_image {
+  width: 16vw;
+  height: 12.8vh;
+  background-color: #EBEDF1;
+  border-radius: 1vh;
+}
+
+.agent_informarion .agent_img img {
+  width: 48vw;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin: 0;
+  padding-left: 10px;
+  background-color: #EBEDF1;
+  border-radius: 1vh;
+}
+
+.agent_informarion .agent_img .file_upload_button {
+  cursor: pointer;
+  color: #52A49A;
+  margin-left: 21vw;
+}
+
+.agent_informarion .agent_img input {
+  display: none;
+}
+
+.agent_informarion .agent_info_container textarea {
+  width: 48vw;
+  height: 20.8vh;
+  overflow-x: scroll;
+}
+
+.agent_informarion .agent_term {
+  width: 33.3vw;
+  margin-bottom: 10px;
+}
+
+.agent_informarion .agent_term select {
+  width: 12vw;
+  height: 3.5vh;
+  border-style: none;
+  background-color: #EBEDF1;
+  border-radius: 1vh;
+}
+
+.agent_informarion .manage_button {
+  width: 8vw;
+  height: 5vh;
+  border-style: none;
+  background-color: #91C9C4;
+  color: white;
+  position: absolute;
+  left: calc(50% - 4vw);
+  -webkit-box-shadow: 0px 3px 3px #9b9b9b;
+          box-shadow: 0px 3px 3px #9b9b9b;
 }
 
 /*

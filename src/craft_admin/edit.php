@@ -3,13 +3,11 @@
 require('../dbconnect.php');
 
 // URLからIDを取得
-$id = $_GET['id'];?>
-
-
+$id = $_GET['id'];
 
 
 // 既存データの表示
-<?php $stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
+ $stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
 $result = $stmt->fetch();
 
 
@@ -48,7 +46,7 @@ if (isset($_POST['submit'])) {
   }
 
 
-  header('Location: http://localhost/craft_admin/home.php');
+  header('Location: home.php');
   exit;
 }
 
@@ -69,47 +67,62 @@ if (isset($_POST['submit'])) {
         <a href="/craft_admin/add.php">エージェント追加</a>
       </div>
       <div class="tag_manage">
-        <a href="">タグ編集・追加</a>
+        <a href="">タグ編集</a>
+      </div>
+      <div class="tag_add">
+        <a href="">タグ追加</a>
       </div>
       <div class="usersite">
         <a href="">ユーザー用サイトへ</a>
       </div>
     </div>
     <div class="agent_rightcontainer">
+      <h2>
+        <div class="agent_title">
+        エージェント編集
+        </div>
+      </h2>
+      <div class="agent_informarion">
 
-      <form action="" method="post" enctype="multipart/form-data">
-        <p>
-          <label for="agent_name">エージェント名：</label>
-          <input type="text" name="agent_name" value="<?= $result['agent_name'] ?>" required>
-        </p>
-        <p>
-          <label for="agent_tag">エージェントタグ：</label>
-          <input type="text" name="agent_tag" value="<?= $result['agent_tag'] ?>" required>
-        </p>
-        <p>
-          <label for="agent_info">エージェント説明：</label>
-          <input type="textarea" name="agent_info" value="<?= $result['agent_info'] ?>" required>
-        </p>
-        <p>
-          <label for="agent_display">掲載期間：</label>
-            <select name="agent_display">
-              <option value="1">1</option>
-              <option value="3">3</option>
-              <option value="6">6</option>
-              <option value="12">12</option>
-            </select>
-            <span>ヶ月</span>
-        </p>
-        <p>
-          <label for="agent_pic">エージェント画像：</label>
-          <br>
-          <img src="images/<?= $result['agent_pic'] ?>" alt="" style="width: 500px">
-          <!-- <input type="image" src=" ?>" style="width: 500px"> -->
-          <input id="image" type="file" name="agent_pic">
-        </p>
-        
-        <input type="submit" value="変更を保存" name="submit">
-      </form>
+        <form action="" method="post" enctype="multipart/form-data">
+          <p>
+            <label for="agent_name">エージェント名</label>
+            <input type="text" name="agent_name" value="<?= $result['agent_name'] ?>" required>
+          </p>
+          <p>
+            <label for="agent_tag">エージェントタグ</label>
+            <input type="text" name="agent_tag" value="<?= $result['agent_tag'] ?>" required>
+          </p>
+          <p class="agent_img">
+            <label for="agent_pic">エージェント画像</label>
+            
+            <!-- <div class="agent_image"> -->
+
+              <img src="images/<?= $result['agent_pic'] ?>" alt="" style="height: 20.8vh">
+            <!-- </div> -->
+            <!-- <input type="image" src=" ?>" style="width: 500px"> -->
+            <label for="image" class="file_upload_button">+ ファイルをアップロード</label>
+            <input id="image" type="file" name="agent_pic">
+          </p>
+          <p class="agent_info_container">
+            <label for="agent_info">エージェント説明</label>
+            <textarea name="agent_info" ><?= $result['agent_info'] ?></textarea>
+          </p>
+          <p class="agent_term">
+            <label for="agent_display">エージェント掲載期間</label>
+              <select name="agent_display">
+                <option value="1">1ヶ月</option>
+                <option value="3">3ヶ月</option>
+                <option value="6">6ヶ月</option>
+                <option value="12">12ヶ月</option>
+              </select>
+              <!-- <span>ヶ月</span> -->
+          </p>
+          
+          <input type="submit" value="変更を保存" name="submit" class="manage_button">
+        </form>
+      </div>
+
     </div>
 </div>
 

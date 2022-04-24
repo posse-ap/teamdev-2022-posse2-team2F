@@ -41,7 +41,7 @@ $results = $stmt->fetchAll();
     </div>
     <div class="agent_rightcontainer">
       <h2>
-        <div class="agent_titile">
+        <div class="agent_title">
 
           エージェント管理
         </div>
@@ -58,7 +58,7 @@ $results = $stmt->fetchAll();
 
             <div class="agent_ind">
 
-              <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="height: 148px">
+              <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="height: 18.7vh">
               <p><?= $result['agent_name'] ?></p>
             </div>
             <div class="agent_buttons">
