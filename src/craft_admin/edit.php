@@ -51,6 +51,11 @@ if (isset($_POST['submit'])) {
 }
 
 
+// タグ表示
+
+//既存データの表示
+$tag_stmt = $db->query("SELECT * FROM tags");
+$tag_result = $tag_stmt->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -126,7 +131,7 @@ if (isset($_POST['submit'])) {
 <!-- ここからtag_modal -->
 <div id="tag_modal">
   <div class="tag_modal_container">
-    
+
   <div class="tag_modal_buttons">
     <button onclick="tag_modalClose()" class="tag_modalClose">戻る</button>
     <button class="tag_decision">決定</button>
