@@ -4,7 +4,7 @@ include('../_header.php');
 require('../dbconnect.php');
 ?>
 
-<form method="POST" action="example.php">
+<form method="POST" action="students_info.php">
 
     <h2>検索結果</h2>
 
@@ -33,6 +33,10 @@ require('../dbconnect.php');
 
         $sql = "SELECT * FROM students";
         $sql .= $_SESSION['sort'];
+        /*
+        TODO
+        ここからエージェントごとに出す情報を分ける
+        */
     }
 
     print_r($sql);
