@@ -430,7 +430,7 @@ a {
   display: none;
   background-color: white;
   z-index: 1;
-  border: 1px;
+  border: 1px solid black;
   position: absolute;
   top: 55%;
   left: 50%;
@@ -485,6 +485,7 @@ a {
   height: 500px;
   display: none;
   background-color: white;
+  border: 1px solid black;
   z-index: 1;
   position: absolute;
   top: 55%;
@@ -505,7 +506,7 @@ a {
 .agent_informarion {
   width: 64vw;
   height: 80vh;
-  margin: 20px 30px;
+  margin: 15px 30px;
 }
 
 .agent_informarion p {
@@ -572,6 +573,8 @@ a {
   padding-left: 10px;
   background-color: #EBEDF1;
   border-radius: 1vh;
+  border-top: 1px solid #EBEDF1;
+  border-bottom: 1px solid #EBEDF1;
 }
 
 .agent_informarion .agent_img .file_upload_button {
@@ -613,6 +616,62 @@ a {
   left: calc(50% - 4vw);
   -webkit-box-shadow: 0px 3px 3px #9b9b9b;
           box-shadow: 0px 3px 3px #9b9b9b;
+}
+
+#tag_modal {
+  max-width: 60vw;
+  min-width: 22vw;
+  max-height: 60vh;
+  overflow-x: scroll;
+  background-color: white;
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  display: none;
+}
+
+#tag_modal .tag_modal_container {
+  max-width: 60vw;
+  min-width: 22vw;
+  max-height: 60vh;
+  overflow-x: scroll;
+}
+
+#tag_modal .tag_modal_container .tag_modal_buttons {
+  width: 20vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#tag_modal .tag_modal_container .tag_modal_buttons button {
+  width: 8vw;
+  height: 5vh;
+  border-style: none;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#tag_modal .tag_modal_container .tag_modal_buttons button .tag_modalClose {
+  background-color: #91C9C4;
+}
+
+#tag_modal .tag_modal_container .tag_modal_buttons button .tag_decison {
+  background-color: #cf7c7c;
 }
 
 /*

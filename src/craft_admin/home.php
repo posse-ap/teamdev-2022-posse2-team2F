@@ -30,10 +30,8 @@ $results = $stmt->fetchAll();
         <a href="/craft_admin/add.php">エージェント追加</a>
       </div>
       <div class="tag_manage">
-        <a href="">タグ編集</a>
-      </div>
-      <div class="tag_add">
-        <a href="">タグ追加</a>
+        <a href="">タグ編集・追加
+        </a>
       </div>
       <div class="usersite">
         <a href="">ユーザー用サイトへ</a>

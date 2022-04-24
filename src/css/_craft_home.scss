@@ -193,7 +193,7 @@
   display: none;
   background-color: white;
   z-index: 1;
-  border: 1px;
+  border: 1px solid black;
   position: absolute;
   top: 55%;
   left: 50%;
@@ -240,6 +240,7 @@
   height: 500px;
   display: none;
   background-color: white;
+  border: 1px solid black;
   z-index: 1;
   position: absolute;
   top: 55%;

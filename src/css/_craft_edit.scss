@@ -1,7 +1,7 @@
 .agent_informarion{
   width: 64vw;
   height: 80vh;
-  margin: 20px 30px;
+  margin: 15px 30px;
 
   p{
     width: 70vw;
@@ -56,6 +56,8 @@
       padding-left: 10px;
       background-color: #EBEDF1;
       border-radius: 1vh;
+      border-top: 1px solid #EBEDF1;
+      border-bottom: 1px solid #EBEDF1;
     }
 
     .file_upload_button{
@@ -99,5 +101,49 @@
     position: absolute;
     left: calc(50% - 4vw);
     box-shadow: 0px 3px 3px #9b9b9b;
+  }
+}
+
+
+#tag_modal{
+  max-width: 60vw;
+  min-width: 22vw;
+  max-height: 60vh;
+  overflow-x: scroll;
+  background-color: white;
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  display: none;
+  .tag_modal_container{
+    max-width: 60vw;
+    min-width: 22vw;
+    max-height: 60vh;
+    overflow-x: scroll;
+
+    .tag_modal_buttons{
+      width: 20vw;
+      display: flex;
+      justify-content: space-between;
+      button{
+        width: 8vw;
+        height: 5vh;
+        border-style: none;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .tag_modalClose{
+          background-color: #91C9C4;
+        }
+  
+        .tag_decison{
+          background-color: #cf7c7c;
+        }
+      }
+    }
   }
 }

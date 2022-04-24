@@ -67,10 +67,7 @@ if (isset($_POST['submit'])) {
         <a href="/craft_admin/add.php">エージェント追加</a>
       </div>
       <div class="tag_manage">
-        <a href="">タグ編集</a>
-      </div>
-      <div class="tag_add">
-        <a href="">タグ追加</a>
+        <a href="">タグ編集・追加</a>
       </div>
       <div class="usersite">
         <a href="">ユーザー用サイトへ</a>
@@ -91,7 +88,7 @@ if (isset($_POST['submit'])) {
           </p>
           <p>
             <label for="agent_tag">エージェントタグ</label>
-            <input type="text" name="agent_tag" value="<?= $result['agent_tag'] ?>" required>
+            <input type="text" name="agent_tag" value="<?= $result['agent_tag'] ?>" required onclick="tag_modalOpen()">
           </p>
           <p class="agent_img">
             <label for="agent_pic">エージェント画像</label>
@@ -126,8 +123,32 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 
+<!-- ここからtag_modal -->
+<div id="tag_modal">
+  <div class="tag_modal_container">
+    
+  <div class="tag_modal_buttons">
+    <button onclick="tag_modalClose()" class="tag_modalClose">戻る</button>
+    <button class="tag_decision">決定</button>
+
+  </div>
+  </div>
+  
+</div>
+
 
 <?php require('../_footer.php'); ?>
+
+<script>
+  const tag_modal = document.getElementById('tag_modal');
+  function tag_modalOpen() {
+    tag_modal.style.display = 'block';
+  }
+
+  function tag_modalClose() {
+    tag_modal.style.display = 'none';
+  }
+</script>
 </body>
 </html>
 
