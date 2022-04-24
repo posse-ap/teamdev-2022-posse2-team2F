@@ -2,13 +2,14 @@
 session_start();
 require('../dbconnect.php');
 
-// タグカテゴリーを表示
-$stmt = $db->query("SELECT tag_category, tag_category_desc FROM tags GROUP BY tag_category, tag_category_desc;");
-$results = $stmt->fetchAll();
 
-// タグ内容を表示
-// $stmt2 = $db->query("SELECT * FROM tags");
-// $results2 = $stmt2->fetchAll();
+// タグカテゴリーを表示
+$stmt = $db->query("SELECT * FROM tag_categories");
+// $stmt = $db->query("SELECT * FROM tags;");
+$categories = $stmt->fetchAll();
+
+
+
 
 ?>
 
@@ -27,17 +28,33 @@ $results = $stmt->fetchAll();
 
   <p>タグの編集・追加</p>
 
-  <?php foreach ($results as $result) : ?>
+  <?php foreach ($categories as $category) : ?>
   <div style="background: lightblue; border: dashed red;">
-    <p><?= $result['tag_category'] ?></p>
-    <div id="more" style="display:none;">
+    <p><?= $category['tag_category'] ?></p>
+    <div id="no<?= $category['id'] ?>" class="none">
       <p>タグのカテゴリーの説明：</p>
-      <p><?= $result['tag_category_desc'] ?></p>
+      <p style="color: red"><?= $category['tag_category_desc'] ?></p>
+      
+      
+      <p>タグの一覧：</p>
+
+      <?php
+
+      // タグ内容を表示
+      $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
+      $stmt->execute(array($category['id']));
+      $tags = $stmt->fetchAll();
+
+      ?>
+
+      <?php foreach ($tags as $tag) : ?>
+      <p style="color: red"><?= $tag['tag_option'] ?></p>
+      <?php endforeach; ?>
     </div>
-    <!-- <a href="javascript:showMore()" id="" style="color: red">詳細</a> -->
-    <button id="btn" style="color: red" class="btn">詳細</button>
+    <button onclick="clickfunction(<?= $category['id'] ?>)" style="color: red">詳細</button>
   </div>
   <?php endforeach; ?>
+  
   
   
 
@@ -45,26 +62,31 @@ $results = $stmt->fetchAll();
 
 <script>
 
-  // const object = document.getElementById('btn');
-  const object = document.getElementsByClassName("btn");
-  object.forEach(
-    object.onclick = function(){
-      let more = document.getElementById('more');
-      if (more.style.display === "none") {
-        more.style.display = "block";
-      } else {
-        more.style.display = "none";
-      }
+//ボタンをクリックした時の処理
+let clickfunction = function (id) {
+      let more = document.getElementById(`no${id}`);
+      if (more.classList.contains("none")) {
+              more.classList.add("block");
+              more.classList.remove("none");
+          } else {
+              more.classList.add("none");
+              more.classList.remove("block");
+          }
+  }
+// }
 
-      location.href = "http://localhost/craft_admin/tag.php?id=1";
-    });
-  // function showMore(){
-  //   //removes the link
-  //   // document.getElementById('link').parentElement.removeChild('link');
-  //   //shows the #more
-    
-  // }
+  
 </script>
+
+<style>
+  .none {
+    display: none;
+  }
+
+  .block {
+    display: block;
+  }
+</style>
 
 </body>
 
