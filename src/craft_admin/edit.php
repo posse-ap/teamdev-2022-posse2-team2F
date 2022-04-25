@@ -54,8 +54,7 @@ if (isset($_POST['submit'])) {
 // タグ表示
 
 //既存データの表示
-$tag_stmt = $db->query("SELECT * FROM tags");
-$tag_result = $tag_stmt->fetch();
+
 ?>
 
 <!DOCTYPE html>
