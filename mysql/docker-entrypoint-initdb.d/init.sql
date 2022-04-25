@@ -92,4 +92,45 @@ SET
   grad_year = 25,
   agent = 'agent1';
 
+-- タグのカテゴリー
+
+DROP TABLE IF EXISTS tag_categories;
+
+CREATE TABLE tag_categories (
+  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  tag_category VARCHAR(255) NOT NULL,
+  tag_category_desc VARCHAR(255) NOT NULL
+);
+
+INSERT INTO tag_categories(tag_category, tag_category_desc)
+VALUES
+  ('運営会社の規模','運営会社の規模の説明'),
+  ('登録会社の規模','登録会社の規模の説明'),
+  ('紹介企業の数','紹介企業の数の説明');
+
+-- タグ一覧
+
+DROP TABLE IF EXISTS tag_options;
+
+CREATE TABLE tag_options (
+  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  category_id INT NOT NULL,
+  tag_option VARCHAR(255) NOT NULL
+);
+
+INSERT INTO tag_options(category_id, tag_option)
+VALUES
+  (1,'ベンチャー'),
+  (1,'大手'),
+  (2,'ベンチャー'),
+  (2,'大手'),
+  (3,'300社〜'),
+  (3,'500社〜'),
+  (3,'1000社〜');
+
+
+
+
+
+
 
