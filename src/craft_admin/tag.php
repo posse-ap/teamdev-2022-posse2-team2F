@@ -9,8 +9,6 @@ $stmt = $db->query("SELECT * FROM tag_categories");
 $categories = $stmt->fetchAll();
 
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -39,12 +37,10 @@ $categories = $stmt->fetchAll();
       <p>タグの一覧：</p>
 
       <?php
-
       // タグ内容を表示
       $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
       $stmt->execute(array($category['id']));
       $tags = $stmt->fetchAll();
-
       ?>
 
       <?php foreach ($tags as $tag) : ?>
