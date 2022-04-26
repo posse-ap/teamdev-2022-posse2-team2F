@@ -20,45 +20,46 @@ $results = $stmt->fetchAll();
 
 <body>
   <?php require('../_header.php'); ?>
-  <div class="agent_container">
-    <div class="agent_leftcontainer">
-      <div class="agent_manage">
-        エージェント管理
+  <div class="craftall_container">
+    <div class="craftall_leftcontainer">
+      <div class="craftall_manage box_selected">
+        <a class="selected" href="/craft_admin/home.php">エージェント管理</a>
+
       </div>
-      <div class="agent_add">
+      <div class="craftall_agent_add">
         <a href="/craft_admin/add.php">エージェント追加</a>
       </div>
-      <div class="tag_manage">
-        <a href="">タグ編集・追加</a>
+      <div class="craftall_tag_manage">
+        <a href="/craft_admin/tag.php">タグ編集・追加</a>
       </div>
-      <div class="usersite">
+      <div class="craftall_usersite">
         <a href="">ユーザー用サイトへ</a>
       </div>
     </div>
-    <div class="agent_rightcontainer">
+    <div class="craftall_rightcontainer">
       <h2>
-        <div class="agent_titile">
+        <div class="agent_title">
 
           エージェント管理
         </div>
       </h2>
-      <div class="agent_smallrightcontainer">
-        <div class="agent_smallrightcontainer_container">
-          <div class="agent_smallcontainer_title">エージェント</div>
-          <div class="agent_smallcontainer_control">操作</div>
+      <div class="home_content">
+        <div class="home_content_labels">
+          <div class="home_content_title">エージェント</div>
+          <div class="home_content_control">操作</div>
 
         </div>
 
         <?php foreach ($results as $result) : ?>
-          <div class="agent_all">
+          <div class="home_content_agents">
 
-            <div class="agent_ind">
+            <div class="home_content_ind">
 
-              <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="height: 148px">
+              <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="height: 18.7vh">
               <p><?= $result['agent_name'] ?></p>
             </div>
-            <div class="agent_buttons">
-              <a href="./edit.php?id=<?= $result['id'] ?>" style="text-decoration: none">
+            <div class="home_content_buttons">
+              <a href="./edit_agent.php?id=<?= $result['id'] ?>" style="text-decoration: none">
 
                 <button class="hensyu">編集</button>
               </a>
@@ -84,8 +85,8 @@ $results = $stmt->fetchAll();
       <div class="delete_buttons">
         <button class="no" onclick="modalClose()">いいえ</button>
         <a href="./delete.php?id=<?= $result['id'] ?>" style="text-decoration: none">
-        <button class="yes" onclick="deleteAgent()">はい
-    </button>
+          <button class="yes" onclick="deleteAgent()">はい
+          </button>
         </a>
       </div>
     </div>
@@ -113,10 +114,9 @@ $results = $stmt->fetchAll();
 
     function deleteAgent() {
       modal.style.display = 'none';
-      
+
       modalComplete.style.display = 'block';
     };
-    
   </script>
 
 </body>

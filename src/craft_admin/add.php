@@ -1,6 +1,6 @@
 <?php
 
-// とりあえず edit.php をコビペしてきただけ
+// とりあえず edit_agent.php をコビペしてきただけ
 
 require('../dbconnect.php');
 
