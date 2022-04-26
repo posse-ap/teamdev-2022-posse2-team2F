@@ -65,7 +65,7 @@ $categories = $stmt->fetchAll();
             <button class="shousai" onclick="clickfunction(<?= $category['id'] ?>)">詳細</button>
           </div>
         </div>
-        <div id="no<?= $category['id'] ?>" class="none">
+        <div id="no<?= $category['id'] ?>" class="tag_content_info none">
             <p>タグのカテゴリーの説明：</p>
             <p style="color: red"><?= $category['tag_category_desc'] ?></p>
             
@@ -81,6 +81,7 @@ $categories = $stmt->fetchAll();
             <?php endforeach; ?>
           </div>
         <?php endforeach; ?>
+        <a href="./edit_tag.php?act=add" class="tag_category_add">+ カテゴリーを追加</a>
       </div>
     </div>
   </div>

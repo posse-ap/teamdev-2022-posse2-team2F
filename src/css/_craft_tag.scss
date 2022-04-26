@@ -1,6 +1,6 @@
 .tag_content {
   width: 64vw;
-  height: 64vh;
+  // height: 64vh;
   border: 1px solid #91c9c4;
   position: absolute;
   left: calc(50% - 32vw);
@@ -85,5 +85,15 @@
     background-color: #c4c4c4;
     color: white;
   }
+}
+
+.tag_content_info {
+  background: #EFF2F9;
+}
+
+.tag_category_add {
+  cursor: pointer;
+  color: #52a49a;
+  margin-left: 10vw;
 }
 

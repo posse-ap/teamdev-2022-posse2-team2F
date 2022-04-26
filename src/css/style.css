@@ -524,7 +524,6 @@ a {
 
 .tag_content {
   width: 64vw;
-  height: 64vh;
   border: 1px solid #91c9c4;
   position: absolute;
   left: calc(50% - 32vw);
@@ -607,23 +606,35 @@ a {
   color: white;
 }
 
-.edit_tag_information {
+.tag_content_info {
+  background: #EFF2F9;
+}
+
+.tag_category_add {
+  cursor: pointer;
+  color: #52a49a;
+  margin-left: 10vw;
+}
+
+.tag_information {
   width: 64vw;
-  height: 80vh;
   margin: 15px 30px;
 }
-.edit_tag_information p {
+.tag_information h1 {
+  font-size: 1.5vw;
+}
+.tag_information p {
   width: 70vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
 }
-.edit_tag_information p label {
+.tag_information p label {
   font-size: 1.3vw;
   font-weight: 500;
 }
-.edit_tag_information p input {
+.tag_information p input {
   padding-left: 10px;
   width: 48vw;
   height: 3.5vh;
@@ -632,7 +643,7 @@ a {
   border-radius: 1vh;
   font-size: 1.4vw;
 }
-.edit_tag_information p textarea {
+.tag_information p textarea {
   padding-left: 10px;
   width: 48vw;
   height: 3.5vh;
@@ -642,33 +653,98 @@ a {
   font-size: 1.4vw;
   color: black;
 }
-.edit_tag_information p #image {
+.tag_information p #image {
   background-color: transparent;
 }
-.edit_tag_information .agent_info_container textarea {
+.tag_information .agent_info_container textarea {
   width: 48vw;
   height: 20.8vh;
   overflow-x: scroll;
 }
-.edit_tag_information .agent_term {
+.tag_information .agent_term {
   width: 33.3vw;
   margin-bottom: 10px;
 }
-.edit_tag_information .agent_term select {
+.tag_information .agent_term select {
   width: 12vw;
   height: 3.5vh;
   border-style: none;
   background-color: #ebedf1;
   border-radius: 1vh;
 }
-.edit_tag_information .manage_button {
+.tag_information .manage_button {
   width: 8vw;
   height: 5vh;
   border-style: none;
   background-color: #91c9c4;
   color: white;
-  position: absolute;
-  left: calc(50% - 4vw);
+  margin-left: 50%;
+  box-shadow: 0px 3px 3px #9b9b9b;
+}
+
+.tag_information {
+  width: 64vw;
+  margin: 15px 30px;
+}
+.tag_information h1 {
+  font-size: 1.5vw;
+}
+.tag_information p {
+  width: 70vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.tag_information p label {
+  font-size: 1.3vw;
+  font-weight: 500;
+}
+.tag_information p input {
+  padding-left: 10px;
+  width: 48vw;
+  height: 3.5vh;
+  border-style: none;
+  background-color: #ebedf1;
+  border-radius: 1vh;
+  font-size: 1.4vw;
+}
+.tag_information p textarea {
+  padding-left: 10px;
+  width: 48vw;
+  height: 3.5vh;
+  border-style: none;
+  background-color: #ebedf1;
+  border-radius: 1vh;
+  font-size: 1.4vw;
+  color: black;
+}
+.tag_information p #image {
+  background-color: transparent;
+}
+.tag_information .agent_info_container textarea {
+  width: 48vw;
+  height: 10vh;
+  overflow-x: scroll;
+}
+.tag_information .agent_term {
+  width: 33.3vw;
+  margin-bottom: 10px;
+}
+.tag_information .agent_term select {
+  width: 12vw;
+  height: 3.5vh;
+  border-style: none;
+  background-color: #ebedf1;
+  border-radius: 1vh;
+}
+.tag_information .manage_button {
+  width: 8vw;
+  height: 5vh;
+  border-style: none;
+  background-color: #91c9c4;
+  color: white;
+  margin-left: 50%;
   box-shadow: 0px 3px 3px #9b9b9b;
 }
 
