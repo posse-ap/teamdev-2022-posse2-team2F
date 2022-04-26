@@ -37,6 +37,9 @@ require('../dbconnect.php');
         TODO
         ここからエージェントごとに出す情報を分ける
         */
+        // if (isset($_POST['sort_button']))
+    }else{
+        $sql = "SELECT * FROM students ORDER BY phone ASC";
     }
 
     print_r($sql);

@@ -5,7 +5,7 @@ include('../_header.php');
 require('../dbconnect.php');
 ?>
 
-<form method="POST" action="example.php">
+<form method="POST" action="students_info.php">
 
     <h2>検索結果</h2>
 
@@ -21,6 +21,7 @@ require('../dbconnect.php');
 
 
     <!-- ここから並び替えの分岐 -->
+    
     <?php
     if (isset($_POST['sort_button'])) {
         if ($_POST['sort'] == 'up') {
@@ -31,9 +32,11 @@ require('../dbconnect.php');
             $sort = " ORDER BY name ASC";
         }
         $_SESSION['sort'] = $sort;
-
-        $sql = "SELECT * FROM students";
-        $sql .= $_SESSION['sort'];
+        
+        $sql = "SELECT * FROM students" . $_SESSION['sort'];
+        // $sql .= $_SESSION['sort'];
+    }else{
+        $sql = "SELECT * FROM students ORDER BY phone ASC";
     }
 
     print_r($sql);
