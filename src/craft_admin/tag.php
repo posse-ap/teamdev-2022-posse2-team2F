@@ -86,6 +86,25 @@ $categories = $stmt->fetchAll();
     </div>
   </div>
 
+  <!-- ここからmodal -->
+  <div id="modal">
+    <div class="modal_container">
+
+      <p class="alert">本当に削除しますか？</p>
+      <div class="delete_buttons">
+        <button class="no" onclick="modalClose()">いいえ</button>
+        <a href="./delete_tag.php?id=<?= $category['id'] ?>" style="text-decoration: none">
+          <button class="yes" onclick="deleteAgent()">はい
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- ここから削除完了画面 -->
+  <div id="modal_complete">
+    <p>削除されました。</p>
+  </div>
+
   
 
 
@@ -108,8 +127,25 @@ let clickfunction = function (id) {
               more.classList.add("none");
               more.classList.remove("block");
           }
-  }
-// }
+}
+
+  const modal = document.getElementById('modal');
+
+  const modalComplete = document.getElementById('modal_complete');
+
+  function modalOpen() {
+    modal.style.display = 'block';
+  };
+
+  function modalClose() {
+    modal.style.display = 'none';
+  };
+
+  function deleteAgent() {
+    modal.style.display = 'none';
+    modalComplete.style.display = 'block';
+  };
+
 
   
 </script>

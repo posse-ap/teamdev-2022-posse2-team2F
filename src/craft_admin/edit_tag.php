@@ -88,6 +88,8 @@ if (isset($_GET['id'])) {
           <input type="submit" value="変更を保存" name="submit" class="manage_button">
         </form>
       </div>
+      
+      <!-- タグのカテゴリーを追加 -->
       <div class="tag_information">
         <h1>タグのカテゴリーを追加</h1>
         <form action="" method="post" enctype="multipart/form-data">
