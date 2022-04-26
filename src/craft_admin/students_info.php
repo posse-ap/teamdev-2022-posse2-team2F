@@ -11,9 +11,32 @@ require('../dbconnect.php');
 
     <!-- 並び替え方法選択 -->
     <select name="sort">
-        <option value="up">電話番号の小さい順</option>
-        <option value="down">電話番号の大きい順</option>
-        <option value="name">名前順</option>
+        <?php
+            // POST を受け取る変数を初期化
+            $sort = '';
+
+            // セレクトボックスの値を格納する配列
+            $orders_list = array(
+            "電話番号の小さい順",
+            "電話番号の大きい順",
+            "名前順",
+            );
+
+            // 戻ってきた場合
+            if(isset($_POST['sort'])){
+            $sort = $_POST['sort'];
+            }
+
+            foreach($orders_list as $value){
+                if($value === $sort){
+                        // ① POST データが存在する場合はこちらの分岐に入る
+                        echo "<option value='$value' selected>".$value."</option>";
+                }else{
+                        // ② POST データが存在しない場合はこちらの分岐に入る
+                        echo "<option value='$value'>".$value."</option>";
+                }
+            }
+        ?>
     </select>
 
     <!-- 並び替えボタン -->
@@ -21,25 +44,31 @@ require('../dbconnect.php');
 
 
     <!-- ここから並び替えの分岐 -->
-    
     <?php
     if (isset($_POST['sort_button'])) {
-        if ($_POST['sort'] == 'up') {
-            $sort = " ORDER BY phone ASC";
-        } elseif ($_POST['sort'] == 'down') {
-            $sort = " ORDER BY phone DESC";
+        if ($_POST['sort'] == '電話番号の小さい順') {
+            $sort_sql = " ORDER BY phone ASC";
+        } elseif ($_POST['sort'] == '電話番号の大きい順') {
+            $sort_sql = " ORDER BY phone DESC";
+        } elseif ($_POST['sort'] == '名前順') {
+            $sort_sql = " ORDER BY name DESC";
         } else {
-            $sort = " ORDER BY name ASC";
+            $sort_sql = " ORDER BY phone ASC";
         }
-        $_SESSION['sort'] = $sort;
-        
+        $_SESSION['sort'] = $sort_sql;
         $sql = "SELECT * FROM students" . $_SESSION['sort'];
-        // $sql .= $_SESSION['sort'];
+
+        /*
+        TODO
+        ここからエージェントごとに出す情報を分ける
+        */
+        // if (isset($_POST['sort_button']))
+        
     }else{
         $sql = "SELECT * FROM students ORDER BY phone ASC";
     }
 
-    print_r($sql);
+    // print_r($sql);
     $sql_prepare = $db->prepare($sql);
     $sql_prepare->execute();
     $all_students_info = $sql_prepare->fetchAll();
