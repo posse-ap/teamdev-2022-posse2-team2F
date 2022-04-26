@@ -84,7 +84,7 @@ $results = $stmt->fetchAll();
       <p class="alert">本当に削除しますか？</p>
       <div class="delete_buttons">
         <button class="no" onclick="modalClose()">いいえ</button>
-        <a href="./delete.php?id=<?= $result['id'] ?>" style="text-decoration: none">
+        <a href="./delete_agent.php?id=<?= $result['id'] ?>" style="text-decoration: none">
           <button class="yes" onclick="deleteAgent()">はい
           </button>
         </a>
