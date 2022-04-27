@@ -55,7 +55,7 @@ require('../dbconnect.php');
             $sort_sql = " ORDER BY phone ASC";
         }
         $_SESSION['sort'] = $sort_sql;
-        $sql = "SELECT * FROM students" . $_SESSION['sort'];
+        $sql = "SELECT * FROM students WHERE agent = ?" . $_SESSION['sort'];
 
         /*
         TODO
@@ -67,13 +67,15 @@ require('../dbconnect.php');
         $sql = "SELECT * FROM students ORDER BY phone ASC";
     }
 
-    // print_r($sql);
+    print_r($sql);
+    print_r($_SESSION['name']);
     $sql_prepare = $db->prepare($sql);
+    $sql_prepare->bindValue(1, $_SESSION['name']);
     $sql_prepare->execute();
     $all_students_info = $sql_prepare->fetchAll();
 
     if (!$all_students_info) {
-        echo $all_students_info->error;
+        // echo $all_students_info->error;
         exit();
     }
     ?>
