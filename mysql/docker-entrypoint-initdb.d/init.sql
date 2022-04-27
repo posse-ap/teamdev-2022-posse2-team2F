@@ -41,6 +41,13 @@ SET
   password = sha1('password'),
   password_conf = sha1('password'),
   agent_name = 'agent1'; 
+INSERT INTO
+  agent_users
+SET
+  email = 'admin2@agent.com',
+  password = sha1('password'),
+  password_conf = sha1('password'),
+  agent_name = 'agent2'; 
 
 -- エージェント情報
 
