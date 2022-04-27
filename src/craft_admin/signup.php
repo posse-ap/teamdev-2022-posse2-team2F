@@ -16,7 +16,7 @@ if (isset($_POST['signup'])) {
     $stmt->execute(array($email, $password, $password_conf));
     $stmt = null;
     $db = null;
-    header('Location: http://localhost/craft_admin/register.php');
+    header('Location: http://localhost/craft_admin/signup_done.php');
     exit;
   }
 }

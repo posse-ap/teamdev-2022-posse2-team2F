@@ -1,21 +1,23 @@
 <?php
-session_start();
+
 require('../dbconnect.php');
-
-
-// 画像 & エージェント名表示用（元のデータを表示、画像はできてない）
-$stmt = $db->query("SELECT * FROM agents");
-$result = $stmt->fetch();
 
 // URLからIDを取得
 $id = $_GET['id'];
 
 
-if (isset($_POST['save'])) {
+// 既存データの表示
+ $stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
+$result = $stmt->fetch();
 
+
+
+if (isset($_POST['submit'])) {
+
+  // 画像以外の更新
   $agent_name = $_POST['agent_name'];
   $agent_tag = $_POST['agent_tag'];
-  $agent_pic = $_POST['agent_pic'];
+  // $agent_pic = $_POST['agent_pic'];
   $agent_info = $_POST['agent_info'];
   // $agent_display = $_POST['agent_display'];
   if(isset($_POST['agent_display'])) {
@@ -24,89 +26,133 @@ if (isset($_POST['save'])) {
   }
 
   $sql = 'UPDATE agents
-        SET agent_name = ?, agent_tag = ?, agent_pic = ?, agent_info = ?, agent_display = ?
+        SET agent_name = ?, agent_tag = ?, agent_info = ?, agent_display = ?
         WHERE id = ?';
   $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $agent_tag, $agent_pic, $agent_info, $agent_display, $id));
-  $stmt = null;
-  $db = null;
-  header('Location: http://localhost/craft_admin/home.php');
+  $stmt->execute(array($agent_name, $agent_tag, $agent_info, $agent_display, $id));
+
+  // 画像更新
+  $target_dir = "images/";
+  $target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
+  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+  if (move_uploaded_file($_FILES["agent_pic"]["tmp_name"], $target_file)) {
+    // echo "The file ". htmlspecialchars( basename( $_FILES["agent_pic"]["name"])). " has been uploaded.";
+    // 既存データの表示
+    $sql = "UPDATE agents SET agent_pic = '".$_FILES['agent_pic']['name']."' WHERE id = '$id'";
+    $stmt = $db->query($sql);
+  } else {
+    // echo "Sorry, there was an error uploading your file.";
+  }
+
+
+  header('Location: home.php');
   exit;
 }
 
-// $target_dir = "images/";
-// $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-// $uploadOk = 1;
-// $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
+// タグ表示
 
-// // Check if $uploadOk is set to 0 by an error
-// // if ($uploadOk == 0) {
-// //   echo "Sorry, your file was not uploaded.";
-// // if everything is ok, try to upload file
-// // } else {
-//   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-//     echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-//   } else {
-//     echo "Sorry, there was an error uploading your file.";
-//   }
-// // }
-
-
-
-
-
+//既存データの表示
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+<html>
 <body>
-  <h1>エージェント編集画面</h1>
-  <form action="" method="POST">
-    <p>
-      <label for="agent_name">エージェント名：</label>
-      <input type="text" name="agent_name" value="<?= $result['agent_name'] ?>" required>
-    </p>
-    <p>
-      <label for="agent_tag">エージェントタグ：</label>
-      <input type="text" name="agent_tag" value="<?= $result['agent_tag'] ?>" required>
-    </p>
+<?php require('../_header.php'); ?>
 
-    <p>
-      <label for="agent_pic">エージェント画像：</label>
-      <input type="file" name="agent_pic" value="<?= $result['agent_pic'] ?>" required>
-    </p>
-    <!-- <label for="agent_pic">エージェント画像：</label>
-    <input type="file" name="fileToUpload"> -->
+<div class="agent_container">
+    <div class="agent_leftcontainer">
+      <div class="agent_manage">
+        <a href="/craft_admin/home.php">エージェント管理</a>
+      </div>
+      <div class="agent_add">
+        <a href="/craft_admin/add.php">エージェント追加</a>
+      </div>
+      <div class="tag_manage">
+        <a href="">タグ編集・追加</a>
+      </div>
+      <div class="usersite">
+        <a href="">ユーザー用サイトへ</a>
+      </div>
+    </div>
+    <div class="agent_rightcontainer">
+      <h2>
+        <div class="agent_title">
+        エージェント編集
+        </div>
+      </h2>
+      <div class="agent_informarion">
 
-    <p>
-      <label for="agent_info">エージェント説明：</label>
-      <input type="textarea" name="agent_info" value="<?= $result['agent_info'] ?>" required>
-    </p>
-    <p>
-      <label for="agent_display">掲載期間：</label>
-      <select name="agent_display" value="<?= $result['agent_display'] ?>">
-        <option value="1">1</option>
-        <option value="3">3</option>
-        <option value="6">6</option>
-        <option value="12">12</option>
-      </select>
-      <span>ヶ月</span>
-    </p>
+        <form action="" method="post" enctype="multipart/form-data">
+          <p>
+            <label for="agent_name">エージェント名</label>
+            <input type="text" name="agent_name" value="<?= $result['agent_name'] ?>" required>
+          </p>
+          <p>
+            <label for="agent_tag">エージェントタグ</label>
+            <input type="text" name="agent_tag" value="<?= $result['agent_tag'] ?>" required onclick="tag_modalOpen()">
+          </p>
+          <p class="agent_img">
+            <label for="agent_pic">エージェント画像</label>
+            
+            <!-- <div class="agent_image"> -->
 
-<!-- 
-    Select image to upload:
-    <input type="file" name="agent_pic" id="agent_pic"> -->
-    <p>
-      <input type="submit" name="save" value="変更を保存">
-    </p>
-  </form>
+              <img src="images/<?= $result['agent_pic'] ?>" alt="" style="height: 20.8vh">
+            <!-- </div> -->
+            <!-- <input type="image" src=" ?>" style="width: 500px"> -->
+            <label for="image" class="file_upload_button">+ ファイルをアップロード</label>
+            <input id="image" type="file" name="agent_pic">
+          </p>
+          <p class="agent_info_container">
+            <label for="agent_info">エージェント説明</label>
+            <textarea name="agent_info" ><?= $result['agent_info'] ?></textarea>
+          </p>
+          <p class="agent_term">
+            <label for="agent_display">エージェント掲載期間</label>
+              <select name="agent_display">
+                <option value="1">1ヶ月</option>
+                <option value="3">3ヶ月</option>
+                <option value="6">6ヶ月</option>
+                <option value="12">12ヶ月</option>
+              </select>
+              <!-- <span>ヶ月</span> -->
+          </p>
+          
+          <input type="submit" value="変更を保存" name="submit" class="manage_button">
+        </form>
+      </div>
+
+    </div>
+</div>
+
+<!-- ここからtag_modal -->
+<div id="tag_modal">
+  <div class="tag_modal_container">
+
+  <div class="tag_modal_buttons">
+    <button onclick="tag_modalClose()" class="tag_modalClose">戻る</button>
+    <button class="tag_decision">決定</button>
+
+  </div>
+  </div>
+  
+</div>
+
+
+<?php require('../_footer.php'); ?>
+
+<script>
+  const tag_modal = document.getElementById('tag_modal');
+  function tag_modalOpen() {
+    tag_modal.style.display = 'block';
+  }
+
+  function tag_modalClose() {
+    tag_modal.style.display = 'none';
+  }
+</script>
 </body>
 </html>
+
