@@ -23,25 +23,25 @@ $categories = $stmt->fetchAll();
 
 <body>
   <?php require('../_header.php'); ?>
-  <div class="craftall_container">
-    <div class="craftall_leftcontainer">
-      <div class="craftall_manage">
-        <a href="/craft_admin/home.php">エージェント管理</a>
+  <div class="util_container">
+    <div class="util_sidebar">
+      <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/home.php">エージェント管理</a>
 
       </div>
-      <div class="craftall_agent_add">
-        <a href="/craft_admin/add.php">エージェント追加</a>
+      <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>
       </div>
-      <div class="craftall_tag_manage box_selected">
-        <a class="selected" href="/craft_admin/tag.php">タグ編集・追加</a>
+      <div class="util_sidebar_button util_sidebar_button-selected">
+        <a class="util_sidebar_link util_sidebar_link-selected" href="/craft_admin/tag.php">タグ編集・追加</a>
       </div>
-      <div class="craftall_usersite">
-        <a href="">ユーザー用サイトへ</a>
+      <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
       </div>
     </div>
-    <div class="craftall_rightcontainer">
+    <div class="util_content">
       <h2>
-        <div class="agent_title">
+        <div class="util_title">
         タグの編集・追加
         </div>
       </h2>

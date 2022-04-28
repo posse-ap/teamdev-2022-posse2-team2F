@@ -6,7 +6,8 @@
   left: calc(50% - 32vw);
   top: calc(50% - 27vh);
   overflow-x: scroll;
-  .tag_content_labels {
+  // .tag_content_labels {
+  &_labels {
     width: 64vw;
     height: 30px;
     display: flex;
@@ -94,6 +95,6 @@
 .tag_category_add {
   cursor: pointer;
   color: #52a49a;
-  margin-left: 10vw;
+  margin-left: 1vw;
 }
 
