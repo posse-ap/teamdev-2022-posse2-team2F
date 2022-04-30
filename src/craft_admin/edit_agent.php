@@ -117,11 +117,30 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
             
             <!-- <div class="agent_image"> -->
 
-              <img src="images/<?= $result['agent_pic'] ?>" alt="" style="height: 20.8vh">
+              <img src="images/<?= $result['agent_pic'] ?>" alt="" style="height: 20.8vh" id="agent_image">
+              <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
             <!-- </div> -->
             <!-- <input type="image" src=" ?>" style="width: 500px"> -->
-            <label for="image" class="file_upload_button">+ ファイルをアップロード</label>
-            <input id="image" type="file" name="agent_pic">
+            <label for="image" class="file_upload_button" onclick="upload_file()">+ ファイルをアップロード</label>
+            <input id="image" type="file" name="agent_pic"  accept='image/*' onchange="previewImage(this);">
+            <script>
+              function previewImage(obj) {
+                var fileReader = new FileReader();
+                fileReader.onload = (function() {
+                  document.getElementById('preview').src = fileReader.result;
+                });
+                fileReader.readAsDataURL(obj.files[0]);
+              }
+
+              const preview = document.getElementById('preview');
+              const agent_image = document.getElementById('agent_image');
+
+              function upload_file() {
+                preview.style.display = 'block';
+                agent_image.style.display = 'none';
+
+              }
+            </script>
           </p>
           <p class="agent_info_container">
             <label for="agent_info">エージェント説明</label>
