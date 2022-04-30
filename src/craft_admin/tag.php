@@ -58,7 +58,7 @@ $categories = $stmt->fetchAll();
             <p><?= $category['tag_category'] ?></p>
           </div>
           <div class="tag_content_buttons">
-            <a href="./edit_tag.php?id=<?= $category['id'] ?>" style="text-decoration: none">
+            <a href="./edit_tag_category.php?id=<?= $category['id'] ?>" style="text-decoration: none">
               <button class="hensyu">編集</button>
             </a>
             <button class="sakujyo" onclick="modalOpen()">削除</button>
@@ -79,9 +79,10 @@ $categories = $stmt->fetchAll();
             <?php foreach ($tags as $tag) : ?>
             <p style="color: red"><?= $tag['tag_option'] ?></p>
             <?php endforeach; ?>
+            <a href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>" class="tag_category_add">+ タグを編集・追加</a>
           </div>
         <?php endforeach; ?>
-        <a href="./edit_tag.php?act=add" class="tag_category_add">+ カテゴリーを追加</a>
+        <a href="./edit_tag_category.php?act=add" class="tag_category_add">+ カテゴリーを追加</a>
       </div>
     </div>
   </div>
