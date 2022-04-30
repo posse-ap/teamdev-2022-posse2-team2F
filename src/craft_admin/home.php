@@ -1,4 +1,7 @@
 <?php
+
+use LDAP\Result;
+
 session_start();
 require('../dbconnect.php');
 
@@ -30,7 +33,7 @@ $results = $stmt->fetchAll();
         <a href="/craft_admin/add.php">エージェント追加</a>
       </div>
       <div class="tag_manage">
-        <a href="">タグ編集・追加
+        <a href="/craft_admin/tag.php">タグ編集・追加
         </a>
       </div>
       <div class="usersite">
@@ -52,7 +55,7 @@ $results = $stmt->fetchAll();
         </div>
 
         <?php foreach ($results as $result) : ?>
-          <div class="agent_all">
+          <div class="agent_all" id="<?= $result['id']; ?>">
 
             <div class="agent_ind">
 
@@ -65,14 +68,21 @@ $results = $stmt->fetchAll();
                 <button class="hensyu">編集</button>
               </a>
 
-              <button class="sakujyo" onclick="modalOpen()">削除</button>
+
+
+              <input name="delete" class="delete" />
+              <label for="delete" class="sakujyo" id="<?= $result['id'] ?>" onclick="modalOpen()">削除</label>
+
+
+
 
 
               <a href="" style="text-decoration: none">
                 <button class="moushikomi">申込一覧</button>
+              </a>
             </div>
-            </a>
           </div>
+
         <?php endforeach; ?>
       </div>
     </div>
@@ -85,10 +95,12 @@ $results = $stmt->fetchAll();
       <p class="alert">本当に削除しますか？</p>
       <div class="delete_buttons">
         <button class="no" onclick="modalClose()">いいえ</button>
-        <a href="./delete.php?id=<?= $result['id'] ?>" style="text-decoration: none">
-          <button class="yes" onclick="deleteAgent()">はい
-          </button>
-        </a>
+        <?php if(isset($_POST['id'])){
+    $id = $_POST['id'];}?>
+        <!-- <a href="./delete.php?id=" style="text-decoration: none"> -->
+        <button class="yes" id="delete_modal" onclick="deleteAgent()">はい
+        </button>
+        <!-- </a> -->
       </div>
     </div>
   </div>
@@ -98,8 +110,6 @@ $results = $stmt->fetchAll();
   </div>
 
   <?php require('../_footer.php'); ?>
-
-
   <script>
     const modal = document.getElementById('modal');
 
@@ -107,19 +117,23 @@ $results = $stmt->fetchAll();
 
     function modalOpen() {
       modal.style.display = 'block';
+
     };
 
     function modalClose() {
       modal.style.display = 'none';
     };
-
+    
+    let id = '<?= $id ?>';
+    
     function deleteAgent() {
+      window.location.href = "./delete.php?id=" + id;
+      // console.log(id);
       modal.style.display = 'none';
-
       modalComplete.style.display = 'block';
     };
+    
   </script>
-
 </body>
 
 </html>

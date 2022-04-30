@@ -60,6 +60,11 @@
       border-bottom: 1px solid #EBEDF1;
     }
 
+    #preview{
+      display: none;
+      height: 20.8vh;
+    }
+
     .file_upload_button{
       cursor: pointer;
       color: #52A49A;
@@ -106,12 +111,13 @@
 
 
 #tag_modal{
-  max-width: 60vw;
-  min-width: 22vw;
-  max-height: 60vh;
+  // max-width: 60vw;
+  // min-width: 22vw;
+  // max-height: 60vh;
   overflow-x: scroll;
   background-color: white;
   z-index: 1;
+  border: 1px solid black;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -123,8 +129,27 @@
     min-width: 22vw;
     max-height: 60vh;
     overflow-x: scroll;
+    margin-bottom: 10vh;
+    display: flex;
+    flex-wrap: wrap;
 
-    .tag_modal_buttons{
+    &--tag{
+      max-width: 30vw;
+      margin: 5px 10px;
+
+      h2{
+        font-weight: lighter;
+      }
+
+      &_tag{
+        max-width: 30vw;
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+    
+
+    &--buttons{
       width: 20vw;
       display: flex;
       justify-content: space-between;
@@ -148,6 +173,13 @@
         }
   
         .tag_decision{
+          width: 8vw;
+        height: 5vh;
+        border-style: none;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
           background-color: #cf7c7c;
         }
       
