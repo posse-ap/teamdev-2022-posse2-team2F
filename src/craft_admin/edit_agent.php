@@ -125,30 +125,58 @@ if (isset($_POST['submit'])) {
 
 <!-- ここからtag_modal -->
 <div id="tag_modal">
-  <div class="tag_modal_container">
+    <form action="" method="POST">
 
-  <div class="tag_modal_buttons">
-    <button onclick="tag_modalClose()" class="tag_modalClose">戻る</button>
-    <button class="tag_decision">決定</button>
+      <div class="tag_modal_container">
+        <?php foreach ($categories as $category) : ?>
+          <div id="no<?= $category['id'] ?>" class="tag_modal_container--tag">
+            <h2>
 
+              <?= $category['tag_category'] ?>
+            </h2>
+            <?php
+            $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
+
+            $stmt->execute(array($category['id']));
+            $tags = $stmt->fetchAll();
+
+            ?>
+
+            <div class="tag_modal_container--tag_tags">
+              <?php foreach ($tags as $tag) : ?>
+
+                <input type="checkbox" name="tag[]" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
+                <label for="tag">
+
+                  <?= $tag['tag_option'] ?>
+                </label>
+
+              <?php endforeach; ?>
+            </div>
+          </div>
+        <?php endforeach; ?>
+        <div class="tag_modal_container--buttons">
+          <button onclick="tag_modalClose()" class="tag_modalClose">戻る</button>
+          <input type="submit" value="決定" class="tag_decision">
+        </div>
+
+    </form>
   </div>
-  </div>
-  
-</div>
 
 
-<?php require('../_footer.php'); ?>
+  <?php require('../_footer.php'); ?>
 
-<script>
-  const tag_modal = document.getElementById('tag_modal');
-  function tag_modalOpen() {
-    tag_modal.style.display = 'block';
-  }
+  <script>
+    const tag_modal = document.getElementById('tag_modal');
 
-  function tag_modalClose() {
-    tag_modal.style.display = 'none';
-  }
-</script>
+    function tag_modalOpen() {
+      tag_modal.style.display = 'block';
+    }
+
+    function tag_modalClose() {
+      tag_modal.style.display = 'none';
+    }
+  </script>
 </body>
 </html>
 
