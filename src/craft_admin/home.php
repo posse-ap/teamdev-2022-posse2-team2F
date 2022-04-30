@@ -39,7 +39,6 @@ $results = $stmt->fetchAll();
     <div class="util_content">
       <h2>
         <div class="util_title">
-
           エージェント管理
         </div>
       </h2>
@@ -64,7 +63,9 @@ $results = $stmt->fetchAll();
                 <button class="hensyu">編集</button>
               </a>
 
-              <button class="sakujyo" onclick="modalOpen()">削除</button>
+              <!-- <button class="sakujyo" onclick="modalOpen()">削除</button> -->
+              <button class="sakujyo" onclick="deleteModal(<?= $result['id'] ?>)">削除</button>
+
 
 
               <a href="" style="text-decoration: none">
@@ -72,51 +73,72 @@ $results = $stmt->fetchAll();
             </div>
             </a>
           </div>
+          <!-- ここからmodal -->
+          <div id="modal<?= $result['id'] ?>" class="modal">
+            <div class="modal_container">
+
+              <p class="alert">本当に削除しますか？</p>
+              <div class="delete_buttons">
+                <button class="no" onclick="closeFunction(<?= $result['id'] ?>)">いいえ</button>
+                <a href="./delete_agent.php?id=<?= $result['id'] ?>" style="text-decoration: none">
+                  <!-- <button class="yes" onclick="deleteAgent()">はい -->
+                  <button class="yes" onclick="deleteFunction(<?= $result['id'] ?>)">はい
+                  
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- ここから削除完了画面 -->
+          <div id="modal_complete<?= $result['id'] ?>" class="modal_complete">
+            <p>削除されました。</p>
+          </div>
         <?php endforeach; ?>
       </div>
     </div>
   </div>
 
-  <!-- ここからmodal -->
-  <div id="modal">
-    <div class="modal_container">
-
-      <p class="alert">本当に削除しますか？</p>
-      <div class="delete_buttons">
-        <button class="no" onclick="modalClose()">いいえ</button>
-        <a href="./delete_agent.php?id=<?= $result['id'] ?>" style="text-decoration: none">
-          <button class="yes" onclick="deleteAgent()">はい
-          </button>
-        </a>
-      </div>
-    </div>
-  </div>
-  <!-- ここから削除完了画面 -->
-  <div id="modal_complete">
-    <p>削除されました。</p>
-  </div>
+  
 
   <?php require('../_footer.php'); ?>
 
 
   <script>
-    const modal = document.getElementById('modal');
+    //ボタンをクリックした時の処理
+    let deleteModal = function (id) {
+          let modal = document.getElementById(`modal${id}`);
+          let modalComplete = document.getElementById(`modal_complete${id}`);
+          function modalOpen() {
+            modal.style.display = 'block';
+          };
+          modalOpen();
+    }
 
-    const modalComplete = document.getElementById('modal_complete');
+    let deleteFunction = function (id) {
+          let modal = document.getElementById(`modal${id}`);
+          let modalComplete = document.getElementById(`modal_complete${id}`);
+          function deleteAgent() {
+            modal.style.display = 'none';
+            modalComplete.style.display = 'block';
+          };
+          deleteAgent();
+    }
 
-    function modalOpen() {
-      modal.style.display = 'block';
-    };
+    let closeFunction = function (id) {
+          let modal = document.getElementById(`modal${id}`);
+          let modalComplete = document.getElementById(`modal_complete${id}`);
+          
+          function modalClose() {
+            modal.style.display = 'none';
+          };
+          modalClose();
+    }
 
-    function modalClose() {
-      modal.style.display = 'none';
-    };
+    // const modal = document.getElementById('modal');
 
-    function deleteAgent() {
-      modal.style.display = 'none';
+    // const modalComplete = document.getElementById('modal_complete');
 
-      modalComplete.style.display = 'block';
-    };
+    
   </script>
 
 </body>

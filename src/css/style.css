@@ -389,7 +389,7 @@ a {
   color: white;
 }
 
-#modal {
+.modal {
   width: 900px;
   height: 500px;
   display: none;
@@ -403,19 +403,19 @@ a {
   -webkit-transform: translateY(-50%) translateX(-50%);
 }
 
-#modal .modal_container {
+.modal .modal_container {
   width: 900px;
   height: 500px;
   position: relative;
 }
 
-#modal .modal_container p {
+.modal .modal_container p {
   font-size: 46px;
   text-align: center;
   margin-top: 100px;
 }
 
-#modal .modal_container .delete_buttons {
+.modal .modal_container .delete_buttons {
   width: 600px;
   margin: 120px auto;
   display: -webkit-box;
@@ -426,7 +426,7 @@ a {
           justify-content: space-between;
 }
 
-#modal .modal_container .delete_buttons button {
+.modal .modal_container .delete_buttons button {
   width: 220px;
   height: 80px;
   border-style: none;
@@ -437,15 +437,15 @@ a {
   cursor: pointer;
 }
 
-#modal .modal_container .delete_buttons .no {
+.modal .modal_container .delete_buttons .no {
   background-color: #91c9c4;
 }
 
-#modal .modal_container .delete_buttons .yes {
+.modal .modal_container .delete_buttons .yes {
   background-color: #cf7c7c;
 }
 
-#modal_complete {
+.modal_complete {
   width: 900px;
   height: 500px;
   display: none;
@@ -459,7 +459,7 @@ a {
   -webkit-transform: translateY(-50%) translateX(-50%);
 }
 
-#modal_complete p {
+.modal_complete p {
   font-size: 46px;
   position: absolute;
   top: 40%;
