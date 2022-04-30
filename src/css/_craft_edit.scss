@@ -166,6 +166,13 @@
       }
 
       .tag_decision {
+        width: 8vw;
+        height: 5vh;
+        border-style: none;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background-color: #cf7c7c;
       }
     }
