@@ -2,11 +2,6 @@
 session_start();
 include('../_header.php');
 require('../dbconnect.php');
-$agent_name = $_SESSION['name'];
-// 数字だけ取り出す
-$agent_number = preg_replace('/[^0-9]/', '', $agent_name);
-print_r($agent_number);
-// require('session.php');
 ?>
 
 <form method="POST" action="students_info.php">
@@ -61,21 +56,13 @@ print_r($agent_number);
         }
         $_SESSION['sort'] = $sort_sql;
         $sql = "SELECT * FROM students WHERE agent = ? " . $_SESSION['sort'];
-
-        /*
-        TODO
-        ここからエージェントごとに出す情報を分ける
-        */
-        // if (isset($_POST['sort_button']))
-
     }else{
         $sql = "SELECT * FROM students WHERE agent = ? ORDER BY phone ASC";
     }
     
     print_r($sql);
     $sql_prepare = $db->prepare($sql);
-    // $sql_prepare->bindValue(1, $_SESSION['name']);
-    $sql_prepare->execute(array($agent_number));
+    $sql_prepare->execute(array($_SESSION['agent_name']));
     $all_students_info = $sql_prepare->fetchAll();
 
     if (!$all_students_info) {
@@ -173,14 +160,12 @@ print_r($agent_number);
             $mysqli->close();
             $i = 0;
             foreach ($rows as $row) {
-            */
-            ?>
 
-
-            <?php
+            データの破棄？
             if (isset($_SESSION['sort'])) {
                 session_destroy();
                 unset($_SESSION['sort']);
             }
+            */
             ?>
             </form>

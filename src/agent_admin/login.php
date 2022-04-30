@@ -13,6 +13,7 @@ if (isset($_POST['login'])) {
   $stmt->execute(array($email, $password));
   $result = $stmt->fetch();
   $stmt = null;
+
   $sql_for_session = 'SELECT * FROM agent_users WHERE email = ? AND password = ?';
   $stmt_for_session = $db->prepare($sql_for_session);
   $stmt_for_session->execute(array($email, $password));
@@ -27,9 +28,9 @@ if (isset($_POST['login'])) {
     //  //DBのユーザー情報をセッションに保存
     $_SESSION['id'] = $login_info['id'];
     $_SESSION['name'] = $login_info['agent_name'];
-    $agent_name = $_SESSION['name'];
     // 数字だけ取り出す
-    $agent_number = preg_replace('/[^0-9]/', '', $agent_name);
+    $agent_number = preg_replace('/[^0-9]/', '', $_SESSION['name']);
+    $_SESSION['agent_name'] = $agent_number;
     // require('session.php');
     exit;
   } else {
