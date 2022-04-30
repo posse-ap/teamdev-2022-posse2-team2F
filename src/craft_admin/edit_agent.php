@@ -52,6 +52,28 @@ if (isset($_POST['submit'])) {
 
 
 ?>
+<?php
+// タグ表示
+
+//既存データの表示
+$stmt = $db->query('SELECT * FROM tag_categories');
+
+$categories = $stmt->fetchAll();
+
+// 更新処理
+if (isset($_POST['tag']) && is_array($_POST['tag'])) {
+  $tag = implode("、", $_POST["tag"]);
+
+  $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($tag));
+  $reload = "edit_agent.php?id=" . $id;
+  header("Location:" . $reload);
+} else {
+  // echo 'チェックボックスの値を受け取れていません';
+}
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -124,7 +146,7 @@ if (isset($_POST['submit'])) {
 </div>
 
 <!-- ここからtag_modal -->
-<div id="tag_modal">
+<div id="tag_modal" class="tag_modal">
     <form action="" method="POST">
 
       <div class="tag_modal_container">
