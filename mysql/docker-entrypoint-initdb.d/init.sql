@@ -41,6 +41,13 @@ SET
   password = sha1('password'),
   password_conf = sha1('password'),
   agent_name = 'agent1'; 
+INSERT INTO
+  agent_users
+SET
+  email = 'admin2@agent.com',
+  password = sha1('password'),
+  password_conf = sha1('password'),
+  agent_name = 'agent2'; 
 
 -- エージェント情報
 
@@ -77,23 +84,31 @@ CREATE TABLE students (
   faculty VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL,
   grad_year INT NOT NULL,
-  agent VARCHAR(255) NOT NULL
+  agent INT NOT NULL
 );
 
-INSERT INTO
-  students
-SET
-  name = '山田太郎',
-  email = 'taroyamada@gmail.com',
-  phone = 1111111,
-  university = '〇〇大学',
-  faculty = '〇〇学科',
-  address = '東京都〇〇区1-1-1',
-  grad_year = 25,
-  agent = 'agent1';
+-- INSERT INTO
+--   students
+-- SET
+--   name = '山田太郎',
+--   email = 'taroyamada@gmail.com',
+--   phone = 1111111,
+--   university = '〇〇大学',
+--   faculty = '〇〇学科',
+--   address = '東京都〇〇区1-1-1',
+--   grad_year = 25,
+--   agent = 'agent1';
 
-INSERT INTO
-students (name, email, phone, university, faculty, address, grad_year, agent) 
+INSERT INTO students (name, email, phone, university, faculty, address, grad_year, agent) 
+VALUES
+('山田太郎',
+'taroyamada@gmail.com',
+1111111,
+'〇〇大学',
+'〇〇学科',
+'東京都〇〇区1-1-1',
+25,
+1),
 ('西川航平',
 'kohei@gmail.com',
 0000001,
@@ -101,7 +116,7 @@ students (name, email, phone, university, faculty, address, grad_year, agent)
 '〇〇学科',
 '東京都〇〇区1-1-1',
 25,
-'agent1'),
+1),
 ('寺嶋里紗',
 'risa@gmail.com',
 0000002,
@@ -109,7 +124,7 @@ students (name, email, phone, university, faculty, address, grad_year, agent)
 '〇〇学科',
 '東京都〇〇区1-1-1',
 25,
-'agent2'),
+2),
 ('多田一稀',
 'kazuki@gmail.com',
 0000003,
@@ -117,7 +132,7 @@ students (name, email, phone, university, faculty, address, grad_year, agent)
 '〇〇学科',
 '東京都〇〇区1-1-1',
 25,
-'agent3');
+'3');
 
 -- タグのカテゴリー
 

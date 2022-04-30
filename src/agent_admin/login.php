@@ -23,9 +23,14 @@ if (isset($_POST['login'])) {
   if ($result[0] != 0) {
     // 成功した場合管理画面に遷移
     header('Location: http://localhost/agent_admin/home.php');
-     //DBのユーザー情報をセッションに保存
+
+    //  //DBのユーザー情報をセッションに保存
     $_SESSION['id'] = $login_info['id'];
     $_SESSION['name'] = $login_info['agent_name'];
+    $agent_name = $_SESSION['name'];
+    // 数字だけ取り出す
+    $agent_number = preg_replace('/[^0-9]/', '', $agent_name);
+    // require('session.php');
     exit;
   } else {
     $err_msg = "ユーザー名またはパスワードが間違っています";

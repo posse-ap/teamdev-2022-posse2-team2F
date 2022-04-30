@@ -2,6 +2,11 @@
 session_start();
 include('../_header.php');
 require('../dbconnect.php');
+$agent_name = $_SESSION['name'];
+// 数字だけ取り出す
+$agent_number = preg_replace('/[^0-9]/', '', $agent_name);
+print_r($agent_number);
+// require('session.php');
 ?>
 
 <form method="POST" action="students_info.php">
@@ -55,7 +60,7 @@ require('../dbconnect.php');
             $sort_sql = " ORDER BY phone ASC";
         }
         $_SESSION['sort'] = $sort_sql;
-        $sql = "SELECT * FROM students WHERE agent = ?" . $_SESSION['sort'];
+        $sql = "SELECT * FROM students WHERE agent = ? " . $_SESSION['sort'];
 
         /*
         TODO
@@ -64,14 +69,13 @@ require('../dbconnect.php');
         // if (isset($_POST['sort_button']))
 
     }else{
-        $sql = "SELECT * FROM students ORDER BY phone ASC";
+        $sql = "SELECT * FROM students WHERE agent = ? ORDER BY phone ASC";
     }
-
+    
     print_r($sql);
-    print_r($_SESSION['name']);
     $sql_prepare = $db->prepare($sql);
-    $sql_prepare->bindValue(1, $_SESSION['name']);
-    $sql_prepare->execute();
+    // $sql_prepare->bindValue(1, $_SESSION['name']);
+    $sql_prepare->execute(array($agent_number));
     $all_students_info = $sql_prepare->fetchAll();
 
     if (!$all_students_info) {
