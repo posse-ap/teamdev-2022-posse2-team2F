@@ -8,8 +8,8 @@ if (isset($_GET['id'])) {
 
   // 既存データの表示
   // $stmt = $db->query("SELECT * FROM tag_options WHERE category_id = '$id'");
-  $stmt = $db->query("
-  SELECT 
+  $stmt = $db->query(
+  "SELECT 
     tag_options.id, tag_options.category_id, tag_categories.tag_category, tag_options.tag_option
   FROM 
     tag_options
@@ -19,17 +19,21 @@ if (isset($_GET['id'])) {
     tag_options.category_id = '$id'");
   $result = $stmt->fetch();
 
+  // タグを選択するための SQL文
+  $stmt = $db->query("SELECT * FROM tag_options WHERE category_id = '$id'");
+  $tags = $stmt->fetchAll();
+
 
   if (isset($_POST['submit'])) {
     // 編集をしたい場合
-    $tag_category = $_POST['tag_category'];
-    $tag_category_desc = $_POST['tag_category_desc'];
+    $tag_option = $_POST['tag_option'];
     
-    $sql = 'UPDATE tag_categories
-          SET tag_category = ?, tag_category_desc = ?
+    $sql = 'UPDATE tag_options
+          SET tag_option = ?
           WHERE id = ?';
     $stmt = $db->prepare($sql);
-    $stmt->execute(array($tag_category, $tag_category_desc, $id));
+    $stmt->execute(array($tag_option, $id));
+    
 
     header('Location: tag.php');
     exit;
@@ -95,12 +99,16 @@ if (isset($_GET['id'])) {
             <input type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required>
           </p>
           <p>
-            <label for="tag_category">タグ名</label>
-            <input type="text" name="tag_category" value="<?= $result['tag_option'] ?>" required>
+            <label for="tag_list">編集するタグを選択</label>
+              <select name="tag_list">
+                <?php foreach ($tags as $tag) : ?>
+                <option value=""><?= $tag['tag_option'] ?></option>
+                <?php endforeach; ?>
+              </select>
           </p>
-          <p class="agent_info_container">
-            <label for="tag_category_desc">タグの説明</label>
-            <textarea name="tag_category_desc" ><?= $result['tag_category_desc'] ?></textarea>
+          <p>
+            <label for="tag_option">新しいタグ名</label>
+            <input type="text" name="tag_option" value="<?= $result['tag_option'] ?>" required>
           </p>
           <input type="submit" value="変更を保存" name="submit" class="manage_button">
         </form>
