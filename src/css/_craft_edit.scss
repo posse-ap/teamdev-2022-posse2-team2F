@@ -33,6 +33,16 @@
       font-size: 1.4vw;
       color: black;
     }
+    .fake_image{
+      width: 48vw;
+      height: 20.8vh;
+      margin: 0;
+      padding-left: 10px;
+      background-color: #ebedf1;
+      border-radius: 1vh;
+      border-top: 1px solid #ebedf1;
+      border-bottom: 1px solid #ebedf1;
+    }
 
     #image {
       background-color: transparent;
@@ -60,7 +70,17 @@
       border-bottom: 1px solid #ebedf1;
     }
 
-    .file_upload_button {
+    #preview{
+      display: none;
+      height: 20.8vh;
+    }
+
+    #add_preview{
+      display: none;
+      height: 20.8vh;
+    }
+
+    .file_upload_button{
       cursor: pointer;
       color: #52a49a;
       margin-left: 21vw;

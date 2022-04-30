@@ -514,6 +514,17 @@ a {
   color: black;
 }
 
+.edit_agent_information p .fake_image {
+  width: 48vw;
+  height: 20.8vh;
+  margin: 0;
+  padding-left: 10px;
+  background-color: #ebedf1;
+  border-radius: 1vh;
+  border-top: 1px solid #ebedf1;
+  border-bottom: 1px solid #ebedf1;
+}
+
 .edit_agent_information p #image {
   background-color: transparent;
 }
@@ -540,6 +551,16 @@ a {
   border-radius: 1vh;
   border-top: 1px solid #ebedf1;
   border-bottom: 1px solid #ebedf1;
+}
+
+.edit_agent_information .agent_img #preview {
+  display: none;
+  height: 20.8vh;
+}
+
+.edit_agent_information .agent_img #add_preview {
+  display: none;
+  height: 20.8vh;
 }
 
 .edit_agent_information .agent_img .file_upload_button {
