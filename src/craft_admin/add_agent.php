@@ -67,6 +67,7 @@ $stmt = $db->query('SELECT * FROM tag_categories');
 $categories = $stmt->fetchAll();
 
 // 更新処理
+error_reporting(0);
 if (isset($_POST['tag']) && is_array($_POST['tag'])) {
   $tag = implode("、", $_POST["tag"]);
 
@@ -80,6 +81,7 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -116,7 +118,7 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
         <form action="" method="post" enctype="multipart/form-data">
           <p>
             <label for="agent_name">エージェント名：</label>
-            <input type="text" name="agent_name" required>
+            <input  type="text" name="agent_name" required id="agent_name"/>
           </p>
           <p>
             <label for="agent_tag">エージェントタグ</label>
