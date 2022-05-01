@@ -87,17 +87,52 @@ CREATE TABLE students (
   agent VARCHAR(255) NOT NULL
 );
 
-INSERT INTO
-  students
-SET
-  name = '山田太郎',
-  email = 'taroyamada@gmail.com',
-  phone = 1111111,
-  university = '〇〇大学',
-  faculty = '〇〇学科',
-  address = '東京都〇〇区1-1-1',
-  grad_year = 25,
-  agent = 'agent1';
+-- INSERT INTO
+--   students
+-- SET
+--   name = '山田太郎',
+--   email = 'taroyamada@gmail.com',
+--   phone = 1111111,
+--   university = '〇〇大学',
+--   faculty = '〇〇学科',
+--   address = '東京都〇〇区1-1-1',
+--   grad_year = 25,
+--   agent = 'agent1';
+
+INSERT INTO students (name, email, phone, university, faculty, address, grad_year, agent) 
+VALUES
+('山田太郎',
+'taroyamada@gmail.com',
+1111111,
+'〇〇大学',
+'〇〇学科',
+'東京都〇〇区1-1-1',
+25,
+'agent1'),
+('西川航平',
+'kohei@gmail.com',
+0000001,
+'〇〇大学',
+'〇〇学科',
+'東京都〇〇区1-1-1',
+25,
+'agent2'),
+('寺嶋里紗',
+'risa@gmail.com',
+0000002,
+'〇〇大学',
+'〇〇学科',
+'東京都〇〇区1-1-1',
+25,
+'agent2'),
+('多田一稀',
+'kazuki@gmail.com',
+0000003,
+'〇〇大学',
+'〇〇学科',
+'東京都〇〇区1-1-1',
+25,
+'agent2');
 
 -- タグのカテゴリー
 
