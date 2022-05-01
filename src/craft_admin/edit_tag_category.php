@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
   $id = $_GET['id'];
 
   // 既存データの表示
-  $stmt = $db->query("SELECT * FROM tag_options WHERE id = '$id'");
+  $stmt = $db->query("SELECT * FROM tag_categories WHERE id = '$id'");
   $result = $stmt->fetch();
 
 

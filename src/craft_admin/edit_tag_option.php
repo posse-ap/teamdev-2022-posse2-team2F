@@ -3,7 +3,7 @@
 require('../dbconnect.php');
 
 // URLからIDを取得
-if (isset($_GET['id'])) {
+// if (isset($_GET['id'])) {
   $id = $_GET['id'];
 
   // 既存データの表示
@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
   $tags = $stmt->fetchAll();
 
 
-  if (isset($_POST['submit'])) {
+  if (isset($_POST['save'])) {
     // 編集をしたい場合
     $tag_option = $_POST['tag_option'];
     
@@ -38,7 +38,21 @@ if (isset($_GET['id'])) {
     header('Location: tag.php');
     exit;
   }
-} else {
+
+  if (isset($_POST['add'])) {
+    // 追加をしたい場合
+    $tag_option = $_POST['tag_option2'];
+    $category_id = $_GET['id'];
+
+    $sql = 'INSERT INTO tag_options(tag_option, category_id)
+              VALUES (?, ?)';
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($tag_option, $category_id));    
+
+    header('Location: tag.php');
+    exit;
+  }
+// } else {
   // error_reporting(0);
   // if($_GET['act']=="add") {
 
@@ -60,7 +74,7 @@ if (isset($_GET['id'])) {
   //     exit;
   //   }
   // }
-}
+
 
 
 ?>
@@ -110,7 +124,7 @@ if (isset($_GET['id'])) {
             <label for="tag_option">新しいタグ名</label>
             <input type="text" name="tag_option" value="<?= $result['tag_option'] ?>" required>
           </p>
-          <input type="submit" value="変更を保存" name="submit" class="manage_button">
+          <input type="submit" value="変更を保存" name="save" class="manage_button">
         </form>
       </div>
       
@@ -119,14 +133,10 @@ if (isset($_GET['id'])) {
         <h1>タグのオプションを追加</h1>
         <form action="" method="post" enctype="multipart/form-data">
           <p>
-            <label for="tag_category">タグ名</label>
-            <input type="text" name="tag_category" required>
+            <label for="tag_option2">タグ名</label>
+            <input type="text" name="tag_option2" required>
           </p>
-          <p class="agent_info_container">
-            <label for="tag_category_desc">タグの説明</label>
-            <textarea name="tag_category_desc" ></textarea>
-          </p>
-          <input type="submit" value="変更を保存" name="submit" class="manage_button">
+          <input type="submit" value="追加" name="add" class="manage_button">
         </form>
       </div>
 
