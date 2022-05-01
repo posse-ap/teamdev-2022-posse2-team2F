@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require('../dbconnect.php');
 
 // URLからIDを取得
@@ -9,7 +9,6 @@ $id = $_SESSION['id'];
 // 既存データの表示
 $stmt = $db->query("SELECT * FROM agent_users WHERE id = '$id'");
 $result = $stmt->fetch();
-
 
 
 if (isset($_POST['submit'])) {
@@ -27,13 +26,13 @@ if (isset($_POST['submit'])) {
 
   // 画像更新
   $target_dir = "images/";
-  $target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
+  $target_file = $target_dir . basename($_FILES["image"]["name"]);
   $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-  if (move_uploaded_file($_FILES["agent_pic"]["tmp_name"], $target_file)) {
+  if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
     // echo "The file ". htmlspecialchars( basename( $_FILES["agent_pic"]["name"])). " has been uploaded.";
     // 既存データの表示
-    $sql = "UPDATE agents SET agent_pic = '".$_FILES['agent_pic']['name']."' WHERE id = '$id'";
+    $sql = "UPDATE agent_users SET image = '".$_FILES['image']['name']."' WHERE id = '$id'";
     $stmt = $db->query($sql);
   } else {
     // echo "Sorry, there was an error uploading your file.";
@@ -77,37 +76,46 @@ if (isset($_POST['submit'])) {
 
         <form action="" method="post" enctype="multipart/form-data">
           <p>
-            <label for="agent_name">担当者情報</label>
-            <input type="text" name="agent_name" value="<?= $result['agent_name'] ?>" required>
+            <label for="name">担当者名前</label>
+            <input type="text" name="name" value="<?= $result['name'] ?>" required>
           </p>
           <p>
-            <label for="agent_tag">エージェントタグ</label>
-            <input type="text" name="agent_tag" value="<?= $result['agent_tag'] ?>" required onclick="tag_modalOpen()">
+            <label for="dept">部署</label>
+            <input type="text" name="dept" value="<?= $result['dept'] ?>" required>
           </p>
           <p class="agent_img">
-            <label for="agent_pic">エージェント画像</label>
+            <label for="image">エージェント画像</label>
             
             <!-- <div class="agent_image"> -->
 
-              <img src="images/<?= $result['agent_pic'] ?>" alt="" style="height: 20.8vh">
+              <img src="images/<?= $result['image'] ?>" alt="" style="height: 20.8vh" id="agent_image">
+              <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
             <!-- </div> -->
             <!-- <input type="image" src=" ?>" style="width: 500px"> -->
-            <label for="image" class="file_upload_button">+ ファイルをアップロード</label>
-            <input id="image" type="file" name="agent_pic">
+            <label for="image" class="file_upload_button" onclick="upload_file()">+ ファイルをアップロード</label>
+            <input id="image" type="file" name="image"  accept='image/*' onchange="previewImage(this);">
+            <script>
+              function previewImage(obj) {
+                var fileReader = new FileReader();
+                fileReader.onload = (function() {
+                  document.getElementById('preview').src = fileReader.result;
+                });
+                fileReader.readAsDataURL(obj.files[0]);
+              }
+
+              const preview = document.getElementById('preview');
+              const agent_image = document.getElementById('agent_image');
+
+              function upload_file() {
+                preview.style.display = 'block';
+                agent_image.style.display = 'none';
+
+              }
+            </script>
           </p>
           <p class="agent_info_container">
-            <label for="agent_info">エージェント説明</label>
-            <textarea name="agent_info" ><?= $result['agent_info'] ?></textarea>
-          </p>
-          <p class="agent_term">
-            <label for="agent_display">エージェント掲載期間</label>
-              <select name="agent_display">
-                <option value="1">1ヶ月</option>
-                <option value="3">3ヶ月</option>
-                <option value="6">6ヶ月</option>
-                <option value="12">12ヶ月</option>
-              </select>
-              <!-- <span>ヶ月</span> -->
+            <label for="message">担当者から一言</label>
+            <textarea name="message" ><?= $result['message'] ?></textarea>
           </p>
           
           <input type="submit" value="変更を保存" name="submit" class="manage_button">
@@ -117,32 +125,11 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 
-<!-- ここからtag_modal -->
-<div id="tag_modal">
-  <div class="tag_modal_container">
-
-  <div class="tag_modal_buttons">
-    <button onclick="tag_modalClose()" class="tag_modalClose">戻る</button>
-    <button class="tag_decision">決定</button>
-
-  </div>
-  </div>
-  
-</div>
 
 
 <?php require('../_footer.php'); ?>
 
-<script>
-  const tag_modal = document.getElementById('tag_modal');
-  function tag_modalOpen() {
-    tag_modal.style.display = 'block';
-  }
 
-  function tag_modalClose() {
-    tag_modal.style.display = 'none';
-  }
-</script>
 </body>
 </html>
 
