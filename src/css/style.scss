@@ -1,0 +1,22 @@
+@import 'header';
+@import 'footer';
+@import 'login';
+@import 'craft_home';
+@import 'craft_edit';
+@import 'craft_tag';
+@import 'craft_edit_tag';
+
+/*
+1440~768 pc~tablet
+768~     tablet~smartphone
+*/
+
+@mixin tb {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+li {
+  list-style: none;
+}
