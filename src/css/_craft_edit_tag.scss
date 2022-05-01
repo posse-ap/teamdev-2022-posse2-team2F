@@ -1,7 +1,11 @@
-.edit_agent_information {
+.tag_information {
   width: 64vw;
-  height: 80vh;
+  // height: 80vh;
   margin: 15px 30px;
+
+  h1 {
+    font-size: 1.5vw;
+  }
 
   p {
     width: 70vw;
@@ -39,38 +43,6 @@
     }
   }
 
-  .agent_img {
-    flex-wrap: wrap;
-
-    .agent_image {
-      width: 16vw;
-      height: 12.8vh;
-      background-color: #ebedf1;
-      border-radius: 1vh;
-    }
-
-    img {
-      width: 48vw;
-      object-fit: contain;
-      margin: 0;
-      padding-left: 10px;
-      background-color: #ebedf1;
-      border-radius: 1vh;
-      border-top: 1px solid #ebedf1;
-      border-bottom: 1px solid #ebedf1;
-    }
-
-    .file_upload_button {
-      cursor: pointer;
-      color: #52a49a;
-      margin-left: 21vw;
-    }
-
-    input {
-      display: none;
-    }
-  }
-
   .agent_info_container {
     textarea {
       width: 48vw;
@@ -97,11 +69,13 @@
     border-style: none;
     background-color: #91c9c4;
     color: white;
-    position: absolute;
-    left: calc(50% - 4vw);
+    // position: absolute;
+    // left: calc(50% - 4vw);
+    margin-left: 50%;
     box-shadow: 0px 3px 3px #9b9b9b;
   }
 }
+
 
 #tag_modal {
   max-width: 60vw;
