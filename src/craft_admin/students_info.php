@@ -1,6 +1,5 @@
 <?php
 session_start();
-// とりあえずagent_adminのやつコピーしてきた
 include('../_header.php');
 require('../dbconnect.php');
 ?>
@@ -51,19 +50,12 @@ require('../dbconnect.php');
         } elseif ($_POST['sort'] == '電話番号の大きい順') {
             $sort_sql = " ORDER BY phone DESC";
         } elseif ($_POST['sort'] == '名前順') {
-            $sort_sql = " ORDER BY name DESC";
+            $sort_sql = " ORDER BY name ASC";
         } else {
             $sort_sql = " ORDER BY phone ASC";
         }
         $_SESSION['sort'] = $sort_sql;
         $sql = "SELECT * FROM students" . $_SESSION['sort'];
-
-        /*
-        TODO
-        ここからエージェントごとに出す情報を分ける
-        */
-        // if (isset($_POST['sort_button']))
-        
     }else{
         $sql = "SELECT * FROM students ORDER BY phone ASC";
     }
@@ -168,14 +160,12 @@ require('../dbconnect.php');
             $mysqli->close();
             $i = 0;
             foreach ($rows as $row) {
-            */
-            ?>
-
-
-            <?php
+            
+            データの破棄
             if (isset($_SESSION['sort'])) {
                 session_destroy();
                 unset($_SESSION['sort']);
             }
+            */
             ?>
             </form>
