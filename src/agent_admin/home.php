@@ -2,6 +2,7 @@
 session_start();
 echo "<p>ホーム画面</p><p>";
 echo $_SESSION['name'];
+// echo $_SESSION['dept'];
 echo "がログイン中です</p>";
 ?>
 <a href="http://localhost/agent_admin/students_info.php">ここ</a>
