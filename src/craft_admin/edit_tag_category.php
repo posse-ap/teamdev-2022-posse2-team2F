@@ -65,8 +65,8 @@ if (isset($_GET['id'])) {
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>
       </div>
-      <div class="util_sidebar_button util_sidebar_button-selected">
-        <a class="util_sidebar_link util_sidebar_link-selected" href="">タグ編集・追加</a>
+      <div class="util_sidebar_button util_sidebar_button--selected">
+        <a class="util_sidebar_link util_sidebar_link--selected" href="">タグ編集・追加</a>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>

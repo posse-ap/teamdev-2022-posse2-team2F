@@ -20,7 +20,7 @@
     border: 1px solid #c4c4c4;
   }
 
-  &_button-selected {
+  &_button--selected {
     background-color: white;
   }
 
@@ -28,7 +28,7 @@
     text-decoration: none;
     margin-right: 15px;
     color: #000;
-    &-selected {
+    &--selected {
       color: #52a49a !important;
     }
   } 
@@ -59,7 +59,7 @@
     }
   }
 
-  .home_content {
+  .home_list {
     width: 64vw;
     height: 64vh;
     border: 1px solid #91c9c4;
@@ -67,12 +67,12 @@
     left: calc(50% - 32vw);
     top: calc(50% - 27vh);
     overflow-x: scroll;
-    .home_content_labels {
+    &_labels {
       width: 64vw;
       height: 30px;
       display: flex;
       align-items: center;
-      .home_content_title {
+      &--left {
         width: 44.8vw;
         height: 30px;
         display: flex;
@@ -82,7 +82,7 @@
         color: white;
         border-right: 1px solid #91c9c4;
       }
-      .home_content_control {
+      &--right {
         width: 19.2vw;
         height: 30px;
         display: flex;
@@ -95,68 +95,70 @@
   }
 }
 
-.home_content_agents {
+.home_list_agents {
   display: flex;
   overflow-x: scroll;
-}
-
-.home_content_ind {
-  width: 44.8vw;
-  height: 19vh;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #91c9c4;
-  border-right: 1px solid #91c9c4;
-  box-shadow: 1px 3px 3px #c4c4c4;
-  img {
-    width: 27.8vw;
+  &_info {
+    width: 44.8vw;
+    height: 19vh;
     display: flex;
-    justify-content: center;
-    object-fit: contain;
+    align-items: center;
+    border-bottom: 1px solid #91c9c4;
+    border-right: 1px solid #91c9c4;
+    box-shadow: 1px 3px 3px #c4c4c4;
+    &--img {
+      width: 27.8vw;
+      display: flex;
+      justify-content: center;
+      object-fit: contain;
+    }
+    &--name {
+      font-size: 26px;
+      width: 17vw;
+      display: flex;
+      justify-content: center;
+    }
   }
-  p {
-    font-size: 26px;
-    width: 17vw;
+  &_buttons {
+    width: 19.2vw;
+    height: 19vh;
+    border-bottom: 1px solid #91c9c4;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: -1px 3px 3px #c4c4c4;
+    &_item {
+      width: 6.25vw;
+      height: 4.4vh;
+      border-style: none;
+      font-size: 1vw;
+      box-shadow: 0px 3px 3px #c4c4c4;
+      cursor: pointer;
+    }
+  
+    &--edit {
+      background-color: #91c9c4;
+      color: white;
+    }
+  
+    &--delete {
+      background-color: #cf7c7c;
+      color: white;
+    }
+  
+    &--list {
+      background-color: #c4c4c4;
+      color: white;
+    }
   }
 }
 
-.home_content_buttons {
-  width: 19.2vw;
-  height: 19vh;
-  border-bottom: 1px solid #91c9c4;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  box-shadow: -1px 3px 3px #c4c4c4;
-  button {
-    width: 6.25vw;
-    height: 4.4vh;
-    border-style: none;
-    font-size: 1vw;
-    box-shadow: 0px 3px 3px #c4c4c4;
-    cursor: pointer;
-  }
 
-  .hensyu {
-    background-color: #91c9c4;
-    color: white;
-  }
 
-  .sakujyo {
-    background-color: #cf7c7c;
-    color: white;
-  }
 
-  .moushikomi {
-    background-color: #c4c4c4;
-    color: white;
-  }
-}
 
-.modal {
+.util_deletemodal {
   width: 900px;
   height: 500px;
   display: none;
@@ -169,23 +171,25 @@
   transform: translateY(-50%) translateX(-50%);
   -webkit-transform: translateY(-50%) translateX(-50%);
 
-  .modal_container {
+  &_cont {
     width: 900px;
     height: 500px;
     position: relative;
 
-    p {
+    &--alert {
+      position: relative;
       font-size: 46px;
       text-align: center;
       margin-top: 100px;
     }
 
-    .delete_buttons {
+    &_buttons {
+      position: relative;
       width: 600px;
       margin: 120px auto;
       display: flex;
       justify-content: space-between;
-      button {
+      &--item {
         width: 220px;
         height: 80px;
         border-style: none;
@@ -194,17 +198,17 @@
         box-shadow: 0px 6px 6px #c4c4c4;
         cursor: pointer;
       }
-      .no {
+      &--no {
         background-color: #91c9c4;
       }
-      .yes {
+      &--yes {
         background-color: #cf7c7c;
       }
     }
   }
 }
 
-.modal_complete {
+.util_deletemodal_complete {
   width: 900px;
   height: 500px;
   display: none;
@@ -216,7 +220,7 @@
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   -webkit-transform: translateY(-50%) translateX(-50%);
-  p {
+  &--text {
     font-size: 46px;
     position: absolute;
     top: 40%;
