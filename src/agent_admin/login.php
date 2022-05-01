@@ -28,10 +28,6 @@ if (isset($_POST['login'])) {
     //  //DBのユーザー情報をセッションに保存
     $_SESSION['id'] = $login_info['id'];
     $_SESSION['name'] = $login_info['agent_name'];
-    // 数字だけ取り出す
-    $agent_number = preg_replace('/[^0-9]/', '', $_SESSION['name']);
-    $_SESSION['agent_name'] = $agent_number;
-    // require('session.php');
     exit;
   } else {
     $err_msg = "ユーザー名またはパスワードが間違っています";

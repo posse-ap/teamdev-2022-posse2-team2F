@@ -50,7 +50,7 @@ require('../dbconnect.php');
         } elseif ($_POST['sort'] == '電話番号の大きい順') {
             $sort_sql = " ORDER BY phone DESC";
         } elseif ($_POST['sort'] == '名前順') {
-            $sort_sql = " ORDER BY name DESC";
+            $sort_sql = " ORDER BY name ASC";
         } else {
             $sort_sql = " ORDER BY phone ASC";
         }
@@ -60,9 +60,9 @@ require('../dbconnect.php');
         $sql = "SELECT * FROM students WHERE agent = ? ORDER BY phone ASC";
     }
     
-    print_r($sql);
+    // print_r($sql);
     $sql_prepare = $db->prepare($sql);
-    $sql_prepare->execute(array($_SESSION['agent_name']));
+    $sql_prepare->execute(array($_SESSION['name']));
     $all_students_info = $sql_prepare->fetchAll();
 
     if (!$all_students_info) {

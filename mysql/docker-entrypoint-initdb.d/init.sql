@@ -84,7 +84,7 @@ CREATE TABLE students (
   faculty VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL,
   grad_year INT NOT NULL,
-  agent INT NOT NULL
+  agent VARCHAR(255) NOT NULL
 );
 
 -- INSERT INTO
@@ -108,7 +108,7 @@ VALUES
 '〇〇学科',
 '東京都〇〇区1-1-1',
 25,
-1),
+'agent1'),
 ('西川航平',
 'kohei@gmail.com',
 0000001,
@@ -116,7 +116,7 @@ VALUES
 '〇〇学科',
 '東京都〇〇区1-1-1',
 25,
-1),
+'agent2'),
 ('寺嶋里紗',
 'risa@gmail.com',
 0000002,
@@ -124,7 +124,7 @@ VALUES
 '〇〇学科',
 '東京都〇〇区1-1-1',
 25,
-2),
+'agent2'),
 ('多田一稀',
 'kazuki@gmail.com',
 0000003,
@@ -132,7 +132,7 @@ VALUES
 '〇〇学科',
 '東京都〇〇区1-1-1',
 25,
-'3');
+'agent2');
 
 -- タグのカテゴリー
 
