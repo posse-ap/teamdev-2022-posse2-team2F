@@ -134,15 +134,10 @@ a {
 .util_container {
   height: 100%;
   display: flex;
-<<<<<<< HEAD
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   background-color: #ebedf1;
-=======
-  justify-content: space-between;
-  background-color: #EBEDF1;
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
 }
 
 .util_sidebar {
@@ -151,12 +146,8 @@ a {
   background-color: #e5e5e5;
   text-align: center;
 }
-<<<<<<< HEAD
 
 .util_sidebar_button {
-=======
-.agent_leftcontainer div {
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   font-size: 16px;
   display: flex;
   justify-content: center;
@@ -164,66 +155,22 @@ a {
   height: 60px;
   border: 1px solid #c4c4c4;
 }
-<<<<<<< HEAD
 
 .util_sidebar_button--selected {
   background-color: white;
 }
 
 .util_sidebar_link {
-=======
-.agent_leftcontainer .agent_manage {
-  background-color: white;
-}
-.agent_leftcontainer .agent_manage a {
-  color: #52A49A;
-  text-decoration: none;
-  margin-right: 15px;
-}
-.agent_leftcontainer .agent_add {
-  border: 1px solid #C4C4C4;
-}
-.agent_leftcontainer .agent_add a {
-  text-decoration: none;
-  color: black;
-  margin-right: 15px;
-}
-.agent_leftcontainer .tag_manage {
-  border: 1px solid #C4C4C4;
-}
-.agent_leftcontainer .tag_manage a {
-  text-decoration: none;
-  color: black;
-  margin-right: 15px;
-}
-.agent_leftcontainer .tag_add {
-  border: 1px solid #C4C4C4;
-}
-.agent_leftcontainer .tag_add a {
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   text-decoration: none;
   margin-right: 15px;
   color: #000;
 }
-<<<<<<< HEAD
 
 .util_sidebar_link--selected {
   color: #52a49a !important;
 }
 
 .util_content {
-=======
-.agent_leftcontainer .usersite {
-  border: 1px solid #C4C4C4;
-}
-.agent_leftcontainer .usersite a {
-  text-decoration: none;
-  color: black;
-  margin-right: 15px;
-}
-
-.agent_rightcontainer {
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   width: 80vw;
   height: 80vh;
   background-color: white;
@@ -231,12 +178,8 @@ a {
   margin: 20px 20px 0 20px;
   position: relative;
 }
-<<<<<<< HEAD
 
 .util_content h2 {
-=======
-.agent_rightcontainer h2 {
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   width: 80vw;
   height: 50px;
   border-bottom: 1px solid #c4c4c4;
@@ -245,7 +188,6 @@ a {
   display: flex;
   align-items: center;
 }
-<<<<<<< HEAD
 
 .util_content h2 .util_title {
   font-size: 30px;
@@ -253,13 +195,6 @@ a {
 }
 
 .util_content .home_list {
-=======
-.agent_rightcontainer h2 .agent_title {
-  font-size: 30px;
-  padding-left: 20px;
-}
-.agent_rightcontainer .agent_smallrightcontainer {
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   width: 64vw;
   height: 64vh;
   border: 1px solid #91c9c4;
@@ -268,27 +203,18 @@ a {
   top: calc(50% - 27vh);
   overflow-x: scroll;
 }
-<<<<<<< HEAD
 
 .util_content .home_list_labels {
-=======
-.agent_rightcontainer .agent_smallrightcontainer .agent_smallrightcontainer_container {
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   width: 64vw;
   height: 30px;
   display: flex;
   align-items: center;
 }
-<<<<<<< HEAD
 
 .util_content .home_list_labels--left {
-=======
-.agent_rightcontainer .agent_smallrightcontainer .agent_smallrightcontainer_container .agent_smallcontainer_title {
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   width: 44.8vw;
   height: 30px;
   display: flex;
-<<<<<<< HEAD
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -296,24 +222,14 @@ a {
       -ms-flex-align: center;
           align-items: center;
   background-color: #52a49a;
-=======
-  justify-content: center;
-  align-items: center;
-  background-color: #52A49A;
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   color: white;
   border-right: 1px solid #91c9c4;
 }
-<<<<<<< HEAD
 
 .util_content .home_list_labels--right {
-=======
-.agent_rightcontainer .agent_smallrightcontainer .agent_smallrightcontainer_container .agent_smallcontainer_control {
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   width: 19.2vw;
   height: 30px;
   display: flex;
-<<<<<<< HEAD
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -327,15 +243,6 @@ a {
 .home_list_agents {
   display: -webkit-box;
   display: -ms-flexbox;
-=======
-  justify-content: center;
-  align-items: center;
-  background-color: #52A49A;
-  color: white;
-}
-
-.agent_all {
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   display: flex;
   overflow-x: scroll;
 }
@@ -344,7 +251,6 @@ a {
   width: 44.8vw;
   height: 19vh;
   display: flex;
-<<<<<<< HEAD
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -355,26 +261,14 @@ a {
 }
 
 .home_list_agents_info--img {
-=======
-  align-items: center;
-  border-bottom: 1px solid #91C9C4;
-  border-right: 1px solid #91C9C4;
-  box-shadow: 1px 3px 3px #c4c4c4;
-}
-.agent_ind img {
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   width: 27.8vw;
   display: flex;
   justify-content: center;
   -o-object-fit: contain;
      object-fit: contain;
 }
-<<<<<<< HEAD
 
 .home_list_agents_info--name {
-=======
-.agent_ind p {
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   font-size: 26px;
   width: 17vw;
   display: flex;
@@ -384,30 +278,21 @@ a {
 .home_list_agents_buttons {
   width: 19.2vw;
   height: 19vh;
-<<<<<<< HEAD
   border-bottom: 1px solid #91c9c4;
   display: -webkit-box;
   display: -ms-flexbox;
-=======
-  border-bottom: 1px solid #91C9C4;
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   box-shadow: -1px 3px 3px #c4c4c4;
 }
-<<<<<<< HEAD
 
 .home_list_agents_buttons_item {
-=======
-.agent_buttons button {
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   width: 6.25vw;
   height: 4.4vh;
   border-style: none;
   font-size: 1vw;
-<<<<<<< HEAD
   -webkit-box-shadow: 0px 3px 3px #c4c4c4;
           box-shadow: 0px 3px 3px #c4c4c4;
   cursor: pointer;
@@ -425,21 +310,6 @@ a {
 
 .home_list_agents_buttons--list {
   background-color: #c4c4c4;
-=======
-  box-shadow: 0px 3px 3px #C4C4C4;
-  cursor: pointer;
-}
-.agent_buttons .hensyu {
-  background-color: #91C9C4;
-  color: white;
-}
-.agent_buttons .sakujyo {
-  background-color: #CF7C7C;
-  color: white;
-}
-.agent_buttons .moushikomi {
-  background-color: #C4C4C4;
->>>>>>> fa53fa13fab32d40bb606d0be53b8e47a79f505c
   color: white;
 }
 
