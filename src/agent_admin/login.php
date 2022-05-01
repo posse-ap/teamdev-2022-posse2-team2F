@@ -13,7 +13,6 @@ if (isset($_POST['login'])) {
   $stmt->execute(array($email, $password));
   $result = $stmt->fetch();
   $stmt = null;
-
   $sql_for_session = 'SELECT * FROM agent_users WHERE email = ? AND password = ?';
   $stmt_for_session = $db->prepare($sql_for_session);
   $stmt_for_session->execute(array($email, $password));
@@ -24,8 +23,7 @@ if (isset($_POST['login'])) {
   if ($result[0] != 0) {
     // 成功した場合管理画面に遷移
     header('Location: http://localhost/agent_admin/home.php');
-
-    //  //DBのユーザー情報をセッションに保存
+    //DBのユーザー情報をセッションに保存
     $_SESSION['id'] = $login_info['id'];
     $_SESSION['name'] = $login_info['agent_name'];
     exit;
