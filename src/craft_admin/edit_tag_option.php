@@ -78,6 +78,28 @@ require('../dbconnect.php');
 
 
 ?>
+<?php
+// タグ表示
+
+//既存データの表示
+// $stmt = $db->query('SELECT * FROM tag_categories');
+
+// $categories = $stmt->fetchAll();
+
+// 更新処理
+if (isset($_POST['tag']) && is_array($_POST['tag'])) {
+  $tag = implode("、", $_POST["tag"]);
+
+  // $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
+  // $stmt = $db->prepare($sql);
+  // $stmt->execute(array($tag));
+  // $reload = "edit_tag_option.php?id=" . $id;
+  // header("Location:" . $reload);
+} else {
+  // echo 'チェックボックスの値を受け取れていません';
+}
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -113,12 +135,8 @@ require('../dbconnect.php');
             <input type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required>
           </p>
           <p>
-            <label for="tag_list">編集するタグを選択</label>
-              <select name="tag_list">
-                <?php foreach ($tags as $tag) : ?>
-                <option value=""><?= $tag['tag_option'] ?></option>
-                <?php endforeach; ?>
-              </select>
+            <label for="tag_category">タグ名</label>
+            <input type="text" name="tag_category" value="<?= $tag?>" required onclick="tag_modalOpen()">
           </p>
           <p>
             <label for="tag_option">新しいタグ名</label>
@@ -143,7 +161,57 @@ require('../dbconnect.php');
     </div>
 </div>
 
+<!-- ここからtag_modal -->
+<div id="tag_modal" class="tag_modal">
+    <form action="" method="POST">
+
+      <div class="tag_modal_container">
+          <div class="tag_modal_container--tag">
+            
+            <div class="tag_modal_container--tag_tags">
+              <?php 
+            $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
+            
+            $stmt->execute(array($id));
+
+            $tags = $stmt->fetchAll();
+
+            ?>
+
+             
+              <?php foreach ($tags as $tag) : ?>
+
+                <input type="checkbox" name="tag[]" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
+                <label for="tag">
+
+                  <?= $tag['tag_option'] ?>
+                </label>
+
+              <?php endforeach; ?>
+            </div>
+          </div>
+        
+        <div class="tag_modal_container--buttons">
+          <button onclick="tag_modalClose()" class="tag_modalClose">戻る</button>
+          <input type="submit" value="決定" class="tag_decision">
+        </div>
+      </div>
+    </form>
+  </div>
+
 <?php require('../_footer.php'); ?>
+
+<script>
+    const tag_modal = document.getElementById('tag_modal');
+
+    function tag_modalOpen() {
+      tag_modal.style.display = 'block';
+    }
+
+    function tag_modalClose() {
+      tag_modal.style.display = 'none';
+    }
+  </script>
 
 </body>
 </html>

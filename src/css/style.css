@@ -514,6 +514,17 @@ a {
   color: black;
 }
 
+.edit_agent_information p .fake_image {
+  width: 48vw;
+  height: 20.8vh;
+  margin: 0;
+  padding-left: 10px;
+  background-color: #ebedf1;
+  border-radius: 1vh;
+  border-top: 1px solid #ebedf1;
+  border-bottom: 1px solid #ebedf1;
+}
+
 .edit_agent_information p #image {
   background-color: transparent;
 }
@@ -540,6 +551,16 @@ a {
   border-radius: 1vh;
   border-top: 1px solid #ebedf1;
   border-bottom: 1px solid #ebedf1;
+}
+
+.edit_agent_information .agent_img #preview {
+  display: none;
+  height: 20.8vh;
+}
+
+.edit_agent_information .agent_img #add_preview {
+  display: none;
+  height: 20.8vh;
 }
 
 .edit_agent_information .agent_img .file_upload_button {
@@ -583,13 +604,14 @@ a {
           box-shadow: 0px 3px 3px #9b9b9b;
 }
 
-#tag_modal {
+.tag_modal {
   max-width: 60vw;
   min-width: 22vw;
   max-height: 60vh;
   overflow-x: scroll;
   background-color: white;
   z-index: 1;
+  border: 1px solid black;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -598,14 +620,38 @@ a {
   display: none;
 }
 
-#tag_modal .tag_modal_container {
+.tag_modal_container {
   max-width: 60vw;
   min-width: 22vw;
   max-height: 60vh;
   overflow-x: scroll;
+  margin-bottom: 10vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
-#tag_modal .tag_modal_container .tag_modal_buttons {
+.tag_modal_container--tag {
+  max-width: 30vw;
+  margin: 5px 10px;
+}
+
+.tag_modal_container--tag h2 {
+  font-weight: lighter;
+}
+
+.tag_modal_container--tag_tags {
+  max-width: 30vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.tag_modal_container--buttons {
   width: 20vw;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -621,7 +667,7 @@ a {
   -webkit-transform: translateX(-50%);
 }
 
-#tag_modal .tag_modal_container .tag_modal_buttons button {
+.tag_modal_container--buttons button {
   width: 8vw;
   height: 5vh;
   border-style: none;
@@ -637,11 +683,24 @@ a {
           align-items: center;
 }
 
-#tag_modal .tag_modal_container .tag_modal_buttons .tag_modalClose {
+.tag_modal_container--buttons .tag_modalClose {
   background-color: #91c9c4;
 }
 
-#tag_modal .tag_modal_container .tag_modal_buttons .tag_decision {
+.tag_modal_container--buttons .tag_decision {
+  width: 8vw;
+  height: 5vh;
+  border-style: none;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #cf7c7c;
 }
 
@@ -928,5 +987,92 @@ a {
 */
 li {
   list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/*
+=====================HEADER=====================
+*/
+.header {
+  background: #52a49a;
+  width: 100vw;
+  height: 10vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.header_logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.header_logo p {
+  font-size: 2em;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 768px) {
+  .header_logo p {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header_logo img {
+    width: 100px;
+  }
+}
+
+/*
+=====================TABLE admin_student_info.php=====================
+*/
+.table_container {
+  padding: 5% 5%;
+}
+
+/*
+=====================FOOTER=====================
+*/
+.footer {
+  background: #52a49a;
+  width: 100vw;
+  height: 8vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.footer_logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .footer_logo img {
+    width: 100px;
+  }
 }
 /*# sourceMappingURL=style.css.map */
