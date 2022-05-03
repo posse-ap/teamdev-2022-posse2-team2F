@@ -82,7 +82,7 @@ require('../dbconnect.php');
 // タグ表示
 
 //既存データの表示
-// $stmt = $db->query('SELECT * FROM tag_categories');
+// $stmt = $db->query('SELECT * FROM tag-categories');
 
 // $categories = $stmt->fetchAll();
 
@@ -135,8 +135,8 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
             <input type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required>
           </p>
           <p>
-            <label for="tag_list">編集するタグを選択</label>
-              <select name="tag_list">
+            <label for="tag-list">編集するタグを選択</label>
+              <select name="tag-list">
                 <?php foreach ($tags as $tag) : ?>
                 <option value=""><?= $tag['tag_option'] ?></option>
                 <?php endforeach; ?>

@@ -46,35 +46,34 @@ $categories = $stmt->fetchAll();
         </div>
       </h2>
       
-      <div class="tag_content">
-        <div class="tag_content_labels">
-          <div class="tag_content_title">タグのカテゴリー名</div>
-          <div class="tag_content_control">操作</div>
+      <div class="tag-list">
+        <div class="tag-list_labels">
+          <div class="tag-list_labels--left">タグのカテゴリー名</div>
+          <div class="tag-list_labels--right">操作</div>
         </div>
 
         <?php foreach ($categories as $category) : ?>
-        <div class="tag_content_categories">
-          <div class="tag_content_ind">
-            <p><?= $category['tag_category'] ?></p>
+        <div class="tag-categories">
+          <div class="tag-categories_info">
+            <p class="tag-categories_info--name"><?= $category['tag_category'] ?></p>
           </div>
-          <div class="tag_content_buttons">
-            <a href="./edit_tag_category.php?id=<?= $category['id'] ?>" style="text-decoration: none">
-              <button class="hensyu">編集</button>
+          <div class="tag-categories_buttons">
+            <a href="./edit_tag_category.php?id=<?= $category['id'] ?>">
+              <button class="util_action_button util_action_button--edit">編集</button>
             </a>
-            <!-- <button class="sakujyo" onclick="modalOpen()">削除</button> -->
-            <button class="sakujyo" onclick="deleteModal(<?= $category['id'] ?>)">削除</button>
-            <button class="shousai" onclick="clickfunction(<?= $category['id'] ?>)">詳細</button>
+            <button class="util_action_button util_action_button--delete" onclick="deleteModal(<?= $category['id'] ?>)">削除</button>
+            <button class="util_action_button util_action_button--list" onclick="clickfunction(<?= $category['id'] ?>)">詳細</button>
           </div>
           <!-- ここからmodal -->
-          <div id="util_deletemodal<?= $category['id'] ?>" class="util_deletemodal">
-            <div class="util_deletemodal_cont">
+          <div id="util_deletemodal<?= $category['id'] ?>" class="util_modalcont">
+            <div class="util_deletemodal">
 
-              <p class="util_deletemodal_cont--alert">本当に削除しますか？</p>
-              <div class="util_deletemodal_cont_buttons">
-                <button class="util_deletemodal_cont_buttons--item util_deletemodal_cont_buttons--no" onclick="closeFunction(<?= $category['id'] ?>)">いいえ</button>
+              <p class="util_deletemodal_alert">本当に削除しますか？</p>
+              <div class="util_deletebuttons">
+                <button class="util_deletebuttons_item util_deletebuttons--no" onclick="closeFunction(<?= $category['id'] ?>)">いいえ</button>
                 <a href="./delete_tag.php?id=<?= $category['id'] ?>" style="text-decoration: none">
                   <!-- <button class="yes" onclick="deleteAgent()">はい -->
-                  <button class="util_deletemodal_cont_buttons--item util_deletemodal_cont_buttons--yes" onclick="deleteFunction(<?= $category['id'] ?>)">はい
+                  <button class="util_deletebuttons_item util_deletebuttons--yes" onclick="deleteFunction(<?= $category['id'] ?>)">はい
                   
                   </button>
                 </a>
@@ -82,24 +81,34 @@ $categories = $stmt->fetchAll();
             </div>
           </div>
           <!-- ここから削除完了画面 -->
-          <div id="util_deletemodal_complete<?= $category['id'] ?>" class="util_deletemodal_complete">
-            <p class="util_deletemodal_complete--text">削除されました。</p>
+          <div id="util_modalcont<?= $category['id'] ?>" class="util_modalcont">
+            <p class="util_modalcont_text">削除されました。</p>
           </div>
         </div>
-        <div id="no<?= $category['id'] ?>" class="tag_content_info none">
-            <p>タグのカテゴリーの説明：</p>
-            <p style="color: red"><?= $category['tag_category_desc'] ?></p>
+        <div id="no<?= $category['id'] ?>" class="tag-more none">
+            <p class="tag-more_label">タグのカテゴリーの説明：</p>
+            <div class="tag-more_desc">
+              <p class="tag-more_desc--text"><?= $category['tag_category_desc'] ?></p>
+            </div>
             
-            <p>このカテゴリーのタグの一覧：</p>
+            <p class="tag-more_label">このカテゴリーのタグの一覧：</p>
             <?php
             // タグ内容を表示
             $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
             $stmt->execute(array($category['id']));
             $tags = $stmt->fetchAll();
             ?>
-            <?php foreach ($tags as $tag) : ?>
-            <p style="color: red"><?= $tag['tag_option'] ?></p>
-            <?php endforeach; ?>
+            <!-- <div class="tag-more_flex"> -->
+              <?php foreach ($tags as $tag) : ?>
+              <div class="tag-more_tagcont">
+                <div class="tag-more_item">
+                  <p class="tag-more_item--text"><?= $tag['tag_option'] ?></p>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+              <?php endforeach; ?>
+            <!-- </div> -->
             <a href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>" class="tag_category_add">+ タグを編集・追加</a>
           </div>
         <?php endforeach; ?>
@@ -137,7 +146,7 @@ let clickfunction = function (id) {
 //ボタンをクリックした時の処理
 let deleteModal = function (id) {
           let modal = document.getElementById(`util_deletemodal${id}`);
-          let modalComplete = document.getElementById(`util_deletemodal_complete${id}`);
+          let modalComplete = document.getElementById(`util_modalcont${id}`);
           function modalOpen() {
             modal.style.display = 'block';
           };
@@ -146,7 +155,7 @@ let deleteModal = function (id) {
 
 let deleteFunction = function (id) {
           let modal = document.getElementById(`util_deletemodal${id}`);
-          let modalComplete = document.getElementById(`util_deletemodal_complete${id}`);
+          let modalComplete = document.getElementById(`util_modalcont${id}`);
           function deleteAgent() {
             modal.style.display = 'none';
             modalComplete.style.display = 'block';
@@ -156,7 +165,7 @@ let deleteFunction = function (id) {
 
     let closeFunction = function (id) {
           let modal = document.getElementById(`util_deletemodal${id}`);
-          let modalComplete = document.getElementById(`util_deletemodal_complete${id}`);
+          let modalComplete = document.getElementById(`util_modalcont${id}`);
           
           function modalClose() {
             modal.style.display = 'none';

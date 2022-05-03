@@ -3,7 +3,7 @@ require('../dbconnect.php');
 
 $id = $_GET['id'];
 
-$stmt = $db->prepare('DELETE FROM tag_categories WHERE id=?');
+$stmt = $db->prepare('DELETE FROM tag-categories WHERE id=?');
 
 if (!$stmt) {
   die($db->error);
