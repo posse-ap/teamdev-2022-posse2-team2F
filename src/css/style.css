@@ -222,7 +222,7 @@ a {
   height: 80vh;
   background-color: white;
   border: 1px solid #c4c4c4;
-  margin: 20px 20px 0 20px;
+  margin: 20px 50px 0 20px;
   position: relative;
 }
 
@@ -428,7 +428,7 @@ a {
           justify-content: space-between;
 }
 
-.util_modalcont .util_deletemodal .util_deletebuttons--item {
+.util_modalcont .util_deletemodal .util_deletebuttons_item {
   width: 220px;
   height: 80px;
   border-style: none;
@@ -439,11 +439,11 @@ a {
   cursor: pointer;
 }
 
-.util_modalcont .util_deletemodal .util_deletebuttons--item--no {
+.util_modalcont .util_deletemodal .util_deletebuttons_item--no {
   background-color: #91c9c4;
 }
 
-.util_modalcont .util_deletemodal .util_deletebuttons--item--yes {
+.util_modalcont .util_deletemodal .util_deletebuttons_item--yes {
   background-color: #cf7c7c;
 }
 
@@ -811,32 +811,59 @@ a {
   margin: 0;
 }
 
-.tag-more_flex {
+.tag-more .tag-items {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin-bottom: 10px;
 }
 
-.tag-more_tagcont {
-  background-color: #fff;
+.tag-more .tag-items .tag-item {
+  background: #fff;
+  padding: 3px 5px;
+  margin: 0 5px 0 0;
   border-radius: 15px;
-  margin-bottom: 5px;
-  padding: 1%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.tag-more_item {
+.tag-more .tag-items .tag-item_text {
   background: transparent;
-  border: 1px solid #CF7C7C;
-  padding: 1% 2%;
   border-radius: 15px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  margin: 0 10px 0 0;
+  padding: 2px 6px;
 }
 
-.tag-more_item--text {
-  margin: 0;
-  color: #CF7C7C;
+.tag-more .tag-items .tag-item_edit {
+  width: 22px;
+  height: 22px;
+  margin-left: 5px;
+  border-radius: 100%;
+  background: #7DCEA0;
+}
+
+.tag-more .tag-items .tag-item_delete {
+  width: 22px;
+  height: 22px;
+  margin-left: 5px;
+  border-radius: 100%;
+  background: #CF7C7C;
+  color: #fff;
+}
+
+.tag-more .tag-items i {
+  margin-left: 5px;
+  font-size: 0.8em;
+}
+
+.tag-more_add {
+  cursor: pointer;
+  color: #52a49a;
+  margin-left: 1vw;
 }
 
 .tag_category_add {

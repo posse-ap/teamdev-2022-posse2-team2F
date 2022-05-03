@@ -99,45 +99,37 @@ $categories = $stmt->fetchAll();
             $stmt->execute(array($category['id']));
             $tags = $stmt->fetchAll();
             ?>
-            <!-- <div class="tag-more_flex"> -->
+            <div class="tag-items">
               <?php foreach ($tags as $tag) : ?>
-              <div class="tag-more_tagcont">
-                <div class="tag-more_item">
-                  <p class="tag-more_item--text"><?= $tag['tag_option'] ?></p>
-                  <div></div>
-                  <div></div>
+                <div class="tag-item">
+                  <p class="tag-item_text" style="color: <?= $tag['tag_color'] ?>; border: 1px solid <?= $tag['tag_color'] ?>;"><?= $tag['tag_option'] ?></p>
+                  <a class="tag-item_edit" href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>&option=<?= $tag['id'] ?>">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <div class="tag-item_delete" onclick="deleteModal_option(<?= $tag['id'] ?>)" >
+                    <i class="fas fa-trash"></i>
+                  </div>
                 </div>
+              <!-- ここからオプション用の削除modal -->
+              <div id="option_modal<?= $tag['id'] ?>" class="util_modalcont">
+                <div class="util_deletemodal">
+
+                  <p class="util_deletemodal_alert">本当に削除しますか？</p>
+                  <div class="util_deletebuttons">
+                    <button class="util_deletebuttons_item util_deletebuttons_item--no" onclick="closeFunction_option(<?= $tag['id'] ?>)">いいえ</button>
+                    <a href="./delete_tag_option.php?id=<?= $tag['id'] ?>" style="text-decoration: none">
+                      <button class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction_option(<?= $tag['id'] ?>)">はい</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!-- ここから削除完了画面 -->
+              <div id="option_modal_complete<?= $tag['id'] ?>" class="util_modalcont">
+                <p class="util_modalcont_text">削除されました。</p>
               </div>
               <?php endforeach; ?>
-            <!-- </div> -->
-            <a href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>" class="tag_category_add">+ タグを編集・追加</a>
-            <?php foreach ($tags as $tag) : ?>
-            <div>
-              <p style="color: red"><?= $tag['tag_option'] ?></p>
-              <a href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>&option=<?= $tag['id'] ?>">
-                <i class="fas fa-edit"></i>
-              </a>
-              <i onclick="deleteModal_option(<?= $tag['id'] ?>)" class="fas fa-trash"></i>
             </div>
-            <!-- ここからオプション用の削除modal -->
-            <div id="option_modal<?= $tag['id'] ?>" class="modal">
-              <div class="modal_container">
-
-                <p class="alert">本当に削除しますか？</p>
-                <div class="delete_buttons">
-                  <button class="no" onclick="closeFunction_option(<?= $tag['id'] ?>)">いいえ</button>
-                  <a href="./delete_tag_option.php?id=<?= $tag['id'] ?>" style="text-decoration: none">
-                    <button class="yes" onclick="deleteFunction_option(<?= $tag['id'] ?>)">はい</button>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <!-- ここから削除完了画面 -->
-            <div id="option_modal_complete<?= $tag['id'] ?>" class="modal_complete">
-              <p>削除されました。</p>
-            </div>
-            <?php endforeach; ?>
-            <a href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>" class="tag_category_add">+ タグのオプションを追加</a>
+            <a href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>" class="tag-more_add">+ タグのオプションを追加</a>            
           </div>
         <?php endforeach; ?>
         <a href="./edit_tag_category.php?act=add" class="tag_category_add">+ カテゴリーを追加</a>
