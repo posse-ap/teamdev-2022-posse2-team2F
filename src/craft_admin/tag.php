@@ -19,6 +19,7 @@ $categories = $stmt->fetchAll();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 </head>
 
 <body>
@@ -110,6 +111,33 @@ $categories = $stmt->fetchAll();
               <?php endforeach; ?>
             <!-- </div> -->
             <a href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>" class="tag_category_add">+ タグを編集・追加</a>
+            <?php foreach ($tags as $tag) : ?>
+            <div>
+              <p style="color: red"><?= $tag['tag_option'] ?></p>
+              <a href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>&option=<?= $tag['id'] ?>">
+                <i class="fas fa-edit"></i>
+              </a>
+              <i onclick="deleteModal_option(<?= $tag['id'] ?>)" class="fas fa-trash"></i>
+            </div>
+            <!-- ここからオプション用の削除modal -->
+            <div id="option_modal<?= $tag['id'] ?>" class="modal">
+              <div class="modal_container">
+
+                <p class="alert">本当に削除しますか？</p>
+                <div class="delete_buttons">
+                  <button class="no" onclick="closeFunction_option(<?= $tag['id'] ?>)">いいえ</button>
+                  <a href="./delete_tag_option.php?id=<?= $tag['id'] ?>" style="text-decoration: none">
+                    <button class="yes" onclick="deleteFunction_option(<?= $tag['id'] ?>)">はい</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- ここから削除完了画面 -->
+            <div id="option_modal_complete<?= $tag['id'] ?>" class="modal_complete">
+              <p>削除されました。</p>
+            </div>
+            <?php endforeach; ?>
+            <a href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>" class="tag_category_add">+ タグのオプションを追加</a>
           </div>
         <?php endforeach; ?>
         <a href="./edit_tag_category.php?act=add" class="tag_category_add">+ カテゴリーを追加</a>
@@ -117,21 +145,13 @@ $categories = $stmt->fetchAll();
     </div>
   </div>
 
-  
 
-  
-
-
-  
-  
-  
-  
 
   <?php require('../_footer.php'); ?>
 
 <script>
 
-//ボタンをクリックした時の処理
+//詳細ボタンをクリックした時の処理
 let clickfunction = function (id) {
       let more = document.getElementById(`no${id}`);
       if (more.classList.contains("none")) {
@@ -143,7 +163,7 @@ let clickfunction = function (id) {
           }
 }
 
-//ボタンをクリックした時の処理
+//削除ボタンをクリックした時の処理
 let deleteModal = function (id) {
           let modal = document.getElementById(`util_deletemodal${id}`);
           let modalComplete = document.getElementById(`util_modalcont${id}`);
@@ -173,8 +193,34 @@ let deleteFunction = function (id) {
           modalClose();
     }
 
+//削除ボタンをクリックした時の処理
+let deleteModal_option = function (id) {
+          let modal = document.getElementById(`option_modal${id}`);
+          function modalOpen() {
+            modal.style.display = 'block';
+          };
+          modalOpen();
+}
 
-  
+let deleteFunction_option = function (id) {
+          let modal = document.getElementById(`option_modal${id}`);
+          let modalComplete = document.getElementById(`option_modal_complete${id}`);
+          function deleteAgent() {
+            modal.style.display = 'none';
+            modalComplete.style.display = 'block';
+          };
+          deleteAgent();
+    }
+
+    let closeFunction_option = function (id) {
+          let modal = document.getElementById(`option_modal${id}`);
+          
+          function modalClose() {
+            modal.style.display = 'none';
+          };
+          modalClose();
+    }
+
 </script>
 
 <style>

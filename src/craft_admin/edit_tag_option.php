@@ -3,8 +3,9 @@
 require('../dbconnect.php');
 
 // URLからIDを取得
-// if (isset($_GET['id'])) {
+if (isset($_GET['option'])) {
   $id = $_GET['id'];
+  $option_id = $_GET['option'];
 
   // 既存データの表示
   // $stmt = $db->query("SELECT * FROM tag_options WHERE category_id = '$id'");
@@ -19,63 +20,63 @@ require('../dbconnect.php');
     tag_options.category_id = '$id'");
   $result = $stmt->fetch();
 
-  // タグを選択するための SQL文
-  $stmt = $db->query("SELECT * FROM tag_options WHERE category_id = '$id'");
-  $tags = $stmt->fetchAll();
+  // 編集するタグを選択するための SQL文
+  $stmt = $db->query("SELECT * FROM tag_options WHERE category_id = '$id' AND id = '$option_id'");
+  $option = $stmt->fetch();
 
 
   if (isset($_POST['save'])) {
-    // 編集をしたい場合
-    $tag_option = $_POST['tag_option'];
-    
-    $sql = 'UPDATE tag_options
-          SET tag_option = ?
-          WHERE id = ?';
-    $stmt = $db->prepare($sql);
-    $stmt->execute(array($tag_option, $id));
-    
+    // タグの初期値等設定
+    // $value = $_POST['tag_name_new'];
 
+    $tag_name = $_POST['tag_name'];
+
+    $sql = "UPDATE tag_options 
+            SET tag_option = ?
+            WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($tag_name, $option_id));
+    
     header('Location: tag.php');
     exit;
+  } else {
+    // echo "失敗だね";
   }
 
-  if (isset($_POST['add'])) {
-    // 追加をしたい場合
-    $tag_option = $_POST['tag_option2'];
-    $category_id = $_GET['id'];
+  
+} else {
+  $id = $_GET['id'];
+  $option['tag_option'] = '';
 
-    $sql = 'INSERT INTO tag_options(tag_option, category_id)
-              VALUES (?, ?)';
-    $stmt = $db->prepare($sql);
-    $stmt->execute(array($tag_option, $category_id));    
+  // 既存データの表示
+  // $stmt = $db->query("SELECT * FROM tag_options WHERE category_id = '$id'");
+  $stmt = $db->query(
+    "SELECT 
+      tag_options.id, tag_options.category_id, tag_categories.tag_category, tag_options.tag_option
+    FROM 
+      tag_options
+    JOIN 
+      tag_categories ON tag_options.category_id = tag_categories.id
+    AND 
+      tag_options.category_id = '$id'");
+    $result = $stmt->fetch();
 
-    header('Location: tag.php');
-    exit;
-  }
-// } else {
-  // error_reporting(0);
-  // if($_GET['act']=="add") {
+    // タグのオプション追加
 
-  //   $result['tag_category'] = '';
-  //   $result['tag_category_desc'] = '';
+    if (isset($_POST['add'])) {
+      // 追加をしたい場合
+      $tag_option = $_POST['tag_option2'];
+      $category_id = $_GET['id'];
 
-  //   // エージェントを追加したい場合、このページに飛ばす際の URLに act=add を入れて分岐
-  //   if (isset($_POST['submit'])) {
+      $sql = 'INSERT INTO tag_options(tag_option, category_id)
+                VALUES (?, ?)';
+      $stmt = $db->prepare($sql);
+      $stmt->execute(array($tag_option, $category_id));    
 
-  //     $tag_category = $_POST['tag_category'];
-  //     $tag_category_desc = $_POST['tag_category_desc'];
-    
-  //     $sql = 'INSERT INTO tag_categories(tag_category, tag_category_desc)
-  //             VALUES (?, ?)';
-  //     $stmt = $db->prepare($sql);
-  //     $stmt->execute(array($tag_category, $tag_category_desc));
-
-  //     header('Location: tag.php');
-  //     exit;
-  //   }
-  // }
-
-
+      header('Location: tag.php');
+      exit;
+    }
+}
 
 ?>
 <?php
@@ -87,17 +88,17 @@ require('../dbconnect.php');
 // $categories = $stmt->fetchAll();
 
 // 更新処理
-if (isset($_POST['tag']) && is_array($_POST['tag'])) {
-  $tag = implode("、", $_POST["tag"]);
+// if (isset($_POST['tag']) && is_array($_POST['tag'])) {
+//   $tag = implode("、", $_POST["tag"]);
 
-  // $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
-  // $stmt = $db->prepare($sql);
-  // $stmt->execute(array($tag));
-  // $reload = "edit_tag_option.php?id=" . $id;
-  // header("Location:" . $reload);
-} else {
-  // echo 'チェックボックスの値を受け取れていません';
-}
+//   // $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
+//   // $stmt = $db->prepare($sql);
+//   // $stmt->execute(array($tag));
+//   // $reload = "edit_tag_option.php?id=" . $id;
+//   // header("Location:" . $reload);
+// } else {
+//   // echo 'チェックボックスの値を受け取れていません';
+// }
 
 ?>
 
@@ -132,19 +133,11 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
         <form action="" method="post" enctype="multipart/form-data">
           <p>
             <label for="tag_category">カテゴリー名</label>
-            <input type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required>
+            <input type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required readonly="readonly">
           </p>
           <p>
-            <label for="tag-list">編集するタグを選択</label>
-              <select name="tag-list">
-                <?php foreach ($tags as $tag) : ?>
-                <option value=""><?= $tag['tag_option'] ?></option>
-                <?php endforeach; ?>
-              </select>
-          </p>
-          <p>
-            <label for="tag_option">新しいタグ名</label>
-            <input type="text" name="tag_option" value="<?= $result['tag_option'] ?>" required>
+            <label for="tag_name">タグ名</label>
+            <input type="text" name="tag_name" value="<?= $option['tag_option'] ?>" required>
           </p>
           <input type="submit" value="変更を保存" name="save" class="manage_button">
         </form>
@@ -185,7 +178,7 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
              
               <?php foreach ($tags as $tag) : ?>
 
-                <input type="checkbox" name="tag[]" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
+                <input type="radio" name="tag" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
                 <label for="tag">
 
                   <?= $tag['tag_option'] ?>
