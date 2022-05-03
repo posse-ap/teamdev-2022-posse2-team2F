@@ -32,8 +32,8 @@ $categories = $stmt->fetchAll();
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>
       </div>
-      <div class="util_sidebar_button util_sidebar_button-selected">
-        <a class="util_sidebar_link util_sidebar_link-selected" href="/craft_admin/tag.php">タグ編集・追加</a>
+      <div class="util_sidebar_button util_sidebar_button--selected">
+        <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/tag.php">タグ編集・追加</a>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
@@ -61,8 +61,29 @@ $categories = $stmt->fetchAll();
             <a href="./edit_tag_category.php?id=<?= $category['id'] ?>" style="text-decoration: none">
               <button class="hensyu">編集</button>
             </a>
-            <button class="sakujyo" onclick="modalOpen()">削除</button>
+            <!-- <button class="sakujyo" onclick="modalOpen()">削除</button> -->
+            <button class="sakujyo" onclick="deleteModal(<?= $category['id'] ?>)">削除</button>
             <button class="shousai" onclick="clickfunction(<?= $category['id'] ?>)">詳細</button>
+          </div>
+          <!-- ここからmodal -->
+          <div id="util_deletemodal<?= $category['id'] ?>" class="util_deletemodal">
+            <div class="util_deletemodal_cont">
+
+              <p class="util_deletemodal_cont--alert">本当に削除しますか？</p>
+              <div class="util_deletemodal_cont_buttons">
+                <button class="util_deletemodal_cont_buttons--item util_deletemodal_cont_buttons--no" onclick="closeFunction(<?= $category['id'] ?>)">いいえ</button>
+                <a href="./delete_tag.php?id=<?= $category['id'] ?>" style="text-decoration: none">
+                  <!-- <button class="yes" onclick="deleteAgent()">はい -->
+                  <button class="util_deletemodal_cont_buttons--item util_deletemodal_cont_buttons--yes" onclick="deleteFunction(<?= $category['id'] ?>)">はい
+                  
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- ここから削除完了画面 -->
+          <div id="util_deletemodal_complete<?= $category['id'] ?>" class="util_deletemodal_complete">
+            <p class="util_deletemodal_complete--text">削除されました。</p>
           </div>
         </div>
         <div id="no<?= $category['id'] ?>" class="tag_content_info none">
@@ -87,24 +108,7 @@ $categories = $stmt->fetchAll();
     </div>
   </div>
 
-  <!-- ここからmodal -->
-  <div id="modal">
-    <div class="modal_container">
-
-      <p class="alert">本当に削除しますか？</p>
-      <div class="delete_buttons">
-        <button class="no" onclick="modalClose()">いいえ</button>
-        <a href="./delete_tag.php?id=<?= $category['id'] ?>" style="text-decoration: none">
-          <button class="yes" onclick="deleteAgent()">はい
-          </button>
-        </a>
-      </div>
-    </div>
-  </div>
-  <!-- ここから削除完了画面 -->
-  <div id="modal_complete">
-    <p>削除されました。</p>
-  </div>
+  
 
   
 
@@ -130,22 +134,35 @@ let clickfunction = function (id) {
           }
 }
 
-  const modal = document.getElementById('modal');
+//ボタンをクリックした時の処理
+let deleteModal = function (id) {
+          let modal = document.getElementById(`util_deletemodal${id}`);
+          let modalComplete = document.getElementById(`util_deletemodal_complete${id}`);
+          function modalOpen() {
+            modal.style.display = 'block';
+          };
+          modalOpen();
+}
 
-  const modalComplete = document.getElementById('modal_complete');
+let deleteFunction = function (id) {
+          let modal = document.getElementById(`util_deletemodal${id}`);
+          let modalComplete = document.getElementById(`util_deletemodal_complete${id}`);
+          function deleteAgent() {
+            modal.style.display = 'none';
+            modalComplete.style.display = 'block';
+          };
+          deleteAgent();
+    }
 
-  function modalOpen() {
-    modal.style.display = 'block';
-  };
-
-  function modalClose() {
-    modal.style.display = 'none';
-  };
-
-  function deleteAgent() {
-    modal.style.display = 'none';
-    modalComplete.style.display = 'block';
-  };
+    let closeFunction = function (id) {
+          let modal = document.getElementById(`util_deletemodal${id}`);
+          let modalComplete = document.getElementById(`util_deletemodal_complete${id}`);
+          
+          function modalClose() {
+            modal.style.display = 'none';
+          };
+          modalClose();
+    }
 
 
   

@@ -3,13 +3,13 @@
 require('../dbconnect.php');
 
 // URLからIDを取得
-if (isset($_GET['id'])) {
+// if (isset($_GET['id'])) {
   $id = $_GET['id'];
 
   // 既存データの表示
   // $stmt = $db->query("SELECT * FROM tag_options WHERE category_id = '$id'");
-  $stmt = $db->query("
-  SELECT 
+  $stmt = $db->query(
+  "SELECT 
     tag_options.id, tag_options.category_id, tag_categories.tag_category, tag_options.tag_option
   FROM 
     tag_options
@@ -19,22 +19,40 @@ if (isset($_GET['id'])) {
     tag_options.category_id = '$id'");
   $result = $stmt->fetch();
 
+  // タグを選択するための SQL文
+  $stmt = $db->query("SELECT * FROM tag_options WHERE category_id = '$id'");
+  $tags = $stmt->fetchAll();
 
-  if (isset($_POST['submit'])) {
+
+  if (isset($_POST['save'])) {
     // 編集をしたい場合
-    $tag_category = $_POST['tag_category'];
-    $tag_category_desc = $_POST['tag_category_desc'];
+    $tag_option = $_POST['tag_option'];
     
-    $sql = 'UPDATE tag_categories
-          SET tag_category = ?, tag_category_desc = ?
+    $sql = 'UPDATE tag_options
+          SET tag_option = ?
           WHERE id = ?';
     $stmt = $db->prepare($sql);
-    $stmt->execute(array($tag_category, $tag_category_desc, $id));
+    $stmt->execute(array($tag_option, $id));
+    
 
     header('Location: tag.php');
     exit;
   }
-} else {
+
+  if (isset($_POST['add'])) {
+    // 追加をしたい場合
+    $tag_option = $_POST['tag_option2'];
+    $category_id = $_GET['id'];
+
+    $sql = 'INSERT INTO tag_options(tag_option, category_id)
+              VALUES (?, ?)';
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($tag_option, $category_id));    
+
+    header('Location: tag.php');
+    exit;
+  }
+// } else {
   // error_reporting(0);
   // if($_GET['act']=="add") {
 
@@ -56,7 +74,7 @@ if (isset($_GET['id'])) {
   //     exit;
   //   }
   // }
-}
+
 
 
 ?>
@@ -96,8 +114,8 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>
       </div>
-      <div class="util_sidebar_button util_sidebar_button-selected">
-        <a class="util_sidebar_link util_sidebar_link-selected" href="">タグ編集・追加</a>
+      <div class="util_sidebar_button util_sidebar_button--selected">
+        <a class="util_sidebar_link util_sidebar_link--selected" href="">タグ編集・追加</a>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
@@ -117,14 +135,18 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
             <input type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required>
           </p>
           <p>
-            <label for="tag_category">タグ名</label>
-            <input type="text" name="tag_category" value="<?= $tag?>" required onclick="tag_modalOpen()">
+            <label for="tag_list">編集するタグを選択</label>
+              <select name="tag_list">
+                <?php foreach ($tags as $tag) : ?>
+                <option value=""><?= $tag['tag_option'] ?></option>
+                <?php endforeach; ?>
+              </select>
           </p>
-          <p class="agent_info_container">
-            <label for="tag_category_desc">タグの説明</label>
-            <textarea name="tag_category_desc" ><?= $result['tag_category_desc'] ?></textarea>
+          <p>
+            <label for="tag_option">新しいタグ名</label>
+            <input type="text" name="tag_option" value="<?= $result['tag_option'] ?>" required>
           </p>
-          <input type="submit" value="変更を保存" name="submit" class="manage_button">
+          <input type="submit" value="変更を保存" name="save" class="manage_button">
         </form>
       </div>
       
@@ -133,14 +155,10 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
         <h1>タグのオプションを追加</h1>
         <form action="" method="post" enctype="multipart/form-data">
           <p>
-            <label for="tag_category">タグ名</label>
-            <input type="text" name="tag_category" required>
+            <label for="tag_option2">タグ名</label>
+            <input type="text" name="tag_option2" required>
           </p>
-          <p class="agent_info_container">
-            <label for="tag_category_desc">タグの説明</label>
-            <textarea name="tag_category_desc" ></textarea>
-          </p>
-          <input type="submit" value="変更を保存" name="submit" class="manage_button">
+          <input type="submit" value="追加" name="add" class="manage_button">
         </form>
       </div>
 

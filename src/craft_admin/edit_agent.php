@@ -82,8 +82,8 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
 
 <div class="util_container">
     <div class="util_sidebar">
-      <div class="util_sidebar_button util_sidebar_button-selected">
-        <a class="util_sidebar_link util_sidebar_link-selected" href="/craft_admin/home.php">エージェント管理</a>
+      <div class="util_sidebar_button util_sidebar_button--selected">
+        <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/home.php">エージェント管理</a>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>

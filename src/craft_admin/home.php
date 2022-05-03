@@ -22,8 +22,8 @@ $results = $stmt->fetchAll();
   <?php require('../_header.php'); ?>
   <div class="util_container">
     <div class="util_sidebar">
-      <div class="util_sidebar_button util_sidebar_button-selected">
-        <a class="util_sidebar_link util_sidebar_link-selected" href="/craft_admin/home.php">エージェント管理</a>
+      <div class="util_sidebar_button util_sidebar_button--selected">
+        <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/home.php">エージェント管理</a>
 
       </div>
       <div class="util_sidebar_button">
@@ -42,47 +42,47 @@ $results = $stmt->fetchAll();
           エージェント管理
         </div>
       </h2>
-      <div class="home_content">
-        <div class="home_content_labels">
-          <div class="home_content_title">エージェント</div>
-          <div class="home_content_control">操作</div>
+      <div class="home_list">
+        <div class="home_list_labels">
+          <div class="home_list_labels--left">エージェント</div>
+          <div class="home_list_labels--right">操作</div>
 
         </div>
 
         <?php foreach ($results as $result) : ?>
-          <div class="home_content_agents">
+          <div class="home_list_agents">
 
-            <div class="home_content_ind">
+            <div class="home_list_agents_info">
 
-              <img src="./images/<?= $result['agent_pic'] ?>" alt="" style="height: 18.7vh">
-              <p><?= $result['agent_name'] ?></p>
+              <img class="home_list_agents_info--img" src="./images/<?= $result['agent_pic'] ?>" alt="" style="height: 18.7vh">
+              <p class="home_list_agents_info--name"><?= $result['agent_name'] ?></p>
             </div>
-            <div class="home_content_buttons">
+            <div class="home_list_agents_buttons">
               <a href="./edit_agent.php?id=<?= $result['id'] ?>" style="text-decoration: none">
 
-                <button class="hensyu">編集</button>
+                <button class="home_list_agents_buttons_item home_list_agents_buttons--edit">編集</button>
               </a>
 
               <!-- <button class="sakujyo" onclick="modalOpen()">削除</button> -->
-              <button class="sakujyo" onclick="deleteModal(<?= $result['id'] ?>)">削除</button>
+              <button class="home_list_agents_buttons_item home_list_agents_buttons--delete" onclick="deleteModal(<?= $result['id'] ?>)">削除</button>
 
 
 
               <a href="" style="text-decoration: none">
-                <button class="moushikomi">申込一覧</button>
+                <button class="home_list_agents_buttons_item home_list_agents_buttons--list">申込一覧</button>
             </div>
             </a>
           </div>
           <!-- ここからmodal -->
-          <div id="modal<?= $result['id'] ?>" class="modal">
-            <div class="modal_container">
+          <div id="util_deletemodal<?= $result['id'] ?>" class="util_deletemodal">
+            <div class="util_deletemodal_cont">
 
-              <p class="alert">本当に削除しますか？</p>
-              <div class="delete_buttons">
-                <button class="no" onclick="closeFunction(<?= $result['id'] ?>)">いいえ</button>
+              <p class="util_deletemodal_cont--alert">本当に削除しますか？</p>
+              <div class="util_deletemodal_cont_buttons">
+                <button class="util_deletemodal_cont_buttons--item util_deletemodal_cont_buttons--no" onclick="closeFunction(<?= $result['id'] ?>)">いいえ</button>
                 <a href="./delete_agent.php?id=<?= $result['id'] ?>" style="text-decoration: none">
                   <!-- <button class="yes" onclick="deleteAgent()">はい -->
-                  <button class="yes" onclick="deleteFunction(<?= $result['id'] ?>)">はい
+                  <button class="util_deletemodal_cont_buttons--item util_deletemodal_cont_buttons--yes" onclick="deleteFunction(<?= $result['id'] ?>)">はい
                   
                   </button>
                 </a>
@@ -90,8 +90,8 @@ $results = $stmt->fetchAll();
             </div>
           </div>
           <!-- ここから削除完了画面 -->
-          <div id="modal_complete<?= $result['id'] ?>" class="modal_complete">
-            <p>削除されました。</p>
+          <div id="util_deletemodal_complete<?= $result['id'] ?>" class="util_deletemodal_complete">
+            <p class="util_deletemodal_complete--text">削除されました。</p>
           </div>
         <?php endforeach; ?>
       </div>
@@ -106,8 +106,7 @@ $results = $stmt->fetchAll();
   <script>
     //ボタンをクリックした時の処理
     let deleteModal = function (id) {
-          let modal = document.getElementById(`modal${id}`);
-          let modalComplete = document.getElementById(`modal_complete${id}`);
+          let modal = document.getElementById(`util_deletemodal${id}`);
           function modalOpen() {
             modal.style.display = 'block';
           };
@@ -115,8 +114,8 @@ $results = $stmt->fetchAll();
     }
 
     let deleteFunction = function (id) {
-          let modal = document.getElementById(`modal${id}`);
-          let modalComplete = document.getElementById(`modal_complete${id}`);
+          let modal = document.getElementById(`util_deletemodal${id}`);
+          let modalComplete = document.getElementById(`util_deletemodal_complete${id}`);
           function deleteAgent() {
             modal.style.display = 'none';
             modalComplete.style.display = 'block';
@@ -125,8 +124,7 @@ $results = $stmt->fetchAll();
     }
 
     let closeFunction = function (id) {
-          let modal = document.getElementById(`modal${id}`);
-          let modalComplete = document.getElementById(`modal_complete${id}`);
+          let modal = document.getElementById(`util_deletemodal${id}`);
           
           function modalClose() {
             modal.style.display = 'none';
