@@ -26,10 +26,10 @@ if (isset($_POST['submit'])) {
   }
 
 
-  // $sql = 'INSERT INTO agents(agent_name, agent_tag, agent_info, agent_display) 
-  //         VALUES (?, ?, ?, ?)';
-  // $stmt = $db->prepare($sql);
-  // $stmt->execute(array($agent_name, $agent_tag, $agent_info, $agent_display));
+  $sql = 'INSERT INTO agents(agent_name, agent_tag, agent_info, agent_display) 
+          VALUES (?, ?, ?, ?)';
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($agent_name, $agent_tag, $agent_info, $agent_display));
 
   // 画像更新
   $target_dir = "images/";
