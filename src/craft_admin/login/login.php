@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../dbconnect.php');
+require('../../dbconnect.php');
 // require('/dbconnect.php');
 
 
@@ -36,20 +36,20 @@ if (isset($_POST['login'])) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/src/css/normalize.css">
-  <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
   <title>管理者ログイン</title>
 </head>
 
 <body>
-  <?php include '../_header.php'; ?>
+  <?php include '../../_header.php'; ?>
   <div class="login_container">
 
     <div class="login_box">
       <h1 class="login_title">管理者ログイン</h1>
       <?php if ($err_msg !== null && $err_msg !== '') { echo $err_msg .  "<br>";} ?>
-      <form action="/craft_admin/login.php" method="POST">
+      <form action="/craft_admin/login/login.php" method="POST">
       <p class="login_text">
         <label for="email">メールアドレス</label>
         <input class="login_textbox" type="email" name="email" required>
@@ -73,6 +73,6 @@ if (isset($_POST['login'])) {
   </div>
 </body>
 
-<?php require ("../_footer.php"); ?>
+<?php require ("../../_footer.php"); ?>
 
 </html>

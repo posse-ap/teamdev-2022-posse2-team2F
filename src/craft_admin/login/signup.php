@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../dbconnect.php');
+require('../../dbconnect.php');
 
 if (isset($_POST['signup'])) {
   $email = $_POST['email'];
@@ -16,7 +16,7 @@ if (isset($_POST['signup'])) {
     $stmt->execute(array($email, $password, $password_conf));
     $stmt = null;
     $db = null;
-    header('Location: http://localhost/craft_admin/signup_done.php');
+    header('Location: http://localhost/craft_admin/login/signup_done.php');
     exit;
   }
 }
