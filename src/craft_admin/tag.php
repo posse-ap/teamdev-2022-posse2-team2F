@@ -71,10 +71,10 @@ $categories = $stmt->fetchAll();
 
               <p class="util_deletemodal_alert">本当に削除しますか？</p>
               <div class="util_deletebuttons">
-                <button class="util_deletebuttons_item util_deletebuttons--no" onclick="closeFunction(<?= $category['id'] ?>)">いいえ</button>
+                <button class="util_deletebuttons_item util_deletebuttons_item--no" onclick="closeFunction(<?= $category['id'] ?>)">いいえ</button>
                 <a href="./delete_tag.php?id=<?= $category['id'] ?>" style="text-decoration: none">
                   <!-- <button class="yes" onclick="deleteAgent()">はい -->
-                  <button class="util_deletebuttons_item util_deletebuttons--yes" onclick="deleteFunction(<?= $category['id'] ?>)">はい
+                  <button class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction(<?= $category['id'] ?>)">はい
                   
                   </button>
                 </a>

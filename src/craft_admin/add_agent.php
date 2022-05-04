@@ -26,10 +26,10 @@ if (isset($_POST['submit'])) {
   }
 
 
-  $sql = 'INSERT INTO agents(agent_name, agent_tag, agent_info, agent_display) 
-          VALUES (?, ?, ?, ?)';
-  $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $agent_tag, $agent_info, $agent_display));
+  // $sql = 'INSERT INTO agents(agent_name, agent_tag, agent_info, agent_display) 
+  //         VALUES (?, ?, ?, ?)';
+  // $stmt = $db->prepare($sql);
+  // $stmt->execute(array($agent_name, $agent_tag, $agent_info, $agent_display));
 
   // 画像更新
   $target_dir = "images/";
@@ -67,7 +67,7 @@ $stmt = $db->query('SELECT * FROM tag_categories');
 $categories = $stmt->fetchAll();
 
 // 更新処理
-error_reporting(0);
+// error_reporting(0);
 if (isset($_POST['tag']) && is_array($_POST['tag'])) {
   $tag = implode("、", $_POST["tag"]);
 
@@ -89,8 +89,6 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
 <?php require('../_header.php'); ?>
 
 
-
-<!-- haiuoiahjksldf -->
 
 <div class="util_container">
     <div class="util_sidebar">

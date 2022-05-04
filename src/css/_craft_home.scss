@@ -1,9 +1,12 @@
 .util_container {
-  height: 100%;
+  // height: 100%;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   background-color: #ebedf1;
 }
+
+// max-width 使う
+
 
 .util_sidebar {
   width: 180px;
@@ -36,6 +39,8 @@
 }
 
 .util_content {
+  // 乱用すると面倒臭い はみ出すなど、%感覚で使うとずれたりする、原因見つけるのに時間がかかる
+  // コンテナを無視するなど面倒臭い
   width: 80vw;
   height: 80vh;
   background-color: white;
@@ -54,11 +59,14 @@
     // padding-left: 10px;
     // padding-right: 20px;
     .util_title {
-      font-size: 30px;
+      font-size: 20px;
       padding-left: 20px;
     }
   }
 }
+
+
+
 
 .home-list {
   width: 64vw;
@@ -68,6 +76,7 @@
   left: calc(50% - 32vw);
   top: calc(50% - 27vh);
   overflow-x: scroll;
+
   &_labels {
     width: 64vw;
     height: 30px;
@@ -93,7 +102,7 @@
       color: white;
     }
   }
-  }
+}
 
 .home-agents {
   display: flex;
@@ -211,14 +220,14 @@
         }
       }
     }
-    &_text {
-      font-size: 46px;
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translateY(-50%) translateX(-50%);
-      -webkit-transform: translateY(-50%) translateX(-50%);
-    }
+  }
+  &_text {
+    font-size: 46px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
   }
 }
 

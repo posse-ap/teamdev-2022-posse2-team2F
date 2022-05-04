@@ -94,7 +94,7 @@ a {
 
 .login_container {
   width: 100%;
-  height: 75vh;
+  height: 82vh;
   background-color: #EBEDF1;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -105,7 +105,7 @@ a {
 }
 
 .login_box {
-  height: 500px;
+  height: 75vh;
   width: 750px;
   margin: 0px auto;
   text-align: center;
@@ -171,13 +171,9 @@ a {
 }
 
 .util_container {
-  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   background-color: #ebedf1;
 }
 
@@ -241,7 +237,7 @@ a {
 }
 
 .util_content h2 .util_title {
-  font-size: 30px;
+  font-size: 20px;
   padding-left: 20px;
 }
 
@@ -447,7 +443,7 @@ a {
   background-color: #cf7c7c;
 }
 
-.util_modalcont .util_deletemodal_text {
+.util_modalcont_text {
   font-size: 46px;
   position: absolute;
   top: 40%;

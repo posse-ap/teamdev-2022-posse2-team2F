@@ -27,15 +27,15 @@ if (isset($_GET['option'])) {
 
   if (isset($_POST['save'])) {
     // タグの初期値等設定
-    // $value = $_POST['tag_name_new'];
 
     $tag_name = $_POST['tag_name'];
+    $tag_color = $_POST['tag_color'];
 
     $sql = "UPDATE tag_options 
-            SET tag_option = ?
+            SET tag_option = ?, tag_color = ?
             WHERE id = ?";
     $stmt = $db->prepare($sql);
-    $stmt->execute(array($tag_name, $option_id));
+    $stmt->execute(array($tag_name, $tag_color, $option_id));
     
     header('Location: tag.php');
     exit;
@@ -47,6 +47,7 @@ if (isset($_GET['option'])) {
 } else {
   $id = $_GET['id'];
   $option['tag_option'] = '';
+  $option['tag_color'] = '';
 
   // 既存データの表示
   // $stmt = $db->query("SELECT * FROM tag_options WHERE category_id = '$id'");
@@ -65,13 +66,14 @@ if (isset($_GET['option'])) {
 
     if (isset($_POST['add'])) {
       // 追加をしたい場合
-      $tag_option = $_POST['tag_option2'];
       $category_id = $_GET['id'];
+      $tag_name_new = $_POST['tag_name_new'];
+      $tag_color_new = $_POST['tag_color_new'];
 
-      $sql = 'INSERT INTO tag_options(tag_option, category_id)
-                VALUES (?, ?)';
+      $sql = 'INSERT INTO tag_options(category_id, tag_option, tag_color)
+                VALUES (?, ?, ?)';
       $stmt = $db->prepare($sql);
-      $stmt->execute(array($tag_option, $category_id));    
+      $stmt->execute(array($category_id, $tag_name_new, $tag_color_new));    
 
       header('Location: tag.php');
       exit;
@@ -139,6 +141,10 @@ if (isset($_GET['option'])) {
             <label for="tag_name">タグ名</label>
             <input type="text" name="tag_name" value="<?= $option['tag_option'] ?>" required>
           </p>
+          <p>
+            <label for="tag_color">タグ色</label>
+            <input type="text" name="tag_color" value="<?= $option['tag_color'] ?>" required>
+          </p>
           <input type="submit" value="変更を保存" name="save" class="manage_button">
         </form>
       </div>
@@ -148,8 +154,16 @@ if (isset($_GET['option'])) {
         <h1>タグのオプションを追加</h1>
         <form action="" method="post" enctype="multipart/form-data">
           <p>
-            <label for="tag_option2">タグ名</label>
-            <input type="text" name="tag_option2" required>
+            <label for="tag_category">カテゴリー名</label>
+            <input type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required readonly="readonly">
+          </p>
+          <p>
+            <label for="tag_name_new">タグ名</label>
+            <input type="text" name="tag_name_new" required>
+          </p>
+          <p>
+            <label for="tag_color_new">タグ色</label>
+            <input type="text" name="tag_color_new" required>
           </p>
           <input type="submit" value="追加" name="add" class="manage_button">
         </form>
