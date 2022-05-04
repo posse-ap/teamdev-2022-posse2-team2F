@@ -1,9 +1,12 @@
 .util_container {
-  height: 100%;
+  // height: 100%;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   background-color: #ebedf1;
 }
+
+// max-width 使う
+
 
 .util_sidebar {
   width: 180px;
@@ -36,11 +39,13 @@
 }
 
 .util_content {
+  // 乱用すると面倒臭い はみ出すなど、%感覚で使うとずれたりする、原因見つけるのに時間がかかる
+  // コンテナを無視するなど面倒臭い
   width: 80vw;
   height: 80vh;
   background-color: white;
   border: 1px solid #c4c4c4;
-  margin: 20px 20px 0 20px;
+  margin: 20px 50px 0 20px;
   position: relative;
 
   h2 {
@@ -54,48 +59,52 @@
     // padding-left: 10px;
     // padding-right: 20px;
     .util_title {
-      font-size: 30px;
+      font-size: 20px;
       padding-left: 20px;
-    }
-  }
-
-  .home_list {
-    width: 64vw;
-    height: 64vh;
-    border: 1px solid #91c9c4;
-    position: absolute;
-    left: calc(50% - 32vw);
-    top: calc(50% - 27vh);
-    overflow-x: scroll;
-    &_labels {
-      width: 64vw;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      &--left {
-        width: 44.8vw;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #52a49a;
-        color: white;
-        border-right: 1px solid #91c9c4;
-      }
-      &--right {
-        width: 19.2vw;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #52a49a;
-        color: white;
-      }
     }
   }
 }
 
-.home_list_agents {
+
+
+
+.home-list {
+  width: 64vw;
+  height: 64vh;
+  border: 1px solid #91c9c4;
+  position: absolute;
+  left: calc(50% - 32vw);
+  top: calc(50% - 27vh);
+  overflow-x: scroll;
+
+  &_labels {
+    width: 64vw;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    &--left {
+      width: 44.8vw;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #52a49a;
+      color: white;
+      border-right: 1px solid #91c9c4;
+    }
+    &--right {
+      width: 19.2vw;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #52a49a;
+      color: white;
+    }
+  }
+}
+
+.home-agents {
   display: flex;
   overflow-x: scroll;
   &_info {
@@ -128,37 +137,37 @@
     justify-content: space-around;
     align-items: center;
     box-shadow: -1px 3px 3px #c4c4c4;
-    &_item {
-      width: 6.25vw;
-      height: 4.4vh;
-      border-style: none;
-      font-size: 1vw;
-      box-shadow: 0px 3px 3px #c4c4c4;
-      cursor: pointer;
-    }
-  
-    &--edit {
-      background-color: #91c9c4;
-      color: white;
-    }
-  
-    &--delete {
-      background-color: #cf7c7c;
-      color: white;
-    }
-  
-    &--list {
-      background-color: #c4c4c4;
-      color: white;
-    }
+    // a {
+    //   text-decoration: none;
+    // }
   }
 }
 
+.util_action_button {
+  width: 6.25vw;
+  height: 4.4vh;
+  border-style: none;
+  font-size: 1vw;
+  box-shadow: 0px 3px 3px #c4c4c4;
+  cursor: pointer;
 
+  &--edit {
+    background-color: #91c9c4;
+    color: white;
+  }
 
+  &--delete {
+    background-color: #cf7c7c;
+    color: white;
+  }
 
+  &--list {
+    background-color: #c4c4c4;
+    color: white;
+  }
+}
 
-.util_deletemodal {
+.util_modalcont {
   width: 900px;
   height: 500px;
   display: none;
@@ -171,25 +180,30 @@
   transform: translateY(-50%) translateX(-50%);
   -webkit-transform: translateY(-50%) translateX(-50%);
 
-  &_cont {
+  .util_deletemodal {
     width: 900px;
     height: 500px;
     position: relative;
 
-    &--alert {
+    &_alert {
       position: relative;
       font-size: 46px;
       text-align: center;
       margin-top: 100px;
     }
 
-    &_buttons {
+    .util_deletebuttons {
       position: relative;
       width: 600px;
       margin: 120px auto;
       display: flex;
       justify-content: space-between;
-      &--item {
+
+      // a {
+      //   text-decoration: none;
+      // }
+
+      &_item {
         width: 220px;
         height: 80px;
         border-style: none;
@@ -197,30 +211,17 @@
         color: white;
         box-shadow: 0px 6px 6px #c4c4c4;
         cursor: pointer;
-      }
-      &--no {
-        background-color: #91c9c4;
-      }
-      &--yes {
-        background-color: #cf7c7c;
+
+        &--no {
+          background-color: #91c9c4;
+        }
+        &--yes {
+          background-color: #cf7c7c;
+        }
       }
     }
   }
-}
-
-.util_deletemodal_complete {
-  width: 900px;
-  height: 500px;
-  display: none;
-  background-color: white;
-  border: 1px solid black;
-  z-index: 1;
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translateY(-50%) translateX(-50%);
-  -webkit-transform: translateY(-50%) translateX(-50%);
-  &--text {
+  &_text {
     font-size: 46px;
     position: absolute;
     top: 40%;
@@ -229,3 +230,6 @@
     -webkit-transform: translateY(-50%) translateX(-50%);
   }
 }
+
+
+

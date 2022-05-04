@@ -157,18 +157,19 @@ DROP TABLE IF EXISTS tag_options;
 CREATE TABLE tag_options (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   category_id INT NOT NULL,
-  tag_option VARCHAR(255) NOT NULL
+  tag_option VARCHAR(255) NOT NULL,
+  tag_color VARCHAR(255) NOT NULL
 );
 
-INSERT INTO tag_options(category_id, tag_option)
+INSERT INTO tag_options(category_id, tag_option, tag_color)
 VALUES
-  (1,'ベンチャー'),
-  (1,'大手'),
-  (2,'ベンチャー'),
-  (2,'大手'),
-  (3,'300社〜'),
-  (3,'500社〜'),
-  (3,'1000社〜');
+  (1,'ベンチャー', '#CF7C7C'),
+  (1,'大手', '#7C85CF'),
+  (2,'ベンチャー', '#CF7C7C'),
+  (2,'大手', '#7C85CF'),
+  (3,'300社〜', '#CF7C7C'),
+  (3,'500社〜', '#7C85CF'),
+  (3,'1000社〜', '#F3AF56');
 
 
 
