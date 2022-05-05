@@ -5,11 +5,6 @@
 require('../dbconnect.php');
 
 
-// URLからIDを取得 = 必要なし
-
-
-// 既存データの表示 = 必要なし
-
 
 // 画像以外の更新
 
@@ -68,25 +63,29 @@ $categories = $stmt->fetchAll();
 
 // 更新処理
 // error_reporting(0);
-if (isset($_POST['tag']) && is_array($_POST['tag'])) {
-  $tag = implode("、", $_POST["tag"]);
+// if (isset($_POST['tag']) && is_array($_POST['tag'])) {
+//   $tag = implode("、", $_POST["tag"]);
 
-//   $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
-//   $stmt = $db->prepare($sql);
-//   $stmt->execute(array($tag));
-//   $reload = "edit.php?id=" . $id;
-//   header("Location:" . $reload);
-// } else {
-  // echo 'チェックボックスの値を受け取れていません';
-}
+// //   $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
+// //   $stmt = $db->prepare($sql);
+// //   $stmt->execute(array($tag));
+// //   $reload = "edit.php?id=" . $id;
+// //   header("Location:" . $reload);
+// // } else {
+//   // echo 'チェックボックスの値を受け取れていません';
+// }
 
 ?>
+
+
 
 
 <!DOCTYPE html>
 <html>
 <body>
 <?php require('../_header.php'); ?>
+
+
 
 
 
@@ -120,7 +119,7 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
           </p>
           <p>
             <label for="agent_tag">エージェントタグ</label>
-            <input type="text" name="agent_tag" required onclick="tag_modalOpen()" class="trigger" value="<?= $tag?>" id="input">
+            <input type="text" name="agent_tag" required onclick="tag_modalOpen()" class="trigger" value="" id="input">
           </p>
           <p class="agent_img">
             <label for="agent_pic">エージェント画像</label>
@@ -174,6 +173,31 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
 </div>
 
 <!-- ここからtag_modal -->
+
+<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
+<script>
+  $(function(){
+    $('#confirm_button').on('click', function() {
+        // $('input[name=tags]:checked').each(function() {
+        //   var value = '<span>'+$(this).val()+'</span>'
+        //   $('#input').val($(value));
+        // });
+
+        var string = "";
+        $("input[name=tags]:checked").each(function() {
+          // if ($("input[name=tags]:checked").length > 1) { 
+            // string += $(this).val()+'、';
+          // } else {
+            string += $(this).val()+' ';
+          // }  
+          
+        });
+        $("#input").val(string);
+    });
+  });
+</script>
+
+
 <div id="tag_modal" class="tag_modal">
     <form action="" method="POST">
 
@@ -195,7 +219,7 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
             <div class="tag_modal_container--tag_tags">
               <?php foreach ($tags as $tag) : ?>
 
-                <input type="checkbox" name="tag[]" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
+                <input type="checkbox" name="tags" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
                 <label for="tag">
 
                   <?= $tag['tag_option'] ?>
@@ -206,8 +230,8 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
           </div>
         <?php endforeach; ?>
         <div class="tag_modal_container--buttons">
-          <button onclick="tag_modalClose()" class="tag_modalClose">戻る</button>
-          <input type="submit" value="決定" class="tag_decision">
+          <button onclick="tag_modalClose()" type="button" class="tag_modalClose">戻る</button>
+          <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision">決定</button>
         </div>
 
     </form>
