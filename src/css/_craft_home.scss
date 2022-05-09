@@ -1,7 +1,6 @@
 .util_container {
   height: 100%;
   display: flex;
-  justify-content: space-between;
   background-color: #ebedf1;
 }
 
@@ -36,7 +35,7 @@
 }
 
 .util_content {
-  width: 80vw;
+  // width: 80vw;
   height: 80vh;
   background-color: white;
   border: 1px solid #c4c4c4;
