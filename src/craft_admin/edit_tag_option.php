@@ -143,7 +143,7 @@ if (isset($_GET['option'])) {
           </p>
           <p>
             <label for="tag_color">タグ色</label>
-            <input type="text" name="tag_color" value="<?= $option['tag_color'] ?>" required>
+            <input type="color" name="tag_color" value="<?= $option['tag_color'] ?>" required>
           </p>
           <input type="submit" value="変更を保存" name="save" class="manage_button">
         </form>
@@ -163,7 +163,7 @@ if (isset($_GET['option'])) {
           </p>
           <p>
             <label for="tag_color_new">タグ色</label>
-            <input type="text" name="tag_color_new" required>
+            <input type="color" name="tag_color_new" required>
           </p>
           <input type="submit" value="追加" name="add" class="manage_button">
         </form>
