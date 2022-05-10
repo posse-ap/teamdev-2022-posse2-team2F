@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
   $agent_tag = $_POST['agent_tag'];
   $agent_info = $_POST['agent_info'];
   // $agent_display = $_POST['agent_display'];
-  if(isset($_POST['agent_display'])) {
+  if (isset($_POST['agent_display'])) {
     // セレクトボックスで選択された値を受け取る
     $agent_display = $_POST['agent_display'];
   }
@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
   // 画像更新
   $target_dir = "images/";
   $target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
-  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+  $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
   // 予想
   // INSERT INTO文 は一回で書かないとだから、編集画面みたいに分けて書けない
@@ -82,14 +82,15 @@ $categories = $stmt->fetchAll();
 
 <!DOCTYPE html>
 <html>
+
 <body>
-<?php require('../_header.php'); ?>
+  <?php require('../_header.php'); ?>
 
 
 
 
 
-<div class="util_container">
+  <div class="util_container">
     <div class="util_sidebar">
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/home.php">エージェント管理</a>
@@ -107,28 +108,40 @@ $categories = $stmt->fetchAll();
     <div class="util_content">
       <h2>
         <div class="util_title">
-        エージェント追加
+          エージェント追加
         </div>
       </h2>
-      <div class="edit_agent_information">
 
+
+      <!-- <div class="change">
         <form action="" method="post" enctype="multipart/form-data">
-          <p>
-            <label for="agent_name">エージェント名：</label>
-            <input  type="text" name="agent_name" required id="agent_name"/>
-          </p>
-          <p>
-            <label for="agent_tag">エージェントタグ</label>
-            <input type="text" name="agent_tag" required onclick="tag_modalOpen()" class="trigger" value="" id="input">
-          </p>
-          <p class="agent_img">
+          <div class="agent_img">
             <label for="agent_pic">エージェント画像</label>
-            <!-- </div> -->
-            <!-- <input type="image" src=" ?>" style="width: 500px"> -->
             <textarea id="add_image" name="agent_pic_blank" readonly="readonly" style="width: 48vw; height: 15vh; overflow-x: scroll;"></textarea>
             <img id="add_preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
             <label for="image" class="file_upload_button" onclick="upload_file()">+ ファイルをアップロード</label>
             <input id="image" type="file" name="agent_pic" accept='image/*' onchange="previewImage(this);">
+            
+          </div>
+        </form>
+      </div> -->
+
+      <div class="change">
+        <form action="" method="post" enctype="multipart/form-data">
+          <div class="change_item">
+            <label class="change_item--label" for="agent_name">エージェント名</label>
+            <input class="change_item--input" type="text" name="agent_name" required>
+          </div> 
+          <div class="change_item">
+            <label class="change_item--label" for="agent_tag">エージェントタグ</label>
+            <input class="change_item--input" type="text" name="agent_tag" required onclick="tag_modalOpen()" id="input">
+          </div>
+          <div class="change_item preview">
+            <label class="change_item--label" for="agent_pic">エージェント画像</label>
+            <img class="preview_img" src="images/grey.png" id="add_image" style="height: 15vh;"></img>
+            <img class="preview_img preview_img--hide" id="add_preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+            <label class="change_item--button" for="image" onclick="upload_file()">+ ファイルをアップロード</label>
+            <input class="change_item--image preview_input" id="image" type="file" name="agent_pic" accept='image/*' onchange="previewImage(this);">
             <script>
               function previewImage(obj) {
                 var fileReader = new FileReader();
@@ -147,35 +160,37 @@ $categories = $stmt->fetchAll();
 
               }
             </script>
-          </p>
-          <p class="agent_info_container">
-            <label for="agent_info">エージェント説明</label>
-            <textarea name="agent_info" ></textarea>
-          </p>
-          <p class="agent_term">
-            <label for="agent_display">エージェント掲載期間</label>
-              <select name="agent_display">
-                <option value="1">1ヶ月</option>
-                <option value="3">3ヶ月</option>
-                <option value="6">6ヶ月</option>
-                <option value="12">12ヶ月</option>
-              </select>
-          </p>
-          
-          <input type="submit" value="変更を保存" name="submit" class="manage_button">
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_info">エージェント説明</label>
+            <textarea class="change_item--textarea" name="agent_info"></textarea>
+          </div>
+          <div class="change_item dropdown">
+            <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
+            <select class="change_item--select" name="agent_display">
+              <option value="1">1ヶ月</option>
+              <option value="3">3ヶ月</option>
+              <option value="6">6ヶ月</option>
+              <option value="12">12ヶ月</option>
+            </select>
+          </div>
+          <input class="change_button" type="submit" value="変更を保存" name="submit" >
         </form>
-          
       </div>
 
+
+
+
+
     </div>
-</div>
+  </div>
 
-<!-- ここからtag_modal -->
+  <!-- ここからtag_modal -->
 
-<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
-<script>
-  $(function(){
-    $('#confirm_button').on('click', function() {
+  <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
+  <script>
+    $(function() {
+      $('#confirm_button').on('click', function() {
         // $('input[name=tags]:checked').each(function() {
         //   var value = '<span>'+$(this).val()+'</span>'
         //   $('#input').val($(value));
@@ -184,19 +199,19 @@ $categories = $stmt->fetchAll();
         var string = "";
         $("input[name=tags]:checked").each(function() {
           // if ($("input[name=tags]:checked").length > 1) { 
-            // string += $(this).val()+'、';
+          // string += $(this).val()+'、';
           // } else {
-            string += $(this).val()+' ';
+          string += $(this).val() + ' ';
           // }  
-          
+
         });
         $("#input").val(string);
+      });
     });
-  });
-</script>
+  </script>
 
 
-<div id="tag_modal" class="tag_modal">
+  <div id="tag_modal" class="tag_modal">
     <form action="" method="POST">
 
       <div class="tag_modal_container">
@@ -250,8 +265,10 @@ $categories = $stmt->fetchAll();
     }
   </script>
 </body>
+
 </html>
 
 
 </body>
+
 </html>
