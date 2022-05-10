@@ -853,17 +853,17 @@ a {
   margin-left: 1vw;
 }
 
-.tag_information {
-  width: 64vw;
-  margin: 15px 30px;
+.changetag {
+  width: 50vw;
+  margin: 15px 100px 15px 30px;
 }
 
-.tag_information h1 {
+.changetag_title {
   font-size: 1.5vw;
 }
 
-.tag_information p {
-  width: 70vw;
+.changetag_item {
+  width: 50vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -876,25 +876,15 @@ a {
   margin-bottom: 15px;
 }
 
-.tag_information p label {
+.changetag_item--label {
   font-size: 1.3vw;
   font-weight: 500;
 }
 
-.tag_information p input {
+.changetag_item--textarea {
   padding-left: 10px;
-  width: 48vw;
-  height: 3.5vh;
-  border-style: none;
-  background-color: #ebedf1;
-  border-radius: 1vh;
-  font-size: 1.4vw;
-}
-
-.tag_information p textarea {
-  padding-left: 10px;
-  width: 48vw;
-  height: 3.5vh;
+  width: 40vw;
+  height: 7vh;
   border-style: none;
   background-color: #ebedf1;
   border-radius: 1vh;
@@ -902,36 +892,35 @@ a {
   color: black;
 }
 
-.tag_information p #image {
-  background-color: transparent;
-}
-
-.tag_information .agent_info_container textarea {
-  width: 48vw;
-  height: 15vh;
-  overflow-x: scroll;
-}
-
-.tag_information .agent_term {
-  width: 33.3vw;
-  margin-bottom: 10px;
-}
-
-.tag_information .agent_term select {
-  width: 12vw;
+.changetag_item--input {
+  padding-left: 10px;
+  width: 25vw;
   height: 3.5vh;
   border-style: none;
   background-color: #ebedf1;
   border-radius: 1vh;
+  font-size: 1.4vw;
+  margin-right: 40px;
 }
 
-.tag_information .manage_button {
+.changetag_item--color {
+  padding: 2px 10px;
+  width: 15vw;
+  height: 3.5vh;
+  border-style: none;
+  background-color: #ebedf1;
+  border-radius: 1vh;
+  font-size: 1.4vw;
+  margin-right: 40px;
+}
+
+.changetag_button {
   width: 8vw;
   height: 5vh;
   border-style: none;
   background-color: #91c9c4;
   color: white;
-  margin-left: 50%;
+  margin-left: 40%;
   -webkit-box-shadow: 0px 3px 3px #9b9b9b;
           box-shadow: 0px 3px 3px #9b9b9b;
 }
