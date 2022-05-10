@@ -215,7 +215,7 @@ a {
 
 .util_content {
   width: 80vw;
-  height: 80vh;
+  height: 75vh;
   background-color: white;
   border: 1px solid #c4c4c4;
   margin: 20px 53px 0 53px;
@@ -454,7 +454,7 @@ a {
 
 .edit_agent_information {
   width: 64vw;
-  height: 80vh;
+  height: 75vh;
   margin: 15px 30px;
 }
 
@@ -500,7 +500,7 @@ a {
 
 .edit_agent_information p .fake_image {
   width: 48vw;
-  height: 20.8vh;
+  height: 15vh;
   margin: 0;
   padding-left: 10px;
   background-color: #ebedf1;
@@ -539,12 +539,12 @@ a {
 
 .edit_agent_information .agent_img #preview {
   display: none;
-  height: 20.8vh;
+  height: 15vh;
 }
 
 .edit_agent_information .agent_img #add_preview {
   display: none;
-  height: 20.8vh;
+  height: 15vh;
 }
 
 .edit_agent_information .agent_img .file_upload_button {
@@ -559,7 +559,7 @@ a {
 
 .edit_agent_information .agent_info_container textarea {
   width: 48vw;
-  height: 20.8vh;
+  height: 15vh;
   overflow-x: scroll;
 }
 
@@ -923,7 +923,7 @@ a {
 
 .tag_information .agent_info_container textarea {
   width: 48vw;
-  height: 20.8vh;
+  height: 15vh;
   overflow-x: scroll;
 }
 

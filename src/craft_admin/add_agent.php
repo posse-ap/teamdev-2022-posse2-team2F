@@ -125,9 +125,7 @@ $categories = $stmt->fetchAll();
             <label for="agent_pic">エージェント画像</label>
             <!-- </div> -->
             <!-- <input type="image" src=" ?>" style="width: 500px"> -->
-            <textarea id="add_image" name="agent_pic_blank" style="width: 48vw;
-    height: 20.8vh;
-    overflow-x: scroll;"></textarea>
+            <textarea id="add_image" name="agent_pic_blank" readonly="readonly" style="width: 48vw; height: 15vh; overflow-x: scroll;"></textarea>
             <img id="add_preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
             <label for="image" class="file_upload_button" onclick="upload_file()">+ ファイルをアップロード</label>
             <input id="image" type="file" name="agent_pic" accept='image/*' onchange="previewImage(this);">
