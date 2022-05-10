@@ -58,19 +58,15 @@ $results = $stmt->fetchAll();
               <p class="home-agents_info--name"><?= $result['agent_name'] ?></p>
             </div>
             <div class="home-agents_buttons">
-              <a href="./edit_agent.php?id=<?= $result['id'] ?>">
-                <button class="util_action_button util_action_button--edit">編集</button>
-              </a>
+              <a href="./edit_agent.php?id=<?= $result['id'] ?>" class="util_action_button util_action_button--edit">編集</a>
 
               <!-- <button class="sakujyo" onclick="modalOpen()">削除</button> -->
               <button class="util_action_button util_action_button--delete" onclick="deleteModal(<?= $result['id'] ?>)">削除</button>
 
 
 
-              <a href="" style="text-decoration: none">
-                <button class="util_action_button util_action_button--list">申込一覧</button>
+              <a href="./students_info.php" class="util_action_button util_action_button--list">申込一覧</a>
             </div>
-            </a>
           </div>
           <!-- ここからmodal -->
           <div id="util_deletemodal<?= $result['id'] ?>" class="util_modalcont">

@@ -154,6 +154,9 @@
   &--edit {
     background-color: #91c9c4;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &--delete {
@@ -164,6 +167,9 @@
   &--list {
     background-color: #c4c4c4;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

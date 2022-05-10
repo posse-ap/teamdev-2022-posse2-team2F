@@ -174,7 +174,7 @@ $categories = $stmt->fetchAll();
               <option value="12">12ヶ月</option>
             </select>
           </div>
-          <input class="change_button" type="submit" value="変更を保存" name="submit" >
+          <input class="change_button" type="submit" value="追加" name="submit" >
         </form>
       </div>
 
@@ -189,25 +189,20 @@ $categories = $stmt->fetchAll();
 
   <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
   <script>
+    // モーダルで選択した内容を反映させる処理
     $(function() {
       $('#confirm_button').on('click', function() {
-        // $('input[name=tags]:checked').each(function() {
-        //   var value = '<span>'+$(this).val()+'</span>'
-        //   $('#input').val($(value));
-        // });
 
-        var string = "";
+        const string = [];
         $("input[name=tags]:checked").each(function() {
-          // if ($("input[name=tags]:checked").length > 1) { 
-          // string += $(this).val()+'、';
-          // } else {
-          string += $(this).val() + ' ';
-          // }  
-
+          string.push($(this).val());
         });
-        $("#input").val(string);
+
+        $("#input").val(string.join('、'));
       });
     });
+
+    // 選択した値の id を保存する処理
   </script>
 
 
@@ -233,6 +228,7 @@ $categories = $stmt->fetchAll();
               <?php foreach ($tags as $tag) : ?>
 
                 <input type="checkbox" name="tags" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
+                <input type="hidden" >
                 <label for="tag">
 
                   <?= $tag['tag_option'] ?>
