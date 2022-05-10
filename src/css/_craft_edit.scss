@@ -1,6 +1,6 @@
 .edit_agent_information {
   width: 64vw;
-  height: 80vh;
+  height: 75vh;
   margin: 15px 30px;
 
   p {
@@ -33,6 +33,16 @@
       font-size: 1.4vw;
       color: black;
     }
+    .fake_image{
+      width: 48vw;
+      height: 15vh;
+      margin: 0;
+      padding-left: 10px;
+      background-color: #ebedf1;
+      border-radius: 1vh;
+      border-top: 1px solid #ebedf1;
+      border-bottom: 1px solid #ebedf1;
+    }
 
     #image {
       background-color: transparent;
@@ -60,7 +70,17 @@
       border-bottom: 1px solid #ebedf1;
     }
 
-    .file_upload_button {
+    #preview{
+      display: none;
+      height: 15vh;
+    }
+
+    #add_preview{
+      display: none;
+      height: 15vh;
+    }
+
+    .file_upload_button{
       cursor: pointer;
       color: #52a49a;
       margin-left: 21vw;
@@ -74,7 +94,7 @@
   .agent_info_container {
     textarea {
       width: 48vw;
-      height: 20.8vh;
+      height: 15vh;
       overflow-x: scroll;
     }
   }
@@ -103,26 +123,46 @@
   }
 }
 
-#tag_modal {
+.tag_modal {
   max-width: 60vw;
   min-width: 22vw;
   max-height: 60vh;
   overflow-x: scroll;
   background-color: white;
   z-index: 1;
+  border: 1px solid black;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   -webkit-transform: translateY(-50%) translateX(-50%);
   display: none;
-  .tag_modal_container {
+  &_container {
     max-width: 60vw;
     min-width: 22vw;
     max-height: 60vh;
     overflow-x: scroll;
+    margin-bottom: 10vh;
+    display: flex;
+    flex-wrap: wrap;
 
-    .tag_modal_buttons {
+    &--tag{
+      max-width: 30vw;
+      margin: 5px 10px;
+
+      h2{
+        font-weight: lighter;
+      }
+
+      &_tags{
+        max-width: 30vw;
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+    
+
+    &--buttons{
       width: 20vw;
       display: flex;
       justify-content: space-between;
@@ -132,6 +172,7 @@
       left: 50%;
       transform: translateX(-50%);
       -webkit-transform: translateX(-50%);
+      
       button {
         width: 8vw;
         height: 5vh;
@@ -141,13 +182,22 @@
         justify-content: center;
         align-items: center;
       }
+
       .tag_modalClose {
         background-color: #91c9c4;
       }
 
       .tag_decision {
+        width: 8vw;
+        height: 5vh;
+        border-style: none;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background-color: #cf7c7c;
       }
     }
   }
 }
+

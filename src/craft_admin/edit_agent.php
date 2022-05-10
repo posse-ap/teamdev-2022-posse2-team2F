@@ -52,6 +52,28 @@ if (isset($_POST['submit'])) {
 
 
 ?>
+<?php
+// タグ表示
+
+//既存データの表示
+$stmt = $db->query('SELECT * FROM tag_categories');
+
+$categories = $stmt->fetchAll();
+
+// 更新処理
+if (isset($_POST['tag']) && is_array($_POST['tag'])) {
+  $tag = implode("、", $_POST["tag"]);
+
+  $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($tag));
+  $reload = "edit_agent.php?id=" . $id;
+  header("Location:" . $reload);
+} else {
+  // echo 'チェックボックスの値を受け取れていません';
+}
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -60,8 +82,8 @@ if (isset($_POST['submit'])) {
 
 <div class="util_container">
     <div class="util_sidebar">
-      <div class="util_sidebar_button util_sidebar_button-selected">
-        <a class="util_sidebar_link util_sidebar_link-selected" href="/craft_admin/home.php">エージェント管理</a>
+      <div class="util_sidebar_button util_sidebar_button--selected">
+        <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/home.php">エージェント管理</a>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>
@@ -95,11 +117,30 @@ if (isset($_POST['submit'])) {
             
             <!-- <div class="agent_image"> -->
 
-              <img src="images/<?= $result['agent_pic'] ?>" alt="" style="height: 20.8vh">
+              <img src="images/<?= $result['agent_pic'] ?>" alt="" style="height: 20.8vh" id="agent_image">
+              <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
             <!-- </div> -->
             <!-- <input type="image" src=" ?>" style="width: 500px"> -->
-            <label for="image" class="file_upload_button">+ ファイルをアップロード</label>
-            <input id="image" type="file" name="agent_pic">
+            <label for="image" class="file_upload_button" onclick="upload_file()">+ ファイルをアップロード</label>
+            <input id="image" type="file" name="agent_pic"  accept='image/*' onchange="previewImage(this);">
+            <script>
+              function previewImage(obj) {
+                var fileReader = new FileReader();
+                fileReader.onload = (function() {
+                  document.getElementById('preview').src = fileReader.result;
+                });
+                fileReader.readAsDataURL(obj.files[0]);
+              }
+
+              const preview = document.getElementById('preview');
+              const agent_image = document.getElementById('agent_image');
+
+              function upload_file() {
+                preview.style.display = 'block';
+                agent_image.style.display = 'none';
+
+              }
+            </script>
           </p>
           <p class="agent_info_container">
             <label for="agent_info">エージェント説明</label>
@@ -124,31 +165,59 @@ if (isset($_POST['submit'])) {
 </div>
 
 <!-- ここからtag_modal -->
-<div id="tag_modal">
-  <div class="tag_modal_container">
+<div id="tag_modal" class="tag_modal">
+    <form action="" method="POST">
 
-  <div class="tag_modal_buttons">
-    <button onclick="tag_modalClose()" class="tag_modalClose">戻る</button>
-    <button class="tag_decision">決定</button>
+      <div class="tag_modal_container">
+        <?php foreach ($categories as $category) : ?>
+          <div id="no<?= $category['id'] ?>" class="tag_modal_container--tag">
+            <h2>
 
+              <?= $category['tag_category'] ?>
+            </h2>
+            <?php
+            $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
+
+            $stmt->execute(array($category['id']));
+            $tags = $stmt->fetchAll();
+
+            ?>
+
+            <div class="tag_modal_container--tag_tags">
+              <?php foreach ($tags as $tag) : ?>
+
+                <input type="checkbox" name="tag[]" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
+                <label for="tag">
+
+                  <?= $tag['tag_option'] ?>
+                </label>
+
+              <?php endforeach; ?>
+            </div>
+          </div>
+        <?php endforeach; ?>
+        <div class="tag_modal_container--buttons">
+          <button onclick="tag_modalClose()" class="tag_modalClose">戻る</button>
+          <input type="submit" value="決定" class="tag_decision">
+        </div>
+
+    </form>
   </div>
-  </div>
-  
-</div>
 
 
-<?php require('../_footer.php'); ?>
+  <?php require('../_footer.php'); ?>
 
-<script>
-  const tag_modal = document.getElementById('tag_modal');
-  function tag_modalOpen() {
-    tag_modal.style.display = 'block';
-  }
+  <script>
+    const tag_modal = document.getElementById('tag_modal');
 
-  function tag_modalClose() {
-    tag_modal.style.display = 'none';
-  }
-</script>
+    function tag_modalOpen() {
+      tag_modal.style.display = 'block';
+    }
+
+    function tag_modalClose() {
+      tag_modal.style.display = 'none';
+    }
+  </script>
 </body>
 </html>
 
