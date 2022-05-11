@@ -1,43 +1,41 @@
-.kari-upper__content{
+h3{
     text-align: center;
-    padding: 2%;
-    justify-content: center;
-
-    &__date{
-        margin: 0;
-    }
-
-    h3{
-        margin: 2% 0;
-        font-size: 2em;
-    }
-
-
-    &__number{
-        margin: 9% 10%;
-        display: flex;
-        justify-content: center;
-        &-box{
-            display: block;
-            width: 30%;
-            margin: 0 5%;
-        }
-        &-title{
-            color: #52a49a;
-            font-size: 1.5em;
-        }
-        &-num{
-            font-size: large;
-            font-weight: bold;
-            font-size: 3em;
-            margin: 0;
-        }
-        &-unit{
-            color: black;
-            font-size: 1em;
-        }
+    font-size: 2em;
+    & a{
+        color: black;
     }
 }
+.invoice__table {
+    width: 60%;
+    border-collapse: collapse;
+    margin: 5% auto;
+    text-align: left;
+    background: #EBEDF1;
+
+& th,td {
+    border: solid 1px #91C9C4;
+    /*実線 1px 黒*/
+    padding: 0.5em;
+    }
+
+&__title{
+    text-align: center;
+    font-size: 1.5em;
+}
+
+&__small-item{
+    background: white;
+}
+&__big-item{
+    background: #91C9C4;/*背景色*/
+    padding: 1.5em;
+    font-size: 1.2em;
+    & th{
+        color: white;
+    }
+}
+}
+
 
 .invoice__buttons__section{
     display: flex;

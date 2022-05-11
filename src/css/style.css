@@ -1,3 +1,4 @@
+@charset "UTF-8";
 li {
   list-style: none;
 }
@@ -1013,54 +1014,47 @@ a {
   background-color: #cf7c7c;
 }
 
-.kari-upper__content {
+h3 {
   text-align: center;
-  padding: 2%;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.kari-upper__content__date {
-  margin: 0;
-}
-
-.kari-upper__content h3 {
-  margin: 2% 0;
   font-size: 2em;
 }
 
-.kari-upper__content__number {
-  margin: 9% 10%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+h3 a {
+  color: black;
 }
 
-.kari-upper__content__number-box {
-  display: block;
-  width: 30%;
-  margin: 0 5%;
+.invoice__table {
+  width: 60%;
+  border-collapse: collapse;
+  margin: 5% auto;
+  text-align: left;
+  background: #EBEDF1;
 }
 
-.kari-upper__content__number-title {
-  color: #52a49a;
+.invoice__table th, .invoice__table td {
+  border: solid 1px #91C9C4;
+  /*実線 1px 黒*/
+  padding: 0.5em;
+}
+
+.invoice__table__title {
+  text-align: center;
   font-size: 1.5em;
 }
 
-.kari-upper__content__number-num {
-  font-size: large;
-  font-weight: bold;
-  font-size: 3em;
-  margin: 0;
+.invoice__table__small-item {
+  background: white;
 }
 
-.kari-upper__content__number-unit {
-  color: black;
-  font-size: 1em;
+.invoice__table__big-item {
+  background: #91C9C4;
+  /*背景色*/
+  padding: 1.5em;
+  font-size: 1.2em;
+}
+
+.invoice__table__big-item th {
+  color: white;
 }
 
 .invoice__buttons__section {
