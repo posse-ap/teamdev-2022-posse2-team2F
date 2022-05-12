@@ -222,7 +222,7 @@ a {
   position: relative;
 }
 
-.util_content h2 {
+.util_content .util_title {
   width: 70vw;
   height: 50px;
   border-bottom: 1px solid #c4c4c4;
@@ -236,7 +236,7 @@ a {
           align-items: center;
 }
 
-.util_content h2 .util_title {
+.util_content .util_title--text {
   font-size: 20px;
   padding-left: 20px;
 }
@@ -1005,6 +1005,10 @@ a {
   background-color: #cf7c7c;
 }
 
+.info {
+  padding: 20px;
+}
+
 /*
 1440~768 pc~tablet
 768~     tablet~smartphone
@@ -1064,7 +1068,7 @@ a {
 =====================TABLE admin_student_info.php=====================
 */
 .table_container {
-  padding: 5% 5%;
+  padding: 20px 0;
 }
 
 /*

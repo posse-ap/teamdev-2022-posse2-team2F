@@ -70,15 +70,18 @@ if (isset($_GET['id'])) {
         <a class="util_sidebar_link util_sidebar_link--selected" href="">タグ編集・追加</a>
       </div>
       <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+      </div>
+      <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
       </div>
     </div>
     <div class="util_content">
-      <h2>
-        <div class="util_title">
-          タグの編集・追加
-        </div>
-      </h2>
+      <div class="util_title">
+        <h2 class="util_title--text">
+        タグのカテゴリーの編集・追加
+        </h2>
+      </div>
 
       <!-- 編集 -->
       <div class="changetag">

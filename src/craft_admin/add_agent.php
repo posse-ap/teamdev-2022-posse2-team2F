@@ -21,6 +21,11 @@ if (isset($_POST['submit'])) {
   }
 
 
+  // $sql_tag = 'INSERT INTO agents_tags(agent_id, tag_id) 
+  // VALUES (?, ?)';
+  // $stmt = $db->prepare($sql_tag);
+  // $stmt->execute(array($agent_name, $agent_info, $agent_display));
+
   // $sql = 'INSERT INTO agents(agent_name, agent_tag, agent_info, agent_display) 
   //         VALUES (?, ?, ?, ?)';
   // $stmt = $db->prepare($sql);
@@ -44,8 +49,12 @@ if (isset($_POST['submit'])) {
     // echo "Sorry, there was an error uploading your file.";
   }
 
+  $tag_id = $_POST['tag_id'];
+  echo $tag_id;
 
-  header('Location: http://localhost/craft_admin/home.php');
+
+
+  // header('Location: http://localhost/craft_admin/home.php');
   exit;
 }
 
@@ -102,15 +111,18 @@ $categories = $stmt->fetchAll();
         <a class="util_sidebar_link" href="/craft_admin/tag.php">タグ編集・追加</a>
       </div>
       <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+      </div>
+      <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
       </div>
     </div>
     <div class="util_content">
-      <h2>
-        <div class="util_title">
+      <div class="util_title">
+        <h2 class="util_title--text">
           エージェント追加
-        </div>
-      </h2>
+        </h2>
+      </div>
 
 
       <!-- <div class="change">
@@ -134,7 +146,8 @@ $categories = $stmt->fetchAll();
           </div> 
           <div class="change_item">
             <label class="change_item--label" for="agent_tag">エージェントタグ</label>
-            <input class="change_item--input" type="text" name="agent_tag" required onclick="tag_modalOpen()" id="input">
+            <input class="change_item--input" type="text" name="agent_tag" required readonly="readonly" onclick="tag_modalOpen()" id="input">
+            <input type="hidden" id="showid" name="tag_id">
           </div>
           <div class="change_item preview">
             <label class="change_item--label" for="agent_pic">エージェント画像</label>
@@ -189,20 +202,46 @@ $categories = $stmt->fetchAll();
 
   <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
   <script>
-    // モーダルで選択した内容を反映させる処理
+    
     $(function() {
       $('#confirm_button').on('click', function() {
 
-        const string = [];
+        // モーダルで選択した内容を反映させる処理
+        let string = [];
+        let id = [];
+
         $("input[name=tags]:checked").each(function() {
           string.push($(this).val());
+
+          // 選択した値の id を保存する処理
+          id.push($(this).attr('id'));
+          // id.toString().split("");
+
+          console.log(id);
+          
+
+          // console.log(id);
+          $('#showid').val(id);
+
         });
 
         $("#input").val(string.join('、'));
+
+
+          
+          // console.log(this);
+
+
+          // 何をしないといけない？？
+          // タグ表示 input の下に value (id) を置いておく input type="hidden" を作る DONE
+          // その hidden input の value と php を繋ぐ DONE
+          // id = tag_options.id の時 agents に追加 
+
+
+        
       });
     });
 
-    // 選択した値の id を保存する処理
   </script>
 
 
@@ -228,7 +267,6 @@ $categories = $stmt->fetchAll();
               <?php foreach ($tags as $tag) : ?>
 
                 <input type="checkbox" name="tags" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
-                <input type="hidden" >
                 <label for="tag">
 
                   <?= $tag['tag_option'] ?>

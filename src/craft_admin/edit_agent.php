@@ -93,15 +93,18 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
         <a class="util_sidebar_link" href=/craft_admin/tag.php>タグ編集・追加</a>
       </div>
       <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+      </div>
+      <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
       </div>
     </div>
     <div class="util_content">
-      <h2>
-        <div class="util_title">
+      <div class="util_title">
+        <h2 class="util_title--text">
           エージェント編集
-        </div>
-      </h2>
+        </h2>
+      </div>
       <div class="change">
         <form action="" method="post" enctype="multipart/form-data">
           <div class="change_item">

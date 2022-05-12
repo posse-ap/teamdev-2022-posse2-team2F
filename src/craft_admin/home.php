@@ -33,15 +33,18 @@ $results = $stmt->fetchAll();
         <a class="util_sidebar_link" href="/craft_admin/tag.php">タグ編集・追加</a>
       </div>
       <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+      </div>
+      <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
       </div>
     </div>
     <div class="util_content">
-      <h2>
-        <div class="util_title">
+      <div class="util_title">
+        <h2 class="util_title--text">
           エージェント管理
-        </div>
-      </h2>
+        </h2>
+      </div>
       <div class="home-list">
         <div class="home-list_labels">
           <div class="home-list_labels--left">エージェント</div>
