@@ -22,10 +22,10 @@ if (isset($_POST['submit'])) {
   // INSERT INTO文 は一回で書かないとだから、編集画面みたいに分けて書けない
   // 画像をアップロードして、さらに登録ボタンが押されたら SQL文を書く仕組みにした！ （どうせ画像の登録は必要になるから）
 
-  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_info, agent_display) 
-          VALUES (?, ?, ?, ?, ?)';
+  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_info, agent_display) 
+          VALUES (?, ?, ?, ?)';
   $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_info, $agent_display));
+  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_info, $agent_display));
 
   /**
    * ここからタグ系の処理イメージ記述します
@@ -49,6 +49,10 @@ if (isset($_POST['submit'])) {
    * @var string[] $split_ids
    */
   $split_ids = explode(',', $tag_ids);
+
+  // print_r($split_ids);
+
+  
   // 数字の配列が手に入ったのでそれぞれのカラムに保存していく
 
   // ここからパターンがわかれます パターン1はメンテナンス性などを考えると辛いので、パターン2がおすすめです
@@ -68,13 +72,29 @@ if (isset($_POST['submit'])) {
        // あとはswitch文を記述して case id === 1 だったら $tag_id_1 = true; に変える
   // }
 
+  $id_stmt = $db->query('SELECT id FROM agents ORDER BY id DESC LIMIT 1');
+  $agent_id = $id_stmt->fetch();
+  // print_r($agent_id);
+
   // パターン2
-  // foreach($split_ids as $index => $id) {
+  foreach($split_ids as $index => $id) {
       // パターン2はagentsがinsertされた後に
       // agent_tag_optionsに tag_option_id = $id, $agent_id = 新しく作ったエージェントID のinsertを行うだけ
-  // }
+
+      
+
+      $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) 
+          VALUES (?, ?)";
+      $stmt = $db->prepare($sql);
+      $stmt->execute(array($id, $agent_id['id']));
+      // $stmt->execute(array($id, $agent_id));
+  }
   // パターン2でどのタグを選択したか表示するときは以下のSQLで取れます
   // select * from agents inner join agent_tag_options on agent_tag_options.agent_id = agents.id where agents.id = 指定ID;
+
+  // こっちは全部載ってる
+  // select agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id;
+
   // header('Location: http://localhost/craft_admin/home.php');
   exit;
 }
