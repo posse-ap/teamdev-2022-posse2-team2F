@@ -10,6 +10,8 @@ services:
     volumes:
       - ./nginx/etc/nginx/conf.d:/etc/nginx/conf.d
       - ./src:/var/www/html
+    networks:
+      - br0
   app:
     platform: linux/amd64
     build: ./php
@@ -17,6 +19,9 @@ services:
       - db
     volumes:
       - ./src:/var/www/html
+    hostname: localhost
+    networks:
+      - br0
   db:
     platform: linux/amd64
     image: mysql:8.0
@@ -28,3 +33,12 @@ services:
       - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
       - ./mysql/etc/mysql/conf.d:/etc/mysql/conf.d
       - ./mysql/data:/var/lib/mysql
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
+
+
+networks:
+  br0:
+    driver: bridge
