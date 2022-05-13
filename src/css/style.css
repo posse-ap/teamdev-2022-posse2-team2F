@@ -178,7 +178,7 @@ a {
 }
 
 .util_sidebar {
-  width: 180px;
+  width: 220px;
   height: 82vh;
   background-color: #e5e5e5;
   text-align: center;
@@ -214,16 +214,16 @@ a {
 }
 
 .util_content {
-  width: 80vw;
+  width: 70vw;
   height: 75vh;
   background-color: white;
   border: 1px solid #c4c4c4;
-  margin: 20px 53px 0 53px;
+  margin: 20px 105px 0 105px;
   position: relative;
 }
 
-.util_content h2 {
-  width: 80vw;
+.util_content .util_title {
+  width: 70vw;
   height: 50px;
   border-bottom: 1px solid #c4c4c4;
   margin: 0;
@@ -236,7 +236,7 @@ a {
           align-items: center;
 }
 
-.util_content h2 .util_title {
+.util_content .util_title--text {
   font-size: 20px;
   padding-left: 20px;
 }
@@ -373,6 +373,15 @@ a {
 .util_action_button--edit {
   background-color: #91c9c4;
   color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .util_action_button--delete {
@@ -383,6 +392,15 @@ a {
 .util_action_button--list {
   background-color: #c4c4c4;
   color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .util_modalcont {
@@ -452,14 +470,14 @@ a {
   -webkit-transform: translateY(-50%) translateX(-50%);
 }
 
-.edit_agent_information {
+.change {
   width: 64vw;
   height: 75vh;
   margin: 15px 30px;
 }
 
-.edit_agent_information p {
-  width: 70vw;
+.change_item {
+  width: 60vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -472,14 +490,14 @@ a {
   margin-bottom: 15px;
 }
 
-.edit_agent_information p label {
+.change_item--label {
   font-size: 1.3vw;
   font-weight: 500;
 }
 
-.edit_agent_information p input {
+.change_item--input {
   padding-left: 10px;
-  width: 48vw;
+  width: 40vw;
   height: 3.5vh;
   border-style: none;
   background-color: #ebedf1;
@@ -487,46 +505,38 @@ a {
   font-size: 1.4vw;
 }
 
-.edit_agent_information p textarea {
+.change_item--textarea {
   padding-left: 10px;
-  width: 48vw;
-  height: 3.5vh;
+  width: 40vw;
+  height: 15vh;
   border-style: none;
   background-color: #ebedf1;
+  overflow-x: scroll;
   border-radius: 1vh;
   font-size: 1.4vw;
   color: black;
 }
 
-.edit_agent_information p .fake_image {
-  width: 48vw;
-  height: 15vh;
-  margin: 0;
-  padding-left: 10px;
-  background-color: #ebedf1;
-  border-radius: 1vh;
-  border-top: 1px solid #ebedf1;
-  border-bottom: 1px solid #ebedf1;
-}
-
-.edit_agent_information p #image {
+.change_item--image {
   background-color: transparent;
 }
 
-.edit_agent_information .agent_img {
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+.change_item--button {
+  cursor: pointer;
+  color: #52a49a;
+  margin-left: 19vw;
 }
 
-.edit_agent_information .agent_img .agent_image {
-  width: 16vw;
-  height: 12.8vh;
+.change_item--select {
+  width: 12vw;
+  height: 3.5vh;
+  border-style: none;
   background-color: #ebedf1;
   border-radius: 1vh;
 }
 
-.edit_agent_information .agent_img img {
-  width: 48vw;
+.change_item--box {
+  width: 40vw;
   -o-object-fit: contain;
      object-fit: contain;
   margin: 0;
@@ -537,46 +547,39 @@ a {
   border-bottom: 1px solid #ebedf1;
 }
 
-.edit_agent_information .agent_img #preview {
+.change .preview {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.change .preview_img {
+  width: 40vw;
+  height: 15vw;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin: 0;
+  padding-left: 10px;
+  background-color: #ebedf1;
+  border-radius: 1vh;
+  border-top: 1px solid #ebedf1;
+  border-bottom: 1px solid #ebedf1;
+}
+
+.change .preview_img--hide {
   display: none;
   height: 15vh;
 }
 
-.edit_agent_information .agent_img #add_preview {
-  display: none;
-  height: 15vh;
-}
-
-.edit_agent_information .agent_img .file_upload_button {
-  cursor: pointer;
-  color: #52a49a;
-  margin-left: 21vw;
-}
-
-.edit_agent_information .agent_img input {
+.change .preview_input {
   display: none;
 }
 
-.edit_agent_information .agent_info_container textarea {
-  width: 48vw;
-  height: 15vh;
-  overflow-x: scroll;
-}
-
-.edit_agent_information .agent_term {
-  width: 33.3vw;
+.change .dropdown {
+  width: 31vw;
   margin-bottom: 10px;
 }
 
-.edit_agent_information .agent_term select {
-  width: 12vw;
-  height: 3.5vh;
-  border-style: none;
-  background-color: #ebedf1;
-  border-radius: 1vh;
-}
-
-.edit_agent_information .manage_button {
+.change_button {
   width: 8vw;
   height: 5vh;
   border-style: none;
@@ -868,17 +871,17 @@ a {
   margin-left: 1vw;
 }
 
-.tag_information {
-  width: 64vw;
-  margin: 15px 30px;
+.changetag {
+  width: 50vw;
+  margin: 15px 100px 15px 30px;
 }
 
-.tag_information h1 {
+.changetag_title {
   font-size: 1.5vw;
 }
 
-.tag_information p {
-  width: 70vw;
+.changetag_item {
+  width: 50vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -891,25 +894,15 @@ a {
   margin-bottom: 15px;
 }
 
-.tag_information p label {
+.changetag_item--label {
   font-size: 1.3vw;
   font-weight: 500;
 }
 
-.tag_information p input {
+.changetag_item--textarea {
   padding-left: 10px;
-  width: 48vw;
-  height: 3.5vh;
-  border-style: none;
-  background-color: #ebedf1;
-  border-radius: 1vh;
-  font-size: 1.4vw;
-}
-
-.tag_information p textarea {
-  padding-left: 10px;
-  width: 48vw;
-  height: 3.5vh;
+  width: 40vw;
+  height: 7vh;
   border-style: none;
   background-color: #ebedf1;
   border-radius: 1vh;
@@ -917,36 +910,35 @@ a {
   color: black;
 }
 
-.tag_information p #image {
-  background-color: transparent;
-}
-
-.tag_information .agent_info_container textarea {
-  width: 48vw;
-  height: 15vh;
-  overflow-x: scroll;
-}
-
-.tag_information .agent_term {
-  width: 33.3vw;
-  margin-bottom: 10px;
-}
-
-.tag_information .agent_term select {
-  width: 12vw;
+.changetag_item--input {
+  padding-left: 10px;
+  width: 25vw;
   height: 3.5vh;
   border-style: none;
   background-color: #ebedf1;
   border-radius: 1vh;
+  font-size: 1.4vw;
+  margin-right: 40px;
 }
 
-.tag_information .manage_button {
+.changetag_item--color {
+  padding: 2px 10px;
+  width: 15vw;
+  height: 3.5vh;
+  border-style: none;
+  background-color: #ebedf1;
+  border-radius: 1vh;
+  font-size: 1.4vw;
+  margin-right: 40px;
+}
+
+.changetag_button {
   width: 8vw;
   height: 5vh;
   border-style: none;
   background-color: #91c9c4;
   color: white;
-  margin-left: 50%;
+  margin-left: 40%;
   -webkit-box-shadow: 0px 3px 3px #9b9b9b;
           box-shadow: 0px 3px 3px #9b9b9b;
 }
@@ -1013,6 +1005,10 @@ a {
   background-color: #cf7c7c;
 }
 
+.info {
+  padding: 20px;
+}
+
 /*
 1440~768 pc~tablet
 768~     tablet~smartphone
@@ -1072,7 +1068,7 @@ a {
 =====================TABLE admin_student_info.php=====================
 */
 .table_container {
-  padding: 5% 5%;
+  padding: 20px 0;
 }
 
 /*

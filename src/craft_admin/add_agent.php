@@ -1,57 +1,103 @@
 <?php
 
 // とりあえず edit_agent.php をコビペしてきただけ
-
 require('../dbconnect.php');
 
-
-
 // 画像以外の更新
-
 if (isset($_POST['submit'])) {
-
-
   $agent_name = $_POST['agent_name'];
   $agent_tag = $_POST['agent_tag'];
   $agent_info = $_POST['agent_info'];
-  // $agent_display = $_POST['agent_display'];
-  if(isset($_POST['agent_display'])) {
+  if (isset($_POST['agent_display'])) {
     // セレクトボックスで選択された値を受け取る
     $agent_display = $_POST['agent_display'];
   }
 
-
-  // $sql = 'INSERT INTO agents(agent_name, agent_tag, agent_info, agent_display) 
-  //         VALUES (?, ?, ?, ?)';
-  // $stmt = $db->prepare($sql);
-  // $stmt->execute(array($agent_name, $agent_tag, $agent_info, $agent_display));
-
   // 画像更新
   $target_dir = "images/";
   $target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
-  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+  $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
   // 予想
   // INSERT INTO文 は一回で書かないとだから、編集画面みたいに分けて書けない
   // 画像をアップロードして、さらに登録ボタンが押されたら SQL文を書く仕組みにした！ （どうせ画像の登録は必要になるから）
 
-  if (move_uploaded_file($_FILES["agent_pic"]["tmp_name"], $target_file)) {
-    $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_info, agent_display) 
-            VALUES (?, ?, ?, ?, ?)';
-    $stmt = $db->prepare($sql);
-    $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_info, $agent_display));
-  } else {
-    // echo "Sorry, there was an error uploading your file.";
+  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_info, agent_display) 
+          VALUES (?, ?, ?, ?)';
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_info, $agent_display));
+
+  /**
+   * ここからタグ系の処理イメージ記述します
+   */
+  // input[type=hidden]のtag_id
+  /**
+   * ex. '1,3,4,5'
+   *
+   * @var string $tag_ids
+   */
+  $tag_ids = $_POST['tag_id'];
+  // タグはカンマ区切りの文字列でフォームから送信されてくる
+  // まずカンマ区切りで切り離してあげて配列に入れたい
+  // explodeを利用すると便利 @see https://www.php.net/manual/ja/function.explode.php
+  // explode(区切り文字, 区切りたい文字, 何番目の区切り文字から区切るか);
+  // explode(',', $tag_ids);
+  // 今回は上記で上手く動く
+  /**
+   * ex. [1,3,4,5]
+   * 
+   * @var string[] $split_ids
+   */
+  $split_ids = explode(',', $tag_ids);
+
+  // print_r($split_ids);
+
+  
+  // 数字の配列が手に入ったのでそれぞれのカラムに保存していく
+
+  // ここからパターンがわかれます パターン1はメンテナンス性などを考えると辛いので、パターン2がおすすめです
+  // パターン1 agents テーブルにどのタグを選択中かカラムを追加する ALTER TABLE テーブル名 ADD (tag_1 tinyint(1), tag_2 tinyint(1), ...); tinyint(1)は0か1のみ受け付けるtrue, falseのDB版です
+  // パターン2 agents と tag_options を紐付ける間のテーブルを作成する テーブル構成は以下参照
+  /**
+   * CREATE TABLE agent_tag_options (
+   *   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+   *   tag_option_id INT NOT NULL
+   *   agent_id INT NOT NULL,
+   * );
+   */
+  // どちらのテーブルですすめる場合でもforeachで数字分回してください
+  // パターン1
+  // foreach($split_ids as $index => $id) {
+  //   // パターン1であれば $tag_id_1 ~ $tag_id_XX まで変数を先に用意して全ての値をfalse
+       // あとはswitch文を記述して case id === 1 だったら $tag_id_1 = true; に変える
+  // }
+
+  $id_stmt = $db->query('SELECT id FROM agents ORDER BY id DESC LIMIT 1');
+  $agent_id = $id_stmt->fetch();
+  // print_r($agent_id);
+
+  // パターン2
+  foreach($split_ids as $index => $id) {
+      // パターン2はagentsがinsertされた後に
+      // agent_tag_optionsに tag_option_id = $id, $agent_id = 新しく作ったエージェントID のinsertを行うだけ
+
+      
+
+      $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) 
+          VALUES (?, ?)";
+      $stmt = $db->prepare($sql);
+      $stmt->execute(array($id, $agent_id['id']));
+      // $stmt->execute(array($id, $agent_id));
   }
+  // パターン2でどのタグを選択したか表示するときは以下のSQLで取れます
+  // select * from agents inner join agent_tag_options on agent_tag_options.agent_id = agents.id where agents.id = 指定ID;
 
+  // こっちは全部載ってる
+  // select agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id;
 
-  header('Location: http://localhost/craft_admin/home.php');
+  // header('Location: http://localhost/craft_admin/home.php');
   exit;
 }
-
-
-// }
-
 ?>
 <?php
 // タグ表示
@@ -61,35 +107,12 @@ $stmt = $db->query('SELECT * FROM tag_categories');
 
 $categories = $stmt->fetchAll();
 
-// 更新処理
-// error_reporting(0);
-// if (isset($_POST['tag']) && is_array($_POST['tag'])) {
-//   $tag = implode("、", $_POST["tag"]);
-
-// //   $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
-// //   $stmt = $db->prepare($sql);
-// //   $stmt->execute(array($tag));
-// //   $reload = "edit.php?id=" . $id;
-// //   header("Location:" . $reload);
-// // } else {
-//   // echo 'チェックボックスの値を受け取れていません';
-// }
-
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html>
 <body>
-<?php require('../_header.php'); ?>
-
-
-
-
-
-<div class="util_container">
+  <?php require('../_header.php'); ?>
+  <div class="util_container">
     <div class="util_sidebar">
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/home.php">エージェント管理</a>
@@ -101,34 +124,36 @@ $categories = $stmt->fetchAll();
         <a class="util_sidebar_link" href="/craft_admin/tag.php">タグ編集・追加</a>
       </div>
       <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+      </div>
+      <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
       </div>
     </div>
     <div class="util_content">
-      <h2>
-        <div class="util_title">
-        エージェント追加
-        </div>
-      </h2>
-      <div class="edit_agent_information">
+      <div class="util_title">
+        <h2 class="util_title--text">
+          エージェント追加
+        </h2>
+      </div>
 
+      <div class="change">
         <form action="" method="post" enctype="multipart/form-data">
-          <p>
-            <label for="agent_name">エージェント名：</label>
-            <input  type="text" name="agent_name" required id="agent_name"/>
-          </p>
-          <p>
-            <label for="agent_tag">エージェントタグ</label>
-            <input type="text" name="agent_tag" required onclick="tag_modalOpen()" class="trigger" value="" id="input">
-          </p>
-          <p class="agent_img">
-            <label for="agent_pic">エージェント画像</label>
-            <!-- </div> -->
-            <!-- <input type="image" src=" ?>" style="width: 500px"> -->
-            <textarea id="add_image" name="agent_pic_blank" readonly="readonly" style="width: 48vw; height: 15vh; overflow-x: scroll;"></textarea>
-            <img id="add_preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
-            <label for="image" class="file_upload_button" onclick="upload_file()">+ ファイルをアップロード</label>
-            <input id="image" type="file" name="agent_pic" accept='image/*' onchange="previewImage(this);">
+          <div class="change_item">
+            <label class="change_item--label" for="agent_name">エージェント名</label>
+            <input class="change_item--input" type="text" name="agent_name" required>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_tag">エージェントタグ</label>
+            <input class="change_item--input" type="text" name="agent_tag" required readonly="readonly" onclick="tag_modalOpen()" id="input">
+            <input type="hidden" id="showid" name="tag_id">
+          </div>
+          <div class="change_item preview">
+            <label class="change_item--label" for="agent_pic">エージェント画像</label>
+            <img class="preview_img" src="images/grey.png" id="add_image" style="height: 15vh;"></img>
+            <img class="preview_img preview_img--hide" id="add_preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+            <label class="change_item--button" for="image" onclick="upload_file()">+ ファイルをアップロード</label>
+            <input class="change_item--image preview_input" id="image" type="file" name="agent_pic" accept='image/*' onchange="previewImage(this);">
             <script>
               function previewImage(obj) {
                 var fileReader = new FileReader();
@@ -147,56 +172,49 @@ $categories = $stmt->fetchAll();
 
               }
             </script>
-          </p>
-          <p class="agent_info_container">
-            <label for="agent_info">エージェント説明</label>
-            <textarea name="agent_info" ></textarea>
-          </p>
-          <p class="agent_term">
-            <label for="agent_display">エージェント掲載期間</label>
-              <select name="agent_display">
-                <option value="1">1ヶ月</option>
-                <option value="3">3ヶ月</option>
-                <option value="6">6ヶ月</option>
-                <option value="12">12ヶ月</option>
-              </select>
-          </p>
-          
-          <input type="submit" value="変更を保存" name="submit" class="manage_button">
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_info">エージェント説明</label>
+            <textarea class="change_item--textarea" name="agent_info"></textarea>
+          </div>
+          <div class="change_item dropdown">
+            <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
+            <select class="change_item--select" name="agent_display">
+              <option value="1">1ヶ月</option>
+              <option value="3">3ヶ月</option>
+              <option value="6">6ヶ月</option>
+              <option value="12">12ヶ月</option>
+            </select>
+          </div>
+          <input class="change_button" type="submit" value="追加" name="submit">
         </form>
-          
       </div>
-
     </div>
-</div>
+  </div>
 
-<!-- ここからtag_modal -->
+  <!-- ここからtag_modal -->
 
-<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
-<script>
-  $(function(){
-    $('#confirm_button').on('click', function() {
-        // $('input[name=tags]:checked').each(function() {
-        //   var value = '<span>'+$(this).val()+'</span>'
-        //   $('#input').val($(value));
-        // });
+  <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
+  <script>
+    $(function() {
+      $('#confirm_button').on('click', function() {
+        // モーダルで選択した内容を反映させる処理
+        let string = [];
+        let id = [];
 
-        var string = "";
         $("input[name=tags]:checked").each(function() {
-          // if ($("input[name=tags]:checked").length > 1) { 
-            // string += $(this).val()+'、';
-          // } else {
-            string += $(this).val()+' ';
-          // }  
-          
+          string.push($(this).val());
+          // 選択した値の id を保存する処理
+          id.push($(this).attr('id'));
+          $('#showid').val(id);
         });
-        $("#input").val(string);
+        $("#input").val(string.join('、'));
+      });
     });
-  });
-</script>
+  </script>
 
 
-<div id="tag_modal" class="tag_modal">
+  <div id="tag_modal" class="tag_modal">
     <form action="" method="POST">
 
       <div class="tag_modal_container">
@@ -250,8 +268,5 @@ $categories = $stmt->fetchAll();
     }
   </script>
 </body>
-</html>
 
-
-</body>
 </html>

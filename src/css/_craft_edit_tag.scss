@@ -1,36 +1,29 @@
-.tag_information {
-  width: 64vw;
-  // height: 80vh;
-  margin: 15px 30px;
+.changetag {
+  width: 50vw;
+  margin: 15px 100px 15px 30px;
 
-  h1 {
+  &_title {
     font-size: 1.5vw;
   }
 
-  p {
-    width: 70vw;
+
+  &_item {
+
+    width: 50vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-    label {
+
+    &--label {
       font-size: 1.3vw;
       font-weight: 500;
     }
-    input {
-      padding-left: 10px;
-      width: 48vw;
-      height: 3.5vh;
-      border-style: none;
-      background-color: #ebedf1;
-      border-radius: 1vh;
-      font-size: 1.4vw;
-    }
 
-    textarea {
+    &--textarea {
       padding-left: 10px;
-      width: 48vw;
-      height: 3.5vh;
+      width: 40vw;
+      height: 7vh;
       border-style: none;
       background-color: #ebedf1;
       border-radius: 1vh;
@@ -38,32 +31,59 @@
       color: black;
     }
 
-    #image {
-      background-color: transparent;
-    }
-  }
-
-  .agent_info_container {
-    textarea {
-      width: 48vw;
-      height: 15vh;
-      overflow-x: scroll;
-    }
-  }
-
-  .agent_term {
-    width: 33.3vw;
-    margin-bottom: 10px;
-    select {
-      width: 12vw;
+    &--input {
+      padding-left: 10px;
+      width: 25vw;
       height: 3.5vh;
       border-style: none;
       background-color: #ebedf1;
       border-radius: 1vh;
+      font-size: 1.4vw;
+      margin-right: 40px;
     }
-  }
 
-  .manage_button {
+    &--color {
+      padding: 2px 10px;
+      width: 15vw;
+      height: 3.5vh;
+      border-style: none;
+      background-color: #ebedf1;
+      border-radius: 1vh;
+      font-size: 1.4vw;
+      margin-right: 40px;
+    }
+    
+  }
+  
+  //   width: 60vw;
+  //   display: flex;
+  //   justify-content: space-between;
+  //   align-items: center;
+  //   margin-bottom: 15px;
+  //   &--label {
+  //     font-size: 1.3vw;
+  //     font-weight: 500;
+  //   }
+  //   &--input {
+  //     padding-left: 10px;
+  //     width: 40vw;
+  //     height: 3.5vh;
+  //     border-style: none;
+  //     background-color: #ebedf1;
+  //     border-radius: 1vh;
+  //     font-size: 1.4vw;
+  //   }
+
+    
+
+  //   #image {
+  //     background-color: transparent;
+  //   }
+  // }
+
+
+
+  &_button {
     width: 8vw;
     height: 5vh;
     border-style: none;
@@ -71,7 +91,7 @@
     color: white;
     // position: absolute;
     // left: calc(50% - 4vw);
-    margin-left: 50%;
+    margin-left: 40%;
     box-shadow: 0px 3px 3px #9b9b9b;
   }
 }

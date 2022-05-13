@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
     // 編集をしたい場合
     $tag_category = $_POST['tag_category'];
     $tag_category_desc = $_POST['tag_category_desc'];
-    
+
     $sql = 'UPDATE tag_categories
           SET tag_category = ?, tag_category_desc = ?
           WHERE id = ?';
@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
   }
 } else {
   // error_reporting(0);
-  if($_GET['act']=="add") {
+  if ($_GET['act'] == "add") {
 
     $result['tag_category'] = '';
     $result['tag_category_desc'] = '';
@@ -37,7 +37,7 @@ if (isset($_GET['id'])) {
 
       $tag_category = $_POST['tag_category'];
       $tag_category_desc = $_POST['tag_category_desc'];
-    
+
       $sql = 'INSERT INTO tag_categories(tag_category, tag_category_desc)
               VALUES (?, ?)';
       $stmt = $db->prepare($sql);
@@ -54,10 +54,11 @@ if (isset($_GET['id'])) {
 
 <!DOCTYPE html>
 <html>
-<body>
-<?php require('../_header.php'); ?>
 
-<div class="util_container">
+<body>
+  <?php require('../_header.php'); ?>
+
+  <div class="util_container">
     <div class="util_sidebar">
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/home.php">エージェント管理</a>
@@ -69,51 +70,56 @@ if (isset($_GET['id'])) {
         <a class="util_sidebar_link util_sidebar_link--selected" href="">タグ編集・追加</a>
       </div>
       <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+      </div>
+      <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
       </div>
     </div>
     <div class="util_content">
-      <h2>
-        <div class="util_title">
-        タグの編集・追加
-        </div>
-      </h2>
-      <div class="tag_information">
-        <h1>タグのカテゴリーを編集</h1>
+      <div class="util_title">
+        <h2 class="util_title--text">
+        タグのカテゴリーの編集・追加
+        </h2>
+      </div>
+
+      <!-- 編集 -->
+      <div class="changetag">
+        <h1 class="changetag_title">タグのカテゴリーを編集</h1>
         <form action="" method="post" enctype="multipart/form-data">
-          <p>
-            <label for="tag_category">タグ名</label>
-            <input type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required>
-          </p>
-          <p class="agent_info_container">
-            <label for="tag_category_desc">タグの説明</label>
-            <textarea name="tag_category_desc" ><?= $result['tag_category_desc'] ?></textarea>
-          </p>
-          <input type="submit" value="変更を保存" name="submit" class="manage_button">
+          <div class="change_item">
+            <label class="change_item--label" for="tag_category">タグ名</label>
+            <input class="change_item--input" type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="tag_category_desc">タグの説明</label>
+            <textarea class="changetag_item--textarea" name="tag_category_desc"><?= $result['tag_category_desc'] ?></textarea>
+          </div>
+          <input type="submit" value="変更を保存" name="submit" class="changetag_button">
         </form>
       </div>
-      
+
       <!-- タグのカテゴリーを追加 -->
-      <div class="tag_information">
-        <h1>タグのカテゴリーを追加</h1>
+      <div class="changetag">
+        <h1 class="changetag_title">タグのカテゴリーを追加</h1>
         <form action="" method="post" enctype="multipart/form-data">
-          <p>
-            <label for="tag_category">タグ名</label>
-            <input type="text" name="tag_category" required>
-          </p>
-          <p class="agent_info_container">
-            <label for="tag_category_desc">タグの説明</label>
-            <textarea name="tag_category_desc" ></textarea>
-          </p>
-          <input type="submit" value="変更を保存" name="submit" class="manage_button">
+          <div class="change_item">
+            <label class="change_item--label" for="tag_category">タグ名</label>
+            <input class="change_item--input" type="text" name="tag_category" required>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="tag_category_desc">タグの説明</label>
+            <textarea class="change_item--textarea" name="tag_category_desc"></textarea>
+          </div>
+          <input type="submit" value="変更を保存" name="submit" class="changetag_button">
         </form>
       </div>
 
     </div>
-</div>
+  </div>
 
-<?php require('../_footer.php'); ?>
+  <?php require('../_footer.php'); ?>
 
 </body>
-</html>
 
+</html>

@@ -121,6 +121,9 @@ if (isset($_GET['option'])) {
         <a class="util_sidebar_link util_sidebar_link--selected" href="">タグ編集・追加</a>
       </div>
       <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+      </div>
+      <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
       </div>
     </div>
@@ -130,42 +133,47 @@ if (isset($_GET['option'])) {
         タグの編集・追加
         </div>
       </h2>
-      <div class="tag_information">
-        <h1>タグのオプションを編集</h1>
+      <div class="util_title">
+        <h2 class="util_title--text">
+          タグのオプションの編集・追加
+        </h2>
+      </div>
+      <div class="changetag">
+        <h1 class="changetag_title">タグのオプションを編集</h1>
         <form action="" method="post" enctype="multipart/form-data">
-          <p>
-            <label for="tag_category">カテゴリー名</label>
-            <input type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required readonly="readonly">
-          </p>
-          <p>
-            <label for="tag_name">タグ名</label>
-            <input type="text" name="tag_name" value="<?= $option['tag_option'] ?>" required>
-          </p>
-          <p>
-            <label for="tag_color">タグ色</label>
-            <input type="color" name="tag_color" value="<?= $option['tag_color'] ?>" required>
-          </p>
-          <input type="submit" value="変更を保存" name="save" class="manage_button">
+          <div class="changetag_item">
+            <label class="change_item--label" for="tag_category">カテゴリー名</label>
+            <input class="changetag_item--input" type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required readonly="readonly">
+          </div>
+          <div class="changetag_item">
+            <label class="change_item--label" for="tag_name">タグ名</label>
+            <input class="changetag_item--input" type="text" name="tag_name" value="<?= $option['tag_option'] ?>" required>
+          </div>
+          <div class="changetag_item">
+            <label class="change_item--label" for="tag_color">タグ色</label>
+            <input class="changetag_item--color" type="color" name="tag_color" value="<?= $option['tag_color'] ?>" required>
+          </div>
+          <input type="submit" value="変更を保存" name="save" class="changetag_button">
         </form>
       </div>
       
       <!-- タグのオプションを追加 -->
-      <div class="tag_information">
-        <h1>タグのオプションを追加</h1>
+      <div class="changetag">
+        <h1 class="changetag_title">タグのオプションを追加</h1>
         <form action="" method="post" enctype="multipart/form-data">
-          <p>
-            <label for="tag_category">カテゴリー名</label>
-            <input type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required readonly="readonly">
-          </p>
-          <p>
-            <label for="tag_name_new">タグ名</label>
-            <input type="text" name="tag_name_new" required>
-          </p>
-          <p>
-            <label for="tag_color_new">タグ色</label>
-            <input type="color" name="tag_color_new" required>
-          </p>
-          <input type="submit" value="追加" name="add" class="manage_button">
+          <div class="changetag_item">
+            <label class="change_item--label" for="tag_category">カテゴリー名</label>
+            <input class="changetag_item--input" type="text" name="tag_category" required readonly="readonly">
+          </div>
+          <div class="changetag_item">
+            <label class="change_item--label" for="tag_name_new">タグ名</label>
+            <input class="changetag_item--input" type="text" name="tag_name_new" required>
+          </div>
+          <div class="changetag_item">
+            <label class="change_item--label" for="tag_color_new">タグ色</label>
+            <input class="changetag_item--color" type="color" name="tag_color_new" required>
+          </div>
+          <input type="submit" value="追加" name="add" class="changetag_button">
         </form>
       </div>
 

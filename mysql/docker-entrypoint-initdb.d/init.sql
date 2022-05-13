@@ -57,7 +57,7 @@ CREATE TABLE agents (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   agent_name VARCHAR(255) NOT NULL,
   agent_pic VARCHAR(255) NOT NULL,
-  agent_tag VARCHAR(255) NOT NULL,
+  -- agent_tag VARCHAR(255) NOT NULL,
   agent_info VARCHAR(255) NOT NULL,
   agent_display INT NOT NULL
 );
@@ -67,9 +67,47 @@ INSERT INTO
 SET
   agent_name = 'agent1',
   agent_pic = 'agent1.png',
-  agent_tag = '文系''オンラインあり',
-  agent_info = '強い！強い！強い！強い！強い！強い！強い！強い！強い！強い！',
+  -- agent_tag = '文系''オンラインあり',
+  agent_info = 'はい！',
   agent_display = 3;
+
+-- DROP TABLE IF EXISTS agents_master;
+
+-- CREATE TABLE agents_master (
+--   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+--   agent_name VARCHAR(255) NOT NULL,
+--   agent_pic VARCHAR(255) NOT NULL,
+--   -- agent_tag VARCHAR(255) NOT NULL,
+--   agent_info VARCHAR(255) NOT NULL,
+--   agent_display INT NOT NULL
+-- );
+
+-- INSERT INTO
+--   agents_master
+-- SET
+--   agent_name = 'agent1',
+--   agent_pic = 'agent1.png',
+--   -- agent_tag = '文系''オンラインあり',
+--   agent_info = '強い！強い！強い！強い！強い！強い！強い！強い！強い！強い！',
+--   agent_display = 3;
+
+
+-- DROP TABLE IF EXISTS agents_tags;
+
+-- CREATE TABLE agents_tags (
+--   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+--   agent_id INT NOT NULL,
+--   tag_id INT NOT NULL
+-- );
+
+-- INSERT INTO
+--   agents_tags (agent_id, tag_id)
+-- VALUES
+-- (1, 2),
+-- (1, 3),
+-- (1, 4);
+
+
 
 -- 学生情報
 
@@ -230,6 +268,23 @@ VALUES
   (3,'300社〜', '#CF7C7C'),
   (3,'500社〜', '#7C85CF'),
   (3,'1000社〜', '#F3AF56');
+
+
+DROP TABLE IF EXISTS agent_tag_options;
+
+CREATE TABLE agent_tag_options (
+  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  tag_option_id INT NOT NULL,
+  agent_id INT NOT NULL
+);
+
+INSERT INTO agent_tag_options(tag_option_id, agent_id)
+VALUES
+  (1,1),
+  (2,1),
+  (3,1);
+
+
 
 
 
