@@ -57,7 +57,7 @@ CREATE TABLE agents (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   agent_name VARCHAR(255) NOT NULL,
   agent_pic VARCHAR(255) NOT NULL,
-  -- agent_tag VARCHAR(255) NOT NULL,
+  agent_tag VARCHAR(255) NOT NULL,
   agent_info VARCHAR(255) NOT NULL,
   agent_display INT NOT NULL
 );
@@ -67,7 +67,7 @@ INSERT INTO
 SET
   agent_name = 'agent1',
   agent_pic = 'agent1.png',
-  -- agent_tag = '文系''オンラインあり',
+  agent_tag = 'ベンチャー、大手、ベンチャー',
   agent_info = 'はい！',
   agent_display = 3;
 

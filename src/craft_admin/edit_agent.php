@@ -36,6 +36,7 @@ if (isset($_POST['submit'])) {
   $target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
   $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
+
   if (move_uploaded_file($_FILES["agent_pic"]["tmp_name"], $target_file)) {
     // echo "The file ". htmlspecialchars( basename( $_FILES["agent_pic"]["name"])). " has been uploaded.";
     // 既存データの表示
@@ -43,6 +44,27 @@ if (isset($_POST['submit'])) {
     $stmt = $db->query($sql);
   } else {
     // echo "Sorry, there was an error uploading your file.";
+  }
+
+  $delete_sql = "DELETE FROM agent_tag_options 
+        WHERE agent_id = ?";
+  $stmt = $db->prepare($delete_sql);
+  $stmt->execute(array($id));
+  // $stmt->execute(array($id, $agent_id));
+
+  $tag_ids = $_POST['tag_id'];
+  
+  $split_ids = explode(',', $tag_ids);
+
+  // $id_stmt = $db->query('SELECT id FROM agents ORDER BY id DESC LIMIT 1');
+  // $agent_id = $id_stmt->fetch();
+
+  foreach($split_ids as $index => $tag_id) {
+
+      $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) 
+          VALUES (?, ?)";
+      $stmt = $db->prepare($sql);
+      $stmt->execute(array($tag_id, $id));
   }
 
 
@@ -61,17 +83,17 @@ $stmt = $db->query('SELECT * FROM tag_categories');
 $categories = $stmt->fetchAll();
 
 // 更新処理
-if (isset($_POST['tag']) && is_array($_POST['tag'])) {
-  $tag = implode("、", $_POST["tag"]);
+// if (isset($_POST['tag']) && is_array($_POST['tag'])) {
+//   $tag = implode("、", $_POST["tag"]);
 
-  $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
-  $stmt = $db->prepare($sql);
-  $stmt->execute(array($tag));
-  $reload = "edit_agent.php?id=" . $id;
-  header("Location:" . $reload);
-} else {
-  // echo 'チェックボックスの値を受け取れていません';
-}
+//   $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
+//   $stmt = $db->prepare($sql);
+//   $stmt->execute(array($tag));
+//   $reload = "edit_agent.php?id=" . $id;
+//   header("Location:" . $reload);
+// } else {
+//   // echo 'チェックボックスの値を受け取れていません';
+// }
 
 ?>
 
@@ -113,7 +135,8 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
           </div> 
           <div class="change_item">
             <label class="change_item--label" for="agent_tag">エージェントタグ</label>
-            <input class="change_item--input" type="text" name="agent_tag" value="<?= $result['agent_tag'] ?>" required onclick="tag_modalOpen()">
+            <input class="change_item--input" type="text" name="agent_tag" value="<?= $result['agent_tag'] ?>" required onclick="tag_modalOpen()" id="input">
+            <input type="hidden" id="showid" name="tag_id">
           </div>
           <div class="change_item preview">
             <label class="change_item--label" for="agent_pic">エージェント画像</label>
@@ -163,6 +186,25 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
   </div>
 
   <!-- ここからtag_modal -->
+  <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
+  <script>
+    $(function() {
+      $('#confirm_button').on('click', function() {
+        // モーダルで選択した内容を反映させる処理
+        let string = [];
+        let id = [];
+
+        $("input[name=tags]:checked").each(function() {
+          string.push($(this).val());
+          // 選択した値の id を保存する処理
+          id.push($(this).attr('id'));
+          $('#showid').val(id);
+        });
+        $("#input").val(string.join('、'));
+      });
+    });
+  </script>
+
   <div id="tag_modal" class="tag_modal">
     <form action="" method="POST">
 
@@ -184,7 +226,7 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
             <div class="tag_modal_container--tag_tags">
               <?php foreach ($tags as $tag) : ?>
 
-                <input type="checkbox" name="tag[]" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
+                <input type="checkbox" name="tags" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
                 <label for="tag">
 
                   <?= $tag['tag_option'] ?>
@@ -195,8 +237,8 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
           </div>
         <?php endforeach; ?>
         <div class="tag_modal_container--buttons">
-          <button onclick="tag_modalClose()" class="tag_modalClose">戻る</button>
-          <input type="submit" value="決定" class="tag_decision">
+          <button onclick="tag_modalClose()" type="button" class="tag_modalClose">戻る</button>
+          <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision">決定</button>
         </div>
 
     </form>
