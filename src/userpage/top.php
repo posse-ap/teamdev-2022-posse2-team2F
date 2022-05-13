@@ -33,39 +33,44 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
   <h2>あなたにぴったりの<br>エージェントを見つけよう</h2>
   <button class="search-button" onclick="search_modalOpen()">絞りこむ</button>
   <div id="search_modal">
+    <div class="search_modal_container-overlay">
+    </div>
     <form action="" method="POST">
+      
       <div class="search_modal_container">
-        <?php foreach ($categories as $category) : ?>
-          <div class="search_modal_container--tag">
-            <h3>
-              <?= $category['tag_category'] ?>
-            </h3>
-            <?php
-            $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
+          <h4>詳細条件で比較</h4>
+          <?php foreach ($categories as $category) : ?>
+            <div class="search_modal_container--tag">
+              <h3>
+                <?= $category['tag_category'] ?>
+              </h3>
+              <?php
+              $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
 
-            $stmt->execute(array($category['id']));
-            $tags = $stmt->fetchAll();
+              $stmt->execute(array($category['id']));
+              $tags = $stmt->fetchAll();
 
-            ?>
-            <div class="search_modal_container--tag__tags">
-              <?php foreach ($tags as $tag) : ?>
+              ?>
+              <div class="search_modal_container--tag__tags">
+                <?php foreach ($tags as $tag) : ?>
 
-                <input type="checkbox" name="tag[]" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
-                <label for="<?= $tag['id'] ?>">
+                  <input type="checkbox" name="tag[]" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
+                  <label for="<?= $tag['id'] ?>">
 
-                  <?= $tag['tag_option'] ?>
-                </label>
+                    <?= $tag['tag_option'] ?>
+                  </label>
 
-              <?php endforeach; ?>
+                <?php endforeach; ?>
+              </div>
             </div>
-          </div>
-        <?php endforeach; ?>
-        <div class="search-buttons">
+          <?php endforeach; ?>
+          <div class="search-buttons">
 
-          <input class="search_modal_container--buttons" type="submit" value="この条件で検索する" />
-        </div>
-      </div>
-    </form>
+            <input class="search_modal_container--buttons" type="submit" value="この条件で検索する" />
+            <input class="search_modal_container--button" type="submit" value="絞り込む">
+          </div>
+          </div>
+        </form>
 
   </div>
   <div class="top_container_compare">
@@ -83,7 +88,7 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
 
           <div class="top_container_agents--all__flex--left">
             <img src="../craft_admin/images/<?= $result['agent_pic'] ?>" alt="" style="height: 18.7vh">
-  
+
           </div>
           <div class="top_container_agents--all__flex--right">
             <p><?= $result['agent_tag'] ?></p>
@@ -94,7 +99,7 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
             </div> -->
           </div>
         </div>
-  
+
       </div>
     <?php endforeach; ?>
   </div>

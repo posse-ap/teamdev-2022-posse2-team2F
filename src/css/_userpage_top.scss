@@ -1,3 +1,21 @@
+// ブレイクポイント
+$tb: 960px;
+
+@mixin tb {
+  @media screen and (max-width: $tb) {
+    @content;
+  }
+}
+
+//ブレイクポイント
+$mb: 520px;
+
+@mixin mb {
+  @media screen and (max-width: $mb) {
+    @content;
+  }
+}
+
 #search_modal{
   display: none;
 }
@@ -12,6 +30,10 @@
     text-align: center;
     line-height: 30px;
     padding-top: 10px;
+    @include mb {
+      width: 300px;
+      font-size: 20px;
+    }
     &::before{
       content:"";
       display:inline-block;
@@ -22,6 +44,9 @@
       top:15px;
       left:0px;
       transform: rotate(-20deg);
+      @include mb {
+        height: 50px;
+      }
     }
     &::after{
       content:"";
@@ -33,12 +58,15 @@
       top:15px;
       right:0px;
       transform: rotate(20deg);
+      @include mb {
+        height: 50px;
+      }
     }
   }
   .search-button{
-    width: 24vw;
+    width: 25vw;
     height: 58px;
-    border-radius: 4.5vh;
+    border-radius: 29px;
     background-color: #F3AF56;
     color: white;
     border-style: none;
@@ -46,12 +74,38 @@
     font-weight: bold;
     display: block;
     margin: 20px auto;
+    @include tb {
+      height: 50px;
+      border-radius: 25px;
+      font-size: 28px;
+      @include mb {
+        font-size: 24px;
+        width: 200px;
+
+      }
+    }
   }
   &_compare{
     font-size: 34px;
     font-weight: bold;
     text-align: center;
     margin: 30px auto;
+    @include tb {
+      font-size: 28px;
+    }
+  }
+
+  .search_modal_container-overlay{
+    @include tb{
+      display: block;
+      z-index: 1;
+      width: 100vw;
+      height: 100vh;
+      background-color: #2d5e59;
+      opacity: 0.8;
+      position: absolute;
+      top: 10vh;
+    }
   }
 
   .search_modal_container{
@@ -66,7 +120,24 @@
     flex-wrap: wrap;
     align-items: center;
     box-shadow: 0px 8px 8px rgb(203, 202, 202);
+    @include tb {
+      z-index: 2;
+      position: absolute;
+      top: 15vh;
+      left: 50%;
+      transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+      box-shadow: 0px 0px 0px rgb(203, 202, 202);
+      width: 90vw;
+      border-radius: 25px;
+      background-color: white;
+      opacity: 1;
+      @include mb{
+        width: 85vw;
+        max-width: 85vw;
+      }
 
+    }
     &::before{
       content: "";
       position: absolute;
@@ -75,19 +146,51 @@
       margin-left: -15px;
       border: 15px solid transparent;
       border-bottom: 15px solid #fff;
+      @include tb{
+        display: none;
+      }
+    }
+
+    h4{
+      display: none;
+      @include tb{
+        display: block;
+        border-bottom: 1px solid #000;
+        text-align: center;
+        font-size: 28px;
+        margin: 20px 0px 0px 0px;
+      }
     }
 
     &--tag{
       margin: 10px 20px;
+      @include tb{
+        width: 80vw;
+        margin: 5px 30px;
+        @include mb{
+          width: 90vw;
+        }
+      }
       h3{
         font-weight: lighter;
         font-size: 1.6vw;
+        @include tb {
+          font-weight: 300;
+          font-size: 23px;
+          margin-bottom: 10px;
+        }
       }
       &__tags{
         display: flex;
         flex-wrap: wrap;
         width: 25vw;
         align-items: center;
+        @include tb {
+          width: 53vw;
+          @include mb {
+            width: 75vw;
+          }
+        }
         input{
           display: none;
           &:checked + label::after{
@@ -101,6 +204,14 @@
           font-size: 1.8vw;
           margin-right: 2.0vw;
           margin-bottom: 1.5vh;
+          @include tb{
+            font-size: 22px;
+            margin-bottom: 5px;
+            margin-right: 10px;
+            padding: 5px 15px 5px 34px;
+            border: 0.8px solid rgb(163, 163, 163);
+            border-radius: 20px;
+          }
 
           &::before,&::after{
             content: "";
@@ -119,6 +230,11 @@
   width: 1.8vw;
   height: 1.8vw;
   left: -0.4vw;
+  @include tb{
+    width: 22px;
+  height: 22px;
+  left: 5px;
+  }
           }
 
           &::after{
@@ -128,6 +244,11 @@
   width: 1.5vw;
   height: 1.5vw;
   left: -0.2vw;
+  @include tb {
+    width: 18px;
+    height: 18px;
+    left: 8px;
+  }
           }
         }
       }
@@ -137,6 +258,13 @@
   .search-buttons{
     width: 25vw;
     margin: 20px;
+    @include tb {
+      margin: 5px;
+      width: 28vw;
+      @include mb{
+        width: 45vw;
+      }
+    }
     .search_modal_container--buttons{
       border-style: none;
       background-color: #52A49A;
@@ -149,6 +277,28 @@
       position: relative;
       top: 30px;
       left: 3vw;
+      @include tb {
+        display: none;
+      }
+    }
+
+    .search_modal_container--button{
+      display: none;
+      @include tb{
+        display: block;
+        border-style: none;
+      background-color: #F3AF56;
+      color: white;
+      font-weight: bold;
+      height: 45px;
+      border-radius: 23px;
+      width: 28vw;
+      font-size: 20px;
+      margin: 0 auto;
+      @include mb {
+        width: 45vw;
+      }
+      }
     }
   }
   &_agents{
@@ -157,6 +307,9 @@
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    @include tb {
+      width: 94vw;
+    }
     &--all{
       width: 27vw;
       height: 30vh;
@@ -164,6 +317,13 @@
       cursor: pointer;
       margin: 0 2.3vw 30px 2.3vw;
       box-shadow: 0px 8px 8px #c4c4c4;
+      @include tb {
+        width: 43vw;
+        margin: 0 2vw 30px 2vw;
+        @include mb {
+          width: 90vw;
+        }
+      }
       &__text{
         width: 100%;
         background-color: #91C9C4;
@@ -185,14 +345,32 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          @include tb { 
+            width: 21.5vw;
+            @include mb {
+              width: 45vw;
+            }
+          }
           img{
             width: 12.5vw;
             object-fit: contain;
+            @include tb { 
+              width: 20.5vw;
+              @include mb{
+                width: 44vw;
+              }
+            }
             
           }
         }
         &--right{
           width: 13.5vw;
+          @include tb{
+            width: 21.5vw;
+            @include mb {
+              width: 45vw;
+            }
+          }
         }
       }
     }
