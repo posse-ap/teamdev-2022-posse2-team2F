@@ -4,6 +4,7 @@ require('../dbconnect.php');
 // 既存データの表示
 $stmt = $db->query("SELECT * FROM agents");
 $results = $stmt->fetchAll();
+
 ?>
 <?php
 // タグ表示
@@ -26,6 +27,11 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
   // echo 'チェックボックスの値を受け取れていません';
 }
 
+?>
+<?php
+$stmt = $db->query('SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id');
+
+$agent_tags = $stmt->fetchAll();
 ?>
 <?php require('../_header.php'); ?>
 
@@ -91,8 +97,14 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
 
           </div>
           <div class="top_container_agents--all__flex--right">
-            <p><?= $result['agent_tag'] ?></p>
-            <section><?= $result['agent_info'] ?></section>
+            <!-- <p><?= $result['agent_tag'] ?></p> -->
+            <div class="tag_container">
+
+              <?php foreach ($agent_tags as $agent_tag) :?>
+                <p style="color: <?=$agent_tag['tag_color']?>;"><?=$agent_tag['tag_option']?></p>
+                <?php endforeach; ?>
+            </div>
+            <!-- <section><?= $result['agent_info'] ?></section> -->
             <!-- <div class="top_container_agents--all--right_buttons">
               <button>詳細を見る</button>
               <button>申し込む</button>
