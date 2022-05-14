@@ -650,8 +650,45 @@ a {
   display: none;
 }
 
+.tag_modal_container--tag_tags input:checked + label::after {
+  opacity: 0.6;
+}
+
 .tag_modal_container--tag_tags label {
-  font-size: 16px;
+  position: relative;
+  cursor: pointer;
+  padding-left: 2vw;
+  font-size: 1.8vw;
+  margin-right: 2.0vw;
+  margin-bottom: 1.5vh;
+}
+
+.tag_modal_container--tag_tags label::before, .tag_modal_container--tag_tags label::after {
+  content: "";
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  top: 50%;
+}
+
+.tag_modal_container--tag_tags label::before {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 1.8vw;
+  height: 1.8vw;
+  left: -0.4vw;
+}
+
+.tag_modal_container--tag_tags label::after {
+  background-color: #52A49A;
+  border-radius: 50%;
+  opacity: 0;
+  width: 1.5vw;
+  height: 1.5vw;
+  left: -0.15vw;
 }
 
 .tag_modal_container--buttons {
