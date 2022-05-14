@@ -227,7 +227,7 @@ $categories = $stmt->fetchAll();
               <?php foreach ($tags as $tag) : ?>
 
                 <input type="checkbox" name="tags" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
-                <label for="tag">
+                <label for="tags">
 
                   <?= $tag['tag_option'] ?>
                 </label>
