@@ -171,7 +171,9 @@ CREATE TABLE students_contact (
   university VARCHAR(255) NOT NULL,
   faculty VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL,
-  grad_year INT NOT NULL
+  grad_year INT NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+
 );
 
 INSERT INTO students_contact (name, email, phone, university, faculty, address, grad_year) 

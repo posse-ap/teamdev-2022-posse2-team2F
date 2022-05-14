@@ -5,6 +5,7 @@
 @import 'craft_change';
 @import 'craft_tag';
 @import 'craft_edit_tag';
+@import 'invoice';
 @import 'craft_students';
 
 
@@ -94,5 +95,19 @@ a {
         width: 100px;
       }
     }
+  }
+}
+
+/*
+=====================FOR PRINT=====================
+*/
+
+@media print{
+  .no-print-area {
+  display: none;
+  }
+
+  h2{
+    display: none;
   }
 }
