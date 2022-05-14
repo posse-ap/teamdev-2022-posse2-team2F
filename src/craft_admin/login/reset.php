@@ -27,27 +27,44 @@ if (isset($_POST['reset'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <title>管理者新規登録</title>
 </head>
+
 <body>
-  <form action="/craft_admin/login/reset.php" method="POST">
-    <p><?= $email ?></p>
-    <div>
-      <label for="password">パスワード：</label>
-      <input type="password" name="password" required>
+  <?php include '../../_header.php'; ?> 
+  <div class="util_login_container">
+    <div class="util_login reset">
+      <h1 class="util_login_title">パスワード再発行</h1>
+      <form action="/craft_admin/login/reset.php" method="POST">
+        <p class="reset_text">メールアドレス：<?= $email ?></p>
+        <div class="util_login_text reset_input">
+          <label class="util_login_text--label" for="password">パスワード：</label>
+          <input class="util_login_text--box" type="password" name="password" required>
+        </div>
+        <div class="util_login_text reset_input">
+          <label class="util_login_text--label" for="password_conf">パスワード確認：</label>
+          <input class="util_login_text--box" type="password" name="password_conf" required>
+        </div>
+        <div class="util_login_text reset_input">
+          <input type="submit" name="reset" value="リセット" class="util_login_button">
+        </div>
+      </form>
     </div>
-    <div>
-      <label for="password_conf">パスワード確認：</label>
-      <input type="password" name="password_conf" required>
-    </div>
-    <div>
-      <input type="submit" name="reset" value="パスワードリセット">
-    </div>
-  </form>
+  </div>
+
+
+
+  
 </body>
+<?php require("../../_footer.php"); ?>
+
 </html>
