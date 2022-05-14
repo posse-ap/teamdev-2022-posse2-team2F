@@ -18,9 +18,9 @@ $categories = $stmt->fetchAll();
 
 ?>
 <?php
-$stmt = $db->query('SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id');
+// $stmt = $db->query('SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id');
 
-$agent_tags = $stmt->fetchAll();
+// $agent_tags = $stmt->fetchAll();
 ?>
 <?php require('../_header.php'); ?>
 
@@ -90,7 +90,13 @@ $agent_tags = $stmt->fetchAll();
             <!-- <p><?= $result['agent_tag'] ?></p> -->
             <div class="tag_container">
 
-              <?php foreach ($agent_tags as $agent_tag) : ?>
+              <?php
+              $id = $result['id'];
+              $stmt = $db->query("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE agent_id = '$id'");
+
+              $agent_tags = $stmt->fetchAll();
+              
+              foreach ($agent_tags as $agent_tag) : ?>
                 <p style="color: <?= $agent_tag['tag_color'] ?>;"><?= $agent_tag['tag_option'] ?></p>
               <?php endforeach; ?>
             </div>
