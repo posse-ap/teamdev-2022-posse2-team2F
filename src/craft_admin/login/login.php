@@ -67,7 +67,7 @@ if (isset($_POST['login'])) {
       <br>
       <div>
 
-        <a class="login_new" href="./signup.php">パスワードをお忘れの方はこちら</a>
+        <a class="login_new" href="./forget.php">パスワードをお忘れの方はこちら</a>
       </div>
     </div>
   </div>
