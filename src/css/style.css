@@ -1057,6 +1057,10 @@ h3 a {
   color: white;
 }
 
+.invoice__table__number {
+  text-align: right;
+}
+
 .invoice__buttons__section {
   display: -webkit-box;
   display: -ms-flexbox;

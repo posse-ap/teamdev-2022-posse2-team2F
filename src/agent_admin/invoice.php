@@ -3,17 +3,17 @@ session_start();
 include('../_header.php');
 require('../dbconnect.php');
 
+// ============================表示している月の取得============================
 $month_id = filter_input(INPUT_GET, 'id');
 if (!isset($month_id)) {
     $month_id = date('Ym'); //202205
-    echo $month_id;
 }
 
 $year = substr($month_id, 0,4);
 $month = substr($month_id, 4,2);
 $date_for_sql = $year . '-' . $month;
 
-//月遷移 1月と12月だけ特殊
+//1月と12月だけ特殊
 if($month == 12){
     $next_month_id = $month_id + 89; //2022 12 → 2023 01 年度を変えて月を1にする +100-12+1
     $last_month_id = $month_id - 1;
@@ -48,37 +48,28 @@ $sql_prepare->execute(array($_SESSION['name']));
 $all_students_info = $sql_prepare->fetchAll();
 */
 
-// 合計件数
-$sql = "SELECT count(name) FROM students_contact WHERE created_at BETWEEN ? AND ?";
-$sql_prepare = $db->prepare($sql);
-$sql_prepare->execute(array($first_day, $last_day));
-$all_students_info = $sql_prepare->fetchAll();
+// ============================SELECT文============================
 
-// 請求件数
+// 合計件数 有効な件数;
+$sql_valid = "SELECT count(name) FROM students_contact WHERE created_at BETWEEN ? AND ?";
+$sql_valid_prepare = $db->prepare($sql_valid);
+$sql_valid_prepare->execute(array($first_day, $last_day));
+$all_valid_students = $sql_valid_prepare->fetchAll();
+
+// 請求件数 idの最大値とってます（idは間の何件かが削除されてもそのまま変わらないイメージ）
 $sql_all = "SELECT max(id) FROM students_contact WHERE created_at BETWEEN ? AND ?";
 $sql_all_prepare = $db->prepare($sql_all);
 $sql_all_prepare->execute(array($first_day, $last_day));
 $all_students_number = $sql_all_prepare->fetchAll();
 
-// *5000円
-$sql_valid = "SELECT count(name) * 5000 FROM students_contact";
-$sql_valid_prepare = $db->prepare($sql_valid);
-$sql_valid_prepare->execute();
-$all_valid_students = $sql_valid_prepare->fetchAll();
-
 /*
-// 削除依頼件数 わからない！
-$sql = "SELECT count(name) FROM students";
-$sql_prepare = $db->prepare($sql);
-$sql_prepare->execute();
-$all_students_info = $sql_prepare->fetchAll();
-// 削除依頼件数： "わかりません > . <" 件
+    削除依頼件数 わからない！
 */
 
-// 削除件数
-$sql_deleted = "SELECT (max(id) - count(name)) FROM students_contact";
+// 削除件数 idの最大値から、残った実際の数を引いています
+$sql_deleted = "SELECT (max(id) - count(name)) FROM students_contact WHERE created_at BETWEEN ? AND ?";
 $sql_deleted_prepare = $db->prepare($sql_deleted);
-$sql_deleted_prepare->execute();
+$sql_deleted_prepare->execute(array($first_day, $last_day));
 $deleted_students = $sql_deleted_prepare->fetchAll();
 ?>
 
@@ -124,15 +115,15 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                 <th>
                     合計申し込み件数
                 </th>
-                <th>
-                    <?php print_r($all_students_info[0][0]); ?>件
+                <th class="invoice__table__number">
+                    <?php print_r($all_valid_students[0][0]); ?>件
                 </th>
             </tr>
             <tr>
                 <td>
                     請求件数
                 </td>
-                <td class="invoice__table__small-item">
+                <td class="invoice__table__small-item invoice__table__number">
                     <?php print_r($all_students_number[0][0]); ?>件
                 </td>
             </tr>
@@ -140,9 +131,9 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                 <td>
                     削除依頼件数
                 </td>
-                <td class="invoice__table__small-item">
+                <td class="invoice__table__small-item invoice__table__number">
                     <?php
-                    print_r($all_students_info[0][0]);
+                    print_r("?");
                     ?>件
                 </td>
             </tr>
@@ -150,7 +141,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                 <td>
                     削除件数
                 </td>
-                <td class="invoice__table__small-item">
+                <td class="invoice__table__small-item invoice__table__number">
                     <?php
                     print_r($deleted_students[0][0]);
                     ?>件
@@ -160,8 +151,8 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                 <th>
                     ご請求金額合計
                 </th>
-                <th>
-                    <?php print_r($all_valid_students[0][0]); ?>円
+                <th class = "invoice__table__number">
+                    <?php print_r($all_valid_students[0][0]*5000); ?>円
                 </th>
             </tr>
         </table>
