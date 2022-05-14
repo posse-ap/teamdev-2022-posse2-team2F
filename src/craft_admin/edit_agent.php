@@ -16,7 +16,8 @@ if (isset($_POST['submit'])) {
 
   // 画像以外の更新
   $agent_name = $_POST['agent_name'];
-  $agent_tag = $_POST['agent_tag'];
+  $agent_tagname = $_POST['agent_tag'];
+  $agent_tag = $_POST['tag_id'];
   // $agent_pic = $_POST['agent_pic'];
   $agent_info = $_POST['agent_info'];
   // $agent_display = $_POST['agent_display'];
@@ -26,10 +27,10 @@ if (isset($_POST['submit'])) {
   }
 
   $sql = 'UPDATE agents
-        SET agent_name = ?, agent_tag = ?, agent_info = ?, agent_display = ?
+        SET agent_name = ?, agent_tag = ?,agent_tagname = ?, agent_info = ?, agent_display = ?
         WHERE id = ?';
   $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $agent_tag, $agent_info, $agent_display, $id));
+  $stmt->execute(array($agent_name, $agent_tag,$agent_tagname, $agent_info, $agent_display, $id));
 
   // 画像更新
   $target_dir = "images/";
@@ -40,7 +41,7 @@ if (isset($_POST['submit'])) {
   if (move_uploaded_file($_FILES["agent_pic"]["tmp_name"], $target_file)) {
     // echo "The file ". htmlspecialchars( basename( $_FILES["agent_pic"]["name"])). " has been uploaded.";
     // 既存データの表示
-    $sql = "UPDATE agents SET agent_pic = ''" . $_FILES['agent_pic']['name'] . " WHERE id = '$id'";
+    $sql = "UPDATE agents SET agent_pic = '" . $_FILES['agent_pic']['name'] . "' WHERE id = '$id'";
     $stmt = $db->query($sql);
   } else {
     // echo "Sorry, there was an error uploading your file.";
@@ -67,10 +68,24 @@ if (isset($_POST['submit'])) {
     $stmt->execute(array($tag_id, $id));
   }
 
+// タグ更新処理
+if (isset($_POST['edit_tag_id']) && is_array($_POST['edit_tag_id'])) {
+  $tag = implode(",", $_POST["edit_tag_id"]);
+
+  $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($tag));
+  // $reload = "edit_agent.php?id=" . $id;
+  // header("Location:" . $reload);
+} else {
+  // echo 'チェックボックスの値を受け取れていません';
+}
+
 
   header('Location: home.php');
   exit;
 }
+
 
 
 ?>
@@ -82,15 +97,15 @@ $stmt = $db->query('SELECT * FROM tag_categories');
 
 $categories = $stmt->fetchAll();
 
-// 更新処理
-// if (isset($_POST['tag']) && is_array($_POST['tag'])) {
-//   $tag = implode("、", $_POST["tag"]);
+// // 更新処理
+// if (isset($_POST['edit_tag_id']) && is_array($_POST['edit_tag_id'])) {
+//   $tag = implode(",", $_POST["edit_tag_id"]);
 
 //   $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
 //   $stmt = $db->prepare($sql);
 //   $stmt->execute(array($tag));
-//   $reload = "edit_agent.php?id=" . $id;
-//   header("Location:" . $reload);
+//   // $reload = "edit_agent.php?id=" . $id;
+//   // header("Location:" . $reload);
 // } else {
 //   // echo 'チェックボックスの値を受け取れていません';
 // }
@@ -226,8 +241,8 @@ $categories = $stmt->fetchAll();
             <div class="tag_modal_container--tag_tags">
               <?php foreach ($tags as $tag) : ?>
 
-                <input type="checkbox" name="tags[]" id="<?= $tag['id'] ?>" value="<?= $tag['id'] ?>">
-                <label for="<?= $tag['id'] ?>">
+                <input type="checkbox" name="tags" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
+                <label for="tag">
 
                   <?= $tag['tag_option'] ?>
                 </label>
@@ -238,7 +253,7 @@ $categories = $stmt->fetchAll();
         <?php endforeach; ?>
         <div class="tag_modal_container--buttons">
           <button onclick="tag_modalClose()" type="button" class="tag_modalClose">戻る</button>
-          <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision">決定</button>
+          <button onclick="tag_modalClose()" type="button" id="confirm_button"  class="tag_decision">決定</button>
         </div>
 
     </form>
