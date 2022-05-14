@@ -1,0 +1,408 @@
+// ブレイクポイント
+$tb: 960px;
+
+@mixin tb {
+  @media screen and (max-width: $tb) {
+    @content;
+  }
+}
+
+//ブレイクポイント
+$mb: 520px;
+
+@mixin mb {
+  @media screen and (max-width: $mb) {
+    @content;
+  }
+}
+
+#search_modal{
+  display: none;
+}
+
+.top_container{
+  background-color: #EBEDF1;
+  h2{
+    width: 450px;
+    margin: 0 auto;
+    color: #52A49A;
+    position: relative;
+    text-align: center;
+    line-height: 30px;
+    padding-top: 10px;
+    @include mb {
+      width: 300px;
+      font-size: 20px;
+    }
+    &::before{
+      content:"";
+      display:inline-block;
+      width:2px;
+      height:55px;
+      background-color:#52A49A;
+      position:absolute;
+      top:15px;
+      left:0px;
+      transform: rotate(-20deg);
+      @include mb {
+        height: 50px;
+      }
+    }
+    &::after{
+      content:"";
+      display:inline-block;
+      width:2px;
+      height:55px;
+      background-color:#52A49A;
+      position:absolute;
+      top:15px;
+      right:0px;
+      transform: rotate(20deg);
+      @include mb {
+        height: 50px;
+      }
+    }
+  }
+  .search-button{
+    width: 25vw;
+    height: 58px;
+    border-radius: 29px;
+    background-color: #F3AF56;
+    color: white;
+    border-style: none;
+    font-size: 32px;
+    font-weight: bold;
+    display: block;
+    margin: 20px auto;
+    cursor: pointer;
+    @include tb {
+      height: 50px;
+      border-radius: 25px;
+      font-size: 28px;
+      @include mb {
+        font-size: 24px;
+        width: 200px;
+
+      }
+    }
+  }
+  &_compare{
+    font-size: 34px;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px auto;
+    @include tb {
+      font-size: 28px;
+    }
+  }
+
+  .search_modal_container-overlay{
+    @include tb{
+      display: block;
+      z-index: 1;
+      width: 100vw;
+      height: 100vh;
+      background-color: #2d5e59;
+      opacity: 0.8;
+      position: absolute;
+      top: 10vh;
+      overflow-y: hidden;
+    }
+  }
+
+  .search_modal_container{
+    position: relative;
+    padding: 10px 10px;
+    min-width: 50vw;
+    max-width: 60vw;
+    background: #fff;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    box-shadow: 0px 8px 8px rgb(203, 202, 202);
+    @include tb {
+      z-index: 2;
+      position: absolute;
+      top: 15vh;
+      left: 50%;
+      transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+      box-shadow: 0px 0px 0px rgb(203, 202, 202);
+      width: 90vw;
+      border-radius: 25px;
+      background-color: white;
+      opacity: 1;
+      @include mb{
+        width: 85vw;
+        max-width: 85vw;
+      }
+
+    }
+    &::before{
+      content: "";
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      margin-left: -15px;
+      border: 15px solid transparent;
+      border-bottom: 15px solid #fff;
+      @include tb{
+        display: none;
+      }
+    }
+
+    h4{
+      display: none;
+      @include tb{
+        display: block;
+        border-bottom: 1px solid #000;
+        text-align: center;
+        font-size: 28px;
+        margin: 20px 0px 0px 0px;
+      }
+    }
+
+    &--tag{
+      margin: 10px 20px;
+      @include tb{
+        width: 80vw;
+        margin: 5px 30px;
+        @include mb{
+          width: 90vw;
+        }
+      }
+      h3{
+        font-weight: lighter;
+        font-size: 1.6vw;
+        @include tb {
+          font-weight: 300;
+          font-size: 23px;
+          margin-bottom: 10px;
+        }
+      }
+      &__tags{
+        display: flex;
+        flex-wrap: wrap;
+        width: 25vw;
+        align-items: center;
+        @include tb {
+          width: 53vw;
+          @include mb {
+            width: 75vw;
+          }
+        }
+        input{
+          display: none;
+          &:checked + label::after{
+            opacity: 0.6;
+          }
+        }
+        label{
+          position: relative;
+          cursor: pointer;
+          padding-left: 2vw;
+          font-size: 1.8vw;
+          margin-right: 2.0vw;
+          margin-bottom: 1.5vh;
+          @include tb{
+            font-size: 22px;
+            margin-bottom: 5px;
+            margin-right: 10px;
+            padding: 5px 15px 5px 34px;
+            border: 0.8px solid rgb(163, 163, 163);
+            border-radius: 20px;
+          }
+
+          &::before,&::after{
+            content: "";
+            display: block; 
+            border-radius: 50%;
+            position: absolute;
+            transform: translateY(-50%);
+            top: 50%;
+
+          }
+
+          &::before{
+            background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 1.8vw;
+  height: 1.8vw;
+  left: -0.4vw;
+  @include tb{
+    width: 22px;
+  height: 22px;
+  left: 5px;
+  }
+          }
+
+          &::after{
+            background-color: #52A49A;
+            // background-color: #F3AF56;
+  border-radius: 50%;
+  opacity: 0;
+  width: 1.5vw;
+  height: 1.5vw;
+  left: -0.15vw;
+  @include tb {
+    width: 18px;
+    height: 18px;
+    left: 8px;
+  }
+          }
+        }
+      }
+    }
+    
+  }
+  .search-buttons{
+    width: 25vw;
+    margin: 20px;
+    @include tb {
+      margin: 5px;
+      width: 28vw;
+      @include mb{
+        width: 45vw;
+      }
+    }
+    .search_modal_container--buttons{
+      border-style: none;
+      background-color: #52A49A;
+      color: white;
+      font-weight: bold;
+      height: 55px;
+      border-radius: 28px;
+      width: 20.7vw;
+      font-size: 1.8vw;
+      position: relative;
+      top: 30px;
+      left: 3vw;
+      cursor: pointer;
+      @include tb {
+        display: none;
+      }
+    }
+
+    .search_modal_container--button{
+      display: none;
+      cursor: pointer;
+      @include tb{
+        display: block;
+        border-style: none;
+      background-color: #F3AF56;
+      color: white;
+      font-weight: bold;
+      height: 45px;
+      border-radius: 23px;
+      width: 28vw;
+      font-size: 20px;
+      margin: 0 auto;
+      @include mb {
+        width: 45vw;
+      }
+      }
+    }
+  }
+  &_agents{
+    width: 94.8vw;
+    // padding: 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    @include tb {
+      width: 94vw;
+    }
+    &--all{
+      width: 27vw;
+      height: 220px;
+      background-color: white;
+      cursor: pointer;
+      margin: 0 2.3vw 30px 2.3vw;
+      box-shadow: 0px 8px 8px #c4c4c4;
+      @include tb {
+        width: 43vw;
+        margin: 0 2vw 30px 2vw;
+        @include mb {
+          width: 90vw;
+        }
+      }
+      &__text{
+        width: 100%;
+        background-color: #91C9C4;
+        padding: 5px 0;
+        h4{
+          color: white;
+          position: relative;
+          left: 10px;
+          font-weight: lighter;
+          margin: 0;
+        }
+      }
+      &__flex{
+        display: flex;
+        justify-content: space-between;
+        &--left{
+          width: 13.5vw;
+          height: 190px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          @include tb { 
+            width: 21.5vw;
+            @include mb {
+              width: 45vw;
+            }
+          }
+          img{
+            width: 12.5vw;
+            object-fit: contain;
+            @include tb { 
+              width: 20.5vw;
+              @include mb{
+                width: 44vw;
+              }
+            }
+            
+          }
+        }
+        &--right{
+          width: 13.5vw;
+          @include tb{
+            width: 21.5vw;
+            @include mb {
+              width: 45vw;
+            }
+          }
+          .tag_container{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 6px;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            
+            line-height: 26px;
+            max-height: calc(99px);
+            text-overflow: ellipsis;
+
+            p{
+              font-size: 16px;
+              margin: 5px 5px 2px 5px;
+              padding: 4px 8px;
+              border: 1px solid;
+              border-radius: 15px;
+              height: 16px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}

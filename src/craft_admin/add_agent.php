@@ -6,7 +6,9 @@ require('../dbconnect.php');
 // 画像以外の更新
 if (isset($_POST['submit'])) {
   $agent_name = $_POST['agent_name'];
-  $agent_tag = $_POST['agent_tag'];
+  // これはただタグを表示させるだけのもの
+  $agent_tagname = $_POST['agent_tag'];
+  $agent_tag = $_POST['tag_id'];
   $agent_info = $_POST['agent_info'];
   if (isset($_POST['agent_display'])) {
     // セレクトボックスで選択された値を受け取る
@@ -22,66 +24,20 @@ if (isset($_POST['submit'])) {
   // INSERT INTO文 は一回で書かないとだから、編集画面みたいに分けて書けない
   // 画像をアップロードして、さらに登録ボタンが押されたら SQL文を書く仕組みにした！ （どうせ画像の登録は必要になるから）
 
-  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_info, agent_display) 
-          VALUES (?, ?, ?, ?)';
+  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_tagname, agent_info, agent_display) 
+          VALUES (?, ?, ?, ?, ?, ?)';
   $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_info, $agent_display));
+  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_tagname, $agent_info, $agent_display));
 
-  /**
-   * ここからタグ系の処理イメージ記述します
-   */
-  // input[type=hidden]のtag_id
-  /**
-   * ex. '1,3,4,5'
-   *
-   * @var string $tag_ids
-   */
+  /* ここからタグ系の処理イメージ記述します */
   $tag_ids = $_POST['tag_id'];
-  // タグはカンマ区切りの文字列でフォームから送信されてくる
-  // まずカンマ区切りで切り離してあげて配列に入れたい
-  // explodeを利用すると便利 @see https://www.php.net/manual/ja/function.explode.php
-  // explode(区切り文字, 区切りたい文字, 何番目の区切り文字から区切るか);
-  // explode(',', $tag_ids);
-  // 今回は上記で上手く動く
-  /**
-   * ex. [1,3,4,5]
-   * 
-   * @var string[] $split_ids
-   */
-  $split_ids = explode(',', $tag_ids);
-
-  // print_r($split_ids);
-
   
-  // 数字の配列が手に入ったのでそれぞれのカラムに保存していく
-
-  // ここからパターンがわかれます パターン1はメンテナンス性などを考えると辛いので、パターン2がおすすめです
-  // パターン1 agents テーブルにどのタグを選択中かカラムを追加する ALTER TABLE テーブル名 ADD (tag_1 tinyint(1), tag_2 tinyint(1), ...); tinyint(1)は0か1のみ受け付けるtrue, falseのDB版です
-  // パターン2 agents と tag_options を紐付ける間のテーブルを作成する テーブル構成は以下参照
-  /**
-   * CREATE TABLE agent_tag_options (
-   *   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-   *   tag_option_id INT NOT NULL
-   *   agent_id INT NOT NULL,
-   * );
-   */
-  // どちらのテーブルですすめる場合でもforeachで数字分回してください
-  // パターン1
-  // foreach($split_ids as $index => $id) {
-  //   // パターン1であれば $tag_id_1 ~ $tag_id_XX まで変数を先に用意して全ての値をfalse
-       // あとはswitch文を記述して case id === 1 だったら $tag_id_1 = true; に変える
-  // }
+  $split_ids = explode(',', $tag_ids);
 
   $id_stmt = $db->query('SELECT id FROM agents ORDER BY id DESC LIMIT 1');
   $agent_id = $id_stmt->fetch();
-  // print_r($agent_id);
 
-  // パターン2
-  foreach($split_ids as $index => $id) {
-      // パターン2はagentsがinsertされた後に
-      // agent_tag_optionsに tag_option_id = $id, $agent_id = 新しく作ったエージェントID のinsertを行うだけ
-
-      
+  foreach ($split_ids as $index => $id) {
 
       $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) 
           VALUES (?, ?)";
@@ -89,13 +45,10 @@ if (isset($_POST['submit'])) {
       $stmt->execute(array($id, $agent_id['id']));
       // $stmt->execute(array($id, $agent_id));
   }
-  // パターン2でどのタグを選択したか表示するときは以下のSQLで取れます
-  // select * from agents inner join agent_tag_options on agent_tag_options.agent_id = agents.id where agents.id = 指定ID;
 
-  // こっちは全部載ってる
-  // select agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id;
-
-  // header('Location: http://localhost/craft_admin/home.php');
+  
+  
+  header('Location: home.php');
   exit;
 }
 ?>
