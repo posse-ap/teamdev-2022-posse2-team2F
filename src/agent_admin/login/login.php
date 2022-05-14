@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../dbconnect.php');
+require('../../dbconnect.php');
 
 $err_msg = "";
 
@@ -40,45 +40,42 @@ if (isset($_POST['login'])) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/src/css/normalize.css">
-  <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
   <title>担当者ログイン</title>
 </head>
 
 <body>
-  <?php require("../_header.php"); ?>
+  <?php require("../../_header.php"); ?>
   <div class="util_login_container">
-
     <div class="util_login">
       <h1 class="util_login_title">担当者ログイン</h1>
-      <form action="/agent_admin/login.php" method="POST">
+      <form action="/agent_admin/login/login.php" method="POST">
         <?php if ($err_msg !== null && $err_msg !== '') {
           echo $err_msg .  "<br>";
         } ?>
-        <p>
-          <label for="email">メールアドレス</label>
+        <div class="util_login_text">
+          <label class="util_login_text--label" for="email">メールアドレス</label>
           <input class="util_login_text--box" type="email" name="email" required>
-        </p>
-        <p>
-          <label for="password">パスワード</label>
+        </div>
+        <div class="util_login_text">
+          <label class="util_login_text--label" for="password">パスワード</label>
           <input class="util_login_text--box" type="password" name="password" required>
-        </p>
+        </div>
         <input type="submit" name="login" value="ログイン" class="util_login_button">
       </form>
-      <div class="login_forget">
-
+      <div>
         <a class="util_login_link" href="./signup.php">新規登録はこちら</a>
       </div>
       <br>
-      <div class="login_forget">
-
-        <a class="util_login_link" href="./signup.php">パスワードをお忘れの方はこちら</a>
+      <div>
+        <a class="util_login_link" href="./forget.php">パスワードをお忘れの方はこちら</a>
       </div>
     </div>
   </div>
 
-  <?php require("../_footer.php"); ?>
+  <?php require("../../_footer.php"); ?>
 </body>
 
 </html>

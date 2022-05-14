@@ -12,14 +12,14 @@ if (isset($_POST['reset'])) {
   if ($password !== $password_conf) {
     echo 'パスワードが一致していません。';
   } else {
-    $sql = 'UPDATE craft_users
+    $sql = 'UPDATE agent_users
             SET password = ?, password_conf = ?
             WHERE email = ?';
     $stmt = $db->prepare($sql);
     $stmt->execute(array($password, $password_conf, $email));
     $stmt = null;
     $db = null;
-    header('Location: http://localhost/craft_admin/login/reset_done.php');
+    header('Location: http://localhost/agent_admin/login/reset_done.php');
     exit;
   }
 }
@@ -44,7 +44,7 @@ if (isset($_POST['reset'])) {
   <div class="util_login_container">
     <div class="util_login reset">
       <h1 class="util_login_title">パスワード再発行</h1>
-      <form action="/craft_admin/login/reset.php" method="POST">
+      <form action="/agent_admin/login/reset.php" method="POST">
         <p class="reset_text">メールアドレス：<?= $email ?></p>
         <div class="util_login_text reset_input">
           <label class="util_login_text--label" for="password">パスワード：</label>

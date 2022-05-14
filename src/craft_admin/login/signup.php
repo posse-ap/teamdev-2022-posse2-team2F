@@ -43,15 +43,15 @@ if (isset($_POST['signup'])) {
     <div class="util_login">
       <h1 class="util_login_title">新規管理者登録</h1>
       <form action="" method="POST">
-        <div class="util_login_text signup">
+        <div class="util_login_text craft_signup">
           <label class="util_login_text--label" for="email">メールアドレス：</label>
           <input class="util_login_text--box" type="email" name="email" required>
         </div>
-        <div class="util_login_text signup">
+        <div class="util_login_text craft_signup">
           <label class="util_login_text--label" for="password">パスワード：</label>
           <input class="util_login_text--box" type="password" name="password" required>
         </div>
-        <div class="util_login_text signup">
+        <div class="util_login_text craft_signup">
           <label class="util_login_text--label" for="password_conf">パスワード確認：</label>
           <input class="util_login_text--box" type="password" name="password_conf" required>
         </div>

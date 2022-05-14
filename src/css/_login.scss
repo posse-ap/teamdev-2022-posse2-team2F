@@ -50,6 +50,13 @@
       background-color: #EBEDF1;
       border-style: none;
     }
+
+    &--select {
+      width: 200px;
+      height: 50px;
+      background-color: #EBEDF1;
+      border-style: none;
+    }
   }
 
   &_button{
@@ -72,8 +79,20 @@
 
 // signup.php
 
-.signup {
+.craft_signup {
   margin: 40px auto !important;
+}
+
+// signup_done.php
+
+.signup_done {
+
+  margin: 50px auto 0 auto;
+
+  &_text {
+    margin: 10px 0;
+    font-size: 20px;
+  }
 }
 
 // forget.php
@@ -121,6 +140,13 @@
     margin: 10px 0;
     font-size: 20px;
   }
+}
+
+
+// エージェント
+
+.agent_signup {
+  margin: 20px auto !important;
 }
 
 

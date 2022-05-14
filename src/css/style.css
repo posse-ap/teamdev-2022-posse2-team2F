@@ -165,6 +165,13 @@ a {
   border-style: none;
 }
 
+.util_login_text--select {
+  width: 200px;
+  height: 50px;
+  background-color: #EBEDF1;
+  border-style: none;
+}
+
 .util_login_button {
   width: 180px;
   height: 40px;
@@ -183,8 +190,17 @@ a {
   font-size: 18px;
 }
 
-.signup {
+.craft_signup {
   margin: 40px auto !important;
+}
+
+.signup_done {
+  margin: 50px auto 0 auto;
+}
+
+.signup_done_text {
+  margin: 10px 0;
+  font-size: 20px;
 }
 
 .forget {
@@ -220,6 +236,10 @@ a {
 .reset_done_text {
   margin: 10px 0;
   font-size: 20px;
+}
+
+.agent_signup {
+  margin: 20px auto !important;
 }
 
 .util_container {
@@ -286,11 +306,7 @@ a {
   }
 }
 
-.util_content h2 {
-  width: 80vw;
-}
-
-.util_content h2 .util_title {
+.util_content .util_title {
   width: 70vw;
   height: 50px;
   border-bottom: 1px solid #c4c4c4;
@@ -304,13 +320,13 @@ a {
           align-items: center;
 }
 
-.util_content h2 .util_title--text {
+.util_content .util_title--text {
   font-size: 20px;
   padding-left: 20px;
 }
 
 @media print {
-  .util_content h2 .util_title {
+  .util_content .util_title {
     display: none;
   }
 }
