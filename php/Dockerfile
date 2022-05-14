@@ -3,11 +3,11 @@ RUN go get -d -v github.com/mailhog/mhsendmail \
     && cd /go/src/github.com/mailhog/mhsendmail/ \
     && GOOS=linux GOARCH=arm64 go build -o mhsendmail .
 
-COPY ./php.ini /usr/local/etc/php/
 
 FROM php:8.1-fpm
 WORKDIR /var/www/html
 RUN docker-php-ext-install pdo_mysql
+COPY ./php.ini /usr/local/etc/php/
 
 # RUN curl -sSL https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 -o mhsendmail \
 # RUN chmod +x mhsendmail \
