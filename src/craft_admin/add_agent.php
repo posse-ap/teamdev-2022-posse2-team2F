@@ -7,7 +7,8 @@ require('../dbconnect.php');
 if (isset($_POST['submit'])) {
   $agent_name = $_POST['agent_name'];
   // これはただタグを表示させるだけのもの
-  $agent_tag = $_POST['agent_tag'];
+  $agent_tagname = $_POST['agent_tag'];
+  $agent_tag = $_POST['tag_id'];
   $agent_info = $_POST['agent_info'];
   if (isset($_POST['agent_display'])) {
     // セレクトボックスで選択された値を受け取る
@@ -23,10 +24,10 @@ if (isset($_POST['submit'])) {
   // INSERT INTO文 は一回で書かないとだから、編集画面みたいに分けて書けない
   // 画像をアップロードして、さらに登録ボタンが押されたら SQL文を書く仕組みにした！ （どうせ画像の登録は必要になるから）
 
-  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_info, agent_display) 
-          VALUES (?, ?, ?, ?, ?)';
+  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_tagname, agent_info, agent_display) 
+          VALUES (?, ?, ?, ?, ?, ?)';
   $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_info, $agent_display));
+  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_tagname, $agent_info, $agent_display));
 
   /* ここからタグ系の処理イメージ記述します */
   $tag_ids = $_POST['tag_id'];
@@ -44,6 +45,8 @@ if (isset($_POST['submit'])) {
       $stmt->execute(array($id, $agent_id['id']));
       // $stmt->execute(array($id, $agent_id));
   }
+
+  
   
   header('Location: home.php');
   exit;

@@ -58,6 +58,7 @@ CREATE TABLE agents (
   agent_name VARCHAR(255) NOT NULL,
   agent_pic VARCHAR(255) NOT NULL,
   agent_tag VARCHAR(255) NOT NULL,
+  agent_tagname VARCHAR(255) NOT NULL,
   agent_info VARCHAR(255) NOT NULL,
   agent_display INT NOT NULL
 );
@@ -67,7 +68,8 @@ INSERT INTO
 SET
   agent_name = 'agent1',
   agent_pic = 'agent1.png',
-  agent_tag = 'ベンチャー、大手、ベンチャー',
+  agent_tag = '1,2,3',
+  agent_tagname = 'ベンチャー、大手、ベンチャー',
   agent_info = 'はい！',
   agent_display = 3;
 
@@ -171,7 +173,9 @@ CREATE TABLE students_contact (
   university VARCHAR(255) NOT NULL,
   faculty VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL,
-  grad_year INT NOT NULL
+  grad_year INT NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+
 );
 
 INSERT INTO students_contact (name, email, phone, university, faculty, address, grad_year) 
