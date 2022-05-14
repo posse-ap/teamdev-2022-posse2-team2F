@@ -178,6 +178,12 @@ a {
   background-color: #ebedf1;
 }
 
+@media print {
+  .util_container {
+    background-color: white;
+  }
+}
+
 .util_sidebar {
   width: 180px;
   height: 82vh;
@@ -223,6 +229,12 @@ a {
   position: relative;
 }
 
+@media print {
+  .util_content {
+    border: none;
+  }
+}
+
 .util_content h2 {
   width: 80vw;
   height: 50px;
@@ -240,6 +252,12 @@ a {
 .util_content h2 .util_title {
   font-size: 20px;
   padding-left: 20px;
+}
+
+@media print {
+  .util_content h2 {
+    display: none;
+  }
 }
 
 .home-list {
@@ -1075,6 +1093,91 @@ h3 a {
   margin: 0 5%;
 }
 
+.print-only-area {
+  display: none;
+}
+
+/*
+＝＝＝＝＝＝＝＝＝＝＝＝＝ここからプリント用のCSS＝＝＝＝＝＝＝＝＝＝＝＝＝
+*/
+@media print {
+  .no-print-area {
+    display: none;
+  }
+  .print-only-area {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0 auto;
+  }
+  header {
+    display: none;
+  }
+  .print-only-area {
+    display: block;
+  }
+  .print-only-area__head {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 10%;
+  }
+  .print-only-area__head h1 {
+    width: 50%;
+  }
+  .print-only-area__head div {
+    width: 50%;
+    text-align: right;
+    padding-top: 1.5em;
+  }
+  .print-only-area__logo {
+    width: 50%;
+    margin: left 40%;
+  }
+  .print-only-area__information {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 20%;
+    margin-bottom: 20%;
+  }
+  .print-only-area__deadline {
+    font-size: 1.5em;
+    margin-bottom: 5%;
+    font-weight: 700;
+  }
+  .invoice__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5% auto;
+    text-align: left;
+    background: white;
+  }
+  .invoice__table th, .invoice__table td {
+    border: solid 1px black;
+    /*実線 1px 黒*/
+    padding: 0.5em;
+  }
+  .invoice__table__title {
+    text-align: center;
+    font-size: 1.5em;
+  }
+  .invoice__table__small-item {
+    background: white;
+  }
+  .invoice__table__big-item {
+    background: #E5E5E5;
+    /*背景色*/
+    padding: 1.5em;
+    font-size: 1.1em;
+  }
+  .invoice__table__big-item th {
+    color: black;
+  }
+  .invoice__table__number {
+    text-align: right;
+  }
+}
+
 /*
 1440~768 pc~tablet
 768~     tablet~smartphone
@@ -1167,6 +1270,18 @@ a {
 @media screen and (max-width: 768px) {
   .footer_logo img {
     width: 100px;
+  }
+}
+
+/*
+=====================FOR PRINT=====================
+*/
+@media print {
+  .no-print-area {
+    display: none;
+  }
+  h2 {
+    display: none;
   }
 }
 /*# sourceMappingURL=style.css.map */

@@ -39,7 +39,6 @@ h3{
 }
 }
 
-
 .invoice__buttons__section{
     display: flex;
     justify-content: center;
@@ -47,5 +46,95 @@ h3{
 
     .login_button{
         margin: 0 5%;
+    }
+}
+
+.print-only-area{
+    display: none;
+}
+
+/*
+＝＝＝＝＝＝＝＝＝＝＝＝＝ここからプリント用のCSS＝＝＝＝＝＝＝＝＝＝＝＝＝
+*/
+
+@media print{
+    .no-print-area {
+    display: none;
+    }
+
+    .print-only-area{
+        // width: 210mm;
+        // height: 150mm;
+        box-sizing: border-box;
+        // padding: 20mm;
+        margin: 0 auto;
+    }
+
+    header{
+        display: none;
+    }
+    .print-only-area{
+        display: block;
+        &__head{
+            display: flex;
+            margin-bottom: 10%;
+            & h1{
+                width: 50%;
+            }
+            & div{
+                width: 50%;
+                text-align: right;
+                padding-top: 1.5em;
+            }
+        }
+        &__logo{
+            width: 50%;
+            margin: left 40%; ;
+        }
+        &__information{
+            display: flex;
+            gap: 20%;
+            margin-bottom: 20%;
+        }
+        &__deadline{
+            font-size: 1.5em;
+            margin-bottom: 5%;
+            font-weight: 700;
+        }
+    }
+
+
+    .invoice__table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 5% auto;
+        text-align: left;
+        background: white;
+    
+    & th,td {
+        border: solid 1px black;
+        /*実線 1px 黒*/
+        padding: 0.5em;
+        }
+    
+    &__title{
+        text-align: center;
+        font-size: 1.5em;
+    }
+    
+    &__small-item{
+        background: white;
+    }
+    &__big-item{
+        background: #E5E5E5;/*背景色*/
+        padding: 1.5em;
+        font-size: 1.1em;
+        & th{
+            color: black;
+        }
+    }
+    &__number{
+        text-align: right;
+    }
     }
 }

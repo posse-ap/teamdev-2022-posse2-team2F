@@ -96,3 +96,17 @@ a {
     }
   }
 }
+
+/*
+=====================FOR PRINT=====================
+*/
+
+@media print{
+  .no-print-area {
+  display: none;
+  }
+
+  h2{
+    display: none;
+  }
+}
