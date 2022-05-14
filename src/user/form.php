@@ -131,45 +131,52 @@ if( isset($_POST["back"] ) && $_POST["back"] ){
   $stmt = $db->prepare($sql);
   $stmt->execute(array($_SESSION['student_name'], $_SESSION['student_email'], $_SESSION['student_phone'], $_SESSION['student_university'], $_SESSION['student_faculty'], $_SESSION['student_address'], $_SESSION['student_graduation']));
   
+
+  // メール送信 - エージェント用
+  $to      = "agent1@agent1.com";
+  $subject = "学生の申し込みがありました";
+  $message = "
+  〇〇agent様
+
+  学生の新規申し込みがありました
+  以下でご確認ください：
+  // リンク
+
+  ";
+  $headers = "From: craft@boozer.com";
+
+  mb_send_mail($to, $subject, $message, $headers);
+
+  // メール送信 - 学生用
+  // $to      = "student1@gmail.com";
+  $to      = $_SESSION['student_email'];
+  $subject = "学生の申し込みがありました";
+  $message = "
+  〇〇様
+
+  申し込みありがとうございます！
+  以下でご確認ください：
+  // リンク
+
+  ";
+  $headers = "From: craft@boozer.com";
+
+  mb_send_mail($to, $subject, $message, $headers);
+
+  // メール送信 - 学生用
+  $to      = "admin@boozer.com";
+  $subject = "学生の申し込みがありました";
+  $message = "
+ 
+  〇〇エージェントから申し込みがありました！
+  以下でご確認ください：
+  // リンク
+
+  ";
+  $headers = "From: craft@boozer.com";
+
+  mb_send_mail($to, $subject, $message, $headers);
   
-
-  // mb_language("Japanese");
-  // mb_internal_encoding("UTF-8");
-  // $to = 'kohei.s.n@gmail.com';
-  // $title = 'test';
-  // $message = 'hello!';
-  // $additional_headers = "From:".mb_encode_mimeheader("送信者2")."<test2@example.com>";
-
-  
-  // $to      = 'kohei.s.n@gmail.com';
-  // $subject = 'the subject';
-  // $message = 'hello';
-  // $headers = 'From: koheilampard@gmail.com';
-      // 'Reply-To: webmaster@example.com' . "\r\n" .
-      // 'X-Mailer: PHP/' . phpversion();
-
-    // $to = "to@example.com";
-    // $subject = "HTML MAIL";
-    // $message = "<html><body><h1>This is HTML MAIL</h1></body></html>";
-    // $headers = "From: from@example.com";
-    // $headers .= "\r\n";
-    // $headers .= "Content-type: text/html; charset=UTF-8";
-
-    mb_language("Japanese");  //言語の指定
-    mb_internal_encoding("UTF-8"); //文字コードの指定
-    
-    $to = 'kohei.s.n@example.com'; //送信先アドレスの指定
-    $subject = 'こんにちは、これはテストです。';
-    $message = 'お元気ですか？私は毎日健康に過ごしていますよ。また会いましょう。';
-    $additional_headers = "From: a1@test.com\r\nReply-To: a1@test.com\r\n";//送信元の設定
-    
-    
-
-    if(mb_send_mail ($to, $subject, $message, $additional_headers)){
-      echo "メールを送信しました";
-    } else {
-      echo "メールの送信に失敗しました";
-    };
   ?>
 
 <?php } else { ?>
