@@ -13,7 +13,7 @@
 
 
 .util_sidebar {
-  width: 180px;
+  width: 220px;
   height: 82vh;
   background-color: #e5e5e5;
   text-align: center;
@@ -45,11 +45,11 @@
 .util_content {
   // 乱用すると面倒臭い はみ出すなど、%感覚で使うとずれたりする、原因見つけるのに時間がかかる
   // コンテナを無視するなど面倒臭い
-  width: 80vw;
+  width: 70vw;
   height: 75vh;
   background-color: white;
   border: 1px solid #c4c4c4;
-  margin: 20px 53px 0 53px;
+  margin: 20px 105px 0 105px;
   position: relative;
 
   //印刷用
@@ -59,6 +59,8 @@
 
   h2 {
     width: 80vw;
+  .util_title {
+    width: 70vw;
     height: 50px;
     border-bottom: 1px solid #c4c4c4;
     margin: 0;
@@ -67,7 +69,7 @@
     align-items: center;
     // padding-left: 10px;
     // padding-right: 20px;
-    .util_title {
+    &--text {
       font-size: 20px;
       padding-left: 20px;
     }
@@ -76,7 +78,7 @@
       display: none;
     }
   }
-
+}
 }
 
 
@@ -168,6 +170,9 @@
   &--edit {
     background-color: #91c9c4;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &--delete {
@@ -178,6 +183,9 @@
   &--list {
     background-color: #c4c4c4;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

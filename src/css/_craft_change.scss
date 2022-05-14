@@ -1,21 +1,25 @@
-.edit_agent_information {
+.change {
   width: 64vw;
   height: 75vh;
   margin: 15px 30px;
 
-  p {
-    width: 70vw;
+  &_item {
+    width: 60vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-    label {
+    // label {
+    //   font-size: 1.3vw;
+    //   font-weight: 500;
+    // }
+    &--label {
       font-size: 1.3vw;
       font-weight: 500;
     }
-    input {
+    &--input {
       padding-left: 10px;
-      width: 48vw;
+      width: 40vw;
       height: 3.5vh;
       border-style: none;
       background-color: #ebedf1;
@@ -23,44 +27,39 @@
       font-size: 1.4vw;
     }
 
-    textarea {
+    &--textarea {
       padding-left: 10px;
-      width: 48vw;
-      height: 3.5vh;
+      width: 40vw;
+      height: 15vh;
       border-style: none;
       background-color: #ebedf1;
+      overflow-x: scroll;
       border-radius: 1vh;
       font-size: 1.4vw;
       color: black;
     }
-    .fake_image{
-      width: 48vw;
-      height: 15vh;
-      margin: 0;
-      padding-left: 10px;
-      background-color: #ebedf1;
-      border-radius: 1vh;
-      border-top: 1px solid #ebedf1;
-      border-bottom: 1px solid #ebedf1;
-    }
 
-    #image {
+    &--image {
       background-color: transparent;
     }
-  }
 
-  .agent_img {
-    flex-wrap: wrap;
+    &--button {
+      cursor: pointer;
+      color: #52a49a;
+      margin-left: 19vw;
+    }
 
-    .agent_image {
-      width: 16vw;
-      height: 12.8vh;
+    &--select {
+      width: 12vw;
+      height: 3.5vh;
+      border-style: none;
       background-color: #ebedf1;
       border-radius: 1vh;
     }
 
-    img {
-      width: 48vw;
+    // エージェント追加画面で、写真を見せる箱
+    &--box {
+      width: 40vw;
       object-fit: contain;
       margin: 0;
       padding-left: 10px;
@@ -69,49 +68,54 @@
       border-top: 1px solid #ebedf1;
       border-bottom: 1px solid #ebedf1;
     }
-
-    #preview{
-      display: none;
-      height: 15vh;
-    }
-
-    #add_preview{
-      display: none;
-      height: 15vh;
-    }
-
-    .file_upload_button{
-      cursor: pointer;
-      color: #52a49a;
-      margin-left: 21vw;
-    }
-
-    input {
-      display: none;
-    }
   }
 
-  .agent_info_container {
-    textarea {
-      width: 48vw;
-      height: 15vh;
-      overflow-x: scroll;
-    }
-  }
+  .preview {
+    flex-wrap: wrap;
 
-  .agent_term {
-    width: 33.3vw;
-    margin-bottom: 10px;
-    select {
-      width: 12vw;
-      height: 3.5vh;
-      border-style: none;
+    // .agent_image {
+    //   width: 16vw;
+    //   height: 12.8vh;
+    //   background-color: #ebedf1;
+    //   border-radius: 1vh;
+    // }
+
+    &_img {
+      width: 40vw;
+      height: 15vw;
+      object-fit: contain;
+      margin: 0;
+      padding-left: 10px;
       background-color: #ebedf1;
       border-radius: 1vh;
+      border-top: 1px solid #ebedf1;
+      border-bottom: 1px solid #ebedf1;
+      &--hide {
+        display: none;
+        height: 15vh;
+      }
+    }
+
+    &_input {
+      display: none;
     }
   }
 
-  .manage_button {
+  // .agent_info_container {
+  //   textarea {
+  //     width: 48vw;
+  //     height: 15vh;
+  //   }
+  // }
+
+  .dropdown {
+    width: 31vw;
+    margin-bottom: 10px;
+    
+  }
+
+
+  &_button {
     width: 8vw;
     height: 5vh;
     border-style: none;
