@@ -25,31 +25,45 @@ if (isset($_POST['signup'])) {
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ユーザ登録画面</title>
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <title>管理者新規登録</title>
 </head>
 <body>
-  <h1>新規管理者登録</h1>
-  <form action="" method="POST">
-    <p>
-      <label for="email">メールアドレス：</label>
-      <input type="email" name="email" required>
-    </p>
-    <p>
-      <label for="password">パスワード：</label>
-      <input type="password" name="password" required>
-    </p>
-    <p>
-      <label for="password_conf">パスワード確認：</label>
-      <input type="password" name="password_conf" required>
-    </p>
-    <p>
-      <input type="submit" name="signup" value="新規登録">
-    </p>
-  </form>
+  <?php include '../../_header.php'; ?>
+
+  <div class="util_login_container">
+    <div class="util_login">
+      <h1 class="util_login_title">新規管理者登録</h1>
+      <form action="" method="POST">
+        <div class="util_login_text craft_signup">
+          <label class="util_login_text--label" for="email">メールアドレス：</label>
+          <input class="util_login_text--box" type="email" name="email" required>
+        </div>
+        <div class="util_login_text craft_signup">
+          <label class="util_login_text--label" for="password">パスワード：</label>
+          <input class="util_login_text--box" type="password" name="password" required>
+        </div>
+        <div class="util_login_text craft_signup">
+          <label class="util_login_text--label" for="password_conf">パスワード確認：</label>
+          <input class="util_login_text--box" type="password" name="password_conf" required>
+        </div>
+        <div>
+          <input type="submit" name="signup" value="新規登録" class="util_login_button">
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
+
+
+<?php require("../../_footer.php"); ?>
+
 </html>

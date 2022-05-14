@@ -11,7 +11,6 @@
   <title>パスワード再発行メール送信完了</title>
 </head>
 
-
 <body>
   <?php include '../../_header.php'; ?>
     <div class="util_login_container">
@@ -30,3 +29,4 @@
 
 
 </html>
+

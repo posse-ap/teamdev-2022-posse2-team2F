@@ -1,3 +1,9 @@
+<?php
+session_start();
+require('../../dbconnect.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -8,18 +14,17 @@
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-  <title>パスワード再発行メール送信完了</title>
+  <title>担当者登録完了画面</title>
 </head>
-
 
 <body>
   <?php include '../../_header.php'; ?>
     <div class="util_login_container">
       <div class="util_login util_login--small">
-        <h1 class="util_login_title">パスワード再発行</h1>
-        <div class="sendlink">
-          <p class="sendlink_text">パスワード再発行のメールが送信されました。</p>
-          <p class="sendlink_text">ご登録されたメールアドレスをご確認ください。</p>
+        <h1 class="util_login_title util_login_title--long">新規担当者登録</h1>
+        <div class="signup_done">
+          <p class="signup_done_text">新規担当者登録が完了いたしました。</p>
+          <a class="util_login_link" href="./login.php">ログイン画面に戻る</a>
         </div>
       </div>
     </div>

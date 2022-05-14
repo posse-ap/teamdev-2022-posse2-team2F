@@ -13,7 +13,7 @@ if (isset($_POST['submit_email'])) {
   $_SESSION["email"] = $_POST['email'];
   $email = $_POST['email'];
   
-  $sql = 'SELECT count(*) FROM craft_users WHERE email = ?';
+  $sql = 'SELECT count(*) FROM agent_users WHERE email = ?';
   $stmt = $db->prepare($sql);
   $stmt->execute(array($email));
   $result = $stmt->fetch();
@@ -32,14 +32,14 @@ if (isset($_POST['submit_email'])) {
     ※パスワードリセットの申請に心当たりがない場合は、以降の対応は不要となります。
 
     ▼パスワードの再設定URL
-    http://localhost/craft_admin/login/reset.php
+    http://localhost/agent_admin/login/reset.php
 
     ";
     $headers = "From: craft@boozer.com";
 
     mb_send_mail($to, $subject, $message, $headers);
 
-    header('Location: http://localhost/craft_admin/login/send_link.php');
+    header('Location: http://localhost/agent_admin/login/send_link.php');
 
     
 
@@ -54,7 +54,6 @@ if (isset($_POST['submit_email'])) {
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -65,7 +64,7 @@ if (isset($_POST['submit_email'])) {
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-  <title>管理者パスワード再発行</title>
+  <title>担当者パスワード再発行</title>
 </head>
 
 <body>
@@ -79,7 +78,7 @@ if (isset($_POST['submit_email'])) {
         <br><br><br>
         <p class="forget_text">登録しているメールアドレス</p>
       </div>
-      <form action="/craft_admin/login/forget.php" method="POST">
+      <form action="/agent_admin/login/forget.php" method="POST">
         <input class="util_login_text--box" type="text" name="email">
         <br>
         <?php if ($err_msg !== null && $err_msg !== '') { echo $err_msg .  "<br>";} ?>

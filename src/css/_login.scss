@@ -1,4 +1,4 @@
-.login_container{
+.util_login_container{
   width: 100%;
   height: 82vh;
   background-color: #EBEDF1;
@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.login_box{
+.util_login{
   // height: 500px;
   height: 75vh;
   width: 750px;
@@ -15,7 +15,11 @@
   background-color: white;
   vertical-align: middle;
 
-  .login_title{
+  &--small {
+    height: 40vh;
+  }
+
+  &_title{
     width: 300px;
     color: #52A49A;
     font-size: 36px;
@@ -23,47 +27,127 @@
     margin: 10px auto 40px auto;
     padding-bottom: 5px;
     padding-top: 30px;
+
+    &--long {
+      width: 400px !important;
+    }
   }
 
-  p{
+  &_text {
     width: 650px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 50px auto;
 
-    label{
+    &--label{
       font-size: 24px;
     }
 
-    .login_textbox{
+    &--box{
       width: 400px;
       height: 50px;
       background-color: #EBEDF1;
       border-style: none;
     }
+
+    &--select {
+      width: 200px;
+      height: 50px;
+      background-color: #EBEDF1;
+      border-style: none;
+    }
+  }
+
+  &_button{
+    width: 180px;
+    height: 40px;
+    color: white;
+    background-color: #91C9C4;
+    margin: 10px auto 20px auto;
+    font-size: 24px;
+    border-style: none;
+    box-shadow: 6px 2px 3px #c0c1c5;
+  }
+
+  &_link{
+    color: #52A49A;
+    border-bottom: 0.5px solid;
+    font-size: 18px;
   }
 }
 
-.login_button{
-  width: 180px;
-  height: 40px;
-  color: white;
-  background-color: #91C9C4;
-  margin: 10px auto 20px auto;
-  font-size: 24px;
-  border-style: none;
-  box-shadow: 6px 2px 3px #c0c1c5;
+// signup.php
+
+.craft_signup {
+  margin: 40px auto !important;
 }
 
-.login_new{
-  color: #52A49A;
-  border-bottom: 0.5px solid;
-  font-size: 18px;
+// signup_done.php
+
+.signup_done {
+
+  margin: 50px auto 0 auto;
+
+  &_text {
+    margin: 10px 0;
+    font-size: 20px;
+  }
 }
 
-.login_forget{
-  height: 22px;
+// forget.php
+
+.forget {
+  margin: 10px 50px;
+
+  &_text {
+    margin: 10px 0;
+    font-size: 20px;
+  }
 }
+
+// send_link.php
+
+.sendlink {
+
+  margin: 50px auto 0 auto;
+
+  &_text {
+    margin: 10px 0;
+    font-size: 20px;
+  }
+}
+
+// reset.php 
+
+.reset {
+  &_input {
+    margin: 40px auto;
+  }
+
+  &_text {
+    font-size: 24px;
+  }
+}
+
+// reset_done.php
+
+.reset_done {
+
+  margin: 50px auto 0 auto;
+
+  &_text {
+    margin: 10px 0;
+    font-size: 20px;
+  }
+}
+
+
+// エージェント
+
+.agent_signup {
+  margin: 20px auto !important;
+}
+
 
 
