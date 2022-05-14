@@ -3,6 +3,10 @@
   display: flex;
   // justify-content: space-between;
   background-color: #ebedf1;
+  //印刷用
+  @media print{
+    background-color: white;
+  }
 }
 
 // max-width 使う
@@ -48,6 +52,13 @@
   margin: 20px 105px 0 105px;
   position: relative;
 
+  //印刷用
+  @media print{
+    border: none;
+  }
+
+  h2 {
+    width: 80vw;
   .util_title {
     width: 70vw;
     height: 50px;
@@ -62,7 +73,12 @@
       font-size: 20px;
       padding-left: 20px;
     }
+    //印刷用
+    @media print{
+      display: none;
+    }
   }
+}
 }
 
 
