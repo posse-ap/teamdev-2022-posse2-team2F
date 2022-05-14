@@ -62,7 +62,7 @@ $categories = $stmt->fetchAll();
 
 // 更新処理
 if (isset($_POST['tag']) && is_array($_POST['tag'])) {
-  $tag = implode("、", $_POST["tag"]);
+  $tag = implode(",", $_POST["tag"]);
 
   $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
   $stmt = $db->prepare($sql);
@@ -113,7 +113,7 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
           </div> 
           <div class="change_item">
             <label class="change_item--label" for="agent_tag">エージェントタグ</label>
-            <input class="change_item--input" type="text" name="agent_tag" value="<?= $result['agent_tag'] ?>" required onclick="tag_modalOpen()">
+            <input class="change_item--input" type="text" name="agent_tag" value="" required onclick="tag_modalOpen()">
           </div>
           <div class="change_item preview">
             <label class="change_item--label" for="agent_pic">エージェント画像</label>
@@ -184,7 +184,7 @@ if (isset($_POST['tag']) && is_array($_POST['tag'])) {
             <div class="tag_modal_container--tag_tags">
               <?php foreach ($tags as $tag) : ?>
 
-                <input type="checkbox" name="tag[]" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
+                <input type="checkbox" name="tag[]" id="<?= $tag['id'] ?>" value="<?= $tag['id'] ?>">
                 <label for="tag">
 
                   <?= $tag['tag_option'] ?>

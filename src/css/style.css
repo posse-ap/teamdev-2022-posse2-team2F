@@ -646,6 +646,14 @@ a {
       flex-wrap: wrap;
 }
 
+.tag_modal_container--tag_tags input {
+  display: none;
+}
+
+.tag_modal_container--tag_tags label {
+  font-size: 16px;
+}
+
 .tag_modal_container--buttons {
   width: 20vw;
   display: -webkit-box;
@@ -1462,7 +1470,7 @@ a {
 
 .top_container_agents--all__flex--left {
   width: 13.5vw;
-  height: 26vh;
+  height: 190px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

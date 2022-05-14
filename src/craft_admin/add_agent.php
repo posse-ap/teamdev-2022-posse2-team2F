@@ -6,7 +6,7 @@ require('../dbconnect.php');
 // 画像以外の更新
 if (isset($_POST['submit'])) {
   $agent_name = $_POST['agent_name'];
-  $agent_tag = $_POST['agent_tag'];
+  // $agent_tag = $_POST['agent_tag'];
   $agent_info = $_POST['agent_info'];
   if (isset($_POST['agent_display'])) {
     // セレクトボックスで選択された値を受け取る

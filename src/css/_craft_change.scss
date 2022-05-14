@@ -162,6 +162,12 @@
         max-width: 30vw;
         display: flex;
         flex-wrap: wrap;
+        input{
+          display: none;
+        }
+        label{
+          font-size: 16px;
+        }
       }
     }
     
