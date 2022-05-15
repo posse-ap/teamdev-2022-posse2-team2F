@@ -83,7 +83,7 @@ $categories = $stmt->fetchAll();
         <div class="top_container_agents--all__flex">
 
           <div class="top_container_agents--all__flex--left">
-            <img src="../craft_admin/images/<?= $result['agent_pic'] ?>" alt="" style="height: 18.7vh">
+            <img src="../craft_admin/images/<?= $result['agent_pic'] ?>" alt="" style="height: 180px;">
 
           </div>
           <div class="top_container_agents--all__flex--right">
