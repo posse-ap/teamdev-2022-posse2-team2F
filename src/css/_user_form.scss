@@ -1,0 +1,116 @@
+.util_fullscreen {
+  // height: 500px;
+  height: 75vh;
+  width: 750px;
+  margin: 0px auto;
+  text-align: center;
+  background-color: white;
+  vertical-align: middle;
+
+
+  &--small {
+    height: 40vh;
+  }
+
+  .userform {
+  
+    &_title{
+      width: 170px;
+      color: #52A49A;
+      font-size: 24px;
+      border-bottom: 1px solid #000;
+      margin: 20px auto;
+      padding: 5px 0;
+  
+      // &--long {
+      //   width: 400px !important;
+      // }
+    }
+  
+    &_text {
+      width: 550px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 13px auto;
+      position: relative;
+
+      span {
+        color: #fff;
+        background: #fb3b6f;
+        display: inline-block;
+        padding: 2px 5px;
+        font-size: 10px;
+        position: absolute;
+        left: 35%;
+      }
+
+      
+      &--label{
+        font-size: 15px;
+
+        
+      }
+  
+      &--box{
+        width: 300px;
+        height: 35px;
+        background-color: #EBEDF1;
+        border-style: none;
+      }
+  
+      i {
+        position: absolute;
+        right: 28%;
+        cursor: pointer;
+      }
+  
+      &--select {
+        width: 200px;
+        height: 35px;
+        background-color: #EBEDF1;
+        border-style: none;
+      }
+    }
+  
+    // &_button{
+    //   width: 180px;
+    //   height: 35px;
+    //   color: white;
+    //   background-color: #91C9C4;
+    //   margin: 10px auto 20px auto;
+    //   font-size: 24px;
+    //   border-style: none;
+    //   box-shadow: 6px 2px 3px #c0c1c5;
+    // }
+    &_button{
+      width: 150px;
+      height: 40px;
+      border-radius: 30px;
+      color: white;
+      border-style: none;
+      font-size: 15px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+
+      &--left {
+        background-color: #F3AF56;
+        margin-right: 50px;
+      }
+
+      &--right {
+        background-color: #52A49A;
+        margin-left: 50px;
+      }
+    }
+  
+    &_link{
+      color: #52A49A;
+      border-bottom: 0.5px solid;
+      font-size: 18px;
+    }
+
+  }
+
+  
+}

@@ -8,7 +8,7 @@ $email = $_SESSION['email'];
 if (isset($_POST['reset'])) {
   $password = sha1($_POST['password']);
   $password_conf = sha1($_POST['password_conf']);
-  
+
   if ($password !== $password_conf) {
     echo 'パスワードが一致していません。';
   } else {
@@ -40,9 +40,9 @@ if (isset($_POST['reset'])) {
 </head>
 
 <body>
-  <?php include '../../_header.php'; ?> 
-  <div class="util_login_container">
-    <div class="util_login reset">
+  <?php include '../../_header.php'; ?>
+  <div class="util_fullscreen_container">
+    <div class="util_fullscreen reset">
       <h1 class="util_login_title">パスワード再発行</h1>
       <form action="/craft_admin/login/reset.php" method="POST">
         <p class="reset_text">メールアドレス：<?= $email ?></p>
@@ -63,7 +63,7 @@ if (isset($_POST['reset'])) {
 
 
 
-  
+
 </body>
 <?php require("../../_footer.php"); ?>
 

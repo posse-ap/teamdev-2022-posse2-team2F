@@ -44,8 +44,8 @@ if (isset($_POST['login'])) {
 
 <body>
   <?php include '../../_header.php'; ?>
-  <div class="util_login_container">
-    <div class="util_login">
+  <div class="util_fullscreen_container">
+    <div class="util_fullscreen util_login">
       <h1 class="util_login_title">管理者ログイン</h1>
       <?php if ($err_msg !== null && $err_msg !== '') {
         echo $err_msg .  "<br>";
@@ -76,20 +76,18 @@ if (isset($_POST['login'])) {
 <?php require("../../_footer.php"); ?>
 
 <script>
-        const togglePassword = document.getElementById("togglePassword");
-        const password = document.getElementById("password");
+  const togglePassword = document.getElementById("togglePassword");
+  const password = document.getElementById("password");
 
-        togglePassword.addEventListener("click", function () {
-            // toggle the type attribute
-            const type = password.getAttribute("type") === "password" ? "text" : "password";
-            password.setAttribute("type", type);
-            
-            // toggle the icon
-            this.classList.toggle("fa-eye");
-            this.classList.toggle("fa-eye-slash");
-        });
+  togglePassword.addEventListener("click", function() {
+    // toggle the type attribute
+    const type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
 
-        
+    // toggle the icon
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
+  });
 </script>
 
 </html>

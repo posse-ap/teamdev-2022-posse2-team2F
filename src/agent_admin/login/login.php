@@ -49,8 +49,8 @@ if (isset($_POST['login'])) {
 
 <body>
   <?php require("../../_header.php"); ?>
-  <div class="util_login_container">
-    <div class="util_login">
+  <div class="util_fullscreen_container">
+    <div class="util_fullscreen util_login">
       <h1 class="util_login_title">担当者ログイン</h1>
       <form action="/agent_admin/login/login.php" method="POST">
         <?php if ($err_msg !== null && $err_msg !== '') {
@@ -81,20 +81,18 @@ if (isset($_POST['login'])) {
 </body>
 
 <script>
-        const togglePassword = document.getElementById("togglePassword");
-        const password = document.getElementById("password");
+  const togglePassword = document.getElementById("togglePassword");
+  const password = document.getElementById("password");
 
-        togglePassword.addEventListener("click", function () {
-            // toggle the type attribute
-            const type = password.getAttribute("type") === "password" ? "text" : "password";
-            password.setAttribute("type", type);
-            
-            // toggle the icon
-            this.classList.toggle("fa-eye");
-            this.classList.toggle("fa-eye-slash");
-        });
+  togglePassword.addEventListener("click", function() {
+    // toggle the type attribute
+    const type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
 
-        
+    // toggle the icon
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
+  });
 </script>
 
 </html>
