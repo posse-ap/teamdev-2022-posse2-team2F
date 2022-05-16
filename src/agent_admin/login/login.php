@@ -43,6 +43,7 @@ if (isset($_POST['login'])) {
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
   <title>担当者ログイン</title>
 </head>
 
@@ -61,7 +62,8 @@ if (isset($_POST['login'])) {
         </div>
         <div class="util_login_text">
           <label class="util_login_text--label" for="password">パスワード</label>
-          <input class="util_login_text--box" type="password" name="password" required>
+          <input class="util_login_text--box" type="password" name="password" id="password" required>
+          <i class="fas fa-eye-slash" id="togglePassword"></i>
         </div>
         <input type="submit" name="login" value="ログイン" class="util_login_button">
       </form>
@@ -77,5 +79,22 @@ if (isset($_POST['login'])) {
 
   <?php require("../../_footer.php"); ?>
 </body>
+
+<script>
+        const togglePassword = document.getElementById("togglePassword");
+        const password = document.getElementById("password");
+
+        togglePassword.addEventListener("click", function () {
+            // toggle the type attribute
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+            
+            // toggle the icon
+            this.classList.toggle("fa-eye");
+            this.classList.toggle("fa-eye-slash");
+        });
+
+        
+</script>
 
 </html>

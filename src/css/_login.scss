@@ -51,6 +51,12 @@
       border-style: none;
     }
 
+    i {
+      position: absolute;
+      right: 28%;
+      cursor: pointer;
+    }
+
     &--select {
       width: 200px;
       height: 50px;

@@ -34,6 +34,7 @@ if (isset($_POST['signup'])) {
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
   <title>管理者新規登録</title>
 </head>
 <body>
@@ -49,11 +50,13 @@ if (isset($_POST['signup'])) {
         </div>
         <div class="util_login_text craft_signup">
           <label class="util_login_text--label" for="password">パスワード：</label>
-          <input class="util_login_text--box" type="password" name="password" required>
+          <input class="util_login_text--box" type="password" name="password" id="password" required>
+          <i class="fas fa-eye-slash" id="togglePassword"></i>
         </div>
         <div class="util_login_text craft_signup">
           <label class="util_login_text--label" for="password_conf">パスワード確認：</label>
-          <input class="util_login_text--box" type="password" name="password_conf" required>
+          <input class="util_login_text--box" type="password" name="password_conf" id="password_conf" required>
+          <i class="fas fa-eye-slash" id="togglePassword_conf"></i>
         </div>
         <div>
           <input type="submit" name="signup" value="新規登録" class="util_login_button">
@@ -65,5 +68,34 @@ if (isset($_POST['signup'])) {
 
 
 <?php require("../../_footer.php"); ?>
+
+<script>
+        const togglePassword = document.getElementById("togglePassword");
+        const togglePassword_conf = document.getElementById("togglePassword_conf");
+        const password = document.getElementById("password");
+        const password_conf = document.getElementById("password_conf");
+
+        togglePassword.addEventListener("click", function () {
+            // toggle the type attribute
+            let type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+            
+            // toggle the icon
+            this.classList.toggle("fa-eye");
+            this.classList.toggle("fa-eye-slash");
+        });
+
+        togglePassword_conf.addEventListener("click", function () {
+            // toggle the type attribute
+            let type = password_conf.getAttribute("type") === "password" ? "text" : "password";
+            password_conf.setAttribute("type", type);
+            
+            // toggle the icon
+            this.classList.toggle("fa-eye");
+            this.classList.toggle("fa-eye-slash");
+        });
+
+        
+</script>
 
 </html>

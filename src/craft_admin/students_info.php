@@ -100,7 +100,7 @@ require('../dbconnect.php');
                 $all_students_info = $sql_prepare->fetchAll();
 
                 if (!$all_students_info) {
-                    echo $all_students_info->error;
+                    // echo $all_students_info->error;
                     exit();
                 }
                 ?>
