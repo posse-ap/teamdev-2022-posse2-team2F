@@ -31,7 +31,11 @@ CREATE TABLE agent_users (
   email VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL,
   password_conf VARCHAR(255) NOT NULL,
-  agent_name VARCHAR(255) NOT NULL
+  agent_name VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  dept VARCHAR(255) NOT NULL,
+  image VARCHAR(255) NOT NULL,
+  message VARCHAR(255) NOT NULL
 );
 
 INSERT INTO
@@ -40,14 +44,24 @@ SET
   email = 'admin@agent.com',
   password = sha1('password'),
   password_conf = sha1('password'),
-  agent_name = 'agent1'; 
+  agent_name = 'agent1', 
+  name = "英時えんと",
+  dept = "〇〇部署",
+  image = "ento.png",
+  message = "よろしくお願いしません！！！！！";
+
+
 INSERT INTO
   agent_users
 SET
   email = 'admin2@agent.com',
   password = sha1('password'),
   password_conf = sha1('password'),
-  agent_name = 'agent2'; 
+  agent_name = 'agent2',
+  name = "栄次えんと",
+  dept = "〇〇部署",
+  image = "ento2.png",
+  message = "就活頑張らなくていいよ！！！！！";
 
 -- エージェント情報
 
