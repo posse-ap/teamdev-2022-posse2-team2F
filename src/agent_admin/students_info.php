@@ -16,17 +16,17 @@ require('../dbconnect.php');
 <body>
     <div class="util_container">
         <div class="util_sidebar">
-            <div class="util_sidebar_button">
-                <a class="util_sidebar_link" href="/craft_admin/home.php">エージェント管理</a>
-            </div>
-            <div class="util_sidebar_button">
-                <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>
-            </div>
-            <div class="util_sidebar_button">
-                <a class="util_sidebar_link" href="/craft_admin/tag.php">タグ編集・追加</a>
-            </div>
             <div class="util_sidebar_button util_sidebar_button--selected">
-                <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+                <a class="util_sidebar_link  util_sidebar_link--selected" href="/agent_admin/students_info.php">学生申し込み一覧</a>
+            </div>
+            <div class="util_sidebar_button">
+                <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報編集</a>
+            </div>
+            <div class="util_sidebar_button">
+                <a class="util_sidebar_link" href="">お問合せ</a>
+            </div>
+            <div class="util_sidebar_button">
+                <a class="util_sidebar_link" href="/agent_admin/invoice.php">請求金額確認</a>
             </div>
             <div class="util_sidebar_button">
                 <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
