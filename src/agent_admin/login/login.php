@@ -25,7 +25,11 @@ if (isset($_POST['login'])) {
     header('Location: http://localhost/agent_admin/home.php');
     //DBのユーザー情報をセッションに保存
     $_SESSION['id'] = $login_info['id'];
-    $_SESSION['name'] = $login_info['agent_name'];
+    $_SESSION['agent_name'] = $login_info['agent_name'];
+    $_SESSION['name'] = $login_info['name'];
+    $_SESSION['dept'] = $login_info['dept'];
+    $_SESSION['image'] = $login_info['image'];
+    $_SESSION['message'] = $login_info['message'];
     exit;
   } else {
     $err_msg = "ユーザー名またはパスワードが間違っています";
