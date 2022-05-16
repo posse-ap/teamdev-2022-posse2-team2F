@@ -1,5 +1,5 @@
 @mixin tb {
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 960px) {
     @content;
   }
 }
@@ -24,8 +24,9 @@ a {
     justify-content: center;
     align-items: center;
     & img{
+      width: 250px;
       @include tb {
-        width: 100px;
+        width: 180px;
       }
     }
   }

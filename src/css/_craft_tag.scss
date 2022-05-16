@@ -1,4 +1,4 @@
-.tag_content {
+.tag-list {
   width: 64vw;
   // height: 64vh;
   border: 1px solid #91c9c4;
@@ -6,13 +6,13 @@
   left: calc(50% - 32vw);
   top: calc(50% - 27vh);
   overflow-x: scroll;
-  // .tag_content_labels {
+  // .tag-list_labels {
   &_labels {
     width: 64vw;
     height: 30px;
     display: flex;
     align-items: center;
-    .tag_content_title {
+    &--left {
       width: 44.8vw;
       height: 30px;
       display: flex;
@@ -22,7 +22,7 @@
       color: white;
       border-right: 1px solid #91c9c4;
     }
-    .tag_content_control {
+    &--right {
       width: 19.2vw;
       height: 30px;
       display: flex;
@@ -34,62 +34,106 @@
   }
 }
 
-.tag_content_categories {
+.tag-categories {
   display: flex;
   overflow-x: scroll;
-}
-
-.tag_content_ind {
-  width: 44.8vw;
-  height: 7vh;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #91c9c4;
-  border-right: 1px solid #91c9c4;
-  box-shadow: 1px 3px 3px #c4c4c4;
-  p {
-    font-size: 20px;
-    width: 17vw;
-    margin-left: 5px;
+  &_info {
+    width: 44.8vw;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #91c9c4;
+    border-right: 1px solid #91c9c4;
+    box-shadow: 1px 3px 3px #c4c4c4;
+    &--name {
+      font-size: 20px;
+      width: 17vw;
+      margin-left: 5px;
+    }
+  }
+  &_buttons {
+    width: 19.2vw;
+    height: 7vh;
+    border-bottom: 1px solid #91c9c4;
+    display: flex;
+    // flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: -1px 3px 3px #c4c4c4;
   }
 }
 
-.tag_content_buttons {
-  width: 19.2vw;
-  height: 7vh;
-  border-bottom: 1px solid #91c9c4;
-  display: flex;
-  // flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  box-shadow: -1px 3px 3px #c4c4c4;
-  button {
-    width: 6.25vw;
-    height: 4.4vh;
-    border-style: none;
-    font-size: 1vw;
-    box-shadow: 0px 3px 3px #c4c4c4;
+
+.tag-more {
+  background: #e1f0ef;
+  padding: 1%;
+  display: inline-block;
+
+  &_label {
+    margin-bottom: 5px;
+  }
+
+  &_desc {
+    background: #fff;
+    padding: 1% 2%;
+    border-radius: 15px;
+    width: 50%;
+
+    &--text {
+      color: #000;
+      margin: 0;
+    }
+  }
+
+  .tag-items {
+    display: flex;
+    margin-bottom: 10px;
+
+    .tag-item {
+      background: #fff;
+      padding: 3px 5px;
+      margin: 0 5px 0 0;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+  
+      &_text {
+        background: transparent;
+        // border: 1px solid #CF7C7C;
+        border-radius: 15px;
+        margin: 0 10px 0 0;
+        padding: 2px 6px;
+        // color: #CF7C7C;
+      }
+
+      &_edit {
+        width: 22px;
+        height: 22px;
+        margin-left: 5px;
+        border-radius: 100%;
+        background: #7DCEA0;
+      }
+      
+      &_delete {
+        width: 22px;
+        height: 22px;
+        margin-left: 5px;
+        border-radius: 100%;
+        background: #CF7C7C;
+        color: #fff;
+      }
+    }
+    i {
+      margin-left: 5px; 
+      font-size: 0.8em;
+    }
+  }
+  
+  &_add {
     cursor: pointer;
+    color: #52a49a;
+    margin-left: 1vw;
   }
-
-  .hensyu {
-    background-color: #91c9c4;
-    color: white;
-  }
-
-  .sakujyo {
-    background-color: #cf7c7c;
-    color: white;
-  }
-
-  .shousai {
-    background-color: #c4c4c4;
-    color: white;
-  }
-}
-
-.tag_content_info {
-  background: #EFF2F9;
 }
 
 .tag_category_add {
@@ -97,4 +141,7 @@
   color: #52a49a;
   margin-left: 1vw;
 }
+
+// ここから edit_tag_category.php 用
+
 
