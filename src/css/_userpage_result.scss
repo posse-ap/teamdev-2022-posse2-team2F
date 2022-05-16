@@ -1,3 +1,21 @@
+$tb: 960px;
+
+@mixin tb {
+  @media screen and (max-width: $tb) {
+    @content;
+  }
+}
+
+//ブレイクポイント
+$mb: 520px;
+
+@mixin mb {
+  @media screen and (max-width: $mb) {
+    @content;
+  }
+}
+
+
 .top_container{
   &_title{
     display: flex;
@@ -9,17 +27,47 @@
     position: relative;
     top: 30px;
     box-shadow: 0px 4px 4px rgb(149, 149, 149);
+    @include tb{
+      box-shadow: 0px 0px;
+      background-color: #EBEDF1;
+      display: block;
+      width: 500px;
+      height: 70px;
+      top: 20px;
+
+    }
+    h5{
+      display: none;
+      font-size: 26px;
+      font-weight: 600;
+      text-align: center;
+      width: 200px;
+      height: 30px;
+      @include tb{
+        display: block;
+        padding-bottom: 5px;
+        margin: 0 auto 5px auto;
+        border-bottom: 2px solid #000;
+      }
+    }
     &--all{
       font-size: 40px;
       font-weight: bold;
       margin: 0 30px;
       color: #52A49A;
+      @include tb {
+        display: none;
+      }
     }
     &--info{
       font-size: 16px;
       font-weight: 600;
       position: relative;
       top: 7px;
+      @include tb {
+        margin: 0 auto;
+        width: 250px;
+      }
     }
   }
   .apply_modal{
@@ -33,6 +81,12 @@
     margin-left: 8.3vw;
     border-radius: 8px;
     position: relative;
+    @include tb{
+      margin-top: 30px;
+      margin-left: 5vw;
+      flex-wrap: wrap;
+      width: 35vw;
+    }
     &::before{
       content: "";
   position: absolute;
@@ -41,6 +95,11 @@
   margin-left: -15px;
   border: 20px solid transparent;
   border-top: 20px solid white;
+  @include tb{
+
+    border: 10px solid transparent;
+    border-top: 20px solid white;
+  }
     }
 
     p{
@@ -50,10 +109,19 @@
       top: -22px;
       left: 3vw;
       margin-right: 0.3vw;
+      @include tb{
+        font-size: 16px;
+        margin: 0 0 0 0 ;
+        left: 2vw;
+        top: -12px;
+      }
     }
     .check_count{
       font-size: 34px;
       color: #52A49A;
+      @include tb{
+        font-size: 20px;
+      }
     }
     input{
       border-style: none;

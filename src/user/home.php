@@ -6,6 +6,7 @@ $stmt = $db->query("SELECT * FROM agents");
 $results = $stmt->fetchAll();
 
 // セッション保存用
+if (isset($_POST['favorite'])) {
 $agent_name = isset($_POST['agent_name'])? htmlspecialchars($_POST['agent_name'], ENT_QUOTES, 'utf-8') : '';
 $agent_tag = isset($_POST['agent_tag'])? htmlspecialchars($_POST['agent_tag'], ENT_QUOTES, 'utf-8') : '';
 $agent_info = isset($_POST['agent_info'])? htmlspecialchars($_POST['agent_info'], ENT_QUOTES, 'utf-8') : '';
@@ -26,6 +27,9 @@ if($agent_name!=''&&$agent_tag!=''&&$agent_info!=''){
             'agent_info' => $agent_info
   ];
 }
+header("Location: /userpage/result.php");
+}
+
 
 
 // if(isset($products)){
@@ -59,12 +63,12 @@ if($agent_name!=''&&$agent_tag!=''&&$agent_info!=''){
     <div>
       <h1><?= $result['agent_name'] ?></h1>
       <p><?= $result['agent_info'] ?></p>
-      <p><?= $result['agent_tag'] ?></p>
+      <p><?= $result['agent_tagname'] ?></p>
       <form action="home.php" method="POST" class="item-form">
         <input type="hidden" name="agent_name" value="<?= $result['agent_name'] ?>">
         <input type="hidden" name="agent_info" value="<?= $result['agent_info'] ?>">
-        <input type="hidden" name="agent_tag" value="<?= $result['agent_tag'] ?>">
-        <button type="submit" class="btn-sm btn-blue">お気に入りに追加</button>
+        <input type="hidden" name="agent_tag" value="<?= $result['agent_tagname'] ?>">
+        <button type="submit" name="favorite" class="btn-sm btn-blue">お気に入りに追加</button>
       </form>
     </div>
     <?php endforeach; ?>

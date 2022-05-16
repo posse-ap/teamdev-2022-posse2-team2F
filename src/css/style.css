@@ -1750,6 +1750,36 @@ h3 a {
           box-shadow: 0px 4px 4px #959595;
 }
 
+@media screen and (max-width: 960px) {
+  .top_container_title {
+    -webkit-box-shadow: 0px 0px;
+            box-shadow: 0px 0px;
+    background-color: #EBEDF1;
+    display: block;
+    width: 500px;
+    height: 70px;
+    top: 20px;
+  }
+}
+
+.top_container_title h5 {
+  display: none;
+  font-size: 26px;
+  font-weight: 600;
+  text-align: center;
+  width: 200px;
+  height: 30px;
+}
+
+@media screen and (max-width: 960px) {
+  .top_container_title h5 {
+    display: block;
+    padding-bottom: 5px;
+    margin: 0 auto 5px auto;
+    border-bottom: 2px solid #000;
+  }
+}
+
 .top_container_title--all {
   font-size: 40px;
   font-weight: bold;
@@ -1757,11 +1787,24 @@ h3 a {
   color: #52A49A;
 }
 
+@media screen and (max-width: 960px) {
+  .top_container_title--all {
+    display: none;
+  }
+}
+
 .top_container_title--info {
   font-size: 16px;
   font-weight: 600;
   position: relative;
   top: 7px;
+}
+
+@media screen and (max-width: 960px) {
+  .top_container_title--info {
+    margin: 0 auto;
+    width: 250px;
+  }
 }
 
 .top_container .apply_modal {
@@ -1783,6 +1826,16 @@ h3 a {
   position: relative;
 }
 
+@media screen and (max-width: 960px) {
+  .top_container .apply_modal {
+    margin-top: 30px;
+    margin-left: 5vw;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    width: 35vw;
+  }
+}
+
 .top_container .apply_modal::before {
   content: "";
   position: absolute;
@@ -1791,6 +1844,13 @@ h3 a {
   margin-left: -15px;
   border: 20px solid transparent;
   border-top: 20px solid white;
+}
+
+@media screen and (max-width: 960px) {
+  .top_container .apply_modal::before {
+    border: 10px solid transparent;
+    border-top: 20px solid white;
+  }
 }
 
 .top_container .apply_modal p {
@@ -1802,9 +1862,24 @@ h3 a {
   margin-right: 0.3vw;
 }
 
+@media screen and (max-width: 960px) {
+  .top_container .apply_modal p {
+    font-size: 16px;
+    margin: 0 0 0 0;
+    left: 2vw;
+    top: -12px;
+  }
+}
+
 .top_container .apply_modal .check_count {
   font-size: 34px;
   color: #52A49A;
+}
+
+@media screen and (max-width: 960px) {
+  .top_container .apply_modal .check_count {
+    font-size: 20px;
+  }
 }
 
 .top_container .apply_modal input {

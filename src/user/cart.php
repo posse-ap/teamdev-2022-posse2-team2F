@@ -6,7 +6,7 @@ require('../dbconnect.php');
 // $results = $stmt->fetchAll();
 
 
-// session_start();
+session_start();
 
 $products = isset($_SESSION['products'])? $_SESSION['products']:[];
 
@@ -14,6 +14,14 @@ $products = isset($_SESSION['products'])? $_SESSION['products']:[];
 // {
 //   unset($_SESSION['products'][$_POST['delete_name']]);
 // }
+
+// 削除用
+$delete_name = isset($_POST['delete_name'])? htmlspecialchars($_POST['delete_name'], ENT_QUOTES, 'utf-8') : '';
+
+// 削除
+if ($delete_name != '') {
+  unset($_SESSION['products'][$delete_name]);
+}
 
 
 
@@ -41,7 +49,7 @@ $products = isset($_SESSION['products'])? $_SESSION['products']:[];
             <td label="タグ：" class="text-right"><?= $product['agent_tag'] ?></td>
             <td label="情報：" class="text-right"><?= $product['agent_info'] ?></td>
             <td>
-              <form action="home.php" method="post">
+              <form action="cart.php" method="post">
                 <input type="hidden" name="delete_name" value="<?= $name; ?>">
                 <button type="submit" class="">削除</button>
               </form>

@@ -2,6 +2,7 @@
 require('../dbconnect.php');
 
 ?>
+
 <?php
 error_reporting(0);
 if (isset($_POST['search'])) {
@@ -32,9 +33,11 @@ $stmt = $db->query('SELECT * FROM tag_categories');
 $categories = $stmt->fetchAll();
 
 ?>
+
 <?php require('../_header.php'); ?>
 <div class="top_container">
   <div class="top_container_title">
+    <h5>絞り込み結果</h5>
     <p class="top_container_title--all">エージェント一覧</p>
     <p class="top_container_title--info">
       <?= '当てはまるエージェント数：' . $count . '件' ?>
@@ -51,7 +54,6 @@ $categories = $stmt->fetchAll();
 
       <input type="submit" name="apply_id" value="申し込む">
     </div>
-
     <!-- ここからまとめて申し込むmodal -->
     <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
     <script>
@@ -62,11 +64,6 @@ $categories = $stmt->fetchAll();
         }).trigger('change');
       });
 
-      const apply_modal = document.getElementById('apply_modal');
-
-      function modalOpen() {
-        apply_modal.style.display = "none";
-      }
     </script>
 
 
@@ -80,7 +77,7 @@ $categories = $stmt->fetchAll();
           <div class="top_container_results--agents__agent">
             <div class="top_container_results--agents__agent--checkbox">
 
-              <input class="checks" type="checkbox" id="<?= $result['id'] ?>" value="<?= $result['id'] ?>" name="apply_tag[]" onclick="modalOpen()">
+              <input class="checks" type="checkbox" id="<?= $result['id'] ?>" value="<?= $result['id'] ?>" name="apply_tag[]" >
               <label for="<?= $result['id'] ?>"></label>
             </div>
             <div class="top_container_results--agents__agent--container">
@@ -105,6 +102,7 @@ $categories = $stmt->fetchAll();
                     ?>
                     <?php foreach ($agent_tags as $agent_tag) : ?>
                       <p style="color: <?= $agent_tag['tag_color'] ?>;"><?= $agent_tag['tag_option'] ?></p>
+                      
                     <?php endforeach; ?>
                   </div>
                   <div class="top_container_results--agents__agent--container--info__right--exp">
@@ -118,12 +116,17 @@ $categories = $stmt->fetchAll();
               <div class="top_container_results--agents__agent--container--buttons">
                 <a href="">詳細を見る</a>
                 <input type="submit" value="申し込む">
+                <input type="hidden" name="agent_name" value="<?= $result['agent_name'] ?>">
+        <input type="hidden" name="agent_info" value="<?= $result['agent_info'] ?>">
+        <input type="hidden" name="agent_tag" value="<?= $result['agent_tagname'] ?>">
+        <input type="submit" name="favorite" class="btn-sm btn-blue" value="お気に入り追加">
               </div>
             </div>
           </div>
         <?php endforeach; ?>
       </div>
-  </form>
+      </form>
+  
   <form action="result.php" method="POST">
 
     <div class="top_container_results--research">
