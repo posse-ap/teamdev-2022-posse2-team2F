@@ -57,6 +57,7 @@ require('../dbconnect.php');
                         "電話番号の小さい順",
                         "電話番号の大きい順",
                         "名前順",
+                        "申込順"
                         );
 
                         // 戻ってきた場合
@@ -89,6 +90,8 @@ require('../dbconnect.php');
                             $sort_sql = " ORDER BY phone DESC";
                         } elseif ($_POST['sort'] == '名前順') {
                             $sort_sql = " ORDER BY name ASC";
+                        } elseif ($_POST['sort'] == '申込順') {
+                            $sort_sql = " ORDER BY created_at ASC";
                         } else {
                             $sort_sql = " ORDER BY phone ASC";
                         }
@@ -117,6 +120,8 @@ require('../dbconnect.php');
                     <div class="table_container">
                         <table border=1; style=border-collapse:collapse;>
                             <tr>
+                                <th></th>
+
                                 <th>
                                     名前
                                 </th>
@@ -153,6 +158,10 @@ require('../dbconnect.php');
                         <?php
                         foreach ($all_students_info as $student_info) {
                             echo "<tr>";
+
+                                echo "<th>";
+                                echo $student_info['id'];
+                                echo "</th>";
 
                                 echo "<th>";
                                 echo $student_info['name'];
