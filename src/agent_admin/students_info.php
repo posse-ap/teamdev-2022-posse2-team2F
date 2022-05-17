@@ -211,6 +211,13 @@ require('../dbconnect.php');
                 </form>
             </div>      
         </div>  
+    </div>
+
+
+
+</body>
+
 
 <?php require('../_footer.php'); ?>
-</body>
+
+</html>
