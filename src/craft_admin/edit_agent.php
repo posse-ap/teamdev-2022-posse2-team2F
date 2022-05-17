@@ -47,15 +47,24 @@ if (isset($_POST['submit'])) {
     // echo "Sorry, there was an error uploading your file.";
   }
 
+
+  // タグ関連の処理
+
   $delete_sql = "DELETE FROM agent_tag_options 
         WHERE agent_id = ?";
   $stmt = $db->prepare($delete_sql);
   $stmt->execute(array($id));
   // $stmt->execute(array($id, $agent_id));
 
-  $tag_ids = $_POST['tag_id'];
+  // if (isset($_POST['tag_id'])) {
+    $tag_ids = $_POST['tag_id'];
+    $split_ids = explode(',', $tag_ids);
+  // } else {
+  //   $tag_ids = $_POST['tag_id'];
+  //   $split_ids = explode(',', $tag_ids);
+  // }
 
-  $split_ids = explode(',', $tag_ids);
+  
 
   // $id_stmt = $db->query('SELECT id FROM agents ORDER BY id DESC LIMIT 1');
   // $agent_id = $id_stmt->fetch();
@@ -67,20 +76,6 @@ if (isset($_POST['submit'])) {
     $stmt = $db->prepare($sql);
     $stmt->execute(array($tag_id, $id));
   }
-
-// タグ更新処理
-if (isset($_POST['edit_tag_id']) && is_array($_POST['edit_tag_id'])) {
-  $tag = implode(",", $_POST["edit_tag_id"]);
-
-  $sql = "UPDATE agents SET agent_tag = ? WHERE id = '$id'";
-  $stmt = $db->prepare($sql);
-  $stmt->execute(array($tag));
-  // $reload = "edit_agent.php?id=" . $id;
-  // header("Location:" . $reload);
-} else {
-  // echo 'チェックボックスの値を受け取れていません';
-}
-
 
   header('Location: home.php');
   exit;
@@ -151,7 +146,7 @@ $categories = $stmt->fetchAll();
           <div class="change_item">
             <label class="change_item--label" for="agent_tag">エージェントタグ</label>
             <input class="change_item--input" type="text" name="agent_tag" value="<?= $result['agent_tagname'] ?>" required onclick="tag_modalOpen()" id="input">
-            <input type="hidden" id="showid" name="tag_id">
+            <input type="hidden" id="showid" name="tag_id" value="<?= $result['agent_tag'] ?>">
           </div>
           <div class="change_item preview">
             <label class="change_item--label" for="agent_pic">エージェント画像</label>
