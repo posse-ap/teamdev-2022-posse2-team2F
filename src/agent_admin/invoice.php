@@ -49,7 +49,7 @@ $all_students_info = $sql_prepare->fetchAll();
 // ============================SELECT文============================
 
 // 合計件数 有効な件数;
-$sql_valid = "SELECT count(students_contact.name) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND created_at BETWEEN ? AND ?";
+$sql_valid = "SELECT count(students_contact.id) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND created_at BETWEEN ? AND ?";
 $sql_valid_prepare = $db->prepare($sql_valid);
 $sql_valid_prepare->execute(array($_SESSION['agent_name'], $first_day, $last_day));
 $all_valid_students = $sql_valid_prepare->fetchAll();

@@ -21,7 +21,8 @@ if (isset($_POST['signup'])) {
     echo 'パスワードが一致していません。';
   } else {
     $sql = 'INSERT INTO agent_users(email, password, password_conf, agent_name)
-          VALUES(?, ?, ?, ?)';
+          VALUES(?, ?, ?, ?);
+          ';
     $stmt = $db->prepare($sql);
     $stmt->execute(array($email, $password, $password_conf, $agent_name));
     $stmt = null;

@@ -53,6 +53,7 @@ require('../dbconnect.php');
                         "電話番号の小さい順",
                         "電話番号の大きい順",
                         "名前順",
+                        "申込順",
                         );
 
                         // 戻ってきた場合
@@ -85,13 +86,15 @@ require('../dbconnect.php');
                         $sort_sql = " ORDER BY phone DESC";
                     } elseif ($_POST['sort'] == '名前順') {
                         $sort_sql = " ORDER BY name ASC";
+                    } elseif ($_POST['sort'] == '申込順') {
+                        $sort_sql = " ORDER BY created_at ASC";
                     } else {
                         $sort_sql = " ORDER BY phone ASC";
                     }
                     $_SESSION['sort'] = $sort_sql;
-                    $sql = "SELECT students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $_SESSION['sort'];
+                    $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $_SESSION['sort'];
                 }else{
-                    $sql = "SELECT students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id ORDER BY phone ASC";
+                    $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id ORDER BY phone ASC";
                 }
 
                 // print_r($sql);
@@ -149,9 +152,9 @@ require('../dbconnect.php');
                         foreach ($all_students_info as $student_info) {
                             echo "<tr>";
 
-                            // echo "<th>";
-                            // echo $student_info['id'];
-                            // echo "</th>";
+                            echo "<th>";
+                            echo $student_info['id'];
+                            echo "</th>";
 
                             echo "<th>";
                             echo $student_info['name'];

@@ -65,7 +65,7 @@ $all_students_number = $sql_all_prepare->fetchAll();
 */
 
 // 削除件数 idの最大値から、残った実際の数を引いています
-$sql_deleted = "SELECT (max(id) - count(name)) FROM students_contact WHERE created_at BETWEEN ? AND ?";
+$sql_deleted = "SELECT (max(students_agent.id) - count(students_agent.id)) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
 $sql_deleted_prepare = $db->prepare($sql_deleted);
 $sql_deleted_prepare->execute(array($first_day, $last_day));
 $deleted_students = $sql_deleted_prepare->fetchAll();
