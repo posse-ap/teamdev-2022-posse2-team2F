@@ -180,7 +180,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             </tr>
         </table>
         <div class="invoice__buttons__section no-print-area">
-            <input class="util_login_button" type="button" value="請求書発行" onclick="window.print();" />
+            <input class="util_fullscreen_button" type="button" value="請求書発行" onclick="window.print();" />
         </div>
     </div>
 </div>

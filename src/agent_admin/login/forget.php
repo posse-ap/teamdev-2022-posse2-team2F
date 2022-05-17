@@ -12,7 +12,7 @@ if (isset($_POST['submit_email'])) {
   // $_POST['email'] = $_SESSION['email'];
   $_SESSION["email"] = $_POST['email'];
   $email = $_POST['email'];
-  
+
   $sql = 'SELECT count(*) FROM agent_users WHERE email = ?';
   $stmt = $db->prepare($sql);
   $stmt->execute(array($email));
@@ -41,14 +41,13 @@ if (isset($_POST['submit_email'])) {
 
     header('Location: http://localhost/agent_admin/login/send_link.php');
 
-    
+
 
 
     exit;
   } else {
     $err_msg = "メールアドレスが登録されていません。";
   }
-
 }
 
 
@@ -69,8 +68,8 @@ if (isset($_POST['submit_email'])) {
 
 <body>
   <?php include '../../_header.php'; ?>
-  <div class="util_login_container">
-    <div class="util_login">
+  <div class="util_fullscreen_container">
+    <div class="util_fullscreen util_login">
       <h1 class="util_login_title">パスワード再発行</h1>
       <div class="forget">
         <p class="forget_text">パスワードの再設定が必要となります。</p>
@@ -81,14 +80,16 @@ if (isset($_POST['submit_email'])) {
       <form action="/agent_admin/login/forget.php" method="POST">
         <input class="util_login_text--box" type="text" name="email">
         <br>
-        <?php if ($err_msg !== null && $err_msg !== '') { echo $err_msg .  "<br>";} ?>
+        <?php if ($err_msg !== null && $err_msg !== '') {
+          echo $err_msg .  "<br>";
+        } ?>
         <br>
-        <input type="submit" name="submit_email" class="util_login_button">
+        <input type="submit" name="submit_email" class="util_fullscreen_button">
       </form>
     </div>
   </div>
-  
-  
+
+
 </body>
 
 

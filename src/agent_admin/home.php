@@ -13,6 +13,7 @@ $result = $stmt->fetch();
 
 echo "<p>ホーム画面</p><p>";
 echo $result['name'];
+echo $result['id'];
 // echo $_SESSION['dept'];
 echo "がログイン中です</p>";
 ?>

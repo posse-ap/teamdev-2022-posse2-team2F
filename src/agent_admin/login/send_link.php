@@ -13,15 +13,15 @@
 
 <body>
   <?php include '../../_header.php'; ?>
-    <div class="util_login_container">
-      <div class="util_login util_login--small">
-        <h1 class="util_login_title">パスワード再発行</h1>
-        <div class="sendlink">
-          <p class="sendlink_text">パスワード再発行のメールが送信されました。</p>
-          <p class="sendlink_text">ご登録されたメールアドレスをご確認ください。</p>
-        </div>
+  <div class="util_fullscreen_container">
+    <div class="util_fullscreen util_fullscreen--small">
+      <h1 class="util_login_title">パスワード再発行</h1>
+      <div class="sendlink">
+        <p class="sendlink_text">パスワード再発行のメールが送信されました。</p>
+        <p class="sendlink_text">ご登録されたメールアドレスをご確認ください。</p>
       </div>
     </div>
+  </div>
 </body>
 
 
@@ -29,4 +29,3 @@
 
 
 </html>
-

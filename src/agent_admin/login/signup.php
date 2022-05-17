@@ -12,11 +12,11 @@ if (isset($_POST['signup'])) {
   $password = sha1($_POST['password']);
   $password_conf = sha1($_POST['password_conf']);
   // $agent_name = $_POST['agent_name'];
-  if(isset($_POST['agent_name'])) {
+  if (isset($_POST['agent_name'])) {
     // セレクトボックスで選択された値を受け取る
     $agent_name = $_POST['agent_name'];
   }
-  
+
   if ($password !== $password_conf) {
     echo 'パスワードが一致していません。';
   } else {
@@ -43,13 +43,14 @@ if (isset($_POST['signup'])) {
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
   <title>ユーザ登録画面</title>
 </head>
 
 <body>
   <?php include '../../_header.php'; ?>
-  <div class="util_login_container">
-    <div class="util_login">
+  <div class="util_fullscreen_container">
+    <div class="util_fullscreen util_login">
       <h1 class="util_login_title">新規担当者登録</h1>
       <form action="" method="POST">
         <div class="util_login_text agent_signup">
@@ -58,18 +59,20 @@ if (isset($_POST['signup'])) {
         </div>
         <div class="util_login_text agent_signup">
           <label class="util_login_text--label" for="password">パスワード：</label>
-          <input class="util_login_text--box" type="password" name="password" required>
+          <input class="util_login_text--box" type="password" name="password" id="password" required>
+          <i class="fas fa-eye-slash" id="togglePassword"></i>
         </div>
         <div class="util_login_text agent_signup">
           <label class="util_login_text--label" for="password_conf">パスワード確認：</label>
-          <input class="util_login_text--box" type="password" name="password_conf" required>
+          <input class="util_login_text--box" type="password" name="password_conf" id="password_conf" required>
+          <i class="fas fa-eye-slash" id="togglePassword_conf"></i>
         </div>
         <div class="util_login_text agent_signup">
           <label class="util_login_text--label" for="agent_name">所属エージェント：</label>
-          <select class="util_login_text--select"name="agent_name">
-            <?php foreach($results as $result) : ?>
-            <option value="<?= $result['agent_name']; ?>"><?= $result['agent_name']; ?></option>
-            <!-- <option value="agent1">agent1</option>
+          <select class="util_login_text--select" name="agent_name">
+            <?php foreach ($results as $result) : ?>
+              <option value="<?= $result['agent_name']; ?>"><?= $result['agent_name']; ?></option>
+              <!-- <option value="agent1">agent1</option>
             <option value="agent2">agent2</option>
             <option value="agent3">agent3</option>
             <option value="agent4">agent4</option>
@@ -83,16 +86,43 @@ if (isset($_POST['signup'])) {
           </select>
         </div>
         <div>
-          <input type="submit" name="signup" value="新規登録" class="util_login_button">
+          <input type="submit" name="signup" value="新規登録" class="util_fullscreen_button">
         </div>
       </form>
     </div>
   </div>
 
 
-  
+
 </body>
 
 <?php require("../../_footer.php"); ?>
+
+<script>
+  const togglePassword = document.getElementById("togglePassword");
+  const togglePassword_conf = document.getElementById("togglePassword_conf");
+  const password = document.getElementById("password");
+  const password_conf = document.getElementById("password_conf");
+
+  togglePassword.addEventListener("click", function() {
+    // toggle the type attribute
+    let type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
+
+    // toggle the icon
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
+  });
+
+  togglePassword_conf.addEventListener("click", function() {
+    // toggle the type attribute
+    let type = password_conf.getAttribute("type") === "password" ? "text" : "password";
+    password_conf.setAttribute("type", type);
+
+    // toggle the icon
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
+  });
+</script>
 
 </html>
