@@ -25,7 +25,11 @@ if (isset($_POST['login'])) {
     header('Location: http://localhost/agent_admin/home.php');
     //DBのユーザー情報をセッションに保存
     $_SESSION['id'] = $login_info['id'];
-    $_SESSION['name'] = $login_info['agent_name'];
+    $_SESSION['agent_name'] = $login_info['agent_name'];
+    $_SESSION['name'] = $login_info['name'];
+    $_SESSION['dept'] = $login_info['dept'];
+    $_SESSION['image'] = $login_info['image'];
+    $_SESSION['message'] = $login_info['message'];
     exit;
   } else {
     $err_msg = "ユーザー名またはパスワードが間違っています";
@@ -43,13 +47,14 @@ if (isset($_POST['login'])) {
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
   <title>担当者ログイン</title>
 </head>
 
 <body>
   <?php require("../../_header.php"); ?>
-  <div class="util_login_container">
-    <div class="util_login">
+  <div class="util_fullscreen_container">
+    <div class="util_fullscreen util_login">
       <h1 class="util_login_title">担当者ログイン</h1>
       <form action="/agent_admin/login/login.php" method="POST">
         <?php if ($err_msg !== null && $err_msg !== '') {
@@ -61,7 +66,8 @@ if (isset($_POST['login'])) {
         </div>
         <div class="util_login_text">
           <label class="util_login_text--label" for="password">パスワード</label>
-          <input class="util_login_text--box" type="password" name="password" required>
+          <input class="util_login_text--box" type="password" name="password" id="password" required>
+          <i class="fas fa-eye-slash" id="togglePassword"></i>
         </div>
         <input type="submit" name="login" value="ログイン" class="util_login_button">
       </form>
@@ -77,5 +83,20 @@ if (isset($_POST['login'])) {
 
   <?php require("../../_footer.php"); ?>
 </body>
+
+<script>
+  const togglePassword = document.getElementById("togglePassword");
+  const password = document.getElementById("password");
+
+  togglePassword.addEventListener("click", function() {
+    // toggle the type attribute
+    const type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
+
+    // toggle the icon
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
+  });
+</script>
 
 </html>

@@ -101,7 +101,7 @@ a {
   color: #ffffff;
 }
 
-.util_login_container {
+.util_fullscreen_container {
   width: 100%;
   height: 82vh;
   background-color: #EBEDF1;
@@ -113,7 +113,7 @@ a {
           align-items: center;
 }
 
-.util_login {
+.util_fullscreen {
   height: 75vh;
   width: 750px;
   margin: 0px auto;
@@ -122,11 +122,11 @@ a {
   vertical-align: middle;
 }
 
-.util_login--small {
+.util_fullscreen--small {
   height: 40vh;
 }
 
-.util_login_title {
+.util_fullscreen .util_login_title {
   width: 300px;
   color: #52A49A;
   font-size: 36px;
@@ -136,11 +136,11 @@ a {
   padding-top: 30px;
 }
 
-.util_login_title--long {
+.util_fullscreen .util_login_title--long {
   width: 400px !important;
 }
 
-.util_login_text {
+.util_fullscreen .util_login_text {
   width: 650px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -154,25 +154,31 @@ a {
   margin: 50px auto;
 }
 
-.util_login_text--label {
+.util_fullscreen .util_login_text--label {
   font-size: 24px;
 }
 
-.util_login_text--box {
+.util_fullscreen .util_login_text--box {
   width: 400px;
   height: 50px;
   background-color: #EBEDF1;
   border-style: none;
 }
 
-.util_login_text--select {
+.util_fullscreen .util_login_text i {
+  position: absolute;
+  right: 28%;
+  cursor: pointer;
+}
+
+.util_fullscreen .util_login_text--select {
   width: 200px;
   height: 50px;
   background-color: #EBEDF1;
   border-style: none;
 }
 
-.util_login_button {
+.util_fullscreen .util_login_button {
   width: 180px;
   height: 40px;
   color: white;
@@ -184,7 +190,7 @@ a {
           box-shadow: 6px 2px 3px #c0c1c5;
 }
 
-.util_login_link {
+.util_fullscreen .util_login_link {
   color: #52A49A;
   border-bottom: 0.5px solid;
   font-size: 18px;
@@ -562,7 +568,7 @@ a {
 
 .change {
   width: 64vw;
-  height: 75vh;
+  height: 63vh;
   margin: 15px 30px;
 }
 
@@ -1699,7 +1705,7 @@ h3 a {
   text-align: center;
 }
 
-.invoice__buttons__section .util_login_button {
+.invoice__buttons__section .util_fullscreen_button {
   margin: 0 5%;
 }
 
@@ -1790,6 +1796,106 @@ h3 a {
 
 .info {
   padding: 20px;
+  height: 56vh;
+  overflow-y: scroll;
+}
+
+.util_fullscreen {
+  height: 75vh;
+  width: 750px;
+  margin: 0px auto;
+  text-align: center;
+  background-color: white;
+  vertical-align: middle;
+}
+
+.util_fullscreen--small {
+  height: 40vh;
+}
+
+.util_fullscreen .userform_title {
+  width: 170px;
+  color: #52A49A;
+  font-size: 24px;
+  border-bottom: 1px solid #000;
+  margin: 20px auto;
+  padding: 5px 0;
+}
+
+.util_fullscreen .userform_text {
+  width: 550px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 13px auto;
+  position: relative;
+}
+
+.util_fullscreen .userform_text span {
+  color: #fff;
+  background: #fb3b6f;
+  display: inline-block;
+  padding: 2px 5px;
+  font-size: 10px;
+  position: absolute;
+  left: 35%;
+}
+
+.util_fullscreen .userform_text--label {
+  font-size: 15px;
+}
+
+.util_fullscreen .userform_text--box {
+  width: 300px;
+  height: 35px;
+  background-color: #EBEDF1;
+  border-style: none;
+}
+
+.util_fullscreen .userform_text i {
+  position: absolute;
+  right: 28%;
+  cursor: pointer;
+}
+
+.util_fullscreen .userform_text--select {
+  width: 200px;
+  height: 35px;
+  background-color: #EBEDF1;
+  border-style: none;
+}
+
+.util_fullscreen .userform_button {
+  width: 150px;
+  height: 40px;
+  border-radius: 30px;
+  color: white;
+  border-style: none;
+  font-size: 15px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.util_fullscreen .userform_button--left {
+  background-color: #F3AF56;
+  margin-right: 50px;
+}
+
+.util_fullscreen .userform_button--right {
+  background-color: #52A49A;
+  margin-left: 50px;
+}
+
+.util_fullscreen .userform_link {
+  color: #52A49A;
+  border-bottom: 0.5px solid;
+  font-size: 18px;
 }
 
 /*

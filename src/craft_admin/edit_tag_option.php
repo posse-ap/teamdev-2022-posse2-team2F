@@ -128,11 +128,6 @@ if (isset($_GET['option'])) {
       </div>
     </div>
     <div class="util_content">
-      <h2>
-        <div class="util_title">
-        タグの編集・追加
-        </div>
-      </h2>
       <div class="util_title">
         <h2 class="util_title--text">
           タグのオプションの編集・追加
@@ -163,7 +158,7 @@ if (isset($_GET['option'])) {
         <form action="" method="post" enctype="multipart/form-data">
           <div class="changetag_item">
             <label class="change_item--label" for="tag_category">カテゴリー名</label>
-            <input class="changetag_item--input" type="text" name="tag_category" required readonly="readonly">
+            <input class="changetag_item--input" type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required readonly="readonly" >
           </div>
           <div class="changetag_item">
             <label class="change_item--label" for="tag_name_new">タグ名</label>

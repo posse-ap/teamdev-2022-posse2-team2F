@@ -49,13 +49,13 @@ $all_students_info = $sql_prepare->fetchAll();
 // ============================SELECT文============================
 
 // 合計件数 有効な件数;
-$sql_valid = "SELECT count(name) FROM students_contact WHERE created_at BETWEEN ? AND ?";
+$sql_valid = "SELECT count(students_agent.id) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
 $sql_valid_prepare = $db->prepare($sql_valid);
 $sql_valid_prepare->execute(array($first_day, $last_day));
 $all_valid_students = $sql_valid_prepare->fetchAll();
 
 // 請求件数 idの最大値とってます（idは間の何件かが削除されてもそのまま変わらないイメージ）
-$sql_all = "SELECT max(id) FROM students_contact WHERE created_at BETWEEN ? AND ?";
+$sql_all = "SELECT max(students_agent.id) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
 $sql_all_prepare = $db->prepare($sql_all);
 $sql_all_prepare->execute(array($first_day, $last_day));
 $all_students_number = $sql_all_prepare->fetchAll();
@@ -65,14 +65,14 @@ $all_students_number = $sql_all_prepare->fetchAll();
 */
 
 // 削除件数 idの最大値から、残った実際の数を引いています
-$sql_deleted = "SELECT (max(id) - count(name)) FROM students_contact WHERE created_at BETWEEN ? AND ?";
+$sql_deleted = "SELECT (max(students_agent.id) - count(students_agent.id)) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
 $sql_deleted_prepare = $db->prepare($sql_deleted);
 $sql_deleted_prepare->execute(array($first_day, $last_day));
 $deleted_students = $sql_deleted_prepare->fetchAll();
 ?>
 
 
-<div class="util_container">
+<div class="util_container no-print-area">
     <div class="util_sidebar no-print-area">
         <div class="util_sidebar_button util_sidebar_button-selected">
             <a class="util_sidebar_link util_sidebar_link-selected" href="/craft_admin/home.php">エージェント管理</a>
@@ -180,7 +180,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             </tr>
         </table>
         <div class="invoice__buttons__section no-print-area">
-            <input class="util_login_button" type="button" value="請求書発行" onclick="window.print();" />
+            <input class="util_fullscreen_button" type="button" value="請求書発行" onclick="window.print();" />
         </div>
     </div>
 </div>

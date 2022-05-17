@@ -22,7 +22,6 @@ $products = isset($_SESSION['products'])? $_SESSION['products']:[];
 <div class="container">
     <div class="wrapper-title">
         <h3>MY CART</h3>
-        <p>カート</p>
     </div>
     <div class="cartlist">
       <table class="cart-table">
