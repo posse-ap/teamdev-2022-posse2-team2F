@@ -2,8 +2,13 @@
 
 require('../dbconnect.php');
 
-// URLからIDを取得
-if (isset($_GET['option'])) {
+// タグのオプションを編集したい場合
+if (isset($_GET['option']) && isset($_GET['id'])) {
+
+  $mode = "edit";
+
+  
+
   $id = $_GET['id'];
   $option_id = $_GET['option'];
 
@@ -26,6 +31,8 @@ if (isset($_GET['option'])) {
 
 
   if (isset($_POST['save'])) {
+
+
     // タグの初期値等設定
 
     $tag_name = $_POST['tag_name'];
@@ -44,10 +51,14 @@ if (isset($_GET['option'])) {
   }
 
   
-} else {
+} elseif (!isset($_GET['option']) && isset($_GET['id'])) {
+
+  $mode = "add";
+
   $id = $_GET['id'];
   $option['tag_option'] = '';
   $option['tag_color'] = '';
+  
 
   // 既存データの表示
   // $stmt = $db->query("SELECT * FROM tag_options WHERE category_id = '$id'");
@@ -78,7 +89,12 @@ if (isset($_GET['option'])) {
       header('Location: tag.php');
       exit;
     }
+} else {
+
+  header('Location: warning.php');
 }
+
+
 
 ?>
 <?php
@@ -113,26 +129,39 @@ if (isset($_GET['option'])) {
     <div class="util_sidebar">
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/home.php">エージェント管理</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button util_sidebar_button--selected">
-        <a class="util_sidebar_link util_sidebar_link--selected" href="">タグ編集・追加</a>
+        <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/tag.php">タグ編集・追加</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+        <i class="fas fa-angle-right"></i>
+      </div>
+      <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/invoice.php">合計請求金額確認</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <i class="fas fa-angle-right"></i>
       </div>
     </div>
     <div class="util_content">
+    
+
+      <?php if ($mode == "edit") { ?>
       <div class="util_title">
         <h2 class="util_title--text">
-          タグのオプションの編集・追加
+          タグのオプションの編集
         </h2>
       </div>
+      <!-- 編集 -->
       <div class="changetag">
         <h1 class="changetag_title">タグのオプションを編集</h1>
         <form action="" method="post" enctype="multipart/form-data">
@@ -151,7 +180,13 @@ if (isset($_GET['option'])) {
           <input type="submit" value="変更を保存" name="save" class="changetag_button">
         </form>
       </div>
-      
+
+      <?php } else if ($mode == "add") { ?>
+      <div class="util_title">
+        <h2 class="util_title--text">
+          タグのオプションの追加
+        </h2>
+      </div>
       <!-- タグのオプションを追加 -->
       <div class="changetag">
         <h1 class="changetag_title">タグのオプションを追加</h1>
@@ -171,6 +206,8 @@ if (isset($_GET['option'])) {
           <input type="submit" value="追加" name="add" class="changetag_button">
         </form>
       </div>
+
+      <?php } ?>
 
     </div>
 </div>

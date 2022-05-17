@@ -60,11 +60,11 @@ if (isset($_POST["back"]) && $_POST["back"]) {
           </div>
           <div class="userform_text">
             <label class="userform_text--label" for="student_email">メールアドレス<span>必須</span></label>
-            <input class="userform_text--box" type="text" name="student_email" placeholder="例）taroyamada@gmail.com" value="<?= $_SESSION["student_email"] ?>" required>
+            <input class="userform_text--box" type="email" name="student_email" placeholder="例）taroyamada@gmail.com" value="<?= $_SESSION["student_email"] ?>" required>
           </div>
           <div class="userform_text">
             <label class="userform_text--label" for="student_phone">電話番号<span>必須</span></label>
-            <input class="userform_text--box" type="text" name="student_phone" placeholder="例）09011110000" value="<?= $_SESSION["student_phone"] ?>" required>
+            <input class="userform_text--box" type="tel" name="student_phone" placeholder="例）09011110000" value="<?= $_SESSION["student_phone"] ?>" required>
           </div>
           <div class="userform_text">
             <label class="userform_text--label" for="student_university">大学<span>必須</span></label>
@@ -137,23 +137,29 @@ if (isset($_POST["back"]) && $_POST["back"]) {
         // $_POST['student_name'] = $student_name;
         // echo $student_name;
 
-        $sql = 'INSERT INTO students_contact(name, email, phone, university, faculty, address, grad_year) 
-              VALUES (?, ?, ?, ?, ?, ?, ?)';
+        // $sql = 'INSERT INTO students_contact_all(name, email, phone, university, faculty, address, grad_year) 
+        //       VALUES (?, ?, ?, ?, ?, ?, ?)';
+        $sql = 
+        'START TRANSACTION;
+        INSERT INTO students_contact_all(name, email, phone, university, faculty, address, grad_year) VALUES (?, ?, ?, ?, ?, ?, ?);
+        INSERT INTO students_contact_delete(name, email, phone, university, faculty, address, grad_year) VALUES (?, ?, ?, ?, ?, ?, ?);
+        COMMIT;';
         $stmt = $db->prepare($sql);
-        $stmt->execute(array($_SESSION['student_name'], $_SESSION['student_email'], $_SESSION['student_phone'], $_SESSION['student_university'], $_SESSION['student_faculty'], $_SESSION['student_address'], $_SESSION['student_graduation']));
+        $stmt->execute(array($_SESSION['student_name'], $_SESSION['student_email'], $_SESSION['student_phone'], $_SESSION['student_university'], $_SESSION['student_faculty'], $_SESSION['student_address'], $_SESSION['student_graduation'], $_SESSION['student_name'], $_SESSION['student_email'], $_SESSION['student_phone'], $_SESSION['student_university'], $_SESSION['student_faculty'], $_SESSION['student_address'], $_SESSION['student_graduation']));
 
 
         // メール送信 - エージェント用
         $to      = "agent1@agent1.com";
         $subject = "学生の申し込みがありました";
         $message = "
-      〇〇agent様
 
-      学生の新規申し込みがありました
-      以下でご確認ください：
-      // リンク
+        〇〇agent様
 
-      ";
+        学生の新規申し込みがありました
+        以下でご確認ください：
+        // リンク
+        ";
+
         $headers = "From: craft@boozer.com";
 
         mb_send_mail($to, $subject, $message, $headers);
@@ -163,11 +169,11 @@ if (isset($_POST["back"]) && $_POST["back"]) {
         $to      = $_SESSION['student_email'];
         $subject = "学生の申し込みがありました";
         $message = "
-      〇〇様
+        〇〇様
 
-      申し込みありがとうございます！
-      以下でご確認ください：
-      // リンク
+        申し込みありがとうございます！
+        以下でご確認ください：
+        // リンク
 
       ";
         $headers = "From: craft@boozer.com";
@@ -179,9 +185,9 @@ if (isset($_POST["back"]) && $_POST["back"]) {
         $subject = "学生の申し込みがありました";
         $message = "
     
-      〇〇エージェントから申し込みがありました！
-      以下でご確認ください：
-      // リンク
+        〇〇エージェントから申し込みがありました！
+        以下でご確認ください：
+        // リンク
 
       ";
         $headers = "From: craft@boozer.com";
@@ -195,7 +201,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
       <?php } ?>
 
 
-<?php require('../_footer.php'); ?>
+      <?php require('../_footer.php'); ?>
 
 </body>
 

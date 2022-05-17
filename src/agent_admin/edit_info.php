@@ -56,18 +56,23 @@ if (isset($_POST['submit'])) {
     <div class="util_sidebar">
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/agent_admin/students_info.php">学生申し込み一覧</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button util_sidebar_button--selected">
-        <a class="util_sidebar_link util_sidebar_link--selected" href="/agent_admin/edit_info.php">担当者情報</a>
+        <a class="util_sidebar_link util_sidebar_link--selected" href="/agent_admin/edit_info.php">担当者情報編集</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">お問合せ</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/agent_admin/invoice.php">請求金額確認</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <i class="fas fa-angle-right"></i>
       </div>
     </div>
     <div class="util_content">

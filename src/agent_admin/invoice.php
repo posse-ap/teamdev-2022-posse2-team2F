@@ -48,14 +48,15 @@ $all_students_info = $sql_prepare->fetchAll();
 
 // ============================SELECT文============================
 
+
 // 合計件数 有効な件数;
-$sql_valid = "SELECT count(students_contact.id) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND created_at BETWEEN ? AND ?";
+$sql_valid = "SELECT count(*) FROM students_contact_delete JOIN students_agent ON students_contact_delete.id = students_agent.student_id WHERE students_agent.agent = ? AND created_at BETWEEN ? AND ?";
 $sql_valid_prepare = $db->prepare($sql_valid);
 $sql_valid_prepare->execute(array($_SESSION['agent_name'], $first_day, $last_day));
 $all_valid_students = $sql_valid_prepare->fetchAll();
 
 // 請求件数 idの最大値とってます（idは間の何件かが削除されてもそのまま変わらないイメージ）
-$sql_all = "SELECT count(students_contact.id) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND created_at BETWEEN ? AND ?";
+$sql_all = "SELECT count(*) FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE students_agent.agent = ? AND created_at BETWEEN ? AND ?";
 $sql_all_prepare = $db->prepare($sql_all);
 $sql_all_prepare->execute(array($_SESSION['agent_name'], $first_day, $last_day));
 $all_students_number = $sql_all_prepare->fetchAll();
@@ -64,10 +65,16 @@ $all_students_number = $sql_all_prepare->fetchAll();
     削除依頼件数 わからない！
 */
 
-// 削除件数 idの最大値から、残った実際の数を引いています
-$sql_deleted = "SELECT (max(id) - count(name)) FROM students_contact WHERE created_at BETWEEN ? AND ?";
+// students_contact_all の合計 - students_contact_delete の合計
+$sql_deleted = 
+"SELECT  
+    (SELECT COUNT(students_contact_all.id) FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id 
+    WHERE students_agent.agent = ? AND created_at BETWEEN ? AND ?)
+    - 
+    (SELECT COUNT(students_contact_delete.id) FROM students_contact_delete JOIN students_agent ON students_contact_delete.id = students_agent.student_id
+    WHERE students_agent.agent = ? AND created_at BETWEEN ? AND ?)";
 $sql_deleted_prepare = $db->prepare($sql_deleted);
-$sql_deleted_prepare->execute(array($first_day, $last_day));
+$sql_deleted_prepare->execute(array($_SESSION['agent_name'], $first_day, $last_day, $_SESSION['agent_name'], $first_day, $last_day));
 $deleted_students = $sql_deleted_prepare->fetchAll();
 ?>
 
@@ -76,18 +83,23 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
     <div class="util_sidebar no-print-area">
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="/agent_admin/students_info.php">学生申し込み一覧</a>
+            <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報編集</a>
+            <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="">お問合せ</a>
+            <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button util_sidebar_button--selected">
-            <a class="util_sidebar_link util_sidebar_link--selected" href="/agent_admin/invoice.php">今月の請求金額確認</a>
+            <a class="util_sidebar_link util_sidebar_link--selected" href="/agent_admin/invoice.php">請求金額確認</a>
+            <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+            <i class="fas fa-angle-right"></i>
         </div>
     </div>
 
@@ -99,7 +111,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                 合計請求金額確認
             </h2>
         </div>
-        <h3 class="no-print-area">
+        <h3 class="no-print-area invoice_title">
             <?php //月遷移
             echo '<a href="invoice.php?id=' . $last_month_id . '">＜ </a>';
             echo $year . '年' . $month . '月';
@@ -188,7 +200,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             </tr>
         </table>
         <div class="invoice__buttons__section no-print-area">
-            <input class="util_fullscreen_button" type="button" value="請求書発行" onclick="window.print();" />
+            <input class="invoice_button" type="button" value="請求書発行" onclick="window.print();" />
         </div>
     </div>
 </div>
