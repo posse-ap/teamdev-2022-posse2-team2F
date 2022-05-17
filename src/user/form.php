@@ -60,11 +60,11 @@ if (isset($_POST["back"]) && $_POST["back"]) {
           </div>
           <div class="userform_text">
             <label class="userform_text--label" for="student_email">メールアドレス<span>必須</span></label>
-            <input class="userform_text--box" type="text" name="student_email" placeholder="例）taroyamada@gmail.com" value="<?= $_SESSION["student_email"] ?>" required>
+            <input class="userform_text--box" type="email" name="student_email" placeholder="例）taroyamada@gmail.com" value="<?= $_SESSION["student_email"] ?>" required>
           </div>
           <div class="userform_text">
             <label class="userform_text--label" for="student_phone">電話番号<span>必須</span></label>
-            <input class="userform_text--box" type="text" name="student_phone" placeholder="例）09011110000" value="<?= $_SESSION["student_phone"] ?>" required>
+            <input class="userform_text--box" type="tel" name="student_phone" placeholder="例）09011110000" value="<?= $_SESSION["student_phone"] ?>" required>
           </div>
           <div class="userform_text">
             <label class="userform_text--label" for="student_university">大学<span>必須</span></label>
@@ -152,7 +152,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
         $to      = "agent1@agent1.com";
         $subject = "学生の申し込みがありました";
         $message = "
-        
+
         〇〇agent様
 
         学生の新規申し込みがありました
@@ -169,11 +169,11 @@ if (isset($_POST["back"]) && $_POST["back"]) {
         $to      = $_SESSION['student_email'];
         $subject = "学生の申し込みがありました";
         $message = "
-      〇〇様
+        〇〇様
 
-      申し込みありがとうございます！
-      以下でご確認ください：
-      // リンク
+        申し込みありがとうございます！
+        以下でご確認ください：
+        // リンク
 
       ";
         $headers = "From: craft@boozer.com";
@@ -185,9 +185,9 @@ if (isset($_POST["back"]) && $_POST["back"]) {
         $subject = "学生の申し込みがありました";
         $message = "
     
-      〇〇エージェントから申し込みがありました！
-      以下でご確認ください：
-      // リンク
+        〇〇エージェントから申し込みがありました！
+        以下でご確認ください：
+        // リンク
 
       ";
         $headers = "From: craft@boozer.com";
