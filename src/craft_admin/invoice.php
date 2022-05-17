@@ -76,26 +76,42 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
 ?>
 
 
-<div class="util_container no-print-area">
+<div class="util_container">
     <div class="util_sidebar no-print-area">
-        <div class="util_sidebar_button util_sidebar_button-selected">
-            <a class="util_sidebar_link util_sidebar_link-selected" href="/craft_admin/home.php">エージェント管理</a>
+        <div class="util_sidebar_button">
+            <a class="util_sidebar_link " href="/craft_admin/home.php">エージェント管理</a>
+            <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>
+            <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="/craft_admin/tag.php">タグ編集・追加</a>
+            <i class="fas fa-angle-right"></i>
+        </div>
+        <div class="util_sidebar_button">
+            <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+            <i class="fas fa-angle-right"></i>
+        </div>
+        <div class="util_sidebar_button util_sidebar_button--selected">
+            <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/invoice.php">合計請求金額確認</a>
+            <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+            <i class="fas fa-angle-right"></i>
         </div>
     </div>
-
-
+        
     <div class="util_content">
-        <h2 class="no-print-area">合計請求金額確認</h2>
-        <h3 class="no-print-area">
+        <div class="util_title no-print-area">
+            <h2 class="util_title--text no-print-area">
+                合計請求金額確認
+            </h2>
+        </div>
+        <!-- <h2 class="no-print-area">合計請求金額確認</h2> -->
+        <h3 class="no-print-area invoice_title">
             <?php //月遷移
             echo '<a href="invoice.php?id=' . $last_month_id . '">＜ </a>';
             echo $year . '年' . $month . '月';
@@ -184,7 +200,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             </tr>
         </table>
         <div class="invoice__buttons__section no-print-area">
-            <input class="util_fullscreen_button" type="button" value="請求書発行" onclick="window.print();" />
+            <input class="invoice_button" type="button" value="請求書発行" onclick="window.print();" />
         </div>
     </div>
 </div>

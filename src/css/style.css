@@ -265,7 +265,7 @@ a {
   width: 220px;
   height: 82vh;
   background-color: #e5e5e5;
-  text-align: center;
+  text-align: left;
 }
 
 .util_sidebar_button {
@@ -273,23 +273,35 @@ a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   height: 60px;
   border: 1px solid #c4c4c4;
+  position: relative;
+}
+
+.util_sidebar_button i {
+  position: absolute;
+  right: 20px;
 }
 
 .util_sidebar_button--selected {
   background-color: white;
 }
 
+.util_sidebar_button--selected i {
+  color: #52A49A;
+}
+
 .util_sidebar_link {
   text-decoration: none;
+  text-align: left;
   margin-right: 15px;
+  margin-left: 20px;
   color: #000;
 }
 
@@ -1648,19 +1660,32 @@ a {
           align-items: center;
 }
 
-h3 {
+.invoice_title {
   text-align: center;
-  font-size: 2em;
+  font-size: 1.5em;
+  margin: 20px auto;
 }
 
-h3 a {
+.invoice_title a {
   color: black;
+}
+
+.invoice_button {
+  width: 180px;
+  height: 40px;
+  color: white;
+  background-color: #91C9C4;
+  margin: 10px auto 20px auto;
+  font-size: 24px;
+  border-style: none;
+  -webkit-box-shadow: 6px 2px 3px #c0c1c5;
+          box-shadow: 6px 2px 3px #c0c1c5;
 }
 
 .invoice__table {
   width: 60%;
   border-collapse: collapse;
-  margin: 5% auto;
+  margin: 3% auto;
   text-align: left;
   background: #EBEDF1;
 }
@@ -1693,6 +1718,7 @@ h3 a {
 
 .invoice__table__number {
   text-align: right;
+  width: 130px;
 }
 
 .invoice__buttons__section {

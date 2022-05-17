@@ -83,18 +83,23 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
     <div class="util_sidebar no-print-area">
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="/agent_admin/students_info.php">学生申し込み一覧</a>
+            <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報編集</a>
+            <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="">お問合せ</a>
+            <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button util_sidebar_button--selected">
-            <a class="util_sidebar_link util_sidebar_link--selected" href="/agent_admin/invoice.php">今月の請求金額確認</a>
+            <a class="util_sidebar_link util_sidebar_link--selected" href="/agent_admin/invoice.php">請求金額確認</a>
+            <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+            <i class="fas fa-angle-right"></i>
         </div>
     </div>
 
@@ -106,7 +111,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                 合計請求金額確認
             </h2>
         </div>
-        <h3 class="no-print-area">
+        <h3 class="no-print-area invoice_title">
             <?php //月遷移
             echo '<a href="invoice.php?id=' . $last_month_id . '">＜ </a>';
             echo $year . '年' . $month . '月';
@@ -195,7 +200,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             </tr>
         </table>
         <div class="invoice__buttons__section no-print-area">
-            <input class="util_fullscreen_button" type="button" value="請求書発行" onclick="window.print();" />
+            <input class="invoice_button" type="button" value="請求書発行" onclick="window.print();" />
         </div>
     </div>
 </div>

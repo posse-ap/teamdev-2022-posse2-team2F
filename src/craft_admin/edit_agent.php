@@ -135,6 +135,9 @@ $categories = $stmt->fetchAll();
         <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
       </div>
       <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/invoice.php">合計請求金額確認</a>
+      </div>
+      <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
       </div>
     </div>
