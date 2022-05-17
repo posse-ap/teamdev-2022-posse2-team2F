@@ -149,9 +149,9 @@ require('../dbconnect.php');
                         foreach ($all_students_info as $student_info) {
                             echo "<tr>";
 
-                            echo "<th>";
-                            echo $student_info['id'];
-                            echo "</th>";
+                            // echo "<th>";
+                            // echo $student_info['id'];
+                            // echo "</th>";
 
                             echo "<th>";
                             echo $student_info['name'];
