@@ -1898,6 +1898,29 @@ h3 a {
   font-size: 18px;
 }
 
+.util_warning_title {
+  width: 300px;
+  color: #CF7C7C;
+  font-size: 36px;
+  border-bottom: 1px solid #000;
+  margin: 20px auto;
+  padding-top: 10px;
+}
+
+.util_warning_body {
+  margin: 30px auto;
+}
+
+.util_warning_body--text {
+  text-align: center;
+}
+
+.util_warning_link {
+  color: #CF7C7C;
+  border-bottom: 0.5px solid;
+  font-size: 18px;
+}
+
 /*
 1440~960 pc~tablet
 960~520     tablet~smartphone

@@ -2,84 +2,91 @@
 
 require('../dbconnect.php');
 
-// URLからIDを取得
-$id = $_GET['id'];
 
 
-// 既存データの表示
-$stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
-$result = $stmt->fetch();
+if (isset($_GET['id'])) {
 
 
+  // URLからIDを取得
+  $id = $_GET['id'];
 
-if (isset($_POST['submit'])) {
+  // 既存データの表示
+  $stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
+  $result = $stmt->fetch();
 
-  // 画像以外の更新
-  $agent_name = $_POST['agent_name'];
-  $agent_tagname = $_POST['agent_tag'];
-  $agent_tag = $_POST['tag_id'];
-  // $agent_pic = $_POST['agent_pic'];
-  $agent_info = $_POST['agent_info'];
-  // $agent_display = $_POST['agent_display'];
-  if (isset($_POST['agent_display'])) {
-    // セレクトボックスで選択された値を受け取る
-    $agent_display = $_POST['agent_display'];
-  }
+  if (isset($_POST['submit'])) {
 
-  $sql = 'UPDATE agents
-        SET agent_name = ?, agent_tag = ?,agent_tagname = ?, agent_info = ?, agent_display = ?
-        WHERE id = ?';
-  $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $agent_tag,$agent_tagname, $agent_info, $agent_display, $id));
+    // 画像以外の更新
+    $agent_name = $_POST['agent_name'];
+    $agent_tagname = $_POST['agent_tag'];
+    $agent_tag = $_POST['tag_id'];
+    // $agent_pic = $_POST['agent_pic'];
+    $agent_info = $_POST['agent_info'];
+    // $agent_display = $_POST['agent_display'];
+    if (isset($_POST['agent_display'])) {
+      // セレクトボックスで選択された値を受け取る
+      $agent_display = $_POST['agent_display'];
+    }
 
-  // 画像更新
-  $target_dir = "images/";
-  $target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
-  $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $sql = 'UPDATE agents
+          SET agent_name = ?, agent_tag = ?,agent_tagname = ?, agent_info = ?, agent_display = ?
+          WHERE id = ?';
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($agent_name, $agent_tag,$agent_tagname, $agent_info, $agent_display, $id));
 
-
-  if (move_uploaded_file($_FILES["agent_pic"]["tmp_name"], $target_file)) {
-    // echo "The file ". htmlspecialchars( basename( $_FILES["agent_pic"]["name"])). " has been uploaded.";
-    // 既存データの表示
-    $sql = "UPDATE agents SET agent_pic = '" . $_FILES['agent_pic']['name'] . "' WHERE id = '$id'";
-    $stmt = $db->query($sql);
-  } else {
-    // echo "Sorry, there was an error uploading your file.";
-  }
+    // 画像更新
+    $target_dir = "images/";
+    $target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
 
-  // タグ関連の処理
+    if (move_uploaded_file($_FILES["agent_pic"]["tmp_name"], $target_file)) {
+      // echo "The file ". htmlspecialchars( basename( $_FILES["agent_pic"]["name"])). " has been uploaded.";
+      // 既存データの表示
+      $sql = "UPDATE agents SET agent_pic = '" . $_FILES['agent_pic']['name'] . "' WHERE id = '$id'";
+      $stmt = $db->query($sql);
+    } else {
+      // echo "Sorry, there was an error uploading your file.";
+    }
 
-  $delete_sql = "DELETE FROM agent_tag_options 
-        WHERE agent_id = ?";
-  $stmt = $db->prepare($delete_sql);
-  $stmt->execute(array($id));
-  // $stmt->execute(array($id, $agent_id));
 
-  // if (isset($_POST['tag_id'])) {
+    // タグ関連の処理
+
+    $delete_sql = "DELETE FROM agent_tag_options 
+          WHERE agent_id = ?";
+    $stmt = $db->prepare($delete_sql);
+    $stmt->execute(array($id));
+    // $stmt->execute(array($id, $agent_id));
+
     $tag_ids = $_POST['tag_id'];
     $split_ids = explode(',', $tag_ids);
-  // } else {
-  //   $tag_ids = $_POST['tag_id'];
-  //   $split_ids = explode(',', $tag_ids);
-  // }
 
-  
+    
 
-  // $id_stmt = $db->query('SELECT id FROM agents ORDER BY id DESC LIMIT 1');
-  // $agent_id = $id_stmt->fetch();
+    // $id_stmt = $db->query('SELECT id FROM agents ORDER BY id DESC LIMIT 1');
+    // $agent_id = $id_stmt->fetch();
 
-  foreach ($split_ids as $index => $tag_id) {
+    foreach ($split_ids as $index => $tag_id) {
 
-    $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) 
-          VALUES (?, ?)";
-    $stmt = $db->prepare($sql);
-    $stmt->execute(array($tag_id, $id));
+      $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) 
+            VALUES (?, ?)";
+      $stmt = $db->prepare($sql);
+      $stmt->execute(array($tag_id, $id));
+    }
+
+    header('Location: home.php');
+    exit;
   }
 
-  header('Location: home.php');
-  exit;
+// リンクに id がない場合、無効リンクページに飛ばす
+} else {
+  
+  header('Location: warning.php');
 }
+
+
+
+
 
 
 
@@ -199,6 +206,7 @@ $categories = $stmt->fetchAll();
   <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
   <script>
     $(function() {
+
       $('#confirm_button').on('click', function() {
         // モーダルで選択した内容を反映させる処理
         let string = [];
