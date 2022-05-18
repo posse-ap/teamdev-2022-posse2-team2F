@@ -4,6 +4,36 @@ include('../_header.php');
 require('../dbconnect.php');
 ?>
 
+<?php
+
+// 削除機能について
+// isset post delete button
+// sql query update students_contact_all where id = ?
+// delete button が複数あるから、foreach で回す
+// どこかでやった気がする edit_agent.php
+
+
+
+
+// ボタンテスト
+
+
+// 削除関連
+if(isset($_POST['delete'])){
+    $button = key($_POST['delete']); //$buttonには押された番号が入る
+    
+    $sql = "UPDATE students_contact_all 
+            SET deleted_at = CURRENT_TIMESTAMP 
+            JOIN students_agent ON students_contact_all.id = students_agent.student_id
+            WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($button));
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,6 +109,9 @@ require('../dbconnect.php');
                                 echo "<option value='$value'>" . $value . "</option>";
                             }
                         }
+
+
+
                         ?>
                     </select>
 
@@ -101,9 +134,9 @@ require('../dbconnect.php');
                             $sort_sql = " ORDER BY phone ASC";
                         }
                         $_SESSION['sort'] = $sort_sql;
-                        $sql = "SELECT students_agent.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id" . $_SESSION['sort'];
+                        $sql = "SELECT students_agent.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE deleted_at IS NOT NULL" . $_SESSION['sort'];
                     } else {
-                        $sql = "SELECT students_agent.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id ORDER BY phone ASC";
+                        $sql = "SELECT students_agent.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE deleted_at IS NOT NULL ORDER BY phone ASC";
                     }
 
                     // print_r($sql);
@@ -116,7 +149,7 @@ require('../dbconnect.php');
                         exit();
                     }
                     ?>
-
+                    
                     <!-- 並び替え結果 -->
                     <div class="table_container">
                         <table border=1; style=border-collapse:collapse;>
@@ -157,19 +190,27 @@ require('../dbconnect.php');
                                 </th>
                             </tr>
 
+
                             <?php
-                            foreach ($all_students_info as $student_info) {
+                            foreach ($all_students_info as $student_info) { ?>
+
+
+                            <input type="hidden" name="hidden[<?= $student_info['id']; ?>]" value="削除">
+                            <input type="submit" name="delete[<?= $student_info['id']; ?>]" value="delete">
+
+                            <?
+
                                 echo "<tr>";
 
-                                echo "<th>";
+                                echo "<th name='id'>";
                                 echo $student_info['id'];
                                 echo "</th>";
 
-                                echo "<th>";
+                                echo "<th name='name'>";
                                 echo $student_info['name'];
                                 echo "</th>";
 
-                                echo "<th>";
+                                echo "<th name='email'>";
                                 echo $student_info['email'];
                                 echo "</th>";
 
@@ -198,6 +239,8 @@ require('../dbconnect.php');
                                 echo "</th>";
 
                                 echo "</tr>";
+
+
                             };
                             echo "</table>";
 

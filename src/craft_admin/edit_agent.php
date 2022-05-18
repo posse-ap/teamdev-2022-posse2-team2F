@@ -50,24 +50,20 @@ if (isset($_GET['id'])) {
     }
 
 
-    // タグ関連の処理
+    // タグ関連の処理 （すでに入っているものをまず消して、その後新しく INSERT する）
 
     $delete_sql = "DELETE FROM agent_tag_options 
           WHERE agent_id = ?";
     $stmt = $db->prepare($delete_sql);
     $stmt->execute(array($id));
-    // $stmt->execute(array($id, $agent_id));
 
+    // タグの id を hidden の input から取得
     $tag_ids = $_POST['tag_id'];
+    // これらを、個別の値に分けていく（ "2, 3, 4" -> "2" "3" "4" ) 
     $split_ids = explode(',', $tag_ids);
 
-    
-
-    // $id_stmt = $db->query('SELECT id FROM agents ORDER BY id DESC LIMIT 1');
-    // $agent_id = $id_stmt->fetch();
-
+    // 分けたものを一つ一つ $tag_id として loop 処理する
     foreach ($split_ids as $index => $tag_id) {
-
       $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) 
             VALUES (?, ?)";
       $stmt = $db->prepare($sql);

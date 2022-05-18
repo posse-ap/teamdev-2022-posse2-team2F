@@ -86,157 +86,7 @@ SET
     agent_info = 'はい！',
     agent_display = 3;
 
--- DROP TABLE IF EXISTS agents_master;
 
--- CREATE TABLE agents_master (
-
---   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-
---   agent_name VARCHAR(255) NOT NULL,
-
---   agent_pic VARCHAR(255) NOT NULL,
-
---   -- agent_tag VARCHAR(255) NOT NULL,
-
---   agent_info VARCHAR(255) NOT NULL,
-
---   agent_display INT NOT NULL
-
--- );
-
--- INSERT INTO
-
---   agents_master
-
--- SET
-
---   agent_name = 'agent1',
-
---   agent_pic = 'agent1.png',
-
---   -- agent_tag = '文系''オンラインあり',
-
---   agent_info = '強い！強い！強い！強い！強い！強い！強い！強い！強い！強い！',
-
---   agent_display = 3;
-
--- DROP TABLE IF EXISTS agents_tags;
-
--- CREATE TABLE agents_tags (
-
---   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-
---   agent_id INT NOT NULL,
-
---   tag_id INT NOT NULL
-
--- );
-
--- INSERT INTO
-
---   agents_tags (agent_id, tag_id)
-
--- VALUES
-
--- (1, 2),
-
--- (1, 3),
-
--- (1, 4);
-
--- 学生情報
-
--- DROP TABLE IF EXISTS students;
-
--- CREATE TABLE students (
-
---   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-
---   name VARCHAR(255) NOT NULL,
-
---   email VARCHAR(255) NOT NULL,
-
---   phone INT NOT NULL,
-
---   university VARCHAR(255) NOT NULL,
-
---   faculty VARCHAR(255) NOT NULL,
-
---   address VARCHAR(255) NOT NULL,
-
---   grad_year INT NOT NULL,
-
---   agent VARCHAR(255) NOT NULL
-
--- );
-
--- INSERT INTO students (name, email, phone, university, faculty, address, grad_year, agent)
-
--- VALUES
-
--- ('山田太郎',
-
--- 'taroyamada@gmail.com',
-
--- 1111111,
-
--- '〇〇大学',
-
--- '〇〇学科',
-
--- '東京都〇〇区1-1-1',
-
--- 25,
-
--- 'agent1'),
-
--- ('西川航平',
-
--- 'kohei@gmail.com',
-
--- 0000001,
-
--- '〇〇大学',
-
--- '〇〇学科',
-
--- '東京都〇〇区1-1-1',
-
--- 25,
-
--- 'agent2'),
-
--- ('寺嶋里紗',
-
--- 'risa@gmail.com',
-
--- 0000002,
-
--- '〇〇大学',
-
--- '〇〇学科',
-
--- '東京都〇〇区1-1-1',
-
--- 25,
-
--- 'agent2'),
-
--- ('多田一稀',
-
--- 'kazuki@gmail.com',
-
--- 0000003,
-
--- '〇〇大学',
-
--- '〇〇学科',
-
--- '東京都〇〇区1-1-1',
-
--- 25,
-
--- 'agent2');
 
 DROP TABLE IF EXISTS students_contact_all;
 
@@ -260,7 +110,7 @@ INSERT INTO
         university,
         faculty,
         address,
-        grad_year
+        grad_year,
     )
 VALUES
     (
@@ -279,7 +129,7 @@ VALUES
         '〇〇大学',
         '〇〇学科',
         '東京都〇〇区1-1-1',
-        25
+        25 
     ),
     (
         '寺嶋里紗',
@@ -288,7 +138,7 @@ VALUES
         '〇〇大学',
         '〇〇学科',
         '東京都〇〇区1-1-1',
-        25
+        25 
     ),
     (
         '多田一稀',
@@ -297,91 +147,31 @@ VALUES
         '〇〇大学',
         '〇〇学科',
         '東京都〇〇区1-1-1',
-        25
+        25 
     );
 
-DROP TABLE IF EXISTS students_contact_delete;
-
-CREATE TABLE students_contact_delete (
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    phone INT NOT NULL,
-    university VARCHAR(255) NOT NULL,
-    faculty VARCHAR(255) NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    grad_year INT NOT NULL,
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-INSERT INTO
-    students_contact_delete (
-        name,
-        email,
-        phone,
-        university,
-        faculty,
-        address,
-        grad_year
-    )
-VALUES
-    (
-        '山田太郎',
-        'taroyamada@gmail.com',
-        1111111,
-        '〇〇大学',
-        '〇〇学科',
-        '東京都〇〇区1-1-1',
-        25
-    ),
-    (
-        '西川航平',
-        'kohei@gmail.com',
-        0000001,
-        '〇〇大学',
-        '〇〇学科',
-        '東京都〇〇区1-1-1',
-        25
-    ),
-    (
-        '寺嶋里紗',
-        'risa@gmail.com',
-        0000002,
-        '〇〇大学',
-        '〇〇学科',
-        '東京都〇〇区1-1-1',
-        25
-    ),
-    (
-        '多田一稀',
-        'kazuki@gmail.com',
-        0000003,
-        '〇〇大学',
-        '〇〇学科',
-        '東京都〇〇区1-1-1',
-        25
-    );
 
 DROP TABLE IF EXISTS students_agent;
 
 CREATE TABLE students_agent (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     student_id INT NOT NULL,
-    agent VARCHAR(255) NOT NULL
+    agent VARCHAR(255) NOT NULL,
+    deleted_at DATETIME 
 );
 
 INSERT INTO
-    students_agent (student_id, agent)
+    students_agent (student_id, agent, deleted_at)
 VALUES
-    (1, 'agent1'),
-    (2, 'agent2'),
-    (2, 'agent1'),
-    (3, 'agent1'),
-    (4, 'agent2');
+    (1, 'agent1', NULL),
+    (2, 'agent2', NULL),
+    (2, 'agent1', NULL),
+    (3, 'agent1', NULL),
+    (4, 'agent2', NULL);
 
 -- join するためのコード
 
--- select students_contact_all.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent from students_contact_all join students_agent on students_contact_all.id = students_agent.student_id;
+-- select students_contact_all.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent, students_agent.deleted_at from students_contact_all join students_agent on students_contact_all.id = students_agent.student_id;
 
 -- タグのカテゴリー
 
