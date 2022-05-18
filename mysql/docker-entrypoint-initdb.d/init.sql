@@ -223,3 +223,17 @@ VALUES
     (1, 1),
     (2, 1),
     (3, 1);
+
+DROP TABLE IF EXISTS password_reset;
+
+CREATE TABLE password_reset (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    pass_token VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO
+    password_reset(email, pass_token)
+VALUES
+    ("test@test.com", "test");

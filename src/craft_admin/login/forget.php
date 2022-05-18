@@ -22,6 +22,13 @@ if (isset($_POST['submit_email'])) {
   if ($result[0] != 0) {
 
     $passResetToken = md5(uniqid(rand(),true));
+    
+
+    // DB に email と token を追加
+    $sql = "INSERT INTO password_reset(email, pass_token) VALUES(?, ?)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($email, $passResetToken));
+
     // メール送信 
     $to      = $_POST['email'];
     $subject = "パスワード再発行";
@@ -34,7 +41,7 @@ if (isset($_POST['submit_email'])) {
     ※パスワードリセットの申請に心当たりがない場合は、以降の対応は不要となります。
 
     ▼パスワードの再設定URL
-    http://localhost/craft_admin/login/reset.php?pass_reset=$passResetToken
+    http://localhost/craft_admin/login/verify_time.php?pass_reset=$passResetToken
 
     ";
     $headers = "From: craft@boozer.com";
