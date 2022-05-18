@@ -8,7 +8,7 @@ require('../dbconnect.php');
 
 // 削除機能について
 // isset post delete button
-// sql query update students_contact_all where id = ?
+// sql query update students_contact where id = ?
 // delete button が複数あるから、foreach で回す
 // どこかでやった気がする edit_agent.php
 
@@ -19,12 +19,11 @@ require('../dbconnect.php');
 
 
 // 削除関連
-if(isset($_POST['delete'])){
+if (isset($_POST['delete'])) {
     $button = key($_POST['delete']); //$buttonには押された番号が入る
-    
-    $sql = "UPDATE students_contact_all 
+
+    $sql = "UPDATE students_agent
             SET deleted_at = CURRENT_TIMESTAMP 
-            JOIN students_agent ON students_contact_all.id = students_agent.student_id
             WHERE id = ?";
     $stmt = $db->prepare($sql);
     $stmt->execute(array($button));
@@ -134,9 +133,9 @@ if(isset($_POST['delete'])){
                             $sort_sql = " ORDER BY phone ASC";
                         }
                         $_SESSION['sort'] = $sort_sql;
-                        $sql = "SELECT students_agent.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE deleted_at IS NOT NULL" . $_SESSION['sort'];
+                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL" . $_SESSION['sort'];
                     } else {
-                        $sql = "SELECT students_agent.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE deleted_at IS NOT NULL ORDER BY phone ASC";
+                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL ORDER BY phone ASC";
                     }
 
                     // print_r($sql);
@@ -149,7 +148,7 @@ if(isset($_POST['delete'])){
                         exit();
                     }
                     ?>
-                    
+
                     <!-- 並び替え結果 -->
                     <div class="table_container">
                         <table border=1; style=border-collapse:collapse;>
@@ -195,8 +194,8 @@ if(isset($_POST['delete'])){
                             foreach ($all_students_info as $student_info) { ?>
 
 
-                            <input type="hidden" name="hidden[<?= $student_info['id']; ?>]" value="削除">
-                            <input type="submit" name="delete[<?= $student_info['id']; ?>]" value="delete">
+                                <input type="hidden" name="hidden[<?= $student_info['id']; ?>]" value="削除">
+                                <input type="submit" name="delete[<?= $student_info['id']; ?>]" value="delete">
 
                             <?
 
@@ -239,8 +238,6 @@ if(isset($_POST['delete'])){
                                 echo "</th>";
 
                                 echo "</tr>";
-
-
                             };
                             echo "</table>";
 

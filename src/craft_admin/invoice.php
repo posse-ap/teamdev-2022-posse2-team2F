@@ -49,15 +49,15 @@ $all_students_info = $sql_prepare->fetchAll();
 // ============================SELECT文============================
 
 // 合計件数 有効な件数;
-// $sql_valid = "SELECT count(students_agent.id) FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
-$sql_valid = "SELECT count(*) FROM students_contact_delete WHERE created_at BETWEEN ? AND ?";
+// $sql_valid = "SELECT count(students_agent.id) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
+$sql_valid = "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE deleted_at IS NULL AND created_at BETWEEN ? AND ?";
 $sql_valid_prepare = $db->prepare($sql_valid);
 $sql_valid_prepare->execute(array($first_day, $last_day));
 $all_valid_students = $sql_valid_prepare->fetchAll();
 
 // 請求件数 idの最大値とってます（idは間の何件かが削除されてもそのまま変わらないイメージ）
-// $sql_all = "SELECT max(students_agent.id) FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
-$sql_all = "SELECT count(*) FROM students_contact_all WHERE created_at BETWEEN ? AND ?";
+// $sql_all = "SELECT max(students_agent.id) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
+$sql_all = "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
 $sql_all_prepare = $db->prepare($sql_all);
 $sql_all_prepare->execute(array($first_day, $last_day));
 $all_students_number = $sql_all_prepare->fetchAll();
@@ -67,11 +67,11 @@ $all_students_number = $sql_all_prepare->fetchAll();
 */
 
 // 削除件数 idの最大値から、残った実際の数を引いています
-$sql_deleted = 
-"SELECT  (SELECT COUNT(id) FROM students_contact_all WHERE created_at BETWEEN ? AND ?)  - (SELECT COUNT(id) FROM students_contact_delete WHERE created_at BETWEEN ? AND ?)";
-
+$sql_deleted =
+    // "SELECT  (SELECT COUNT(id) FROM students_contact WHERE created_at BETWEEN ? AND ?)  - (SELECT COUNT(id) FROM students_contact_delete WHERE created_at BETWEEN ? AND ?)";
+    "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE deleted_at IS NOT NULL AND created_at BETWEEN ? AND ?";
 $sql_deleted_prepare = $db->prepare($sql_deleted);
-$sql_deleted_prepare->execute(array($first_day, $last_day, $first_day, $last_day));
+$sql_deleted_prepare->execute(array($first_day, $last_day));
 $deleted_students = $sql_deleted_prepare->fetchAll();
 ?>
 
@@ -103,7 +103,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             <i class="fas fa-angle-right"></i>
         </div>
     </div>
-        
+
     <div class="util_content">
         <div class="util_title no-print-area">
             <h2 class="util_title--text no-print-area">

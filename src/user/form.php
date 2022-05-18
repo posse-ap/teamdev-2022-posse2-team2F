@@ -137,11 +137,11 @@ if (isset($_POST["back"]) && $_POST["back"]) {
         // $_POST['student_name'] = $student_name;
         // echo $student_name;
 
-        // $sql = 'INSERT INTO students_contact_all(name, email, phone, university, faculty, address, grad_year) 
+        // $sql = 'INSERT INTO students_contact(name, email, phone, university, faculty, address, grad_year) 
         //       VALUES (?, ?, ?, ?, ?, ?, ?)';
-        $sql = 
-        'START TRANSACTION;
-        INSERT INTO students_contact_all(name, email, phone, university, faculty, address, grad_year) VALUES (?, ?, ?, ?, ?, ?, ?);
+        $sql =
+          'START TRANSACTION;
+        INSERT INTO students_contact(name, email, phone, university, faculty, address, grad_year) VALUES (?, ?, ?, ?, ?, ?, ?);
         INSERT INTO students_contact_delete(name, email, phone, university, faculty, address, grad_year) VALUES (?, ?, ?, ?, ?, ?, ?);
         COMMIT;';
         $stmt = $db->prepare($sql);

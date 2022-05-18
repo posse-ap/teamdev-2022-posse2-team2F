@@ -86,11 +86,9 @@ SET
     agent_info = 'はい！',
     agent_display = 3;
 
+DROP TABLE IF EXISTS students_contact;
 
-
-DROP TABLE IF EXISTS students_contact_all;
-
-CREATE TABLE students_contact_all (
+CREATE TABLE students_contact (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
@@ -103,14 +101,14 @@ CREATE TABLE students_contact_all (
 );
 
 INSERT INTO
-    students_contact_all (
+    students_contact (
         name,
         email,
         phone,
         university,
         faculty,
         address,
-        grad_year,
+        grad_year
     )
 VALUES
     (
@@ -129,7 +127,7 @@ VALUES
         '〇〇大学',
         '〇〇学科',
         '東京都〇〇区1-1-1',
-        25 
+        25
     ),
     (
         '寺嶋里紗',
@@ -138,7 +136,7 @@ VALUES
         '〇〇大学',
         '〇〇学科',
         '東京都〇〇区1-1-1',
-        25 
+        25
     ),
     (
         '多田一稀',
@@ -147,9 +145,8 @@ VALUES
         '〇〇大学',
         '〇〇学科',
         '東京都〇〇区1-1-1',
-        25 
+        25
     );
-
 
 DROP TABLE IF EXISTS students_agent;
 
@@ -157,7 +154,7 @@ CREATE TABLE students_agent (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     student_id INT NOT NULL,
     agent VARCHAR(255) NOT NULL,
-    deleted_at DATETIME 
+    deleted_at DATETIME
 );
 
 INSERT INTO
@@ -171,7 +168,7 @@ VALUES
 
 -- join するためのコード
 
--- select students_contact_all.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent, students_agent.deleted_at from students_contact_all join students_agent on students_contact_all.id = students_agent.student_id;
+-- select students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at from students_contact join students_agent on students_contact.id = students_agent.student_id;
 
 -- タグのカテゴリー
 
