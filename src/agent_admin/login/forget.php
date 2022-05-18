@@ -20,6 +20,16 @@ if (isset($_POST['submit_email'])) {
 
   // result に一つでも値が入っているなら、登録メールアドレスが存在するということ
   if ($result[0] != 0) {
+
+    $passResetToken = md5(uniqid(rand(), true));
+
+
+    // DB に email と token を追加
+    $sql = "INSERT INTO agent_password_reset(email, pass_token) VALUES(?, ?)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($email, $passResetToken));
+
+
     // メール送信 
     $to      = $_POST['email'];
     $subject = "パスワード再発行";
@@ -32,7 +42,7 @@ if (isset($_POST['submit_email'])) {
     ※パスワードリセットの申請に心当たりがない場合は、以降の対応は不要となります。
 
     ▼パスワードの再設定URL
-    http://localhost/agent_admin/login/reset.php
+    http://localhost/agent_admin/login/verify_time.php
 
     ";
     $headers = "From: craft@boozer.com";

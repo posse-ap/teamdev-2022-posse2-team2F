@@ -21,11 +21,11 @@ if (isset($_POST['submit_email'])) {
   // result に一つでも値が入っているなら、登録メールアドレスが存在するということ
   if ($result[0] != 0) {
 
-    $passResetToken = md5(uniqid(rand(),true));
-    
+    $passResetToken = md5(uniqid(rand(), true));
+
 
     // DB に email と token を追加
-    $sql = "INSERT INTO password_reset(email, pass_token) VALUES(?, ?)";
+    $sql = "INSERT INTO craft_password_reset(email, pass_token) VALUES(?, ?)";
     $stmt = $db->prepare($sql);
     $stmt->execute(array($email, $passResetToken));
 

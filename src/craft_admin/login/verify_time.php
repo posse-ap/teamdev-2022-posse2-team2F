@@ -7,13 +7,13 @@ $passResetToken = $_GET['pass_reset'];
 // 成功の場合 reset.php に、 失敗の場合 expired.php 
 
 // 計算用
-$sql = 'SELECT count(*) FROM password_reset WHERE pass_token = ?';
+$sql = 'SELECT count(*) FROM craft_password_reset WHERE pass_token = ?';
 $stmt = $db->prepare($sql);
 $stmt->execute(array($passResetToken));
 $result = $stmt->fetch();
 
 // 利用
-$sql = 'SELECT * FROM password_reset WHERE pass_token = ?';
+$sql = 'SELECT * FROM craft_password_reset WHERE pass_token = ?';
 $stmt = $db->prepare($sql);
 $stmt->execute(array($passResetToken));
 $verify = $stmt->fetch();
@@ -38,5 +38,3 @@ if ($result[0] != 0) {
 } else {
   header('Location: http://localhost/craft_admin/warning.php');
 }
-
-?>

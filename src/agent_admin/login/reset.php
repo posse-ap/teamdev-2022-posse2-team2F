@@ -55,7 +55,7 @@ if (isset($_POST['reset'])) {
           <input class="util_login_text--box" type="password" name="password_conf" required>
         </div>
         <div class="util_login_text reset_input">
-          <input type="submit" name="reset" value="リセット" class="util_fullscreen_button">
+          <input type="submit" name="reset" value="リセット" class="util_login_button">
         </div>
       </form>
     </div>

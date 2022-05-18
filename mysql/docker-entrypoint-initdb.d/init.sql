@@ -224,9 +224,9 @@ VALUES
     (2, 1),
     (3, 1);
 
-DROP TABLE IF EXISTS password_reset;
+DROP TABLE IF EXISTS craft_password_reset;
 
-CREATE TABLE password_reset (
+CREATE TABLE craft_password_reset (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     pass_token VARCHAR(255) NOT NULL,
@@ -234,6 +234,20 @@ CREATE TABLE password_reset (
 );
 
 INSERT INTO
-    password_reset(email, pass_token)
+    agent_password_reset(email, pass_token)
+VALUES
+    ("test@test.com", "test");
+
+DROP TABLE IF EXISTS agent_password_reset;
+
+CREATE TABLE agent_password_reset (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    pass_token VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO
+    craft_password_reset(email, pass_token)
 VALUES
     ("test@test.com", "test");
