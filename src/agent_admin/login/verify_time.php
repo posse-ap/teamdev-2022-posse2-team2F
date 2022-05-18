@@ -26,7 +26,7 @@ if ($result[0] != 0) {
 
   // トークン発行から 24時間経過していない場合、パスワード再発行できる
   // 今の時間（秒） - トークン発行の時間 （秒）
-  if (strtotime($limitTime) - strtotime($verify['created_at']) <= 60 * 60 * 24)
+  if (strtotime($limitTime) - strtotime($verify['created_at']) >= 60 * 60 * 24)
   { 
     header('Location: http://localhost/agent_admin/login/reset.php');
     exit;

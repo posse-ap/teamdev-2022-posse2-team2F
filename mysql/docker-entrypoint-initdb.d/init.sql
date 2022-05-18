@@ -234,7 +234,7 @@ CREATE TABLE craft_password_reset (
 );
 
 INSERT INTO
-    agent_password_reset(email, pass_token)
+    craft_password_reset(email, pass_token)
 VALUES
     ("test@test.com", "test");
 
@@ -248,6 +248,6 @@ CREATE TABLE agent_password_reset (
 );
 
 INSERT INTO
-    craft_password_reset(email, pass_token)
+    agent_password_reset(email, pass_token)
 VALUES
-    ("test@test.com", "test");
+    ("test2@test.com", "test");

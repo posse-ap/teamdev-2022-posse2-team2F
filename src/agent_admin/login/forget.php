@@ -42,7 +42,7 @@ if (isset($_POST['submit_email'])) {
     ※パスワードリセットの申請に心当たりがない場合は、以降の対応は不要となります。
 
     ▼パスワードの再設定URL
-    http://localhost/agent_admin/login/verify_time.php
+    http://localhost/agent_admin/login/verify_time.php?pass_reset=$passResetToken
 
     ";
     $headers = "From: craft@boozer.com";
@@ -94,7 +94,7 @@ if (isset($_POST['submit_email'])) {
           echo $err_msg .  "<br>";
         } ?>
         <br>
-        <input type="submit" name="submit_email" class="util_fullscreen_button">
+        <input type="submit" name="submit_email" class="util_login_button">
       </form>
     </div>
   </div>

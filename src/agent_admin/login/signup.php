@@ -87,7 +87,7 @@ if (isset($_POST['signup'])) {
           </select>
         </div>
         <div>
-          <input type="submit" name="signup" value="新規登録" class="util_fullscreen_button">
+          <input type="submit" name="signup" value="新規登録" class="util_login_button">
         </div>
       </form>
     </div>
