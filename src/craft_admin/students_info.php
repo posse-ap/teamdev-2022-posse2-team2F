@@ -13,11 +13,6 @@ require('../dbconnect.php');
 // どこかでやった気がする edit_agent.php
 
 
-
-
-// ボタンテスト
-
-
 // 削除関連
 if (isset($_POST['delete'])) {
     $button = key($_POST['delete']); //$buttonには押された番号が入る

@@ -81,8 +81,8 @@ if (isset($_GET['option']) && isset($_GET['id'])) {
       $tag_name_new = $_POST['tag_name_new'];
       $tag_color_new = $_POST['tag_color_new'];
 
-      $sql = 'INSERT INTO tag_options(category_id, tag_option, tag_color)
-                VALUES (?, ?, ?)';
+      $sql = 'INSERT INTO tag_options(category_id, tag_option, tag_color, hide)
+                VALUES (?, ?, ?, 0)';
       $stmt = $db->prepare($sql);
       $stmt->execute(array($category_id, $tag_name_new, $tag_color_new));    
 

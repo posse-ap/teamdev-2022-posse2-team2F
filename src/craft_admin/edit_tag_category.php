@@ -42,8 +42,8 @@ if (isset($_GET['id'])) {
         $tag_category = $_POST['tag_category'];
         $tag_category_desc = $_POST['tag_category_desc'];
 
-        $sql = 'INSERT INTO tag_categories(tag_category, tag_category_desc)
-                VALUES (?, ?)';
+        $sql = 'INSERT INTO tag_categories(tag_category, tag_category_desc, hide)
+                VALUES (?, ?, 0)';
         $stmt = $db->prepare($sql);
         $stmt->execute(array($tag_category, $tag_category_desc));
 

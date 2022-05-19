@@ -111,7 +111,7 @@
     display: flex;
     align-items: center;
     &--left {
-      width: 44.8vw;
+      width: 36vw;
       height: 30px;
       display: flex;
       justify-content: center;
@@ -120,8 +120,20 @@
       color: white;
       border-right: 1px solid #91c9c4;
     }
+
+    &--middle {
+      width: 8vw;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #52a49a;
+      color: white;
+      border-right: 1px solid #91c9c4;
+    }
+
     &--right {
-      width: 19.2vw;
+      width: 20vw;
       height: 30px;
       display: flex;
       justify-content: center;
@@ -136,32 +148,52 @@
   display: flex;
   overflow-x: scroll;
   &_info {
-    width: 44.8vw;
-    height: 19vh;
+    width: 36vw;
+    height: 7vh;
     display: flex;
     align-items: center;
     border-bottom: 1px solid #91c9c4;
     border-right: 1px solid #91c9c4;
     box-shadow: 1px 3px 3px #c4c4c4;
     &--img {
-      width: 27.8vw;
+      width: 12vw;
       display: flex;
       justify-content: center;
       object-fit: contain;
     }
     &--name {
-      font-size: 26px;
+      font-size: 20px;
       width: 17vw;
       display: flex;
       justify-content: center;
     }
   }
+
+  &_display {
+
+    width: 8vw;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #91c9c4;
+    border-right: 1px solid #91c9c4;
+    box-shadow: 1px 3px 3px #c4c4c4;
+
+    &--eye {
+      -webkit-appearance: none;
+      background-color: transparent;
+      border: none;
+    }
+  }
+  
+
   &_buttons {
-    width: 19.2vw;
-    height: 19vh;
+    width: 20vw;
+    height: 7vh;
     border-bottom: 1px solid #91c9c4;
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
     justify-content: space-around;
     align-items: center;
     box-shadow: -1px 3px 3px #c4c4c4;
@@ -170,6 +202,7 @@
     // }
   }
 }
+
 
 .util_action_button {
   width: 6.25vw;
@@ -263,7 +296,6 @@
     transform: translateY(-50%) translateX(-50%);
     -webkit-transform: translateY(-50%) translateX(-50%);
   }
+
 }
-
-
 

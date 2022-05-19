@@ -371,7 +371,24 @@ a {
 }
 
 .home-list_labels--left {
-  width: 44.8vw;
+  width: 36vw;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #52a49a;
+  color: white;
+  border-right: 1px solid #91c9c4;
+}
+
+.home-list_labels--middle {
+  width: 8vw;
   height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -388,7 +405,7 @@ a {
 }
 
 .home-list_labels--right {
-  width: 19.2vw;
+  width: 20vw;
   height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -411,8 +428,8 @@ a {
 }
 
 .home-agents_info {
-  width: 44.8vw;
-  height: 19vh;
+  width: 36vw;
+  height: 7vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -426,7 +443,7 @@ a {
 }
 
 .home-agents_info--img {
-  width: 27.8vw;
+  width: 12vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -438,7 +455,7 @@ a {
 }
 
 .home-agents_info--name {
-  font-size: 26px;
+  font-size: 20px;
   width: 17vw;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -448,17 +465,37 @@ a {
           justify-content: center;
 }
 
+.home-agents_display {
+  width: 8vw;
+  height: 7vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-bottom: 1px solid #91c9c4;
+  border-right: 1px solid #91c9c4;
+  -webkit-box-shadow: 1px 3px 3px #c4c4c4;
+          box-shadow: 1px 3px 3px #c4c4c4;
+}
+
+.home-agents_display--eye {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+}
+
 .home-agents_buttons {
-  width: 19.2vw;
-  height: 19vh;
+  width: 20vw;
+  height: 7vh;
   border-bottom: 1px solid #91c9c4;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   -ms-flex-pack: distribute;
       justify-content: space-around;
   -webkit-box-align: center;
@@ -805,6 +842,7 @@ a {
 
 .tag-list {
   width: 64vw;
+  height: 60vh;
   border: 1px solid #91c9c4;
   position: absolute;
   left: calc(50% - 32vw);
@@ -824,7 +862,24 @@ a {
 }
 
 .tag-list_labels--left {
-  width: 44.8vw;
+  width: 36vw;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #52a49a;
+  color: white;
+  border-right: 1px solid #91c9c4;
+}
+
+.tag-list_labels--middle {
+  width: 8vw;
   height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -841,7 +896,7 @@ a {
 }
 
 .tag-list_labels--right {
-  width: 19.2vw;
+  width: 20vw;
   height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -864,7 +919,7 @@ a {
 }
 
 .tag-categories_info {
-  width: 44.8vw;
+  width: 36vw;
   height: 7vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -884,8 +939,32 @@ a {
   margin-left: 5px;
 }
 
+.tag-categories_display {
+  width: 8vw;
+  height: 7vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-bottom: 1px solid #91c9c4;
+  border-right: 1px solid #91c9c4;
+  -webkit-box-shadow: 1px 3px 3px #c4c4c4;
+          box-shadow: 1px 3px 3px #c4c4c4;
+}
+
+.tag-categories_display--eye {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+}
+
 .tag-categories_buttons {
-  width: 19.2vw;
+  width: 20vw;
   height: 7vh;
   border-bottom: 1px solid #91c9c4;
   display: -webkit-box;

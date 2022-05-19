@@ -73,7 +73,8 @@ CREATE TABLE agents (
     agent_tag VARCHAR(255) NOT NULL,
     agent_tagname VARCHAR(255) NOT NULL,
     agent_info VARCHAR(255) NOT NULL,
-    agent_display INT NOT NULL
+    agent_display INT NOT NULL,
+    hide INT NOT NULL
 );
 
 INSERT INTO
@@ -84,7 +85,9 @@ SET
     agent_tag = '1,2,3',
     agent_tagname = 'ベンチャー、大手、ベンチャー',
     agent_info = 'はい！',
-    agent_display = 3;
+    agent_display = 3,
+    hide = 0;
+
 
 DROP TABLE IF EXISTS students_contact;
 
@@ -177,15 +180,16 @@ DROP TABLE IF EXISTS tag_categories;
 CREATE TABLE tag_categories (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     tag_category VARCHAR(255) NOT NULL,
-    tag_category_desc VARCHAR(255) NOT NULL
+    tag_category_desc VARCHAR(255) NOT NULL,
+    hide INT NOT NULL
 );
 
 INSERT INTO
-    tag_categories(tag_category, tag_category_desc)
+    tag_categories(tag_category, tag_category_desc, hide)
 VALUES
-    ('運営会社の規模', '運営会社の規模の説明'),
-    ('登録会社の規模', '登録会社の規模の説明'),
-    ('紹介企業の数', '紹介企業の数の説明');
+    ('運営会社の規模', '運営会社の規模の説明', 0),
+    ('登録会社の規模', '登録会社の規模の説明', 0),
+    ('紹介企業の数', '紹介企業の数の説明', 0);
 
 -- タグ一覧
 
@@ -195,19 +199,20 @@ CREATE TABLE tag_options (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     category_id INT NOT NULL,
     tag_option VARCHAR(255) NOT NULL,
-    tag_color VARCHAR(255) NOT NULL
+    tag_color VARCHAR(255) NOT NULL,
+    hide INT NOT NULL
 );
 
 INSERT INTO
-    tag_options(category_id, tag_option, tag_color)
+    tag_options(category_id, tag_option, tag_color, hide)
 VALUES
-    (1, 'ベンチャー', '#CF7C7C'),
-    (1, '大手', '#7C85CF'),
-    (2, 'ベンチャー', '#CF7C7C'),
-    (2, '大手', '#7C85CF'),
-    (3, '300社〜', '#CF7C7C'),
-    (3, '500社〜', '#7C85CF'),
-    (3, '1000社〜', '#F3AF56');
+    (1, 'ベンチャー', '#CF7C7C', 0),
+    (1, '大手', '#7C85CF', 0),
+    (2, 'ベンチャー', '#CF7C7C', 0),
+    (2, '大手', '#7C85CF', 0),
+    (3, '300社〜', '#CF7C7C', 0),
+    (3, '500社〜', '#7C85CF', 0),
+    (3, '1000社〜', '#F3AF56', 0);
 
 DROP TABLE IF EXISTS agent_tag_options;
 
@@ -223,6 +228,8 @@ VALUES
     (1, 1),
     (2, 1),
     (3, 1);
+
+-- パスワードリセット関連
 
 DROP TABLE IF EXISTS craft_password_reset;
 
