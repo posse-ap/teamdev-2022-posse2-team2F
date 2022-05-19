@@ -1,6 +1,11 @@
 <?php
 require('../dbconnect.php');
 
+session_start();
+
+$products = isset($_SESSION['products']) ? $_SESSION['products'] : [];
+
+$favorite_count = count($products);
 ?>
 
 <?php
@@ -13,7 +18,6 @@ if (isset($_POST['search'])) {
     header("Location: top.php");
   }
 }
-// echo $search_tag;
 
 $stmt = $db->query("SELECT * FROM agents WHERE agent_tag LIKE '%$search_tag%'");
 $results = $stmt->fetchAll();
@@ -35,6 +39,33 @@ $categories = $stmt->fetchAll();
 ?>
 
 <?php require('../_header.php'); ?>
+<script>
+  var positionY;                  /* スクロール位置のY座標 */
+var STORAGE_KEY = "scrollY";    /* ローカルストレージキー */
+/*
+ * checkOffset関数: 現在のスクロール量をチェックしてストレージに保存
+ */
+function checkOffset(){
+    positionY = window.pageYOffset;
+    localStorage.setItem(STORAGE_KEY, positionY);
+}
+/*
+ * 起動時の処理
+ *
+ *      ローカルストレージをチェックして前回のスクロール位置に戻す
+ */
+window.addEventListener("load", function(){
+    // ストレージチェック
+    positionY = localStorage.getItem(STORAGE_KEY);
+    // 前回の保存データがあればスクロールする
+    if(positionY !== null){
+        scrollTo(0, positionY);
+    }
+    // スクロール時のイベント設定
+    window.addEventListener("scroll", checkOffset, false);
+});
+
+</script>
 <div class="top_container">
   <div class="top_container_title">
     <h5>絞り込み結果</h5>
@@ -42,6 +73,13 @@ $categories = $stmt->fetchAll();
     <p class="top_container_title--info">
       <?= '当てはまるエージェント数：' . $count . '件' ?>
     </p>
+    <div class="favorites">
+    
+    <p>♡お気に入り:</p>
+    <p class="favorite_count"><?= $favorite_count?>件</p>
+    <a href="/user/cart.php" class="favorite">一覧を見る</a>
+  </div>
+
   </div>
   <form action="/user/form.php" method="POST">
     <div class="apply_modal">
@@ -63,13 +101,11 @@ $categories = $stmt->fetchAll();
           $('p.check_count').text(cnt);
         }).trigger('change');
       });
-
     </script>
 
 
     <div class="top_container_results">
       <div class="top_container_results--agents" id="checkbox_count">
-
 
         <?php
         foreach ($results as $result) :
@@ -77,7 +113,7 @@ $categories = $stmt->fetchAll();
           <div class="top_container_results--agents__agent">
             <div class="top_container_results--agents__agent--checkbox">
 
-              <input class="checks" type="checkbox" id="<?= $result['id'] ?>" value="<?= $result['id'] ?>" name="apply_tag[]" >
+              <input class="checks" type="checkbox" id="<?= $result['id'] ?>" value="<?= $result['id'] ?>" name="apply_tag[]">
               <label for="<?= $result['id'] ?>"></label>
             </div>
             <div class="top_container_results--agents__agent--container">
@@ -102,7 +138,7 @@ $categories = $stmt->fetchAll();
                     ?>
                     <?php foreach ($agent_tags as $agent_tag) : ?>
                       <p style="color: <?= $agent_tag['tag_color'] ?>;"><?= $agent_tag['tag_option'] ?></p>
-                      
+
                     <?php endforeach; ?>
                   </div>
                   <div class="top_container_results--agents__agent--container--info__right--exp">
@@ -114,25 +150,41 @@ $categories = $stmt->fetchAll();
 
               </div>
               <div class="top_container_results--agents__agent--container--buttons">
-                <a href="">詳細を見る</a>
-                <input type="submit" value="申し込む">
-                <input type="hidden" name="agent_name" value="<?= $result['agent_name'] ?>">
+                <div class="favorite_button">
+
+                  <?php
+                    if ($products[$result['id']]['agent_id'] == $result['agent_id']) {
+                    ?>
+                      
+                      <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>"  class="on"><p>♡</p><p>お気に入りに追加する</p></a>
+                    <?php
+                    } else {
+                    ?>
+                      <a href="/user/delete_cart.php?id=<?=$result['id']?>" class="off"><p>♡</p><p>お気に入り登録を解除</p></a>
+                    <?php } ?>
+                </div>
+                <div class="otherbuttons">
+
+                  <a href="">詳細を見る</a>
+                  <input type="submit" value="申し込む">
+                </div>
+                <!-- <input type="hidden" name="agent_name" value="<?= $result['agent_name'] ?>">
         <input type="hidden" name="agent_info" value="<?= $result['agent_info'] ?>">
         <input type="hidden" name="agent_tag" value="<?= $result['agent_tagname'] ?>">
-        <input type="submit" name="favorite" class="btn-sm btn-blue" value="お気に入り追加">
+        <input type="submit" name="favorite" class="btn-sm btn-blue" value="お気に入り追加"> -->
+                
               </div>
             </div>
           </div>
         <?php endforeach; ?>
       </div>
-      </form>
-  
-  <form action="result.php" method="POST">
+  </form>
 
+  <form action="result.php" method="POST">
     <div class="top_container_results--research">
       <h4>条件を変更する</h4>
       <div class="top_container_results--research__tags">
-      <?php foreach ($categories as $category) : ?>
+        <?php foreach ($categories as $category) : ?>
           <div class="top_container_results--research__tags--each">
 
             <h3>
@@ -140,34 +192,35 @@ $categories = $stmt->fetchAll();
             </h3>
             <?php
             $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
-  
+
             $stmt->execute(array($category['id']));
             $tags = $stmt->fetchAll();
-  
+
             ?>
-  
-  <div class="top_container_results--research__tags--each__option">
-            <?php foreach ($tags as $tag) : ?>
+
+            <div class="top_container_results--research__tags--each__option">
+              <?php foreach ($tags as $tag) : ?>
 
                 <input type="checkbox" name="tag[]" value="<?= $tag['tag_option'] ?>">
-                <input type="checkbox" value="<?= $tag['id'] ?>" name="tag_id[]" id="<?= $tag['id'] . "1"?>">
-                <label for="<?= $tag['id'] . "1"?>">
-    
-                  <?= $tag['tag_option']?>
+                <input type="checkbox" value="<?= $tag['id'] ?>" name="tag_id[]" id="<?= $tag['id'] . "1" ?>">
+                <label for="<?= $tag['id'] . "1" ?>">
+
+                  <?= $tag['tag_option'] ?>
                 </label>
-                <?php endforeach; ?>
-              </div>
+              <?php endforeach; ?>
+            </div>
           </div>
 
 
         <?php endforeach; ?>
-        </div>
-
-
-        <input class="re_search" type="submit" name="search" value="この条件で再度検索する">
       </div>
+
+
+      <input class="re_search" type="submit" name="search" value="この条件で再度検索する">
+    </div>
   </form>
 </div>
+
 </div>
 
 <?php require('../_footer.php'); ?>

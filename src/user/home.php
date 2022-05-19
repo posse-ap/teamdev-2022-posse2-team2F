@@ -5,44 +5,43 @@ require('../dbconnect.php');
 $stmt = $db->query("SELECT * FROM agents");
 $results = $stmt->fetchAll();
 
-// セッション保存用
-if (isset($_POST['favorite'])) {
-$agent_name = isset($_POST['agent_name'])? htmlspecialchars($_POST['agent_name'], ENT_QUOTES, 'utf-8') : '';
-$agent_tag = isset($_POST['agent_tag'])? htmlspecialchars($_POST['agent_tag'], ENT_QUOTES, 'utf-8') : '';
-$agent_info = isset($_POST['agent_info'])? htmlspecialchars($_POST['agent_info'], ENT_QUOTES, 'utf-8') : '';
-
-// 削除用
-$delete_name = isset($_POST['delete_name'])? htmlspecialchars($_POST['delete_name'], ENT_QUOTES, 'utf-8') : '';
-
 session_start();
 
-// 削除
-if ($delete_name != '') {
-  unset($_SESSION['products'][$delete_name]);
-}
+?>
+<?php
 
-if($agent_name!=''&&$agent_tag!=''&&$agent_info!=''){
-  $_SESSION['products'][$agent_name]=[
-            'agent_tag' => $agent_tag,
-            'agent_info' => $agent_info
-  ];
-}
+//お気に入り登録
+// セッション保存用
+$id = $_GET['id'];
+$stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
+$result = $stmt->fetch();
+
+$agent_id = isset($result['id'])? htmlspecialchars($result['id'], ENT_QUOTES, 'utf-8') : '';
+  $agent_name = isset($result['agent_name'])? htmlspecialchars($result['agent_name'], ENT_QUOTES, 'utf-8') : '';
+  $agent_tag = isset($result['agent_tag'])? htmlspecialchars($result['agent_tag'], ENT_QUOTES, 'utf-8') : '';
+  $agent_info = isset($result['agent_info'])? htmlspecialchars($result['agent_info'], ENT_QUOTES, 'utf-8') : '';
+  
+  // 削除用
+  $delete_name = isset($result['delete_name'])? htmlspecialchars($result['delete_name'], ENT_QUOTES, 'utf-8') : '';
+  
+  
+  // 削除
+  if ($delete_name != '') {
+    unset($_SESSION['products'][$delete_name]);
+  }
+  
+  if($agent_name!=''&&$agent_tag!=''&&$agent_info!=''){
+    $_SESSION['products'][$agent_id]=[
+              'agent_tag' => $agent_tag,
+              'agent_info' => $agent_info,
+              'agent_name' => $agent_name,
+              'agent_id' => $agent_id,
+    ];
+    //お気に入りボタン用
+    // $_SESSION['ids'][$agent_id] = ['agent_id' => $agent_id];
+  }
+  // sleep(3);
 header("Location: /userpage/result.php");
-}
-
-
-
-// if(isset($products)){
-//   foreach($products as $key => $product){
-//       echo $key;      //商品名
-//       echo "<br>";
-//       echo $product['agent_tag'];  
-//       echo "<br>";
-//       echo $product['agent_info']; 
-//       echo "<br>";
-//   }
-// } 
-
 ?>
 
 <!DOCTYPE html>

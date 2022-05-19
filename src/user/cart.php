@@ -16,13 +16,15 @@ $products = isset($_SESSION['products'])? $_SESSION['products']:[];
 // }
 
 // 削除用
-$delete_name = isset($_POST['delete_name'])? htmlspecialchars($_POST['delete_name'], ENT_QUOTES, 'utf-8') : '';
+if(isset($_POST['cart_delete'])){
+$delete_id = isset($_POST['delete_id'])? htmlspecialchars($_POST['delete_id'], ENT_QUOTES, 'utf-8') : '';
 
 // 削除
-if ($delete_name != '') {
-  unset($_SESSION['products'][$delete_name]);
+if ($delete_id != '') {
+  unset($_SESSION['products'][$delete_id]);
 }
-
+header('Location: cart.php');
+}
 
 
 ?>
@@ -43,15 +45,15 @@ if ($delete_name != '') {
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($products as $name => $product) : ?>
+          <?php foreach ($products as $id => $product) : ?>
           <tr>
-            <td label="商品名："><?= $name ?></td>
+            <td label="商品名："><?= $product['agent_name']?></td>
             <td label="タグ：" class="text-right"><?= $product['agent_tag'] ?></td>
             <td label="情報：" class="text-right"><?= $product['agent_info'] ?></td>
             <td>
               <form action="cart.php" method="post">
-                <input type="hidden" name="delete_name" value="<?= $name; ?>">
-                <button type="submit" class="">削除</button>
+                <input type="hidden" name="delete_id" value="<?= $id; ?>">
+                <button type="submit" name="cart_delete" class="">削除</button>
               </form>
             </td>
           </tr>
@@ -59,7 +61,7 @@ if ($delete_name != '') {
         </tbody>
       </table>
       <div class="cart-btn">
-        <button type="button" class="">お買い物を続ける</button>
+        <a href="/userpage/result.php">戻る</a>
       </div>
     </div>
   </div>

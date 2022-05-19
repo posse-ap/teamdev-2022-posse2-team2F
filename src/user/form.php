@@ -56,33 +56,6 @@ if( isset($_POST["back"] ) && $_POST["back"] ){
 }
 
 ?>
-<?php
-//お気に入り登録
-// セッション保存用
-
-if (isset($_POST['favorite'])) {
-  $agent_name = isset($_POST['agent_name'])? htmlspecialchars($_POST['agent_name'], ENT_QUOTES, 'utf-8') : '';
-  $agent_tag = isset($_POST['agent_tag'])? htmlspecialchars($_POST['agent_tag'], ENT_QUOTES, 'utf-8') : '';
-  $agent_info = isset($_POST['agent_info'])? htmlspecialchars($_POST['agent_info'], ENT_QUOTES, 'utf-8') : '';
-  
-  // 削除用
-  $delete_name = isset($_POST['delete_name'])? htmlspecialchars($_POST['delete_name'], ENT_QUOTES, 'utf-8') : '';
-  
-  
-  // 削除
-  if ($delete_name != '') {
-    unset($_SESSION['products'][$delete_name]);
-  }
-  
-  if($agent_name!=''&&$agent_tag!=''&&$agent_info!=''){
-    $_SESSION['products'][$agent_name]=[
-              'agent_tag' => $agent_tag,
-              'agent_info' => $agent_info
-    ];
-  }
-}
-header("Location: /userpage/result.php");
-?>
 
 <?php
 //ここからまとめて申し込み
