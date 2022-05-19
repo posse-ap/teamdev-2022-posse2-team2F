@@ -156,11 +156,11 @@ window.addEventListener("load", function(){
                     if ($products[$result['id']]['agent_id'] == $result['agent_id']) {
                     ?>
                       
-                      <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>"  class="on"><p>♡</p><p>お気に入りに追加する</p></a>
+                      <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>"  class="on"><p class="heart">♡</p><p>追加</p></a>
                     <?php
                     } else {
                     ?>
-                      <a href="/user/delete_cart.php?id=<?=$result['id']?>" class="off"><p>♡</p><p>お気に入り登録を解除</p></a>
+                      <a href="/user/delete_cart.php?id=<?=$result['id']?>" class="off"><p class="heart">♥</p><p>解除</p></a>
                     <?php } ?>
                 </div>
                 <div class="otherbuttons">
@@ -178,6 +178,31 @@ window.addEventListener("load", function(){
           </div>
         <?php endforeach; ?>
       </div>
+
+        <!-- トップに戻るボタン -->
+        <a href="#" class="gotop">トップへ</a>
+        <!-- ここからまとめて申し込み（下） -->
+  <div class="under_apply_modal" id="under_apply_modal">
+    <div class="under_overlay">
+  
+      <p>チェックしたエージェント</p>
+      <p class="check_count"></p>
+      <p>件をまとめて</p>
+      <input type="submit" name="apply_id" value="申し込む"/>
+    </div>
+  </div>
+<script>
+  $(function() {
+        $('input:checkbox').change(function() {
+          var cnt = $('#checkbox_count input:checkbox:checked').length;
+          if(cnt == 0){
+            $('#under_apply_modal').css("display", "none");
+          }else{
+            $('#under_apply_modal').css("display", "block");
+          };
+      });
+    });
+</script>
   </form>
 
   <form action="result.php" method="POST">
@@ -186,10 +211,34 @@ window.addEventListener("load", function(){
       <div class="top_container_results--research__tags">
         <?php foreach ($categories as $category) : ?>
           <div class="top_container_results--research__tags--each">
+            <div class="tag_category">
+              <div class="category_info" id="<?= 'div' . $category['id']?>">
+                <?= $category['tag_category_desc'] ?>
+              </div>
+              <!-- <div class="category_info_cover" id="<?= 'div_cover' . $category['id']?>"></div> -->
 
-            <h3>
-              <?= $category['tag_category'] ?>
-            </h3>
+              <h3>
+                <?= $category['tag_category'] ?>
+              </h3>
+              <p class="question" id="<?= 'button' . $category['id']?>">?</p>
+              <p class="question_delete" id="<?= 'button_delete' . $category['id']?>">?</p>
+              <!-- ここからはてなボタン（hover） -->
+              <script>
+                  // var elem = document.getElementById('<?= 'button' . $category['id']?>');
+                  // var elem_delete = document.getElementById('<?= 'button_delete' . $category['id']?>');
+                document.getElementById('<?= 'button' . $category['id']?>').addEventListener("click", function(){
+                  document.getElementById('<?= 'div' . $category['id']?>').style.display = "block";
+                  document.getElementById('<?= 'button' . $category['id']?>').style.display = "none";
+                  document.getElementById('<?= 'button_delete' . $category['id']?>').style.display = "block";
+                });
+
+                document.getElementById('<?= 'button_delete' . $category['id']?>').addEventListener("click", function(){
+                  document.getElementById('<?= 'div' . $category['id']?>').style.display = "none";
+                  document.getElementById('<?= 'button' . $category['id']?>').style.display = "block";
+                  document.getElementById('<?= 'button_delete' . $category['id']?>').style.display = "none";
+                });
+              </script>
+            </div>
             <?php
             $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
 
@@ -197,7 +246,6 @@ window.addEventListener("load", function(){
             $tags = $stmt->fetchAll();
 
             ?>
-
             <div class="top_container_results--research__tags--each__option">
               <?php foreach ($tags as $tag) : ?>
 
@@ -210,6 +258,7 @@ window.addEventListener("load", function(){
               <?php endforeach; ?>
             </div>
           </div>
+          
 
 
         <?php endforeach; ?>
@@ -221,6 +270,6 @@ window.addEventListener("load", function(){
   </form>
 </div>
 
-</div>
+              </div>
 
 <?php require('../_footer.php'); ?>
