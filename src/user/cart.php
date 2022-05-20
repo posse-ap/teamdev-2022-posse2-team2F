@@ -29,6 +29,8 @@ header('Location: cart.php');
 
 ?>
 
+<?php require('../_header.php'); ?>
+
 <div class="container">
     <div class="wrapper-title">
         <h3>MY CART</h3>
@@ -61,7 +63,9 @@ header('Location: cart.php');
         </tbody>
       </table>
       <div class="cart-btn">
-        <a href="/userpage/result.php">戻る</a>
+        <a href="/userpage/result.php" style="color: black;">戻る</a>
       </div>
     </div>
   </div>
+
+  <?php require('../_footer.php'); ?>

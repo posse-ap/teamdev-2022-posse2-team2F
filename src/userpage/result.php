@@ -22,6 +22,7 @@ if (isset($_POST['search'])) {
 $stmt = $db->query("SELECT * FROM agents WHERE agent_tag LIKE '%$search_tag%'");
 $results = $stmt->fetchAll();
 $count = $stmt->rowCount();
+
 ?>
 <?php
 // $stmt = $db->query('SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id');
@@ -39,6 +40,22 @@ $categories = $stmt->fetchAll();
 ?>
 
 <?php require('../_header.php'); ?>
+<?php if($count == 0){ ?>
+  <div class="no_match">
+  <div class="top_container_title">
+  <p class="top_container_title--all">エージェント一覧</p>
+    <p class="top_container_title--info">
+      <?= '当てはまるエージェント数：' . $count . '件' ?>
+    </p>
+  </div>
+  <div class="no_match_message">
+    <p>
+    検索条件に一致するエージェントは見つかりませんでした。
+    </p>
+    <a href="/userpage/top.php">topに戻る</a>
+  </div>
+  </div>
+<?php } else { ?>
 <script>
   var positionY;                  /* スクロール位置のY座標 */
 var STORAGE_KEY = "scrollY";    /* ローカルストレージキー */
@@ -271,5 +288,6 @@ window.addEventListener("load", function(){
 </div>
 
               </div>
+<?php }?>
 
 <?php require('../_footer.php'); ?>

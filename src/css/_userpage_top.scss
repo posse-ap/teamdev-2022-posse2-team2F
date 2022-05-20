@@ -16,14 +16,30 @@ $mb: 520px;
   }
 }
 
+main{
+  height: 100%;
+}
+
 #search_modal{
+  display: none;
+}
+
+#fullOverlay{
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(97, 131, 129, 0.9);
+  z-index: 1;
+  position: fixed;
   display: none;
 }
 
 .top_container{
   background-color: #EBEDF1;
+  height: 100%;
+  min-height: 82vh;
   h2{
-    width: 450px;
+    width: 400px;
     margin: 0 auto;
     color: #52A49A;
     position: relative;
@@ -31,8 +47,9 @@ $mb: 520px;
     line-height: 30px;
     padding-top: 10px;
     @include mb {
-      width: 300px;
-      font-size: 20px;
+      width: 250px;
+      font-size: 18px;
+      line-height: 24px;
     }
     &::before{
       content:"";
@@ -45,7 +62,7 @@ $mb: 520px;
       left:0px;
       transform: rotate(-20deg);
       @include mb {
-        height: 50px;
+        height: 40px;
       }
     }
     &::after{
@@ -59,33 +76,50 @@ $mb: 520px;
       right:0px;
       transform: rotate(20deg);
       @include mb {
-        height: 50px;
+        height: 40px;
       }
     }
   }
   .search-button{
-    width: 25vw;
-    height: 58px;
+    width: 20vw;
+    height: 40px;
     border-radius: 29px;
     background-color: #F3AF56;
     color: white;
     border-style: none;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bold;
     display: block;
-    margin: 20px auto;
+    margin: 18px auto;
     cursor: pointer;
     @include tb {
-      height: 50px;
-      border-radius: 25px;
-      font-size: 28px;
-      @include mb {
-        font-size: 24px;
-        width: 200px;
+      display: none;
 
       }
     }
-  }
+    .search-button_res{
+      display: none;
+      @include tb {
+        display: block;
+        width: 20vw;
+        background-color: #F3AF56;
+      color: white;
+      border-style: none;
+        height: 40px;
+        border-radius: 20px;
+        font-size: 20px;
+        font-weight: bold;
+      margin: 18px auto;
+      cursor: pointer;
+        @include mb {
+          font-size: 20px;
+          width: 160px;
+          height: 30px;
+          margin: 10px auto;
+        }
+      }
+    }
+  
   &_compare{
     font-size: 34px;
     font-weight: bold;
@@ -93,36 +127,28 @@ $mb: 520px;
     margin: 30px auto;
     @include tb {
       font-size: 28px;
-    }
-  }
-
-  .search_modal_container-overlay{
-    @include tb{
-      display: block;
-      z-index: 1;
-      width: 100vw;
-      height: 100vh;
-      background-color: #2d5e59;
-      opacity: 0.8;
-      position: absolute;
-      top: 10vh;
-      overflow-y: hidden;
+      @include mb {
+        font-size: 20px;
+        margin: 15px auto;
+      }
     }
   }
 
   .search_modal_container{
     position: relative;
-    padding: 10px 10px;
+    padding: 5px 5px;
     min-width: 50vw;
-    max-width: 60vw;
+    max-width: 50vw;
     background: #fff;
-    margin: 10px auto;
+    margin: 5px auto;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     align-items: center;
     box-shadow: 0px 8px 8px rgb(203, 202, 202);
+    border-radius: 10px;
     @include tb {
+      max-width: 65vw;
       z-index: 2;
       position: absolute;
       top: 15vh;
@@ -134,6 +160,7 @@ $mb: 520px;
       border-radius: 25px;
       background-color: white;
       opacity: 1;
+      position: fixed;
       @include mb{
         width: 85vw;
         max-width: 85vw;
@@ -159,66 +186,81 @@ $mb: 520px;
         display: block;
         border-bottom: 1px solid #000;
         text-align: center;
-        font-size: 28px;
-        margin: 20px 0px 0px 0px;
+        font-size: 24px;
+        margin: 10px 0px 0px 0px;
+        @include mb {
+          font-size: 20px;
+        }
       }
     }
 
     &--tag{
-      margin: 10px 20px;
+      margin: 5px 10px;
       @include tb{
-        width: 80vw;
+        width: 70vw;
         margin: 5px 30px;
         @include mb{
-          width: 90vw;
+          width: 88vw;
         }
       }
       h3{
         font-weight: lighter;
-        font-size: 1.6vw;
+        font-size: 20px;
+        margin: 10px 0;
+        position: relative;
+        left: -50px;
         @include tb {
           font-weight: 300;
-          font-size: 23px;
+          font-size: 20px;
           margin-bottom: 10px;
+          left: 0px;
+          @include mb {
+            font-size: 16px;
+          }
         }
       }
       &__tags{
         display: flex;
         flex-wrap: wrap;
-        width: 25vw;
+        width: 20vw;
         align-items: center;
         @include tb {
           width: 53vw;
+          margin-left: 60px;
           @include mb {
             width: 75vw;
+            margin-left: 20px;
           }
         }
         input{
           display: none;
           &:checked + label::after{
-            opacity: 0.6;
+            opacity: 0.8;
           }
         }
         label{
           position: relative;
           cursor: pointer;
-          padding-left: 2vw;
-          font-size: 1.8vw;
-          margin-right: 2.0vw;
-          margin-bottom: 1.5vh;
+          padding-left: 10px;
+          font-size: 18px;
+          margin-right: 24px;
+          margin-bottom: 10px;
           @include tb{
-            font-size: 22px;
+            font-size: 18px;
             margin-bottom: 5px;
             margin-right: 10px;
             padding: 5px 15px 5px 34px;
             border: 0.8px solid rgb(163, 163, 163);
-            border-radius: 20px;
+            border-radius: 8px;
+            @include mb {
+              font-size: 14px;
+              padding: 3px 10px 3px 26px;
+            }
           }
 
           &::before,&::after{
             content: "";
             display: block; 
-            border-radius: 50%;
             position: absolute;
             transform: translateY(-50%);
             top: 50%;
@@ -228,29 +270,42 @@ $mb: 520px;
           &::before{
             background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 50%;
-  width: 1.8vw;
-  height: 1.8vw;
-  left: -0.4vw;
+  border-radius: 4px;
+  width: 18px;
+  height: 18px;
+  left: -15px;
   @include tb{
     width: 22px;
   height: 22px;
   left: 5px;
+  @include mb {
+    width: 14px;
+    height: 14px;
+  }
   }
           }
 
           &::after{
-            background-color: #52A49A;
-            // background-color: #F3AF56;
-  border-radius: 50%;
+  border-bottom: 3px solid #52A49A;
+  border-left: 3px solid #52A49A;
   opacity: 0;
-  width: 1.5vw;
-  height: 1.5vw;
-  left: -0.15vw;
+  height: 6px;
+  width: 12px;
+  transform: rotate(-45deg);
+  top: 3.5px;
+  left: -12px;
   @include tb {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 8px;
+    top: 6px;
     left: 8px;
+    @include mb {
+      width: 12px;
+      height: 6px;
+      border-bottom: 2px solid #52A49A;
+  border-left: 2px solid #52A49A;
+  left: 7px;
+    }
   }
           }
         }
@@ -259,8 +314,8 @@ $mb: 520px;
     
   }
   .search-buttons{
-    width: 25vw;
-    margin: 20px;
+    width: 20vw;
+    margin: 5px 10px;
     @include tb {
       margin: 5px;
       width: 28vw;
@@ -273,13 +328,13 @@ $mb: 520px;
       background-color: #52A49A;
       color: white;
       font-weight: bold;
-      height: 55px;
+      height: 36px;
       border-radius: 28px;
-      width: 20.7vw;
-      font-size: 1.8vw;
+      width: 200px;
+      font-size: 20px;
       position: relative;
-      top: 30px;
-      left: 3vw;
+      top: 20px;
+      left: 20px;
       cursor: pointer;
       @include tb {
         display: none;
@@ -295,13 +350,14 @@ $mb: 520px;
       background-color: #F3AF56;
       color: white;
       font-weight: bold;
-      height: 45px;
+      height: 36px;
       border-radius: 23px;
       width: 28vw;
       font-size: 20px;
       margin: 0 auto;
       @include mb {
         width: 45vw;
+        height: 28px;
       }
       }
     }
