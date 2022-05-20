@@ -66,15 +66,14 @@ $all_students_info = $sql_prepare->fetchAll();
             <p>
                 <?= $student_info['grad_year']; ?>
             </p>
+
+            <?php  $student_id = intval($student_info['id']); ?>
+            <?= $student_id ?>
+
         <?php endforeach; ?>
 
-        <?php
-
-        // echo "<th><a class='util_action_button util_action_button--list' href='students_info_more?id=" ;
-        echo $student_info['id'];
-        ?>
         <button type="button" class="tag_modalClose"><a href='students_info.php'>戻る</a></button>
-        <!-- <a href='students_info.php'>戻る</a> -->
+        <!-- <a href='students_info.php'>戻る</a>z -->
         <button onclick="tag_modalOpen()" type="button" class="tag_modalClose">削除申請</button>
     </div>
 
@@ -102,29 +101,28 @@ $all_students_info = $sql_prepare->fetchAll();
     </script> -->
 
     <div id="tag_modal" class="tag_modal">
-        <form action="" method="POST">
-
+        <form action="students_info_more.php" method="POST">
             <div class="tag_modal_container">
-                <form action="POST">
                     <?php
-                    foreach ($split_ids as $index => $tag_id) {
+                    // foreach ($split_ids as $index => $tag_id) {
                         // $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) VALUES (?, ?)";
                         // $stmt->execute(array($tag_id, $id));
-                        $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) VALUES (?, ?)";
+                        foreach ($all_students_info as $student_info) {
+                        $sql = "INSERT INTO delete_student_application(student_id, name, agent_id) VALUES (?, ?, ?);";
                         $stmt = $db->prepare($sql);
-                        $stmt->execute(array($student_info['id'], $student_info['name']));
+                        $stmt->execute(array($student_id, $student_info['name'], $_SESSION['agent_name']));
+                        echo "<p>";
+                        echo $student_info['name'];
+                        echo "さんの情報の削除依頼を実行しますか？</p>" ;
                     }
                     ?>
-                </form>
                 <div class="tag_modal_container--buttons">
                     <button onclick="tag_modalClose()" type="button" class="tag_modalClose">戻る</button>
-                    <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision">決定</button>
+                    <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision" type="submit">決定</button>
                 </div>
-
+            </div>
         </form>
     </div>
-
-
 </div>
 
 <script>
