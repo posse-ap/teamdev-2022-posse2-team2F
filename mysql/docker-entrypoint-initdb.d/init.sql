@@ -302,6 +302,20 @@ VALUES
   (2,1),
   (3,1);
 
+DROP TABLE IF EXISTS delete_student_application;
+
+CREATE TABLE delete_student_application (
+  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  agent_id INT NOT NULL
+);
+
+INSERT INTO delete_student_application(tag_option_id, name, agent_id)
+VALUES
+  (1,'あああ',1),
+  (2,'あああ',1),
+  (3,'あああ',1);
+
 
 
 

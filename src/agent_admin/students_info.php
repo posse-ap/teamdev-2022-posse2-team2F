@@ -115,11 +115,6 @@ require('../dbconnect.php');
                     }
                     ?>
 
-
-                    <button onclick="delete_application(<?= $result['id'] ?>)">
-
-                    </button>
-
                     <!-- ここからmodal -->
                     <div id="util_delete_application<?= $category['id'] ?>" class="util_modalcont">
                         <div class="util_delete_application util_deletemodal">
@@ -130,8 +125,7 @@ require('../dbconnect.php');
                                 <a href="./delete_tag.php?id=<?= $category['id'] ?>" style="text-decoration: none">
                                     <!-- <button class="yes" onclick="deleteAgent()">はい -->
                                     <button class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction(<?= $category['id'] ?>)">送信
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+
                                             <path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z" />
                                         </svg>
                                     </button>
@@ -179,6 +173,10 @@ require('../dbconnect.php');
                                 <th>
                                     申し込みエージェント
                                 </th>
+
+                                <th>
+                                    〇〇
+                                </th>
                             </tr>
 
                             <?php
@@ -221,6 +219,11 @@ require('../dbconnect.php');
                                 echo $student_info['agent'];
                                 echo "</th>";
 
+                                echo "<th><a class='util_action_button util_action_button--list' href='students_info_more.php?id=" ;
+                                echo $student_info['id'];
+                                echo "'> 詳細";
+                                echo "</a></th>";
+
                                 echo "</tr>";
                             };
                             echo "</table>";
@@ -244,6 +247,7 @@ require('../dbconnect.php');
                             }
                             */
                             ?>
+
                 </form>
 
             </div>
