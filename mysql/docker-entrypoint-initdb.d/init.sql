@@ -306,7 +306,7 @@ DROP TABLE IF EXISTS delete_student_application;
 
 CREATE TABLE delete_student_application (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  student_id VARCHAR(255) NOT NULL,
+  student_id INT NOT NULL,
   name VARCHAR(255) NOT NULL,
   agent_id VARCHAR(255) NOT NULL
 );
