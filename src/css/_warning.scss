@@ -1,0 +1,28 @@
+.util_warning {
+  
+  &_title{
+    width: 300px;
+    color: #CF7C7C;
+    font-size: 36px;
+    border-bottom: 1px solid #000;
+    margin: 20px auto;
+    padding-top: 10px;
+
+  }
+
+  &_body {
+    margin: 30px auto;
+
+    &--text {
+      text-align: center;
+    }
+
+  }
+
+  &_link{
+    color: #CF7C7C;
+    border-bottom: 0.5px solid;
+    font-size: 18px;
+  }
+
+}

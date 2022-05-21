@@ -16,24 +16,36 @@
   width: 220px;
   height: 82vh;
   background-color: #e5e5e5;
-  text-align: center;
+  text-align: left;
 
   &_button {
     font-size: 16px;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     height: 60px;
     border: 1px solid #c4c4c4;
+    position: relative;
+
+    i {
+      position: absolute;
+      right: 20px;
+    }
   }
 
   &_button--selected {
     background-color: white;
+
+    i {
+      color: #52A49A;
+    }
   }
 
   &_link {
     text-decoration: none;
+    text-align: left;
     margin-right: 15px;
+    margin-left: 20px;
     color: #000;
     &--selected {
       color: #52a49a !important;
@@ -57,8 +69,8 @@
     border: none;
   }
 
-  h2 {
-    width: 80vw;
+  // h2 {
+  //   width: 80vw;
   .util_title {
     width: 70vw;
     height: 50px;
@@ -78,7 +90,7 @@
       display: none;
     }
   }
-}
+// }
 }
 
 

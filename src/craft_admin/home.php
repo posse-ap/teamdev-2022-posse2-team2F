@@ -16,6 +16,7 @@ $results = $stmt->fetchAll();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 </head>
 
 <body>
@@ -24,19 +25,27 @@ $results = $stmt->fetchAll();
     <div class="util_sidebar">
       <div class="util_sidebar_button util_sidebar_button--selected">
         <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/home.php">エージェント管理</a>
-
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/tag.php">タグ編集・追加</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+        <i class="fas fa-angle-right"></i>
+      </div>
+      <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/invoice.php">合計請求金額確認</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <i class="fas fa-angle-right"></i>
       </div>
     </div>
     <div class="util_content">

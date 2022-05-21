@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../../dbconnect.php');
+require('../dbconnect.php');
 
 ?>
 
@@ -19,20 +19,21 @@ require('../../dbconnect.php');
 
 
 <body>
-  <?php include '../../_header.php'; ?>
+  <?php include '../_header.php'; ?>
   <div class="util_fullscreen_container">
     <div class="util_fullscreen util_fullscreen--small">
-      <h1 class="util_login_title util_login_title--long">新規管理者登録</h1>
-      <div class="signup_done">
-        <p class="signup_done_text">新規管理者登録が完了いたしました。</p>
-        <a class="util_fullscreen_link" href="./login.php">ログイン画面に戻る</a>
+      <h1 class="util_warning_title">無効リンク</h1>
+      <div class="util_warning_body">
+        <p class="util_warning_body--text">お探しのページは存在しません。</p>
+        <p class="util_warning_body--text">ホーム画面にお戻りください。</p>
       </div>
+      <a class="util_warning_link" href="./home.php">ホーム画面に戻る</a>
     </div>
   </div>
 </body>
 
 
-<?php require("../../_footer.php"); ?>
+<?php require("../_footer.php"); ?>
 
 
 </html>

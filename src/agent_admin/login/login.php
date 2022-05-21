@@ -1,8 +1,6 @@
 <?php
 session_start();
 require('../../dbconnect.php');
-// require('/dbconnect.php');
-
 
 $err_msg = "";
 
@@ -10,17 +8,28 @@ if (isset($_POST['login'])) {
   $email = $_POST['email'];
   $password = sha1($_POST['password']);
 
-  $sql = 'SELECT count(*) FROM craft_users WHERE email = ? AND password = ?';
+  $sql = 'SELECT count(*) FROM agent_users WHERE email = ? AND password = ?';
   $stmt = $db->prepare($sql);
   $stmt->execute(array($email, $password));
   $result = $stmt->fetch();
   $stmt = null;
+  $sql_for_session = 'SELECT * FROM agent_users WHERE email = ? AND password = ?';
+  $stmt_for_session = $db->prepare($sql_for_session);
+  $stmt_for_session->execute(array($email, $password));
+  $login_info = $stmt_for_session->fetch();
   $db = null;
 
   // result に一つでも値が入っているなら、ログイン情報が存在するということ
   if ($result[0] != 0) {
     // 成功した場合管理画面に遷移
-    header('Location: http://localhost/craft_admin/home.php');
+    header('Location: http://localhost/agent_admin/home.php');
+    //DBのユーザー情報をセッションに保存
+    $_SESSION['id'] = $login_info['id'];
+    $_SESSION['agent_name'] = $login_info['agent_name'];
+    $_SESSION['name'] = $login_info['name'];
+    $_SESSION['dept'] = $login_info['dept'];
+    $_SESSION['image'] = $login_info['image'];
+    $_SESSION['message'] = $login_info['message'];
     exit;
   } else {
     $err_msg = "ユーザー名またはパスワードが間違っています";
@@ -39,18 +48,18 @@ if (isset($_POST['login'])) {
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
-  <title>管理者ログイン</title>
+  <title>担当者ログイン</title>
 </head>
 
 <body>
-  <?php include '../../_header.php'; ?>
+  <?php require("../../_header.php"); ?>
   <div class="util_fullscreen_container">
     <div class="util_fullscreen util_login">
-      <h1 class="util_login_title">管理者ログイン</h1>
-      <?php if ($err_msg !== null && $err_msg !== '') {
-        echo $err_msg .  "<br>";
-      } ?>
-      <form action="/craft_admin/login/login.php" method="POST">
+      <h1 class="util_login_title">担当者ログイン</h1>
+      <form action="/agent_admin/login/login.php" method="POST">
+        <?php if ($err_msg !== null && $err_msg !== '') {
+          echo $err_msg .  "<br>";
+        } ?>
         <div class="util_login_text">
           <label class="util_login_text--label" for="email">メールアドレス</label>
           <input class="util_login_text--box" type="email" name="email" required>
@@ -71,9 +80,9 @@ if (isset($_POST['login'])) {
       </div>
     </div>
   </div>
-</body>
 
-<?php require("../../_footer.php"); ?>
+  <?php require("../../_footer.php"); ?>
+</body>
 
 <script>
   const togglePassword = document.getElementById("togglePassword");
