@@ -54,33 +54,40 @@ if (isset($_POST["back"]) && $_POST["back"]) {
         <h1 class="userform_title">申し込み</h1>
         <!-- POST情報がないときのHTMLコード（入力画面） -->
         <form action="form.php" method="post" enctype="multipart/form-data">
+          <span class="err-msg-name"></span>
           <div class="userform_text">
-            <label class="userform_text--label" for="student_name">氏名<span>必須</span></label>
-            <input class="userform_text--box" type="text" name="student_name" placeholder="例）山田太郎" value="<?= $_SESSION["student_name"] ?>" required />
+            <label class="userform_text--label" for="student_name">氏名<span class="required">必須</span></label>
+            <input class="userform_text--box" type="text" name="student_name" id="name" placeholder="例）山田太郎" value="<?= $_SESSION["student_name"] ?>"  />
           </div>
+          <span class="err-msg-email"></span>
           <div class="userform_text">
-            <label class="userform_text--label" for="student_email">メールアドレス<span>必須</span></label>
-            <input class="userform_text--box" type="email" name="student_email" placeholder="例）taroyamada@gmail.com" value="<?= $_SESSION["student_email"] ?>" required>
+            <label class="userform_text--label" for="student_email">メールアドレス<span class="required">必須</span></label>
+            <input class="userform_text--box" type="email" name="student_email" id="email" placeholder="例）taroyamada@gmail.com" value="<?= $_SESSION["student_email"] ?>" >
           </div>
+          <span class="err-msg-phone"></span>
           <div class="userform_text">
-            <label class="userform_text--label" for="student_phone">電話番号<span>必須</span></label>
-            <input class="userform_text--box" type="tel" name="student_phone" placeholder="例）09011110000" value="<?= $_SESSION["student_phone"] ?>" required>
+            <label class="userform_text--label" for="student_phone">電話番号<span class="required">必須</span></label>
+            <input class="userform_text--box" type="tel" name="student_phone" id="phone" placeholder="例）09011110000" value="<?= $_SESSION["student_phone"] ?>" >
           </div>
+          <span class="err-msg-university"></span>
           <div class="userform_text">
-            <label class="userform_text--label" for="student_university">大学<span>必須</span></label>
-            <input class="userform_text--box" type="text" name="student_university" placeholder="例）〇〇大学" value="<?= $_SESSION["student_university"] ?>" required>
+            <label class="userform_text--label" for="student_university">大学<span class="required">必須</span></label>
+            <input class="userform_text--box" type="text" name="student_university" id="university" placeholder="例）〇〇大学" value="<?= $_SESSION["student_university"] ?>" >
           </div>
+          <span class="err-msg-faculty"></span>
           <div class="userform_text">
-            <label class="userform_text--label" for="student_faculty">学科<span>必須</span></label>
-            <input class="userform_text--box" type="text" name="student_faculty" placeholder="例）〇〇学科" value="<?= $_SESSION["student_faculty"] ?>" required>
+            <label class="userform_text--label" for="student_faculty">学科<span class="required">必須</span></label>
+            <input class="userform_text--box" type="text" name="student_faculty" id="faculty" placeholder="例）〇〇学科" value="<?= $_SESSION["student_faculty"] ?>" >
           </div>
+          <span class="err-msg-address"></span>
           <div class="userform_text">
-            <label class="userform_text--label" for="student_address">住所<span>必須</span></label>
-            <input class="userform_text--box" type="text" name="student_address" placeholder="例）東京都〇〇区1-1-1" value="<?= $_SESSION["student_address"] ?>" required>
+            <label class="userform_text--label" for="student_address">住所<span class="required">必須</span></label>
+            <input class="userform_text--box" type="text" name="student_address" id="address" placeholder="例）東京都〇〇区1-1-1" value="<?= $_SESSION["student_address"] ?>" >
           </div>
+          <span class="err-msg-graduation"></span>
           <div class="userform_text">
-            <label class="userform_text--label" for="student_graduation">卒業年<span>必須</span></label>
-            <select class="userform_text--select" name="student_graduation" value="<?= $_SESSION["student_graduation"] ?>" placeholder="選択してください">
+            <label class="userform_text--label" for="student_graduation">卒業年<span class="required">必須</span></label>
+            <select class="userform_text--select" name="student_graduation" id="graduation" value="<?= $_SESSION["student_graduation"] ?>" placeholder="選択してください">
               <option selected value="">選択してください</option>
               <option value="24">24</option>
               <option value="25">25</option>
@@ -91,7 +98,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
           </div>
 
           <input type="button" name="back" value="一覧に戻る" class="userform_button userform_button--left">
-          <input type="submit" name="confirm" value="確認画面へ" class="userform_button userform_button--right">
+          <input type="submit" name="confirm" value="確認画面へ" class="userform_button userform_button--right confirm">
         </form>
 
       <?php } else if ($mode == "confirm") { ?>
@@ -137,15 +144,10 @@ if (isset($_POST["back"]) && $_POST["back"]) {
         // $_POST['student_name'] = $student_name;
         // echo $student_name;
 
-        // $sql = 'INSERT INTO students_contact(name, email, phone, university, faculty, address, grad_year) 
-        //       VALUES (?, ?, ?, ?, ?, ?, ?)';
-        $sql =
-          'START TRANSACTION;
-        INSERT INTO students_contact(name, email, phone, university, faculty, address, grad_year) VALUES (?, ?, ?, ?, ?, ?, ?);
-        INSERT INTO students_contact_delete(name, email, phone, university, faculty, address, grad_year) VALUES (?, ?, ?, ?, ?, ?, ?);
-        COMMIT;';
+        $sql = 'INSERT INTO students_contact(name, email, phone, university, faculty, address, grad_year) 
+              VALUES (?, ?, ?, ?, ?, ?, ?)';
         $stmt = $db->prepare($sql);
-        $stmt->execute(array($_SESSION['student_name'], $_SESSION['student_email'], $_SESSION['student_phone'], $_SESSION['student_university'], $_SESSION['student_faculty'], $_SESSION['student_address'], $_SESSION['student_graduation'], $_SESSION['student_name'], $_SESSION['student_email'], $_SESSION['student_phone'], $_SESSION['student_university'], $_SESSION['student_faculty'], $_SESSION['student_address'], $_SESSION['student_graduation']));
+        $stmt->execute(array($_SESSION['student_name'], $_SESSION['student_email'], $_SESSION['student_phone'], $_SESSION['student_university'], $_SESSION['student_faculty'], $_SESSION['student_address'], $_SESSION['student_graduation']));
 
 
         // メール送信 - エージェント用
@@ -204,6 +206,158 @@ if (isset($_POST["back"]) && $_POST["back"]) {
       <?php require('../_footer.php'); ?>
 
 </body>
+
+<!-- フォームのバリデーション -->
+<script>
+  // 「送信」ボタンの要素を取得
+  const confirm = document.querySelector('.confirm');
+
+  // 「送信」ボタンの要素にクリックイベントを設定
+  confirm.addEventListener('click', (e) => {
+
+    const name = document.querySelector('#name');
+    const email = document.querySelector('#email');
+    const phone = document.querySelector('#phone');
+    const university = document.querySelector('#university');
+    const faculty = document.querySelector('#faculty');
+    const address = document.querySelector('#address');
+    const graduation = document.querySelector('#graduation');
+    // エラーメッセージを表示させる要素を取得
+    const errMsgName = document.querySelector('.err-msg-name');
+    const errMsgEmail = document.querySelector('.err-msg-email');
+    const errMsgPhone = document.querySelector('.err-msg-phone');
+    const errMsgUniversity = document.querySelector('.err-msg-university');
+    const errMsgFaculty = document.querySelector('.err-msg-faculty');
+    const errMsgAddress = document.querySelector('.err-msg-address');
+    const errMsgGraduation = document.querySelector('.err-msg-graduation');
+    // 「先頭に記号を含まない、@と.を含む」文字列を判定
+    const email_match = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}.[A-Za-z0-9]{1,}$/;
+    const phone_match = /^0\d{9,10}$/;
+
+    // 氏名バリデーション
+    if(!name.value){
+        // デフォルトアクションをキャンセル
+        e.preventDefault();
+
+        errMsgName.classList.add('form-invalid');
+        errMsgName.textContent = 'お名前が入力されていません';
+        // クラスを追加(フォームの枠線を赤くする)
+        name.classList.add('input-invalid');
+        return;
+    } else {
+        errMsgName.textContent ='';
+        name.classList.remove('input-invalid');
+    }
+
+    // メールバリデーション
+    if(!email.value){     
+
+        // デフォルトアクションをキャンセル
+        e.preventDefault();
+
+        errMsgEmail.classList.add('form-invalid');
+        errMsgEmail.textContent = 'メールアドレスが入力されていません';
+        // クラスを追加(フォームの枠線を赤くする)
+        email.classList.add('input-invalid');
+        return;
+    } else if (!email_match.test(email.value)){
+        e.preventDefault();
+        errMsgEmail.textContent = 'メールアドレスの形式が不正です。';
+    } else {
+        errMsgEmail.textContent ='';
+        email.classList.remove('input-invalid');
+    }
+
+    // 電話番号バリデーション
+    if(!phone.value){     
+
+        // デフォルトアクションをキャンセル
+        e.preventDefault();
+
+        errMsgPhone.classList.add('form-invalid');
+        errMsgPhone.textContent = '電話番号が入力されていません';
+        // クラスを追加(フォームの枠線を赤くする)
+        phone.classList.add('input-invalid');
+        return;
+    } else if (!phone_match.test(phone.value)){
+        e.preventDefault();
+        errMsgPhone.textContent = '電話番号の形式が不正です。';
+        return;
+    } else {
+        errMsgPhone.textContent ='';
+        phone.classList.remove('input-invalid');
+    }
+
+    // 大学名のバリデーション
+    if(!university.value){
+        // デフォルトアクションをキャンセル
+        e.preventDefault();
+
+        errMsgUniversity.classList.add('form-invalid');
+        errMsgUniversity.textContent = '大学名が入力されていません';
+        // クラスを追加(フォームの枠線を赤くする)
+        university.classList.add('input-invalid');
+        return;
+    } else {
+        errMsgUniversity.textContent ='';
+        university.classList.remove('input-invalid');
+    }
+
+    // 学科名のバリデーション
+    if(!faculty.value){
+
+        // デフォルトアクションをキャンセル
+        e.preventDefault(); 
+
+        errMsgFaculty.classList.add('form-invalid');
+        errMsgFaculty.textContent = '学科名が入力されていません';
+        // クラスを追加(フォームの枠線を赤くする)
+        faculty.classList.add('input-invalid');
+        return;
+    } else {
+        errMsgFaculty.textContent ='';
+        faculty.classList.remove('input-invalid');
+    }
+
+    // 住所のバリデーション
+    if(!address.value){
+
+        // デフォルトアクションをキャンセル
+        e.preventDefault(); 
+
+        errMsgAddress.classList.add('form-invalid');
+        errMsgAddress.textContent = '住所が入力されていません';
+        // クラスを追加(フォームの枠線を赤くする)
+        address.classList.add('input-invalid');
+        return;
+    } else {
+        errMsgAddress.textContent ='';
+        address.classList.remove('input-invalid');
+    }
+
+    // 卒業年のバリデーション
+    if(!graduation.value){
+
+        // デフォルトアクションをキャンセル
+        e.preventDefault();
+
+        errMsgGraduation.classList.add('form-invalid');
+        errMsgGraduation.textContent = '卒業年が選択されていません';
+        // クラスを追加(フォームの枠線を赤くする)
+        graduation.classList.add('input-invalid');
+        return;
+    } else {
+        errMsgGraduation.textContent ='';
+        graduation.classList.remove('input-invalid');
+    }
+    
+
+  }, false);
+
+
+  
+
+</script>
 
 </html>
 
