@@ -225,9 +225,26 @@ CREATE TABLE agent_tag_options (
 INSERT INTO
     agent_tag_options(tag_option_id, agent_id)
 VALUES
-    (1, 1),
-    (2, 1),
-    (3, 1);
+  (1,1),
+  (2,1),
+  (3,1);
+
+DROP TABLE IF EXISTS delete_student_application;
+
+CREATE TABLE delete_student_application (
+  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  student_id INT NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  agent_id VARCHAR(255) NOT NULL
+);
+
+INSERT INTO delete_student_application(student_id, name, agent_id)
+VALUES
+  (1,'あああ','agent1'),
+  (2,'あああ','agent1'),
+  (3,'あああ','agent1');
+
+
 
 -- パスワードリセット関連
 
