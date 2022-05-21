@@ -1,6 +1,32 @@
 <?php
+
+use LDAP\Result;
+
 require('../dbconnect.php');
 session_start();
+
+//ここからまとめて申し込み
+if(isset($_POST['apply_id'])){
+  if(isset($_POST['apply_tag']) && is_array($_POST['apply_tag'])){
+    $tag_ids = $_POST['apply_tag'];
+    // $split_ids = explode(',', $tag_ids);
+
+    
+
+    foreach ($tag_ids as $tag_id) {
+      $stmt = $db->query("SELECT * FROM agents WHERE id = '$tag_id'");
+      $results = $stmt->fetchAll();
+      foreach($results as $result){
+        echo $result['agent_name'];
+        echo $result['agent_info'];
+      }
+    }
+
+  }else{
+    header("Location: /userpage/result.php");
+  }
+}
+//ここまで
 
 $mode = "input";
 

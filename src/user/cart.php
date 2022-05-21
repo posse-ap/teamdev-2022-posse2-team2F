@@ -6,7 +6,7 @@ require('../dbconnect.php');
 // $results = $stmt->fetchAll();
 
 
-// session_start();
+session_start();
 
 $products = isset($_SESSION['products'])? $_SESSION['products']:[];
 
@@ -15,9 +15,21 @@ $products = isset($_SESSION['products'])? $_SESSION['products']:[];
 //   unset($_SESSION['products'][$_POST['delete_name']]);
 // }
 
+// 削除用
+if(isset($_POST['cart_delete'])){
+$delete_id = isset($_POST['delete_id'])? htmlspecialchars($_POST['delete_id'], ENT_QUOTES, 'utf-8') : '';
+
+// 削除
+if ($delete_id != '') {
+  unset($_SESSION['products'][$delete_id]);
+}
+header('Location: cart.php');
+}
 
 
 ?>
+
+<?php require('../_header.php'); ?>
 
 <div class="container">
     <div class="wrapper-title">
@@ -34,15 +46,15 @@ $products = isset($_SESSION['products'])? $_SESSION['products']:[];
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($products as $name => $product) : ?>
+          <?php foreach ($products as $id => $product) : ?>
           <tr>
-            <td label="商品名："><?= $name ?></td>
+            <td label="商品名："><?= $product['agent_name']?></td>
             <td label="タグ：" class="text-right"><?= $product['agent_tag'] ?></td>
             <td label="情報：" class="text-right"><?= $product['agent_info'] ?></td>
             <td>
-              <form action="home.php" method="post">
-                <input type="hidden" name="delete_name" value="<?= $name; ?>">
-                <button type="submit" class="">削除</button>
+              <form action="cart.php" method="post">
+                <input type="hidden" name="delete_id" value="<?= $id; ?>">
+                <button type="submit" name="cart_delete" class="">削除</button>
               </form>
             </td>
           </tr>
@@ -50,7 +62,9 @@ $products = isset($_SESSION['products'])? $_SESSION['products']:[];
         </tbody>
       </table>
       <div class="cart-btn">
-        <button type="button" class="">お買い物を続ける</button>
+        <a href="/userpage/result.php" style="color: black;">戻る</a>
       </div>
     </div>
   </div>
+
+  <?php require('../_footer.php'); ?>
