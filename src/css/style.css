@@ -152,10 +152,11 @@ a {
       -ms-flex-align: center;
           align-items: center;
   margin: 50px auto;
+  position: relative;
 }
 
 .util_fullscreen .util_login_text--label {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .util_fullscreen .util_login_text--box {
@@ -167,7 +168,7 @@ a {
 
 .util_fullscreen .util_login_text i {
   position: absolute;
-  right: 10%;
+  right: 5%;
   cursor: pointer;
 }
 
@@ -246,6 +247,42 @@ a {
 
 .agent_signup {
   margin: 20px auto !important;
+  width: 550px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.agent_signup--label {
+  font-size: 16px;
+}
+
+.agent_signup--input {
+  width: 300px;
+  height: 30px;
+  background-color: #EBEDF1;
+  border-style: none;
+}
+
+.agent_signup i {
+  position: absolute;
+  right: 5%;
+  cursor: pointer;
+}
+
+.agent_signup--select {
+  width: 200px;
+  height: 30px;
+  margin-right: 105px;
+  background-color: #EBEDF1;
+  border-style: none;
 }
 
 .util_container {
@@ -1943,11 +1980,11 @@ a {
   font-size: 18px;
 }
 
-form {
+.util_fullscreen .userform form {
   position: relative;
 }
 
-form p {
+.util_fullscreen .userform form p {
   margin: 0;
 }
 

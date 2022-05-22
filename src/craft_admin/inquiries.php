@@ -26,7 +26,7 @@ if (isset($_POST['delete']) && $_POST["delete"]) {
 
           UPDATE delete_student_application
           SET response = '削除済み'
-          WHERE id = ?;
+          WHERE application_id = ?;
 
           COMMIT;
           ";

@@ -42,9 +42,10 @@
       justify-content: space-between;
       align-items: center;
       margin: 50px auto;
+      position: relative;
   
       &--label{
-        font-size: 24px;
+        font-size: 20px;
       }
   
       &--box{
@@ -56,7 +57,7 @@
   
       i {
         position: absolute;
-        right: 10%;
+        right: 5%;
         cursor: pointer;
       }
   
@@ -160,6 +161,36 @@
 
 .agent_signup {
   margin: 20px auto !important;
+  width: 550px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+
+  &--label{
+    font-size: 16px;
+  }
+
+  &--input{
+    width: 300px;
+    height: 30px;
+    background-color: #EBEDF1;
+    border-style: none;
+  }
+
+  i {
+    position: absolute;
+    right: 5%;
+    cursor: pointer;
+  }
+
+  &--select {
+    width: 200px;
+    height: 30px;
+    margin-right: 105px;
+    background-color: #EBEDF1;
+    border-style: none;
+  }
 }
 
 

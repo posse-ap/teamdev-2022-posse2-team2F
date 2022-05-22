@@ -28,10 +28,38 @@ DROP TABLE IF EXISTS agent_users;
 
 CREATE TABLE agent_users (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    email VARCHAR(255) UNIQUE NOT NULL,
+    login_email VARCHAR(255) UNIQUE NOT NULL,
+    contract_email VARCHAR(255) UNIQUE NOT NULL,
+    notify_email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     password_conf VARCHAR(255) NOT NULL,
-    agent_name VARCHAR(255) NOT NULL,
+    agent_name VARCHAR(255) NOT NULL
+);
+
+INSERT INTO
+    agent_users
+SET
+    login_email = 'admin@agent.com',
+    contract_email = 'contract1@agent.com',
+    notify_email = 'notify1@agent.com',
+    password = sha1('password'),
+    password_conf = sha1('password'),
+    agent_name = 'agent1';
+
+INSERT INTO
+    agent_users
+SET
+    login_email = 'admin2@agent.com',
+    contract_email = 'contract2@agent.com',
+    notify_email = 'notify2@agent.com',
+    password = sha1('password'),
+    password_conf = sha1('password'),
+    agent_name = 'agent2';
+
+DROP TABLE IF EXISTS agent_users_info;
+
+CREATE TABLE agent_users_info (
+    user_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     dept VARCHAR(255) NOT NULL,
     image VARCHAR(255) NOT NULL,
@@ -39,24 +67,16 @@ CREATE TABLE agent_users (
 );
 
 INSERT INTO
-    agent_users
+    agent_users_info
 SET
-    email = 'admin@agent.com',
-    password = sha1('password'),
-    password_conf = sha1('password'),
-    agent_name = 'agent1',
     name = "英時えんと",
     dept = "〇〇部署",
     image = "ento.png",
     message = "よろしくお願いしません！！！！！";
 
 INSERT INTO
-    agent_users
+    agent_users_info
 SET
-    email = 'admin2@agent.com',
-    password = sha1('password'),
-    password_conf = sha1('password'),
-    agent_name = 'agent2',
     name = "栄次えんと",
     dept = "〇〇部署",
     image = "ento2.png",

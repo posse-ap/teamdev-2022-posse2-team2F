@@ -8,7 +8,7 @@ $id = $_SESSION['id'];
 
 
 // 既存データの表示
-$stmt = $db->query("SELECT * FROM agent_users WHERE id = '$id'");
+$stmt = $db->query("SELECT * FROM agent_users_info WHERE user_id = '$id'");
 $result = $stmt->fetch();
 
 
@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
   $dept = $_POST['dept'];
   $message = $_POST['message'];
 
-  $sql = 'UPDATE agent_users
+  $sql = 'UPDATE agent_users_info
         SET name = ?, dept = ?, message = ?
         WHERE id = ?';
   $stmt = $db->prepare($sql);
@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
   if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
     // echo "The file ". htmlspecialchars( basename( $_FILES["agent_pic"]["name"])). " has been uploaded.";
     // 既存データの表示
-    $sql = "UPDATE agent_users SET image = '".$_FILES['image']['name']."' WHERE id = '$id'";
+    $sql = "UPDATE agent_users_info SET image = '".$_FILES['image']['name']."' WHERE id = '$id'";
     $stmt = $db->query($sql);
   } else {
     // echo "Sorry, there was an error uploading your file.";

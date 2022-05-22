@@ -4,14 +4,14 @@ include('../_header.php');
 require('../dbconnect.php');
 
 // ============================どの学生の情報を表示するか？id取得============================
-$student_id = filter_input(INPUT_GET, 'id');
-if (!isset($student_id)) {
+$application_id = filter_input(INPUT_GET, 'id');
+if (!isset($application_id)) {
     // エラーページ？
 }
 
-$sql = "SELECT students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND students_contact.id = ?";
+$sql = "SELECT students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND students_agent.id = ?";
 $sql_prepare = $db->prepare($sql);
-$sql_prepare->execute(array($_SESSION['agent_name'], $student_id));
+$sql_prepare->execute(array($_SESSION['agent_name'], $application_id));
 $all_students_info = $sql_prepare->fetchAll();
 ?>
 
@@ -47,9 +47,6 @@ $all_students_info = $sql_prepare->fetchAll();
                 <?= $student_info['email']; ?>
             </p>
             <p>電話番号</p>
-            <p>
-                <?= $student_info['id']; ?>
-            </p>
             <p>大学名</p>
             <p>
                 <?= $student_info['university']; ?>
@@ -67,9 +64,6 @@ $all_students_info = $sql_prepare->fetchAll();
                 <?= $student_info['grad_year']; ?>
             </p>
 
-            <?php $student_id = intval($student_info['id']); ?>
-            <?= $student_id ?>
-
         <?php endforeach; ?>
 
         <button type="button" class="tag_back"><a href='students_info.php'>戻る</a></button>
@@ -80,42 +74,45 @@ $all_students_info = $sql_prepare->fetchAll();
     <!-- ============================ここからモーダル============================ -->
 
     <!-- ここからtag_modal 〜コピペ〜 -->
-    <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
-    <script>
-        const tag_modal = document.getElementById('tag_modal');
 
-        function tag_modalOpen() {
-            tag_modal.style.display = 'block';
-
-        }
-
-        function tag_modalClose() {
-            tag_modal.style.display = 'none';
-        }
-    </script>
-
-
-    <div id="tag_modal" class="tag_modal">
+    <div id="tag_modal" class="tag_modal_container">
         <form action="students_info_more.php" method="POST">
-            <div class="tag_modal_container">
+            <div class="tag_modal">
                 <?php
                 // foreach ($split_ids as $index => $tag_id) {
                 // $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) VALUES (?, ?)";
                 // $stmt->execute(array($tag_id, $id));
                 foreach ($all_students_info as $student_info) {
-                    $sql = "INSERT INTO delete_student_application(student_id, name, agent_id) VALUES (?, ?, ?);";
+                    $sql = "INSERT INTO delete_student_application(application_id, agent_name) VALUES (?, ?);";
                     $stmt = $db->prepare($sql);
-                    $stmt->execute(array($student_id, $student_info['name'], $_SESSION['agent_name']));
+                    $stmt->execute(array($application_id, $_SESSION['agent_name']));
                     echo "<p>";
                     echo $student_info['name'];
                     echo "さんの情報の削除依頼を実行しますか？</p>";
                 }
                 ?>
-                <div class="tag_modal_container--buttons">
-                    <button onclick="tag_modalClose()" type="button" class="tag_back">戻る</button>
+                <div class="tag_modal_buttons">
+                    <button onclick="tag_modalClose()" type="button" class="tag_modalClose">戻る</button>
                     <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision" type="submit">決定</button>
                 </div>
             </div>
         </form>
-    </div>
+    </div> 
+
+
+
+
+  <?php require('../_footer.php'); ?>
+
+    <script>
+        const tag_modal = document.getElementById('tag_modal');
+
+        function tag_modalOpen() {
+        tag_modal.style.display = 'block';
+        }
+
+        function tag_modalClose() {
+        tag_modal.style.display = 'none';
+        }
+    </script>
 </div>

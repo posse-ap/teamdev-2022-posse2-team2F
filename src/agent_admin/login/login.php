@@ -8,12 +8,12 @@ if (isset($_POST['login'])) {
   $email = $_POST['email'];
   $password = sha1($_POST['password']);
 
-  $sql = 'SELECT count(*) FROM agent_users WHERE email = ? AND password = ?';
+  $sql = 'SELECT count(*) FROM agent_users WHERE login_email = ? AND password = ?';
   $stmt = $db->prepare($sql);
   $stmt->execute(array($email, $password));
   $result = $stmt->fetch();
   $stmt = null;
-  $sql_for_session = 'SELECT * FROM agent_users WHERE email = ? AND password = ?';
+  $sql_for_session = 'SELECT * FROM agent_users WHERE login_email = ? AND password = ?';
   $stmt_for_session = $db->prepare($sql_for_session);
   $stmt_for_session->execute(array($email, $password));
   $login_info = $stmt_for_session->fetch();
@@ -61,7 +61,7 @@ if (isset($_POST['login'])) {
           echo $err_msg .  "<br>";
         } ?>
         <div class="util_login_text">
-          <label class="util_login_text--label" for="email">メールアドレス</label>
+          <label class="util_login_text--label" for="email">ログイン用メールアドレス</label>
           <input class="util_login_text--box" type="email" name="email" required>
         </div>
         <div class="util_login_text">

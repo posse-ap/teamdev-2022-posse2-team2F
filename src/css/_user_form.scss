@@ -115,18 +115,22 @@
       font-size: 18px;
     }
 
+    form {
+      position: relative;
+    }
+    
+    form p {
+      margin: 0;
+    }
+
   }
+
+
 
   
 }
 
-form {
-  position: relative;
-}
 
-form p {
-  margin: 0;
-}
 
 .form-invalid {
   color: #f50000;
