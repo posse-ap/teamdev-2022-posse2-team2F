@@ -67,72 +67,55 @@ $all_students_info = $sql_prepare->fetchAll();
                 <?= $student_info['grad_year']; ?>
             </p>
 
-            <?php  $student_id = intval($student_info['id']); ?>
+            <?php $student_id = intval($student_info['id']); ?>
             <?= $student_id ?>
 
         <?php endforeach; ?>
 
-        <button type="button" class="tag_modalClose"><a href='students_info.php'>戻る</a></button>
+        <button type="button" class="tag_back"><a href='students_info.php'>戻る</a></button>
         <!-- <a href='students_info.php'>戻る</a>z -->
-        <button onclick="tag_modalOpen()" type="button" class="tag_modalClose">削除申請</button>
+        <button onclick="tag_modalOpen()" type="button" class="tag_back">削除申請</button>
     </div>
 
     <!-- ============================ここからモーダル============================ -->
 
     <!-- ここからtag_modal 〜コピペ〜 -->
     <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
+    <script>
+        const tag_modal = document.getElementById('tag_modal');
 
-    <!-- <script>
-        $(function() {
-            $('#confirm_button').on('click', function() {
-                // モーダルで選択した内容を反映させる処理
-                let string = [];
-                let id = [];
+        function tag_modalOpen() {
+            tag_modal.style.display = 'block';
 
-                $("input[name=tags]:checked").each(function() {
-                    string.push($(this).val());
-                    // 選択した値の id を保存する処理
-                    id.push($(this).attr('id'));
-                    $('#showid').val(id);
-                });
-                $("#input").val(string.join('、'));
-            });
-        });
-    </script> -->
+        }
+
+        function tag_modalClose() {
+            tag_modal.style.display = 'none';
+        }
+    </script>
+
 
     <div id="tag_modal" class="tag_modal">
         <form action="students_info_more.php" method="POST">
             <div class="tag_modal_container">
-                    <?php
-                    // foreach ($split_ids as $index => $tag_id) {
-                        // $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) VALUES (?, ?)";
-                        // $stmt->execute(array($tag_id, $id));
-                        foreach ($all_students_info as $student_info) {
-                        $sql = "INSERT INTO delete_student_application(student_id, name, agent_id) VALUES (?, ?, ?);";
-                        $stmt = $db->prepare($sql);
-                        $stmt->execute(array($student_id, $student_info['name'], $_SESSION['agent_name']));
-                        echo "<p>";
-                        echo $student_info['name'];
-                        echo "さんの情報の削除依頼を実行しますか？</p>" ;
-                    }
-                    ?>
+                <?php
+                // foreach ($split_ids as $index => $tag_id) {
+                // $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) VALUES (?, ?)";
+                // $stmt->execute(array($tag_id, $id));
+                foreach ($all_students_info as $student_info) {
+                    $sql = "INSERT INTO delete_student_application(student_id, name, agent_id) VALUES (?, ?, ?);";
+                    $stmt = $db->prepare($sql);
+                    $stmt->execute(array($student_id, $student_info['name'], $_SESSION['agent_name']));
+                    echo "<p>";
+                    echo $student_info['name'];
+                    echo "さんの情報の削除依頼を実行しますか？</p>";
+                }
+                ?>
                 <div class="tag_modal_container--buttons">
-                    <button onclick="tag_modalClose()" type="button" class="tag_modalClose">戻る</button>
+                    <button onclick="tag_modalClose()" type="button" class="tag_back">戻る</button>
                     <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision" type="submit">決定</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-
-<script>
-    const tag_modal = document.getElementById('tag_modal');
-
-    function tag_modalOpen() {
-        tag_modal.style.display = 'block';
-    }
-
-    function tag_modalClose() {
-        tag_modal.style.display = 'none';
-    }
-</script>

@@ -144,6 +144,10 @@ if (isset($_GET['option']) && isset($_GET['id'])) {
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+        <i class="fas fa-angle-right"></i>
+      </div>
+      <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/invoice.php">合計請求金額確認</a>
         <i class="fas fa-angle-right"></i>
       </div>
@@ -212,57 +216,7 @@ if (isset($_GET['option']) && isset($_GET['id'])) {
     </div>
 </div>
 
-<!-- ここからtag_modal -->
-<div id="tag_modal" class="tag_modal">
-    <form action="" method="POST">
-
-      <div class="tag_modal_container">
-          <div class="tag_modal_container--tag">
-            
-            <div class="tag_modal_container--tag_tags">
-              <?php 
-            $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
-            
-            $stmt->execute(array($id));
-
-            $tags = $stmt->fetchAll();
-
-            ?>
-
-             
-              <?php foreach ($tags as $tag) : ?>
-
-                <input type="radio" name="tag" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
-                <label for="tag">
-
-                  <?= $tag['tag_option'] ?>
-                </label>
-
-              <?php endforeach; ?>
-            </div>
-          </div>
-        
-        <div class="tag_modal_container--buttons">
-          <button onclick="tag_modalClose()" class="tag_modalClose">戻る</button>
-          <input type="submit" value="決定" class="tag_decision">
-        </div>
-      </div>
-    </form>
-  </div>
-
 <?php require('../_footer.php'); ?>
-
-<script>
-    const tag_modal = document.getElementById('tag_modal');
-
-    function tag_modalOpen() {
-      tag_modal.style.display = 'block';
-    }
-
-    function tag_modalClose() {
-      tag_modal.style.display = 'none';
-    }
-  </script>
 
 </body>
 </html>

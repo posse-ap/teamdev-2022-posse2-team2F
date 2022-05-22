@@ -22,7 +22,7 @@ if (isset($_POST['login'])) {
   // result に一つでも値が入っているなら、ログイン情報が存在するということ
   if ($result[0] != 0) {
     // 成功した場合管理画面に遷移
-    header('Location: http://localhost/agent_admin/home.php');
+    header('Location: http://localhost/agent_admin/students_info.php');
     //DBのユーザー情報をセッションに保存
     $_SESSION['id'] = $login_info['id'];
     $_SESSION['agent_name'] = $login_info['agent_name'];

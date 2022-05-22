@@ -32,7 +32,7 @@ if (isset($_GET['id'])) {
           SET agent_name = ?, agent_tag = ?,agent_tagname = ?, agent_info = ?, agent_display = ?
           WHERE id = ?';
     $stmt = $db->prepare($sql);
-    $stmt->execute(array($agent_name, $agent_tag,$agent_tagname, $agent_info, $agent_display, $id));
+    $stmt->execute(array($agent_name, $agent_tag, $agent_tagname, $agent_info, $agent_display, $id));
 
     // 画像更新
     $target_dir = "images/";
@@ -74,9 +74,9 @@ if (isset($_GET['id'])) {
     exit;
   }
 
-// リンクに id がない場合、無効リンクページに飛ばす
+  // リンクに id がない場合、無効リンクページに飛ばす
 } else {
-  
+
   header('Location: warning.php');
 }
 
@@ -120,21 +120,31 @@ $categories = $stmt->fetchAll();
     <div class="util_sidebar">
       <div class="util_sidebar_button util_sidebar_button--selected">
         <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/home.php">エージェント管理</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href=/craft_admin/tag.php>タグ編集・追加</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+        <i class="fas fa-angle-right"></i>
+      </div>
+      <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/invoice.php">合計請求金額確認</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <i class="fas fa-angle-right"></i>
       </div>
     </div>
     <div class="util_content">
@@ -254,8 +264,8 @@ $categories = $stmt->fetchAll();
           </div>
         <?php endforeach; ?>
         <div class="tag_modal_container--buttons">
-          <button onclick="tag_modalClose()" type="button" class="tag_modalClose">戻る</button>
-          <button onclick="tag_modalClose()" type="button" id="confirm_button"  class="tag_decision">決定</button>
+          <button onclick="tag_modalClose()" type="button" class="tag_back">戻る</button>
+          <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision">決定</button>
         </div>
 
     </form>

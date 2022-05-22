@@ -89,6 +89,10 @@ $categories = $stmt->fetchAll();
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+        <i class="fas fa-angle-right"></i>
+      </div>
+      <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/invoice.php">合計請求金額確認</a>
         <i class="fas fa-angle-right"></i>
       </div>
@@ -181,14 +185,13 @@ $categories = $stmt->fetchAll();
   </script>
 
 
-  <div id="tag_modal" class="tag_modal">
+  <div id="tag_modal" class="tag_modal_container">
     <form action="" method="POST">
 
-      <div class="tag_modal_container">
+      <div class="tag_modal">
         <?php foreach ($categories as $category) : ?>
-          <div id="no<?= $category['id'] ?>" class="tag_modal_container--tag">
+          <div id="no<?= $category['id'] ?>" class="tag_modal_categories">
             <h2>
-
               <?= $category['tag_category'] ?>
             </h2>
             <?php
@@ -199,7 +202,7 @@ $categories = $stmt->fetchAll();
 
             ?>
 
-            <div class="tag_modal_container--tag_tags">
+            <div class="tag_modal_tags">
               <?php foreach ($tags as $tag) : ?>
 
                 <input type="checkbox" name="tags" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
@@ -212,7 +215,7 @@ $categories = $stmt->fetchAll();
             </div>
           </div>
         <?php endforeach; ?>
-        <div class="tag_modal_container--buttons">
+        <div class="tag_modal_buttons">
           <button onclick="tag_modalClose()" type="button" class="tag_modalClose">戻る</button>
           <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision">決定</button>
         </div>

@@ -63,6 +63,10 @@ if (isset($_POST['hide'])) {
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+        <i class="fas fa-angle-right"></i>
+      </div>
+      <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/invoice.php">合計請求金額確認</a>
         <i class="fas fa-angle-right"></i>
       </div>

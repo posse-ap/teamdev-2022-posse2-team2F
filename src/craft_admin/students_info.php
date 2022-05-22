@@ -58,6 +58,10 @@ if (isset($_POST['delete'])) {
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
+                <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+                <i class="fas fa-angle-right"></i>
+            </div>
+            <div class="util_sidebar_button">
                 <a class="util_sidebar_link" href="/craft_admin/invoice.php">合計請求金額確認</a>
                 <i class="fas fa-angle-right"></i>
             </div>
@@ -188,9 +192,9 @@ if (isset($_POST['delete'])) {
                             <?php
                             foreach ($all_students_info as $student_info) { ?>
 
-
+<!-- 
                                 <input type="hidden" name="hidden[<?= $student_info['id']; ?>]" value="削除">
-                                <input type="submit" name="delete[<?= $student_info['id']; ?>]" value="delete">
+                                <input class='util_action_button util_action_button--list' type="submit" name="delete[<?= $student_info['id']; ?>]" value="delete"> -->
 
                             <?
 
@@ -238,22 +242,7 @@ if (isset($_POST['delete'])) {
 
                             echo "</div>";
 
-                            /*
-                        以下、コピペでわからなかったところ
-                        結果セットを解放？
-                        $all_students_info->free();
-
-                        データベース切断？
-                        $mysqli->close();
-                        $i = 0;
-                        foreach ($rows as $row) {
-                        
-                        データの破棄
-                        if (isset($_SESSION['sort'])) {
-                            session_destroy();
-                            unset($_SESSION['sort']);
-                        }
-                        */
+                    
                             ?>
                     </div>
                 </form>

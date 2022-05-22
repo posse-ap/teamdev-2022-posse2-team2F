@@ -736,7 +736,7 @@ a {
           box-shadow: 0px 3px 3px #9b9b9b;
 }
 
-.tag_modal {
+.tag_modal_container {
   max-width: 60vw;
   min-width: 22vw;
   max-height: 60vh;
@@ -752,7 +752,7 @@ a {
   display: none;
 }
 
-.tag_modal_container {
+.tag_modal_container .tag_modal {
   max-width: 60vw;
   min-width: 22vw;
   max-height: 60vh;
@@ -765,16 +765,16 @@ a {
       flex-wrap: wrap;
 }
 
-.tag_modal_container--tag {
+.tag_modal_container .tag_modal_categories {
   max-width: 30vw;
   margin: 5px 10px;
 }
 
-.tag_modal_container--tag h2 {
+.tag_modal_container .tag_modal_categories h2 {
   font-weight: lighter;
 }
 
-.tag_modal_container--tag_tags {
+.tag_modal_container .tag_modal_tags {
   max-width: 30vw;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -783,11 +783,11 @@ a {
       flex-wrap: wrap;
 }
 
-.tag_modal_container--tag_tags input:checked + label::after {
+.tag_modal_container .tag_modal_tags input:checked + label::after {
   opacity: 0.6;
 }
 
-.tag_modal_container--buttons {
+.tag_modal_container .tag_modal_buttons {
   width: 20vw;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -797,13 +797,13 @@ a {
           justify-content: space-between;
   position: absolute;
   margin-bottom: 20px;
-  bottom: 0px;
+  top: 120px;
   left: 50%;
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
 }
 
-.tag_modal_container--buttons button {
+.tag_modal_container .tag_modal_buttons button {
   width: 8vw;
   height: 5vh;
   border-style: none;
@@ -819,11 +819,11 @@ a {
           align-items: center;
 }
 
-.tag_modal_container--buttons .tag_modalClose {
+.tag_modal_container .tag_modal_buttons .tag_modalClose {
   background-color: #91c9c4;
 }
 
-.tag_modal_container--buttons .tag_decision {
+.tag_modal_container .tag_modal_buttons .tag_decision {
   width: 8vw;
   height: 5vh;
   border-style: none;
@@ -1132,68 +1132,6 @@ a {
   margin-left: 40%;
   -webkit-box-shadow: 0px 3px 3px #9b9b9b;
           box-shadow: 0px 3px 3px #9b9b9b;
-}
-
-#tag_modal {
-  max-width: 60vw;
-  min-width: 22vw;
-  max-height: 60vh;
-  overflow-x: scroll;
-  background-color: white;
-  z-index: 1;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateY(-50%) translateX(-50%);
-  -webkit-transform: translateY(-50%) translateX(-50%);
-  display: none;
-}
-
-#tag_modal .tag_modal_container {
-  max-width: 60vw;
-  min-width: 22vw;
-  max-height: 60vh;
-  overflow-x: scroll;
-}
-
-#tag_modal .tag_modal_container .tag_modal_buttons {
-  width: 20vw;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  position: absolute;
-  margin-bottom: 20px;
-  bottom: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-  -webkit-transform: translateX(-50%);
-}
-
-#tag_modal .tag_modal_container .tag_modal_buttons button {
-  width: 8vw;
-  height: 5vh;
-  border-style: none;
-  color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-#tag_modal .tag_modal_container .tag_modal_buttons .tag_modalClose {
-  background-color: #91c9c4;
-}
-
-#tag_modal .tag_modal_container .tag_modal_buttons .tag_decision {
-  background-color: #cf7c7c;
 }
 
 #search_modal {

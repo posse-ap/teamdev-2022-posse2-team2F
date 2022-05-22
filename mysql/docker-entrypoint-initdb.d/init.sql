@@ -233,16 +233,16 @@ DROP TABLE IF EXISTS delete_student_application;
 
 CREATE TABLE delete_student_application (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  student_id INT NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  agent_id VARCHAR(255) NOT NULL
+  application_id INT NOT NULL,
+  agent_name VARCHAR(255) NOT NULL, 
+  response VARCHAR(255) DEFAULT '未対応', 
+  time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO delete_student_application(student_id, name, agent_id)
+INSERT INTO delete_student_application(application_id, agent_name)
 VALUES
-  (1,'あああ','agent1'),
-  (2,'あああ','agent1'),
-  (3,'あああ','agent1');
+    (1,'agent1'),
+    (2,'agent1');
 
 
 

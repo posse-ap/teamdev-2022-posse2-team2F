@@ -94,6 +94,10 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
             <i class="fas fa-angle-right"></i>
         </div>
+        <div class="util_sidebar_button">
+            <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+            <i class="fas fa-angle-right"></i>
+        </div>
         <div class="util_sidebar_button util_sidebar_button--selected">
             <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/invoice.php">合計請求金額確認</a>
             <i class="fas fa-angle-right"></i>

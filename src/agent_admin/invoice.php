@@ -53,14 +53,14 @@ $all_students_info = $sql_prepare->fetchAll();
 $sql_valid = "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND deleted_at IS NULL AND created_at BETWEEN ? AND ?";
 // $sql_valid = "SELECT count(name) FROM students_contact WHERE created_at BETWEEN ? AND ?";
 $sql_valid_prepare = $db->prepare($sql_valid);
-$sql_valid_prepare->execute(array($first_day, $last_day));
+$sql_valid_prepare->execute(array($_SESSION['agent_name'], $first_day, $last_day));
 $all_valid_students = $sql_valid_prepare->fetchAll();
 
 // 請求件数 idの最大値とってます（idは間の何件かが削除されてもそのまま変わらないイメージ）
 $sql_all = "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND created_at BETWEEN ? AND ?";
 // $sql_all = "SELECT max(id) FROM students_contact WHERE created_at BETWEEN ? AND ?";
 $sql_all_prepare = $db->prepare($sql_all);
-$sql_all_prepare->execute(array($first_day, $last_day));
+$sql_all_prepare->execute(array($_SESSION['agent_name'], $first_day, $last_day));
 $all_students_number = $sql_all_prepare->fetchAll();
 
 /*
