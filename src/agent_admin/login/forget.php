@@ -13,7 +13,7 @@ if (isset($_POST['submit_email'])) {
   $_SESSION["email"] = $_POST['email'];
   $email = $_POST['email'];
 
-  $sql = 'SELECT count(*) FROM agent_users WHERE email = ?';
+  $sql = 'SELECT count(*) FROM agent_users WHERE login_email = ?';
   $stmt = $db->prepare($sql);
   $stmt->execute(array($email));
   $result = $stmt->fetch();
@@ -85,7 +85,7 @@ if (isset($_POST['submit_email'])) {
         <p class="forget_text">パスワードの再設定が必要となります。</p>
         <p class="forget_text">恐れ入りますが、登録されたメールアドレスをご入力いただき、受信されたメールの案内に従ってパスワード再設定をお願いします。</p>
         <br><br><br>
-        <p class="forget_text">登録しているメールアドレス</p>
+        <p class="forget_text">登録しているログイン用メールアドレス</p>
       </div>
       <form action="/agent_admin/login/forget.php" method="POST">
         <input class="util_login_text--box" type="text" name="email">

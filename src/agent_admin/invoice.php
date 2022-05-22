@@ -82,7 +82,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
-            <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報編集</a>
+            <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報管理</a>
             <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">

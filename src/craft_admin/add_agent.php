@@ -17,7 +17,16 @@ if (isset($_POST['submit'])) {
   // 画像更新
   $target_dir = "images/";
   $target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
-  $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+  if (move_uploaded_file($_FILES["agent_pic"]["tmp_name"], $target_file)) {
+    // 画像更新
+    $target_dir = "images/";
+    $target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+  } else {
+    // echo "Sorry, there was an error uploading your file.";
+  }
 
   // 予想
   // INSERT INTO文 は一回で書かないとだから、編集画面みたいに分けて書けない

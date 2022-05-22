@@ -21,7 +21,7 @@ $all_students_info = $sql_prepare->fetchAll();
             <a class="util_sidebar_link  util_sidebar_link--selected" href="/agent_admin/students_info.php">学生申し込み一覧</a>
         </div>
         <div class="util_sidebar_button">
-            <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報編集</a>
+            <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報管理</a>
         </div>
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="">お問合せ</a>
@@ -97,22 +97,22 @@ $all_students_info = $sql_prepare->fetchAll();
                 </div>
             </div>
         </form>
-    </div> 
+    </div>
 
 
 
 
-  <?php require('../_footer.php'); ?>
+    <?php require('../_footer.php'); ?>
 
     <script>
         const tag_modal = document.getElementById('tag_modal');
 
         function tag_modalOpen() {
-        tag_modal.style.display = 'block';
+            tag_modal.style.display = 'block';
         }
 
         function tag_modalClose() {
-        tag_modal.style.display = 'none';
+            tag_modal.style.display = 'none';
         }
     </script>
 </div>
