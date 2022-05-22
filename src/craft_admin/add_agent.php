@@ -1,6 +1,5 @@
 <?php
 
-// とりあえず edit_agent.php をコビペしてきただけ
 require('../dbconnect.php');
 
 // 画像以外の更新
@@ -215,7 +214,6 @@ $categories = $stmt->fetchAll();
             </div>
           </div>
         <?php endforeach; ?>
-        </div>
         <div class="tag_modal_buttons">
           <button onclick="tag_modalClose()" type="button" class="tag_modalClose">戻る</button>
           <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision">決定</button>
