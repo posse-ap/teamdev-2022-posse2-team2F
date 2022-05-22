@@ -797,7 +797,7 @@ a {
           justify-content: space-between;
   position: absolute;
   margin-bottom: 20px;
-  top: 120px;
+  bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
