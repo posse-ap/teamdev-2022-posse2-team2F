@@ -103,10 +103,12 @@ require('../dbconnect.php');
                         }
                         $_SESSION['sort'] = $sort_sql;
                         // $sql = "SELECT * FROM students_contact WHERE agent = ? " . $_SESSION['sort'];
-                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ?" . $_SESSION['sort'];
+                        // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ?" . $_SESSION['sort'];
+                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ?" . $_SESSION['sort'];
                     } else {
                         // $sql = "SELECT * FROM students_contact WHERE agent = ? ORDER BY phone ASC";
-                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ? ORDER BY phone ASC";
+                        // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ? ORDER BY phone ASC";
+                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? ORDER BY phone ASC";
                     }
 
                     // print_r($sql);
@@ -176,11 +178,11 @@ require('../dbconnect.php');
                                 </th>
 
                                 <th>
-                                    申し込みエージェント
+                                    ステータス
                                 </th>
 
                                 <th>
-                                    〇〇
+                                    詳細
                                 </th>
                             </tr>
 
@@ -221,7 +223,7 @@ require('../dbconnect.php');
                                 echo "</th>";
 
                                 echo "<th>";
-                                echo $student_info['agent'];
+                                echo $student_info['status'];
                                 echo "</th>";
 
                                 echo "<th><a class='util_action_button util_action_button--list' href='students_info_more.php?id=";

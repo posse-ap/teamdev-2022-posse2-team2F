@@ -21,7 +21,9 @@ if (isset($_POST['delete']) && $_POST["delete"]) {
   $sql = "START TRANSACTION;
           
           UPDATE students_agent
-          SET deleted_at = CURRENT_TIMESTAMP 
+          SET 
+          deleted_at = CURRENT_TIMESTAMP,
+          status = '無効（削除済み）' 
           WHERE id = ?;
 
           UPDATE delete_student_application

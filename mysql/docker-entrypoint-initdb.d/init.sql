@@ -177,7 +177,8 @@ CREATE TABLE students_agent (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     student_id INT NOT NULL,
     agent VARCHAR(255) NOT NULL,
-    deleted_at DATETIME
+    deleted_at DATETIME,
+    status VARCHAR(255) DEFAULT '有効' 
 );
 
 INSERT INTO
