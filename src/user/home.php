@@ -5,40 +5,43 @@ require('../dbconnect.php');
 $stmt = $db->query("SELECT * FROM agents");
 $results = $stmt->fetchAll();
 
-// セッション保存用
-$agent_name = isset($_POST['agent_name'])? htmlspecialchars($_POST['agent_name'], ENT_QUOTES, 'utf-8') : '';
-$agent_tag = isset($_POST['agent_tag'])? htmlspecialchars($_POST['agent_tag'], ENT_QUOTES, 'utf-8') : '';
-$agent_info = isset($_POST['agent_info'])? htmlspecialchars($_POST['agent_info'], ENT_QUOTES, 'utf-8') : '';
-
-// 削除用
-$delete_name = isset($_POST['delete_name'])? htmlspecialchars($_POST['delete_name'], ENT_QUOTES, 'utf-8') : '';
-
 session_start();
 
-// 削除
-if ($delete_name != '') {
-  unset($_SESSION['products'][$delete_name]);
-}
+?>
+<?php
 
-if($agent_name!=''&&$agent_tag!=''&&$agent_info!=''){
-  $_SESSION['products'][$agent_name]=[
-            'agent_tag' => $agent_tag,
-            'agent_info' => $agent_info
-  ];
-}
+//お気に入り登録
+// セッション保存用
+$id = $_GET['id'];
+$stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
+$result = $stmt->fetch();
 
-
-// if(isset($products)){
-//   foreach($products as $key => $product){
-//       echo $key;      //商品名
-//       echo "<br>";
-//       echo $product['agent_tag'];  
-//       echo "<br>";
-//       echo $product['agent_info']; 
-//       echo "<br>";
-//   }
-// } 
-
+$agent_id = isset($result['id'])? htmlspecialchars($result['id'], ENT_QUOTES, 'utf-8') : '';
+  $agent_name = isset($result['agent_name'])? htmlspecialchars($result['agent_name'], ENT_QUOTES, 'utf-8') : '';
+  $agent_tag = isset($result['agent_tag'])? htmlspecialchars($result['agent_tag'], ENT_QUOTES, 'utf-8') : '';
+  $agent_info = isset($result['agent_info'])? htmlspecialchars($result['agent_info'], ENT_QUOTES, 'utf-8') : '';
+  
+  // 削除用
+  $delete_name = isset($result['delete_name'])? htmlspecialchars($result['delete_name'], ENT_QUOTES, 'utf-8') : '';
+  
+  
+  // 削除
+  if ($delete_name != '') {
+    unset($_SESSION['products'][$delete_name]);
+  }
+  
+  if($agent_name!=''&&$agent_tag!=''&&$agent_info!=''){
+    $_SESSION['products'][$agent_id]=[
+              'agent_tag' => $agent_tag,
+              'agent_info' => $agent_info,
+              'agent_name' => $agent_name,
+              'agent_id' => $agent_id,
+    ];
+    //お気に入りボタン用
+    // $_SESSION['ids'][$agent_id] = ['agent_id' => $agent_id];
+  }
+  // sleep(3);
+header("Location: /userpage/result.php");
 ?>
 
 <!DOCTYPE html>
@@ -59,12 +62,12 @@ if($agent_name!=''&&$agent_tag!=''&&$agent_info!=''){
     <div>
       <h1><?= $result['agent_name'] ?></h1>
       <p><?= $result['agent_info'] ?></p>
-      <p><?= $result['agent_tag'] ?></p>
+      <p><?= $result['agent_tagname'] ?></p>
       <form action="home.php" method="POST" class="item-form">
         <input type="hidden" name="agent_name" value="<?= $result['agent_name'] ?>">
         <input type="hidden" name="agent_info" value="<?= $result['agent_info'] ?>">
-        <input type="hidden" name="agent_tag" value="<?= $result['agent_tag'] ?>">
-        <button type="submit" class="btn-sm btn-blue">お気に入りに追加</button>
+        <input type="hidden" name="agent_tag" value="<?= $result['agent_tagname'] ?>">
+        <button type="submit" name="favorite" class="btn-sm btn-blue">お気に入りに追加</button>
       </form>
     </div>
     <?php endforeach; ?>

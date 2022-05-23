@@ -23,13 +23,12 @@ $categories = $stmt->fetchAll();
 // $agent_tags = $stmt->fetchAll();
 ?>
 <?php require('../_header.php'); ?>
-
+<div id="fullOverlay"></div>
 <div class="top_container">
   <h2>あなたにぴったりの<br>エージェントを見つけよう</h2>
   <button class="search-button" onclick="search_modalOpen()">絞りこむ</button>
+  <button class="search-button_res" onclick="responsive_modalOpen()">絞り込む</button>
   <div id="search_modal">
-    <div class="search_modal_container-overlay">
-    </div>
     <form action="/userpage/result.php" method="POST">
 
       <div class="search_modal_container">
@@ -69,6 +68,7 @@ $categories = $stmt->fetchAll();
     </form>
 
   </div>
+  
   <div class="top_container_compare">
     全10社を比較
   </div>
@@ -83,7 +83,7 @@ $categories = $stmt->fetchAll();
         <div class="top_container_agents--all__flex">
 
           <div class="top_container_agents--all__flex--left">
-            <img src="../craft_admin/images/<?= $result['agent_pic'] ?>" alt="" style="height: 18.7vh">
+            <img src="../craft_admin/images/<?= $result['agent_pic'] ?>" alt="" style="height: 180px;">
 
           </div>
           <div class="top_container_agents--all__flex--right">
@@ -112,13 +112,19 @@ $categories = $stmt->fetchAll();
     <?php endforeach; ?>
   </div>
 </div>
-
 <script>
   const search_modal = document.getElementById('search_modal');
+
+  const overlay = document.getElementById('fullOverlay');
 
   function search_modalOpen() {
     search_modal.style.display = "block";
   };
+
+  function responsive_modalOpen(){
+    search_modal.style.display = "block";
+    overlay.style.display = "block";
+  }
 </script>
 
 

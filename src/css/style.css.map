@@ -13,6 +13,7 @@
         "_userpage_top.scss",
         "_invoice.scss",
         "_craft_students.scss",
+        "_userpage_result.scss",
         "_user_form.scss",
         "_warning.scss",
         "_students_info.scss"

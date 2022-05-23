@@ -4,6 +4,14 @@
   }
 }
 
+$mb: 520px;
+
+@mixin mb {
+  @media screen and (max-width: $mb) {
+    @content;
+  }
+}
+
 li {
   list-style: none;
 }
@@ -27,6 +35,9 @@ a {
       width: 250px;
       @include tb {
         width: 180px;
+        @include mb{
+          width: 150px;
+        }
       }
     }
   }
