@@ -48,14 +48,16 @@ if (isset($_POST['reset'])) {
         <p class="reset_text">メールアドレス：<?= $email ?></p>
         <div class="util_login_text reset_input">
           <label class="util_login_text--label" for="password">パスワード：</label>
-          <input class="util_login_text--box" type="password" name="password" required>
+          <input class="util_login_text--box" type="password" name="password" id="password" required>
+          <i class="fas fa-eye-slash" id="togglePassword"></i>
         </div>
         <div class="util_login_text reset_input">
           <label class="util_login_text--label" for="password_conf">パスワード確認：</label>
-          <input class="util_login_text--box" type="password" name="password_conf" required>
+          <input class="util_login_text--box" type="password" name="password_conf" id="password_conf" required>
+          <i class="fas fa-eye-slash" id="togglePassword_conf"></i>
         </div>
         <div class="util_login_text reset_input">
-          <input type="submit" name="reset" value="リセット" class="util_fullscreen_button">
+          <input type="submit" name="reset" value="リセット" class="util_login_button">
         </div>
       </form>
     </div>
@@ -66,5 +68,32 @@ if (isset($_POST['reset'])) {
 
 </body>
 <?php require("../../_footer.php"); ?>
+
+<script>
+  const togglePassword = document.getElementById("togglePassword");
+  const togglePassword_conf = document.getElementById("togglePassword_conf");
+  const password = document.getElementById("password");
+  const password_conf = document.getElementById("password_conf");
+
+  togglePassword.addEventListener("click", function() {
+    // toggle the type attribute
+    let type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
+
+    // toggle the icon
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
+  });
+
+  togglePassword_conf.addEventListener("click", function() {
+    // toggle the type attribute
+    let type = password_conf.getAttribute("type") === "password" ? "text" : "password";
+    password_conf.setAttribute("type", type);
+
+    // toggle the icon
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
+  });
+</script>
 
 </html>

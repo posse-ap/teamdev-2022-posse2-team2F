@@ -29,7 +29,7 @@
     justify-content: flex-start;
     align-items: baseline;
     background-color: white;
-    margin-left: 6.5vw;
+    margin-left: 10vw;
     border-radius: 8px;
     position: relative;
     @include tb{
@@ -94,16 +94,16 @@
     }
   }
   .favorite_list{
-    width: 82vw;
+    width: 80vw;
     margin: 30px auto 0 auto;
     .favorite_ind{
-      width: 82vw;
-      height: 230px;
+      width: 80vw;
+      height: 200px;
       margin-bottom: 20px;
       display: flex;
       background-color: #fff;
       .checkbox{
-        height: 230px;
+        height: 200px;
         width: 2.5vw;
         background-color: #CFD1D3;
         input{
@@ -115,7 +115,7 @@
         label{
           position: relative;
           width: 2.5vw;
-          height: 230px;
+          height: 200px;
           display: flex;
             justify-content: center;
             align-items: center;
@@ -147,17 +147,18 @@
       }
       &_title{
         width: 22vw;
-        height: 230px;
+        height: 200px;
         h2{
           width: 22vw;
           text-align: center;
-          margin: 10px auto;
-          font-size: 18px;
+          margin: 5px auto;
+          font-size: 16px;
         }
         img{
-          width: 22vw;
-          height: 156px;
+          width: 18vw;
+          height: 146px;
           object-fit: contain;
+          margin: 0px 2vw 5px 2vw;
         }
         button{
           border-style: none;
@@ -166,14 +167,16 @@
           width: 14vw;
           border-radius: 10px;
           cursor: pointer;
-          margin: 1px 4vw;
+          margin: 0px 4vw;
+          position: relative;
+          top: -6px;
         }
         
 
       }
       &_info{
-        width: 47.5vw;
-        height: 230px;
+        width: 45.5vw;
+        height: 200px;
         .tags{
           display: flex;
           flex-wrap: wrap;
@@ -181,12 +184,12 @@
           margin-bottom: 5px;
 
           p{
-            font-size: 16px;
+            font-size: 14px;
                     margin: 3px 3px 3px 3px;
                     padding: 3px 8px;
                     border: 1px solid;
                     border-radius: 15px;
-                    height: 18px;
+                    height: 16px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -195,13 +198,15 @@
       }
       &_buttons{
         width: 10vw;
-        height: 230px;
+        height: 200px;
         .buttons{
           width: 10vw;
           height: 100px;
           display: flex;
           flex-direction: column;
           justify-content: space-around;
+          align-items: center;
+          font-weight: bold;
 
           a{
             color: #fff;
@@ -223,8 +228,31 @@
           border-style: none;
           border-radius: 5px;
           color: #fff;
+          font-weight: bold;
+          font-size: 16px;
+          cursor: pointer;
         }
         }
+      }
+    }
+    .cart-btn{
+      width: 80vw;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      a{
+        color: #fff;
+        width: 180px;
+        height: 30px;
+        background-color: #52A49A;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 20px;
+        font-weight: bold;
+
       }
     }
   }

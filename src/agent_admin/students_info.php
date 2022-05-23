@@ -102,11 +102,11 @@ require('../dbconnect.php');
                             $sort_sql = " ORDER BY phone ASC";
                         }
                         $_SESSION['sort'] = $sort_sql;
-                        // $sql = "SELECT * FROM students_contact_all WHERE agent = ? " . $_SESSION['sort'];
-                        $sql = "SELECT students_contact_all.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE students_agent.agent = ?" . $_SESSION['sort'];
+                        // $sql = "SELECT * FROM students_contact WHERE agent = ? " . $_SESSION['sort'];
+                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ?" . $_SESSION['sort'];
                     } else {
-                        // $sql = "SELECT * FROM students_contact_all WHERE agent = ? ORDER BY phone ASC";
-                        $sql = "SELECT students_contact_all.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE students_agent.agent = ? ORDER BY phone ASC";
+                        // $sql = "SELECT * FROM students_contact WHERE agent = ? ORDER BY phone ASC";
+                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ? ORDER BY phone ASC";
                     }
 
                     // print_r($sql);
@@ -119,6 +119,27 @@ require('../dbconnect.php');
                         exit();
                     }
                     ?>
+
+                    <!-- ここからmodal -->
+                    <div id="util_delete_application<?= $category['id'] ?>" class="util_modalcont">
+                        <div class="util_delete_application util_deletemodal">
+
+                            <p class="util_delete_application_alert util_deletemodal">学生情報削除申請</p>
+                            <div class="util_deletebuttons util_deletemodal">
+                                <button class="util_deletebuttons_item util_deletebuttons_item--no" onclick="closeFunction(<?= $category['id'] ?>)">キャンセル</button>
+                                <a href="./delete_tag.php?id=<?= $category['id'] ?>" style="text-decoration: none">
+                                    <!-- <button class="yes" onclick="deleteAgent()">はい -->
+                                    <button class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction(<?= $category['id'] ?>)">送信
+
+                                            <path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z" />
+                                        </svg>
+                                    </button>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+
 
                     <!-- 並び替え結果 -->
                     <div class="table_container">
@@ -156,6 +177,10 @@ require('../dbconnect.php');
 
                                 <th>
                                     申し込みエージェント
+                                </th>
+
+                                <th>
+                                    〇〇
                                 </th>
                             </tr>
 
@@ -198,6 +223,11 @@ require('../dbconnect.php');
                                 echo "<th>";
                                 echo $student_info['agent'];
                                 echo "</th>";
+
+                                echo "<th><a class='util_action_button util_action_button--list' href='students_info_more.php?id=" ;
+                                echo $student_info['application_id'];
+                                echo "'> 詳細";
+                                echo "</a></th>";
 
                                 echo "</tr>";
                             };

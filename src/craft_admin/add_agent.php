@@ -1,6 +1,5 @@
 <?php
 
-// とりあえず edit_agent.php をコビペしてきただけ
 require('../dbconnect.php');
 
 // 画像以外の更新
@@ -24,8 +23,8 @@ if (isset($_POST['submit'])) {
   // INSERT INTO文 は一回で書かないとだから、編集画面みたいに分けて書けない
   // 画像をアップロードして、さらに登録ボタンが押されたら SQL文を書く仕組みにした！ （どうせ画像の登録は必要になるから）
 
-  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_tagname, agent_info, agent_display) 
-          VALUES (?, ?, ?, ?, ?, ?)';
+  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_tagname, agent_info, agent_display, hide) 
+          VALUES (?, ?, ?, ?, ?, ?, 0)';
   $stmt = $db->prepare($sql);
   $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_tagname, $agent_info, $agent_display));
 
@@ -86,6 +85,10 @@ $categories = $stmt->fetchAll();
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+        <i class="fas fa-angle-right"></i>
+      </div>
+      <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
@@ -181,14 +184,13 @@ $categories = $stmt->fetchAll();
   </script>
 
 
-  <div id="tag_modal" class="tag_modal">
+  <div id="tag_modal" class="tag_modal_container">
     <form action="" method="POST">
 
-      <div class="tag_modal_container">
+      <div class="tag_modal">
         <?php foreach ($categories as $category) : ?>
-          <div id="no<?= $category['id'] ?>" class="tag_modal_container--tag">
+          <div id="no<?= $category['id'] ?>" class="tag_modal_categories">
             <h2>
-
               <?= $category['tag_category'] ?>
             </h2>
             <?php
@@ -199,7 +201,7 @@ $categories = $stmt->fetchAll();
 
             ?>
 
-            <div class="tag_modal_container--tag_tags">
+            <div class="tag_modal_tags">
               <?php foreach ($tags as $tag) : ?>
 
                 <input type="checkbox" name="tags" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
@@ -212,7 +214,7 @@ $categories = $stmt->fetchAll();
             </div>
           </div>
         <?php endforeach; ?>
-        <div class="tag_modal_container--buttons">
+        <div class="tag_modal_buttons">
           <button onclick="tag_modalClose()" type="button" class="tag_modalClose">戻る</button>
           <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision">決定</button>
         </div>

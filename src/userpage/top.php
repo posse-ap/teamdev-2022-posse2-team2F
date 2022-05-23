@@ -2,7 +2,7 @@
 require('../dbconnect.php');
 
 // 既存データの表示
-$stmt = $db->query("SELECT * FROM agents");
+$stmt = $db->query("SELECT * FROM agents WHERE hide = 0");
 $results = $stmt->fetchAll();
 $count = $stmt->rowCount();
 ?>

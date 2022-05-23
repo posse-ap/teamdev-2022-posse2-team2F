@@ -110,7 +110,7 @@ header('Location: cart.php');
           <?php endforeach; ?>
     
       <div class="cart-btn">
-        <a href="/userpage/result.php" style="color: black;">戻る</a>
+        <a href="/userpage/result.php">一覧に戻る</a>
       </div>
     </div>
     </form>
