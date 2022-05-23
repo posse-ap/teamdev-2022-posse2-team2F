@@ -83,9 +83,17 @@ $all_students_info = $sql_prepare->fetchAll();
                 // $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) VALUES (?, ?)";
                 // $stmt->execute(array($tag_id, $id));
                 foreach ($all_students_info as $student_info) {
-                    $sql = "INSERT INTO delete_student_application(application_id, agent_name) VALUES (?, ?);";
+                    $sql = "
+                    START TRANSACTION;
+
+                    INSERT INTO delete_student_application(application_id, agent_name) VALUES (?, ?);
+
+                    UPDATE students_agent SET status = ? WHERE id = ?;
+
+                    COMMIT;
+                    ";
                     $stmt = $db->prepare($sql);
-                    $stmt->execute(array($application_id, $_SESSION['agent_name']));
+                    $stmt->execute(array($application_id, $_SESSION['agent_name'], '削除申請中', $application_id));
                     echo "<p>";
                     echo $student_info['name'];
                     echo "さんの情報の削除依頼を実行しますか？</p>";
