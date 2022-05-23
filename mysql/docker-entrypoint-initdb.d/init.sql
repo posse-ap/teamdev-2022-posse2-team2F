@@ -297,3 +297,21 @@ INSERT INTO
     agent_password_reset(email, pass_token)
 VALUES
     ("test2@test.com", "test");
+
+
+
+-- お問合せ
+
+DROP TABLE IF EXISTS agent_inquiries;
+
+CREATE TABLE agent_inquiries (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    content VARCHAR(255) NOT NULL,
+    details VARCHAR(255) NOT NULL
+);
+
+INSERT INTO
+    agent_inquiries(content, details)
+VALUES
+    ("test", "test");
+

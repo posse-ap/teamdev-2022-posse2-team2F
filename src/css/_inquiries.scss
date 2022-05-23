@@ -1,0 +1,61 @@
+.inquiries {
+  width: 64vw;
+  height: 63vh;
+  margin: 50px;
+
+  &_item {
+    width: 60vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 70px;
+    font-size: 20px;
+    
+    &--label {
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    &--textarea {
+      padding-left: 10px;
+      width: 40vw;
+      height: 20vh;
+      border-style: none;
+      background-color: #ebedf1;
+      overflow-x: scroll;
+      border-radius: 1vh;
+      font-size: 1.4vw;
+      color: black;
+    }
+
+
+    &--select {
+      width: 25vw;
+      height: 5vh;
+      margin-right: 230px;
+      border-style: none;
+      background-color: #ebedf1;
+      border-radius: 1vh;
+    }
+
+  }
+
+  .dropdown {
+    width: 31vw;
+    margin-bottom: 10px;
+    
+  }
+
+
+  &_button {
+    width: 12vw;
+    height: 6vh;
+    border-style: none;
+    background-color: #91c9c4;
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    left: calc(50% - 4vw);
+    box-shadow: 0px 3px 3px #9b9b9b;
+  }
+}

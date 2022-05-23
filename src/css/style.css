@@ -3070,6 +3070,71 @@ main {
   font-size: 18px;
 }
 
+.inquiries {
+  width: 64vw;
+  height: 63vh;
+  margin: 50px;
+}
+
+.inquiries_item {
+  width: 60vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 70px;
+  font-size: 20px;
+}
+
+.inquiries_item--label {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.inquiries_item--textarea {
+  padding-left: 10px;
+  width: 40vw;
+  height: 20vh;
+  border-style: none;
+  background-color: #ebedf1;
+  overflow-x: scroll;
+  border-radius: 1vh;
+  font-size: 1.4vw;
+  color: black;
+}
+
+.inquiries_item--select {
+  width: 25vw;
+  height: 5vh;
+  margin-right: 230px;
+  border-style: none;
+  background-color: #ebedf1;
+  border-radius: 1vh;
+}
+
+.inquiries .dropdown {
+  width: 31vw;
+  margin-bottom: 10px;
+}
+
+.inquiries_button {
+  width: 12vw;
+  height: 6vh;
+  border-style: none;
+  background-color: #91c9c4;
+  font-size: 20px;
+  color: white;
+  position: absolute;
+  left: calc(50% - 4vw);
+  -webkit-box-shadow: 0px 3px 3px #9b9b9b;
+          box-shadow: 0px 3px 3px #9b9b9b;
+}
+
 /*
 1440~960 pc~tablet
 960~520     tablet~smartphone

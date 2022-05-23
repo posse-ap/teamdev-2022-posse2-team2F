@@ -238,6 +238,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
               return;
           } else if (!email_match.test(email.value)){
               e.preventDefault();
+              email.classList.add('input-invalid');
               errMsgEmail.textContent = 'メールアドレスの形式が不正です。';
           } else {
               errMsgEmail.textContent ='';
@@ -518,17 +519,24 @@ if (isset($_POST["back"]) && $_POST["back"]) {
             
             $results = $stmt->fetchAll();
             foreach($results as $result) 
-  
-            // var_dump($id, $result['agent_name']);
             {
             $sql = "INSERT INTO students_agent(student_id, agent) VALUES (?, ?);";
             $stmt = $db->prepare($sql);
             $stmt->execute(array($id['id'], $result['agent_name']));
+
+            $sql_email = "SELECT agent_users.notify_email, agent_users.agent_name FROM agent_users INNER JOIN agents ON agent_users.agent_name = agents.agent_name WHERE agent_users.agent_name = ?";
+            $stmt = $db->prepare($sql_email);
+            $stmt->execute(array($result['agent_name']));
+            $email = $stmt->fetch();
+
+            // メールの送信先
+            $to = $email['notify_email'];
             }
           }
+        // 個別申し込みした場合
         } else {
 
-          $single_id = $_SESSION['single_id']; //$id には押された番号が入る
+          $single_id = $_SESSION['single_id']; 
 
           $stmt = $db->query("SELECT * FROM agents WHERE id = '$single_id'");
           $result = $stmt->fetch();
@@ -537,14 +545,22 @@ if (isset($_POST["back"]) && $_POST["back"]) {
           $stmt = $db->prepare($sql);
           $stmt->execute(array($id['id'], $result['agent_name']));
 
+          $sql_email = "SELECT agent_users.notify_email, agent_users.agent_name FROM agent_users INNER JOIN agents ON agent_users.agent_name = agents.agent_name WHERE agent_users.agent_name = ?";
+          $stmt = $db->prepare($sql_email);
+          $stmt->execute(array($result['agent_name']));
+          $email = $stmt->fetch();
+
+          // メールの送信先
+          $to = $email['notify_email'];
+
         }
 
-
-
+        
+        
 
 
         // メール送信 - エージェント用
-        $to      = "agent1@agent1.com";
+        // $to      = "agent1@agent1.com";
         $subject = "学生の申し込みがありました";
         $message = "
 

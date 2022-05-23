@@ -200,3 +200,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
         </div>
     </div>
 </div>
+
+
+<?php require('../_footer.php'); ?>
+</body>
