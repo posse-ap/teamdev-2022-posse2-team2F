@@ -18,12 +18,14 @@ $mb: 520px;
 .no_match{
   width: 100vw;
   height: 82vh;
+  background-color: #EBEDF1;
   &_message{
     width: 50vw;
     height: 30vh;
     position: absolute;
     top: 50%;
     left: 50%;
+    background-color: #fff;
     transform: translate(-50%, -50%);
     border: 1px solid rgb(149, 149, 149);
     box-shadow: 0px 8px 8px rgb(149, 149, 149);

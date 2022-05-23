@@ -4,7 +4,7 @@ require('../dbconnect.php');
 // 既存データの表示
 $stmt = $db->query("SELECT * FROM agents");
 $results = $stmt->fetchAll();
-
+$count = $stmt->rowCount();
 ?>
 <?php
 // タグ表示
@@ -29,7 +29,7 @@ $categories = $stmt->fetchAll();
   <button class="search-button" onclick="search_modalOpen()">絞りこむ</button>
   <button class="search-button_res" onclick="responsive_modalOpen()">絞り込む</button>
   <div id="search_modal">
-    <form action="/userpage/result.php" method="POST">
+    <form action="/userpage/search.php" method="POST">
 
       <div class="search_modal_container">
         <h4>詳細条件で比較</h4>
@@ -45,11 +45,23 @@ $categories = $stmt->fetchAll();
             $tags = $stmt->fetchAll();
 
             ?>
-            <div class="search_modal_container--tag__tags">
+            <!-- <div class="search_modal_container--tag__tags">
               <?php foreach ($tags as $tag) : ?>
 
                 <input type="checkbox" name="tag[]" value="<?= $tag['tag_option'] ?>">
                 <input type="checkbox" value="<?= $tag['id'] ?>" name="tag_id[]" id="<?= $tag['id'] ?>">
+                <label for="<?= $tag['id'] ?>">
+
+                  <?= $tag['tag_option'] ?>
+                </label>
+
+              <?php endforeach; ?>
+            </div> -->
+            <div class="search_modal_container--tag__tags">
+              <?php foreach ($tags as $tag) : ?>
+
+                <input type="checkbox" name="tag[]" value="<?= $tag['tag_option'] ?>">
+                <input type="checkbox" value="<?= $tag['id'] ?>" name="<?='tag_' . $category['id'] . '[]' ?>" id="<?= $tag['id'] ?>">
                 <label for="<?= $tag['id'] ?>">
 
                   <?= $tag['tag_option'] ?>
@@ -70,7 +82,7 @@ $categories = $stmt->fetchAll();
   </div>
   
   <div class="top_container_compare">
-    全10社を比較
+    <?='全' . $count . '社を比較'?>
   </div>
   <div class="top_container_agents">
 
