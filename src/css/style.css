@@ -1184,6 +1184,10 @@ a {
           box-shadow: 0px 3px 3px #9b9b9b;
 }
 
+main {
+  height: 100%;
+}
+
 #search_modal {
   display: none;
 }
@@ -2836,6 +2840,7 @@ a {
   text-align: center;
   background-color: white;
   vertical-align: middle;
+  overflow-y: scroll;
 }
 
 .util_fullscreen--small {
@@ -2849,6 +2854,60 @@ a {
   border-bottom: 1px solid #000;
   margin: 10px auto 15px auto;
   padding: 5px 0;
+}
+
+.util_fullscreen .userform_heading {
+  margin: 20px 0 10px 100px;
+  text-align: left;
+  text-decoration: underline;
+  color: #91c8c4;
+  font-weight: bold;
+}
+
+.util_fullscreen .userform_applied--table {
+  width: 550px;
+  margin: 0 auto;
+  border: 1px solid #91C9C4;
+}
+
+.util_fullscreen .userform_applied--table th {
+  padding: 5px;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+.util_fullscreen .userform_applied--table tr:first-child {
+  background-color: #91c8c4;
+  color: #fff;
+}
+
+.util_fullscreen .userform_agreement {
+  width: 500px;
+  height: 200px;
+  overflow-y: scroll;
+  border: 1px solid #000;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.util_fullscreen .userform_agreement p {
+  text-align: left;
+}
+
+.util_fullscreen .userform_check {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.util_fullscreen .userform_check p {
+  margin-left: 10px;
 }
 
 .util_fullscreen .userform_text {
@@ -2886,6 +2945,10 @@ a {
   padding-left: 8px;
   background-color: #EBEDF1;
   border: transparent;
+}
+
+.util_fullscreen .userform_text .box-white {
+  background-color: #fff !important;
 }
 
 .util_fullscreen .userform_text i {
@@ -2944,6 +3007,44 @@ a {
 
 .input-invalid {
   border: 1px solid #f50000 !important;
+}
+
+.done {
+  height: 50vh;
+  margin: 70px 50px;
+}
+
+.done_title {
+  width: 600px;
+  color: #52A49A;
+  font-size: 36px;
+  border-bottom: 1px solid #000;
+  margin: 10px auto 40px auto;
+  padding-bottom: 5px;
+  padding-top: 30px;
+}
+
+.done_body {
+  margin-bottom: 50px;
+}
+
+.done_button {
+  width: 180px;
+  height: 40px;
+  color: white;
+  background-color: #91C9C4;
+  margin: 30px auto 20px auto;
+  padding: 10px;
+  font-size: 24px;
+  border-style: none;
+  -webkit-box-shadow: 6px 2px 3px #c0c1c5;
+          box-shadow: 6px 2px 3px #c0c1c5;
+}
+
+.done_link {
+  color: #52A49A;
+  border-bottom: 0.5px solid;
+  font-size: 18px;
 }
 
 .util_warning_title {

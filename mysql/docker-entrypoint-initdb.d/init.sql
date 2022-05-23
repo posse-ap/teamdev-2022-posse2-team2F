@@ -115,7 +115,8 @@ CREATE TABLE students_contact (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    phone INT NOT NULL,
+    -- phone は int だと足りない、bigint だと最初の0が消えちゃう
+    phone VARCHAR(255) NOT NULL,
     university VARCHAR(255) NOT NULL,
     faculty VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
