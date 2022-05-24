@@ -94,7 +94,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
               // ここからまとめて申し込み
               if(isset($_POST['apply_id'])){
                 if(isset($_POST['apply_tag']) && is_array($_POST['apply_tag'])){
-                  // $_SESSION['tag_id'] = $_POST['apply_tag'];
+                  $_SESSION['tag_id'] = $_POST['apply_tag'];
 
                   foreach ($_POST['apply_tag'] as $tag_id) {
                     $stmt = $db->query("SELECT * FROM agents WHERE id = '$tag_id'");
