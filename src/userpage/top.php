@@ -1,10 +1,42 @@
 <?php
 require('../dbconnect.php');
 
+//agent自動更新
+// 画像 & エージェント名表示用
+$stmt = $db->query("SELECT * FROM agents");
+$agent_results = $stmt->fetchAll();
+
+//現在時刻の取得
+$now = time();
+//掲載期間超えているエージェントは自動的に非表示に
+foreach ($agent_results as $rlt) {
+  $id = $rlt['id'];
+  $end_time = strtotime($rlt['end_display']);
+  $start_time = strtotime($rlt['start_display']);
+  if ($now <= $start_time) {
+    //掲載前=2
+    $sql = "UPDATE agents
+          SET hide = 2
+          WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id));
+  } elseif ($now >= $end_time) {
+    //掲載後=3
+    $sql = "UPDATE agents
+          SET hide = 3
+          WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id));
+  }
+}
+?>
+<?php
 // 既存データの表示
 $stmt = $db->query("SELECT * FROM agents WHERE hide = 0");
 $results = $stmt->fetchAll();
 $count = $stmt->rowCount();
+
+
 ?>
 <?php
 // タグ表示
@@ -14,7 +46,8 @@ $stmt = $db->query('SELECT * FROM tag_categories');
 
 $categories = $stmt->fetchAll();
 
-
+//現在時刻の取得
+$now = time();
 
 ?>
 <?php
@@ -110,6 +143,7 @@ $categories = $stmt->fetchAll();
   <div class="top_container_agents">
 
     <?php foreach ($results as $result) : ?>
+      <!-- 始まりと終わりの時間確認 -->
       <div class="top_container_agents--all">
         <div class="top_container_agents--all__text">
 

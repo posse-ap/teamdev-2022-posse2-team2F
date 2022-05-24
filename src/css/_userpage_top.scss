@@ -83,7 +83,7 @@ main{
     }
   }
   .search-button{
-    width: 20vw;
+    width: 288px;
     height: 40px;
     border-radius: 29px;
     background-color: #F3AF56;
@@ -434,11 +434,11 @@ main{
       font-weight: bold;
       height: 36px;
       border-radius: 23px;
-      width: 28vw;
+      width: 200px;
       font-size: 20px;
       margin: 0 auto;
       @include mb {
-        width: 45vw;
+        width: 130px;
         height: 28px;
       }
       }

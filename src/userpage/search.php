@@ -30,30 +30,31 @@ foreach ($categories as $category) {
     $cnt = count($selected);
     //タグの数が配列の数と同じかどうか
     if ($num == $cnt){
-      $stmt = $db->query("SELECT id FROM agents");
+      $stmt = $db->query("SELECT id FROM agents WHERE hide = 0");
       $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
       $counter++;
   }
     elseif ($cnt >= 2) {
       $split_tags = explode(',', $tags);
       foreach($split_tags as $split_tag){
-        $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$split_tag%'");
+        $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$split_tag%' AND hide = 0");
         $pre_result = $stmt->fetchALL(PDO::FETCH_COLUMN);
         $count = $stmt->rowCount();
         $result_ids = array_merge($result_ids, $pre_result);
       }
       $counter++;
     }elseif ($cnt == 1){
-      $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$selected[0]%'");
+      $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$selected[0]%' AND hide = 0");
       $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
       $counter++;
     }
   }
   $result_id = array_merge($result_id, $result_ids);
 }
-
+$overlap = $counter - 1;
 if($counter >= 2){
-  $id_results = array_unique(array_diff($result_id, array_keys(array_count_values($result_id), 1)));
+  //$counter個重複している要素を取り出す
+  $id_results = array_unique(array_diff($result_id, array_keys(array_count_values($result_id), $overlap)));
   // $id_results = array_filter(array_count_values($result_id), function($v){return --$v;});
 }elseif($counter == 1){
   $id_results = $result_id;

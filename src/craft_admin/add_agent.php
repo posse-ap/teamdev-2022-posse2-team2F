@@ -9,10 +9,8 @@ if (isset($_POST['submit'])) {
   $agent_tagname = $_POST['agent_tag'];
   $agent_tag = $_POST['tag_id'];
   $agent_info = $_POST['agent_info'];
-  if (isset($_POST['agent_display'])) {
-    // セレクトボックスで選択された値を受け取る
-    $agent_display = $_POST['agent_display'];
-  }
+  $start_display = $_POST['agent_display_start'];
+  $end_display = $_POST['agent_display_end'];
 
   // 画像更新
   $target_dir = "images/";
@@ -23,10 +21,10 @@ if (isset($_POST['submit'])) {
   // INSERT INTO文 は一回で書かないとだから、編集画面みたいに分けて書けない
   // 画像をアップロードして、さらに登録ボタンが押されたら SQL文を書く仕組みにした！ （どうせ画像の登録は必要になるから）
 
-  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_tagname, agent_info, agent_display, hide) 
-          VALUES (?, ?, ?, ?, ?, ?, 0)';
+  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_tagname, agent_info, start_display, end_display, hide) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, 0)';
   $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_tagname, $agent_info, $agent_display));
+  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_tagname, $agent_info, $start_display, $end_display));
 
   /* ここからタグ系の処理イメージ記述します */
   $tag_ids = $_POST['tag_id'];
@@ -69,6 +67,10 @@ $categories = $stmt->fetchAll();
 
 <body>
   <?php require('../_header.php'); ?>
+  <!-- ここでカレンダー読み込み -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
   <div class="util_container">
     <div class="util_sidebar">
       <div class="util_sidebar_button">
@@ -149,12 +151,25 @@ $categories = $stmt->fetchAll();
           </div>
           <div class="change_item dropdown">
             <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
-            <select class="change_item--select" name="agent_display">
-              <option value="1">1ヶ月</option>
-              <option value="3">3ヶ月</option>
-              <option value="6">6ヶ月</option>
-              <option value="12">12ヶ月</option>
-            </select>
+            <div class="dropdown_container">
+
+              <input type="text" id="start_display" name="agent_display_start" value="">
+              <p class="between"> 〜 </p>
+              <input type="text" name="agent_display_end" id="end_display"
+              value="">
+            </div>
+
+            <script>
+              const config = {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+              }
+              var start_calender = document.getElementById("start_display");
+              var fp = flatpickr(start_calender, config);
+
+              var end_calender = document.getElementById("end_display");
+              var fd = flatpickr(end_calender, config);
+            </script>
           </div>
           <input class="change_button" type="submit" value="追加" name="submit">
         </form>

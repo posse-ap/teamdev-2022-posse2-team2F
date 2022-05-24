@@ -93,7 +93,8 @@ CREATE TABLE agents (
     agent_tag VARCHAR(255) NOT NULL,
     agent_tagname VARCHAR(255) NOT NULL,
     agent_info VARCHAR(255) NOT NULL,
-    agent_display INT NOT NULL,
+    start_display TIMESTAMP NOT NULL,
+    end_display TIMESTAMP NOT NULL,
     hide INT NOT NULL
 );
 
@@ -105,7 +106,8 @@ SET
     agent_tag = '1,2,3',
     agent_tagname = 'ベンチャー、大手、ベンチャー',
     agent_info = 'はい！',
-    agent_display = 3,
+    start_display = '2022-05-24 00:00:00',
+    end_display = '2022-12-24 00:00:00',
     hide = 0;
 
 

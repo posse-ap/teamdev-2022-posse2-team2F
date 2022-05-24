@@ -79,7 +79,9 @@ header('Location: cart.php');
               <img src="../craft_admin/images/<?= $result['agent_pic'] ?>" alt=""/>
               <form action="cart.php" method="post">
                 <input type="hidden" name="delete_id" value="<?= $id; ?>">
-                <button type="submit" name="cart_delete" class="">お気に入りから削除</button>
+                <a href="/user/delete_cart.php?id=<?= $result['id']?>">
+                  お気に入りから削除
+              </a>
               </form>
             </div>
             <div class="favorite_ind_info">
@@ -106,6 +108,7 @@ header('Location: cart.php');
               <?php
                   $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
                   $student_num = $stmt->rowCount();
+                  $student_num = 30;
                   ?>
                   <?php
                   if($student_num >= 30){ ?>

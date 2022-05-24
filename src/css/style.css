@@ -770,8 +770,38 @@ a {
 }
 
 .change .dropdown {
-  width: 31vw;
+  width: 60vw;
   margin-bottom: 10px;
+}
+
+.change .dropdown_container {
+  width: 40vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 10px;
+}
+
+.change .dropdown_container p {
+  font-weight: bold;
+}
+
+.change .dropdown_container input {
+  padding: 2px 1px 2px 5px;
+  border-style: none;
+  width: 18vw;
+  height: 3.5vh;
+  background-color: #ebedf1;
+  border-radius: 1vh;
+  font-weight: 500;
+  text-align: center;
+  font-size: 1.3vw;
 }
 
 .change_button {
@@ -1267,7 +1297,7 @@ main {
 }
 
 .top_container .search-button {
-  width: 20vw;
+  width: 288px;
   height: 40px;
   border-radius: 29px;
   background-color: #F3AF56;
@@ -1752,7 +1782,7 @@ main {
     font-weight: bold;
     height: 36px;
     border-radius: 23px;
-    width: 28vw;
+    width: 200px;
     font-size: 20px;
     margin: 0 auto;
   }
@@ -1760,7 +1790,7 @@ main {
 
 @media screen and (max-width: 960px) and (max-width: 520px) {
   .top_container .search-buttons .search_modal_container--button {
-    width: 45vw;
+    width: 130px;
     height: 28px;
   }
 }
@@ -2383,8 +2413,8 @@ main {
 }
 
 .top_container_results--agents__agent--checkbox {
-  width: 1.5vw;
-  height: 220px;
+  width: 2vw;
+  height: 250px;
   background-color: #CFD1D3;
 }
 
@@ -2410,18 +2440,18 @@ main {
 .top_container_results--agents__agent--checkbox label::before {
   background-color: #fff;
   border-radius: 0%;
-  width: 1.0vw;
-  height: 1.0vw;
+  width: 1.5vw;
+  height: 1.5vw;
   top: 0.25vw;
   left: 0.25vw;
 }
 
 .top_container_results--agents__agent--checkbox label::after {
-  border-bottom: 0.2vw solid #52A49A;
-  border-left: 0.2vw solid #52A49A;
+  border-bottom: 0.3vw solid #52A49A;
+  border-left: 0.3vw solid #52A49A;
   opacity: 0;
-  height: 0.4vw;
-  width: 0.8vw;
+  height: 0.6vw;
+  width: 1.2vw;
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
   top: 0.4vw;
@@ -2429,13 +2459,13 @@ main {
 }
 
 .top_container_results--agents__agent--container {
-  width: 53.5vw;
-  height: 220px;
+  width: 53vw;
+  height: 250px;
   position: relative;
 }
 
 .top_container_results--agents__agent--container--name {
-  height: 20px;
+  height: 24px;
   width: 100%;
   background-color: #52A49A;
   display: -webkit-box;
@@ -2454,8 +2484,8 @@ main {
 }
 
 .top_container_results--agents__agent--container--info {
-  width: 53.5vw;
-  height: 180px;
+  width: 53vw;
+  height: 190px;
   background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2466,7 +2496,7 @@ main {
 }
 
 .top_container_results--agents__agent--container--info__img {
-  height: 180px;
+  height: 190px;
   width: 18vw;
 }
 
@@ -2475,12 +2505,12 @@ main {
   width: 16vw;
   -o-object-fit: contain;
      object-fit: contain;
-  margin: 10px 1vw;
+  margin: 25px 1vw 15px 1vw;
 }
 
 .top_container_results--agents__agent--container--info__right {
-  width: 35.5vw;
-  height: 180px;
+  width: 35vw;
+  height: 190px;
   margin-left: 10px;
   position: relative;
 }
@@ -2499,9 +2529,9 @@ main {
 }
 
 .top_container_results--agents__agent--container--info__right--tags p {
-  font-size: 14px;
+  font-size: 13px;
   margin: 3px 3px 3px 3px;
-  padding: 3px 8px;
+  padding: 2px 6px;
   border: 1px solid;
   border-radius: 15px;
   height: 16px;
@@ -2517,18 +2547,19 @@ main {
 }
 
 .top_container_results--agents__agent--container--info__right .student_numbers {
-  width: 115px;
+  width: 20px;
   height: 20px;
-  color: #d33f3f;
+  font-size: 20px;
+  color: #e65a33;
   font-weight: bold;
   position: absolute;
-  bottom: 10px;
-  right: 0vw;
+  top: 0px;
+  left: -18.5vw;
 }
 
 .top_container_results--agents__agent--container--buttons {
-  width: 53.5vw;
-  height: 20px;
+  width: 53vw;
+  height: 36px;
   background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2543,7 +2574,7 @@ main {
 
 .top_container_results--agents__agent--container--buttons .favorite_button {
   width: 18vw;
-  height: 20px;
+  height: 36px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2555,24 +2586,29 @@ main {
 .top_container_results--agents__agent--container--buttons .favorite_button .on {
   width: 110px;
   color: #6b6a6a;
+  height: 22px;
   font-size: 16px;
   font-weight: 500;
   position: relative;
-  top: -4px;
+  top: 4px;
   border: 1.5px solid #898989;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 14px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .top_container_results--agents__agent--container--buttons .favorite_button .on p {
   position: relative;
-  top: -16px;
+  top: 0px;
+  margin: 0;
 }
 
 .top_container_results--agents__agent--container--buttons .favorite_button .on .heart {
@@ -2581,25 +2617,30 @@ main {
 
 .top_container_results--agents__agent--container--buttons .favorite_button .off {
   width: 110px;
+  height: 22px;
   color: #6b6a6a;
   font-size: 16px;
   font-weight: 500;
   position: relative;
-  top: -4px;
+  top: 4px;
   border: 1.5px solid #898989;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 14px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .top_container_results--agents__agent--container--buttons .favorite_button .off p {
+  margin: 0;
   position: relative;
-  top: -16px;
+  top: 0px;
 }
 
 .top_container_results--agents__agent--container--buttons .favorite_button .off .heart {
@@ -2607,8 +2648,8 @@ main {
 }
 
 .top_container_results--agents__agent--container--buttons .otherbuttons {
-  width: 35.5vw;
-  height: 20px;
+  width: 35vw;
+  height: 36px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2617,10 +2658,10 @@ main {
 }
 
 .top_container_results--agents__agent--container--buttons .otherbuttons a {
-  width: 100px;
-  height: 22px;
-  border-radius: 12px;
-  font-size: 14px;
+  width: 120px;
+  height: 29px;
+  border-radius: 14px;
+  font-size: 16px;
   font-weight: 600;
   background-color: #52A49A;
   display: -webkit-box;
@@ -2633,17 +2674,17 @@ main {
       -ms-flex-align: center;
           align-items: center;
   position: relative;
-  top: -6px;
+  top: 0px;
   left: 2vw;
 }
 
 .top_container_results--agents__agent--container--buttons .otherbuttons input {
   border-style: none;
   color: white;
-  width: 100px;
-  height: 22px;
-  border-radius: 12px;
-  font-size: 14px;
+  width: 120px;
+  height: 29px;
+  border-radius: 14px;
+  font-size: 16px;
   font-weight: 600;
   background-color: #F3AF56;
   display: -webkit-box;
@@ -2656,7 +2697,7 @@ main {
       -ms-flex-align: center;
           align-items: center;
   position: relative;
-  top: -6px;
+  top: 0px;
   left: -2vw;
   cursor: pointer;
 }
@@ -3315,7 +3356,7 @@ main {
   margin: 0px 2vw 5px 2vw;
 }
 
-.favorite_container .favorite_list .favorite_ind_title button {
+.favorite_container .favorite_list .favorite_ind_title a {
   border-style: none;
   color: #fff;
   background-color: #CF7C7C;
@@ -3323,6 +3364,7 @@ main {
   border-radius: 10px;
   cursor: pointer;
   margin: 0px 4vw;
+  padding: 2px 5px;
   position: relative;
   top: -6px;
 }
