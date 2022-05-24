@@ -3,6 +3,11 @@ require('../dbconnect.php');
 
 session_start();
 
+if (isset($_SESSION['tag_id']) || isset($_SESSION['single_id']))
+{
+  session_unset();
+}
+
 $products = isset($_SESSION['products']) ? $_SESSION['products'] : [];
 
 $favorite_count = count($products);

@@ -521,14 +521,15 @@ if (isset($_POST["back"]) && $_POST["back"]) {
         $stmt->execute(array($_SESSION['student_name'], $_SESSION['student_email'], $_SESSION['student_phone'], $_SESSION['student_university'], $_SESSION['student_faculty'], $_SESSION['student_address'], $_SESSION['student_graduation']));
 
         // 続いて students_agent に学生が登録したエージェントの情報を入れる
-        $test_sql = $db->query("SELECT id FROM students_contact ORDER BY id DESC LIMIT 1");
-        $id = $test_sql->fetch();
+        $agent_sql = $db->query("SELECT id FROM students_contact ORDER BY id DESC LIMIT 1");
+        $id = $agent_sql->fetch();
 
         // 複数申し込みした場合のテーブル追加処理
         if(isset($_SESSION['tag_id']))
         {
           foreach ($_SESSION['tag_id'] as $tag_id) {
             $stmt = $db->query("SELECT * FROM agents WHERE id = '$tag_id'");
+            $email_use = $stmt->fetch();
             
             $results = $stmt->fetchAll();
             foreach($results as $result) 
@@ -537,14 +538,33 @@ if (isset($_POST["back"]) && $_POST["back"]) {
             $stmt = $db->prepare($sql);
             $stmt->execute(array($id['id'], $result['agent_name']));
 
+            // メールの送信先
+            // $to_before = array($emails['notify_email']);
+
+            
+            // $to = implode(",", $to_before);
+
+            var_dump($email[2]['notify_email']);
+
+            }
+
+
             $sql_email = "SELECT agent_users.notify_email, agent_users.agent_name FROM agent_users INNER JOIN agents ON agent_users.agent_name = agents.agent_name WHERE agent_users.agent_name = ?";
             $stmt = $db->prepare($sql_email);
-            $stmt->execute(array($result['agent_name']));
+            $stmt->execute(array($email_use['agent_name']));
             $email = $stmt->fetch();
 
-            // メールの送信先
-            $to = $email['notify_email'];
-            }
+
+
+
+            // $to = explode(",", $email['notify_email']);
+            var_dump($email['notify_email']);
+
+            // $to = implode(",", 
+            
+            // );
+
+
           }
         // 個別申し込みした場合
         } else {

@@ -78,9 +78,13 @@ if (isset($_POST['delete'])) {
             </div>
             <div class="info">
                 <form method="POST" action="students_info.php">
+                    <!-- 並び替え結果 -->
+                    <div class="table_cont">
+
+                    <div class="info_control">
 
                     <!-- 並び替え方法選択 -->
-                    <select name="sort">
+                    <select class="info_select" name="sort">
                         <?php
                         // POST を受け取る変数を初期化
                         $sort = '';
@@ -114,7 +118,10 @@ if (isset($_POST['delete'])) {
                     </select>
 
                     <!-- 並び替えボタン -->
-                    <input type="submit" name="sort_button" value="並び替える">
+                    <input class="info_button" type="submit" name="sort_button" value="並び替える">
+
+
+                    </div>
 
 
                     <!-- ここから並び替えの分岐 -->
@@ -132,9 +139,9 @@ if (isset($_POST['delete'])) {
                             $sort_sql = " ORDER BY phone ASC";
                         }
                         $_SESSION['sort'] = $sort_sql;
-                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL" . $_SESSION['sort'];
+                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $_SESSION['sort'];
                     } else {
-                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL ORDER BY phone ASC";
+                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id ORDER BY phone ASC";
                     }
 
                     // print_r($sql);
@@ -148,13 +155,13 @@ if (isset($_POST['delete'])) {
                     }
                     ?>
 
-                    <!-- 並び替え結果 -->
-                    <div class="table_container">
-                        <table border=1; style=border-collapse:collapse;>
+                    
+                        <table class="table" border=1; style=border-collapse:collapse;>
                             <tr>
                                 <th>
-
+                                    申し込みID
                                 </th>
+
                                 <th>
                                     名前
                                 </th>
@@ -184,7 +191,9 @@ if (isset($_POST['delete'])) {
                                 </th>
 
                                 <th>
-                                    申し込みエージェント
+                                    申し込み
+                                    <br>
+                                    エージェント
                                 </th>
 
                                 <th>

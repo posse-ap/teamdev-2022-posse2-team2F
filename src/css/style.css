@@ -1968,12 +1968,6 @@ main {
   }
 }
 
-.info {
-  padding: 20px;
-  height: 56vh;
-  overflow-y: scroll;
-}
-
 .no_match {
   width: 100vw;
   height: 82vh;
@@ -3068,6 +3062,57 @@ main {
   color: #CF7C7C;
   border-bottom: 0.5px solid;
   font-size: 18px;
+}
+
+.info {
+  padding: 20px;
+  height: 56vh;
+  overflow-y: scroll;
+}
+
+.info_control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+}
+
+.info_select {
+  height: 25px;
+}
+
+.info_button {
+  width: 90px;
+  height: 25px;
+  margin-left: 10px;
+  border-style: none;
+  font-size: 1vw;
+  -webkit-box-shadow: 0px 3px 3px #c4c4c4;
+  box-shadow: 0px 3px 3px #c4c4c4;
+  cursor: pointer;
+  background-color: #91c9c4;
+  color: white;
+}
+
+.info .table_cont {
+  padding: 0 2%;
+}
+
+.info .table_cont .table {
+  margin-top: 10px;
+}
+
+.info .table_cont .table th {
+  padding: 5px;
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.info .table_cont .table tr:first-child {
+  background-color: #91c8c4;
+  color: #fff;
 }
 
 .inquiries {
