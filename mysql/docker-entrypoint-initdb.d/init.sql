@@ -436,3 +436,36 @@ VALUES
     (1, 1),
     (2, 1),
     (3, 1);
+
+
+DROP TABLE IF EXISTS user_contact_form;
+
+CREATE TABLE user_contact_form (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(255) NOT NULL,
+    detail VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO 
+    user_contact_form (
+        name,
+        email,
+        phone,
+        detail
+    )
+VALUES
+    (
+        '山田太郎',
+        'taroyamada@gmail.com',
+        '11111111111',
+        'うわあああああああ'
+    ),
+    (
+        '金子夏蓮',
+        'careen@gmail.com',
+        '11111111111',
+        'うわあああああああ'
+    );
