@@ -94,10 +94,9 @@ if (isset($_POST["back"]) && $_POST["back"]) {
               // ここからまとめて申し込み
               if(isset($_POST['apply_id'])){
                 if(isset($_POST['apply_tag']) && is_array($_POST['apply_tag'])){
-                  $_SESSION['tag_id'] = $_POST['apply_tag'];
+                  // $_SESSION['tag_id'] = $_POST['apply_tag'];
 
-
-                  foreach ($_SESSION['tag_id'] as $tag_id) {
+                  foreach ($_POST['apply_tag'] as $tag_id) {
                     $stmt = $db->query("SELECT * FROM agents WHERE id = '$tag_id'");
                     $results = $stmt->fetchAll();
                   ?>
@@ -115,21 +114,23 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                 } 
               } elseif (!isset($_POST['apply_id']) && isset($_POST['apply_id_single'])) 
               {
-                $id = key($_POST['apply_id_single']); //$id には押された番号が入る
-                $_SESSION['single_id'] = $id;
+                $single_id = key($_POST['apply_id_single']); //$id には押された番号が入る
+                $_SESSION['single_id'] = $single_id;
+
+                $sql_single = "SELECT * FROM agents WHERE id = ?";
+                $stmt = $db->prepare($sql_single);
+                $stmt->execute(array($single_id));
+                $result_single = $stmt->fetch();
 
 
-                $stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
-                $results = $stmt->fetchAll();
-
-                foreach($results as $result){ ?>
+                ?>
                   
                   <tr>
-                    <th><?= $result['agent_name'] ?></th>
-                    <th><?= $result['agent_info'] ?></th>
+                    <th><?= $result_single['agent_name'] ?></th>
+                    <th><?= $result_single['agent_info'] ?></th>
                   </tr>
 
-            <?php } 
+            <?php 
               }
                 ?>
             </table>
@@ -238,7 +239,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
               return;
           } else if (!email_match.test(email.value)){
               e.preventDefault();
-              email.classList.add('input-invalid');
+              errMsgEmail.classList.add('form-invalid');
               errMsgEmail.textContent = 'メールアドレスの形式が不正です。';
           } else {
               errMsgEmail.textContent ='';
@@ -258,7 +259,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
               return;
           } else if (!phone_match.test(phone.value)){
               e.preventDefault();
-              phone.classList.add('input-invalid');
+              errMsgPhone.classList.add('form-invalid');
               errMsgPhone.textContent = '電話番号の形式が不正です。';
               return;
           } else {
@@ -333,7 +334,12 @@ if (isset($_POST["back"]) && $_POST["back"]) {
         }, false);
       </script>
 
-      <?php } else if ($mode == "confirm") { ?>
+      <?php } else if ($mode == "confirm") { 
+        
+
+        ?>
+
+
 
         
 
@@ -355,12 +361,16 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                 
               <?php 
               // ここからまとめて申し込み
-              if(isset($_SESSION['tag_id'])){
+              if(isset($_SESSION['tag_id']) && is_array($_SESSION['tag_id'])){
+
                 
                   foreach ($_SESSION['tag_id'] as $tag_id) {
                     $stmt = $db->query("SELECT * FROM agents WHERE id = '$tag_id'");
                     $results = $stmt->fetchAll();
+
+
                   ?>
+
 
                   <?php foreach($results as $result){ ?>
                     
@@ -374,21 +384,23 @@ if (isset($_POST["back"]) && $_POST["back"]) {
 
                     
                 }
-              } elseif (isset($_SESSION['single_id'])) 
+              } else
               {
+
                 $id = $_SESSION['single_id']; //$id には押された番号が入る
 
-                $stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
-                $results = $stmt->fetchAll();
 
-                foreach($results as $result){ ?>
+                $stmt = $db->query("SELECT * FROM agents WHERE id = '$id'");
+                $result = $stmt->fetch();
+
+              ?>
                   
                   <tr>
                     <th><?= $result['agent_name'] ?></th>
                     <th><?= $result['agent_info'] ?></th>
                   </tr>
 
-            <?php } 
+            <?php  
               
               }
 
@@ -561,7 +573,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
 
 
         // メール送信 - エージェント用
-        $to      = "agent1@agent1.com";
+        // $to      = "agent1@agent1.com";
         $subject = "学生の申し込みがありました";
         $message = "
 
@@ -610,7 +622,6 @@ if (isset($_POST["back"]) && $_POST["back"]) {
 
 
       <?php } 
-
 
       require('../_footer.php'); ?>
 
