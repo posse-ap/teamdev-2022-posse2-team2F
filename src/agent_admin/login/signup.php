@@ -8,7 +8,9 @@ $results = $stmt->fetchAll();
 
 
 if (isset($_POST['signup'])) {
-  $email = $_POST['email'];
+  $login_email = $_POST['login_email'];
+  $contract_email = $_POST['contract_email'];
+  $notify_email = $_POST['notify_email'];
   $password = sha1($_POST['password']);
   $password_conf = sha1($_POST['password_conf']);
   // $agent_name = $_POST['agent_name'];
@@ -20,14 +22,14 @@ if (isset($_POST['signup'])) {
   if ($password !== $password_conf) {
     echo 'パスワードが一致していません。';
   } else {
-    $sql = 'INSERT INTO agent_users(email, password, password_conf, agent_name)
-          VALUES(?, ?, ?, ?);
+    $sql = 'INSERT INTO agent_users(login_email, contract_email, notify_email, password, password_conf, agent_name)
+          VALUES(?, ?, ?, ?, ?, ?);
           ';
     $stmt = $db->prepare($sql);
-    $stmt->execute(array($email, $password, $password_conf, $agent_name));
+    $stmt->execute(array($login_email, $contract_email, $notify_email, $password, $password_conf, $agent_name));
     $stmt = null;
     $db = null;
-    header('Location: http://localhost/agent_admin/signup_done.php');
+    header('Location: http://localhost/agent_admin/login/signup_done.php');
     exit;
   }
 }
@@ -54,23 +56,31 @@ if (isset($_POST['signup'])) {
     <div class="util_fullscreen util_login">
       <h1 class="util_login_title">新規担当者登録</h1>
       <form action="" method="POST">
-        <div class="util_login_text agent_signup">
-          <label class="util_login_text--label" for="email">メールアドレス：</label>
-          <input class="util_login_text--box" type="email" name="email" required>
+        <div class="agent_signup">
+          <label class="agent_signup--label" for="login_email">ログイン用メールアドレス：</label>
+          <input class="agent_signup--input" type="email" name="login_email" required>
         </div>
-        <div class="util_login_text agent_signup">
-          <label class="util_login_text--label" for="password">パスワード：</label>
-          <input class="util_login_text--box" type="password" name="password" id="password" required>
+        <div class="agent_signup">
+          <label class="agent_signup--label" for="contract_email">契約用メールアドレス：</label>
+          <input class="agent_signup--input" type="email" name="contract_email" required>
+        </div>
+        <div class="agent_signup">
+          <label class="agent_signup--label" for="notify_email">通知用メールアドレス：</label>
+          <input class="agent_signup--input" type="email" name="notify_email" required>
+        </div>
+        <div class="agent_signup">
+          <label class="agent_signup--label" for="password">パスワード：</label>
+          <input class="agent_signup--input" type="password" name="password" id="password" required>
           <i class="fas fa-eye-slash" id="togglePassword"></i>
         </div>
-        <div class="util_login_text agent_signup">
-          <label class="util_login_text--label" for="password_conf">パスワード確認：</label>
-          <input class="util_login_text--box" type="password" name="password_conf" id="password_conf" required>
+        <div class="agent_signup">
+          <label class="agent_signup--label" for="password_conf">パスワード確認：</label>
+          <input class="agent_signup--input" type="password" name="password_conf" id="password_conf" required>
           <i class="fas fa-eye-slash" id="togglePassword_conf"></i>
         </div>
-        <div class="util_login_text agent_signup">
-          <label class="util_login_text--label" for="agent_name">所属エージェント：</label>
-          <select class="util_login_text--select" name="agent_name">
+        <div class="agent_signup">
+          <label class="agent_signup--label" for="agent_name">所属エージェント：</label>
+          <select class="agent_signup--select" name="agent_name">
             <?php foreach ($results as $result) : ?>
               <option value="<?= $result['agent_name']; ?>"><?= $result['agent_name']; ?></option>
               <!-- <option value="agent1">agent1</option>
@@ -87,7 +97,7 @@ if (isset($_POST['signup'])) {
           </select>
         </div>
         <div>
-          <input type="submit" name="signup" value="新規登録" class="util_fullscreen_button">
+          <input type="submit" name="signup" value="新規登録" class="util_login_button">
         </div>
       </form>
     </div>

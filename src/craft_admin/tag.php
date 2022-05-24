@@ -9,6 +9,54 @@ $stmt = $db->query("SELECT * FROM tag_categories");
 $categories = $stmt->fetchAll();
 
 
+// カテゴリー用
+// 表示する処理
+if (isset($_POST['show'])) {
+  $show = key($_POST['show']); 
+  // $_SESSION['id'] = key($_POST['show']); 
+
+  $sql = "UPDATE tag_categories
+          SET hide = 0
+          WHERE id = ?";
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($show));
+} 
+
+// 隠す処理
+if (isset($_POST['hide'])) {
+  $hide = key($_POST['hide']); 
+
+  $sql = "UPDATE tag_categories
+          SET hide = 1
+          WHERE id = ?";
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($hide));
+} 
+
+// オプション用
+// 表示する処理
+if (isset($_POST['show_option'])) {
+  $show_option = key($_POST['show_option']); 
+
+  $sql = "UPDATE tag_options
+          SET hide = 0
+          WHERE id = ?";
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($show_option));
+} 
+
+// 隠す処理
+if (isset($_POST['hide_option'])) {
+  $hide_option = key($_POST['hide_option']); 
+
+  $sql = "UPDATE tag_options
+          SET hide = 1
+          WHERE id = ?";
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($hide_option));
+} 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +71,8 @@ $categories = $stmt->fetchAll();
 </head>
 
 <body>
+
+<form action="" method="POST">
   <?php require('../_header.php'); ?>
   <div class="util_container">
     <div class="util_sidebar">
@@ -40,6 +90,10 @@ $categories = $stmt->fetchAll();
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+        <i class="fas fa-angle-right"></i>
+      </div>
+      <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
@@ -61,6 +115,7 @@ $categories = $stmt->fetchAll();
       <div class="tag-list">
         <div class="tag-list_labels">
           <div class="tag-list_labels--left">タグのカテゴリー名</div>
+          <div class="tag-list_labels--middle">表示状態</div>
           <div class="tag-list_labels--right">操作</div>
         </div>
 
@@ -69,12 +124,36 @@ $categories = $stmt->fetchAll();
           <div class="tag-categories_info">
             <p class="tag-categories_info--name"><?= $category['tag_category'] ?></p>
           </div>
+
+          <div class="tag-categories_display">
+            <?php 
+            // hide = 0 ： 表示されている
+            $sql = 'SELECT count(*) FROM tag_categories WHERE id = ? AND hide = 0';
+            $stmt = $db->prepare($sql);
+            $stmt->execute(array($category['id']));
+            $display = $stmt->fetch();
+            // 表示されているなら、隠すオプションを表示
+            if ($display[0] == 1) {
+            ?>
+            
+            <input type="submit" value="&#xf06e;" class="fas tag-categories_display--eye" name="hide[<?= $category['id'] ?>]" >
+            
+            <!-- 表示されていないなら、見せるオプションを表示 -->
+            <?php } else { ?>
+
+            <input type="submit" value="&#xf070;" class="fas tag-categories_display--eye" name="show[<?= $category['id'] ?>]">
+
+            <?php } ?>
+              
+              
+          </div>
+
           <div class="tag-categories_buttons">
             <a href="./edit_tag_category.php?id=<?= $category['id'] ?>">
-              <button class="util_action_button util_action_button--edit">編集</button>
+              <button type="button" class="util_action_button util_action_button--edit">編集</button>
             </a>
-            <button class="util_action_button util_action_button--delete" onclick="deleteModal(<?= $category['id'] ?>)">削除</button>
-            <button class="util_action_button util_action_button--list" onclick="clickfunction(<?= $category['id'] ?>)">詳細</button>
+            <button type="button" class="util_action_button util_action_button--delete" onclick="deleteModal(<?= $category['id'] ?>)">削除</button>
+            <button type="button" name="more" class="util_action_button util_action_button--list" id="<?= $category['id'] ?>" onclick="clickfunction(<?= $category['id'] ?>)">詳細</button>
           </div>
           <!-- ここからmodal -->
           <div id="util_deletemodal<?= $category['id'] ?>" class="util_modalcont">
@@ -82,10 +161,10 @@ $categories = $stmt->fetchAll();
 
               <p class="util_deletemodal_alert">本当に削除しますか？</p>
               <div class="util_deletebuttons">
-                <button class="util_deletebuttons_item util_deletebuttons_item--no" onclick="closeFunction(<?= $category['id'] ?>)">いいえ</button>
-                <a href="./delete_tag.php?id=<?= $category['id'] ?>" style="text-decoration: none">
+                <button type="button" class="util_deletebuttons_item util_deletebuttons_item--no" onclick="closeFunction(<?= $category['id'] ?>)">いいえ</button>
+                <a href="./delete_tag_category.php?id=<?= $category['id'] ?>" style="text-decoration: none">
                   <!-- <button class="yes" onclick="deleteAgent()">はい -->
-                  <button class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction(<?= $category['id'] ?>)">はい
+                  <button type="button" class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction(<?= $category['id'] ?>)">はい
                   
                   </button>
                 </a>
@@ -120,6 +199,27 @@ $categories = $stmt->fetchAll();
                   <div class="tag-item_delete" onclick="deleteModal_option(<?= $tag['id'] ?>)" >
                     <i class="fas fa-trash"></i>
                   </div>
+                  <div class="tag-item_display">
+                    <?php 
+                    // hide = 0 ： 表示されている
+                    $sql = 'SELECT count(*) FROM tag_options WHERE id = ? AND hide = 0';
+                    $stmt = $db->prepare($sql);
+                    $stmt->execute(array($tag['id']));
+                    $display_options = $stmt->fetch();
+                    // 表示されているなら、隠すオプションを表示
+                    if ($display_options[0] == 1) {
+                    ?>
+                    
+                    <input type="submit" value="&#xf06e;" class="fas home-agents_display--eye" name="hide_option[<?= $tag['id'] ?>]" >
+                    
+                    
+                    <!-- 表示されていないなら、見せるオプションを表示 -->
+                    <?php } else { ?>
+
+                    <input type="submit" value="&#xf070;" class="fas home-agents_display--eye" name="show_option[<?= $tag['id'] ?>]">
+
+                    <?php } ?>
+                  </div>
                 </div>
               <!-- ここからオプション用の削除modal -->
               <div id="option_modal<?= $tag['id'] ?>" class="util_modalcont">
@@ -127,9 +227,9 @@ $categories = $stmt->fetchAll();
 
                   <p class="util_deletemodal_alert">本当に削除しますか？</p>
                   <div class="util_deletebuttons">
-                    <button class="util_deletebuttons_item util_deletebuttons_item--no" onclick="closeFunction_option(<?= $tag['id'] ?>)">いいえ</button>
+                    <button type="button" class="util_deletebuttons_item util_deletebuttons_item--no" onclick="closeFunction_option(<?= $tag['id'] ?>)">いいえ</button>
                     <a href="./delete_tag_option.php?id=<?= $tag['id'] ?>" style="text-decoration: none">
-                      <button class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction_option(<?= $tag['id'] ?>)">はい</button>
+                      <button type="button" class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction_option(<?= $tag['id'] ?>)">はい</button>
                     </a>
                   </div>
                 </div>
@@ -147,6 +247,8 @@ $categories = $stmt->fetchAll();
       </div>
     </div>
   </div>
+
+  </form>
 
 
 
@@ -224,7 +326,37 @@ let deleteFunction_option = function (id) {
           modalClose();
     }
 
+    // リロードした時詳細ページを押したままにする
+    <?php if (isset($_POST['show_option'])) { ?>
+
+    $(window).load(function() { 
+      $('button[name="more"]').click(function(event){
+        // クリックした要素の id を "id" に保存
+        localStorage.setItem("id", event.target.id);
+      });
+      // 詳細ページを出す clickfunction の引数に保存された id を代入
+      clickfunction(localStorage.getItem("id"));
+    });
+
+    <?php } ?>
+
+
+    <?php if (isset($_POST['hide_option'])) { ?>
+
+      $(window).load(function() { 
+      $('button[name="more"]').click(function(event){
+        // alert(event.target.id);
+        localStorage.setItem("id", event.target.id);
+      });
+      clickfunction(localStorage.getItem("id"));
+    });
+
+    <?php } ?>
+
+
+
 </script>
+
 
 <style>
   .none {

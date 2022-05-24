@@ -42,8 +42,8 @@ if (isset($_GET['id'])) {
         $tag_category = $_POST['tag_category'];
         $tag_category_desc = $_POST['tag_category_desc'];
 
-        $sql = 'INSERT INTO tag_categories(tag_category, tag_category_desc)
-                VALUES (?, ?)';
+        $sql = 'INSERT INTO tag_categories(tag_category, tag_category_desc, hide)
+                VALUES (?, ?, 0)';
         $stmt = $db->prepare($sql);
         $stmt->execute(array($tag_category, $tag_category_desc));
 
@@ -89,6 +89,10 @@ if (isset($_GET['id'])) {
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+        <i class="fas fa-angle-right"></i>
+      </div>
+      <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/invoice.php">合計請求金額確認</a>
         <i class="fas fa-angle-right"></i>
       </div>
@@ -112,11 +116,11 @@ if (isset($_GET['id'])) {
         <h1 class="changetag_title">タグのカテゴリーを編集</h1>
         <form action="" method="post" enctype="multipart/form-data">
           <div class="change_item">
-            <label class="change_item--label" for="tag_category">タグ名</label>
+            <label class="change_item--label" for="tag_category">カテゴリー名</label>
             <input class="change_item--input" type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required>
           </div>
           <div class="change_item">
-            <label class="change_item--label" for="tag_category_desc">タグの説明</label>
+            <label class="change_item--label" for="tag_category_desc">カテゴリーの説明</label>
             <textarea class="changetag_item--textarea" name="tag_category_desc"><?= $result['tag_category_desc'] ?></textarea>
           </div>
           <input type="submit" value="変更を保存" name="submit" class="changetag_button">

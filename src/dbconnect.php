@@ -1,4 +1,5 @@
 <?php
+// date_default_timezone_set('Asia/Tokyo');
 $dsn = 'mysql:host=db;dbname=shukatsu;charset=utf8;';
 $user = 'root';
 $password = 'password';

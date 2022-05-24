@@ -4,6 +4,30 @@ include('../_header.php');
 require('../dbconnect.php');
 ?>
 
+<?php
+
+// 削除機能について
+// isset post delete button
+// sql query update students_contact where id = ?
+// delete button が複数あるから、foreach で回す
+// どこかでやった気がする edit_agent.php
+
+
+// 削除関連
+if (isset($_POST['delete'])) {
+    $button = key($_POST['delete']); //$buttonには押された番号が入る
+
+    $sql = "UPDATE students_agent
+            SET deleted_at = CURRENT_TIMESTAMP 
+            WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($button));
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,6 +55,10 @@ require('../dbconnect.php');
             </div>
             <div class="util_sidebar_button util_sidebar_button--selected">
                 <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+                <i class="fas fa-angle-right"></i>
+            </div>
+            <div class="util_sidebar_button">
+                <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
@@ -79,6 +107,9 @@ require('../dbconnect.php');
                                 echo "<option value='$value'>" . $value . "</option>";
                             }
                         }
+
+
+
                         ?>
                     </select>
 
@@ -101,9 +132,9 @@ require('../dbconnect.php');
                             $sort_sql = " ORDER BY phone ASC";
                         }
                         $_SESSION['sort'] = $sort_sql;
-                        $sql = "SELECT students_agent.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id" . $_SESSION['sort'];
+                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL" . $_SESSION['sort'];
                     } else {
-                        $sql = "SELECT students_agent.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id ORDER BY phone ASC";
+                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL ORDER BY phone ASC";
                     }
 
                     // print_r($sql);
@@ -157,19 +188,27 @@ require('../dbconnect.php');
                                 </th>
                             </tr>
 
+
                             <?php
-                            foreach ($all_students_info as $student_info) {
+                            foreach ($all_students_info as $student_info) { ?>
+
+<!-- 
+                                <input type="hidden" name="hidden[<?= $student_info['id']; ?>]" value="削除">
+                                <input class='util_action_button util_action_button--list' type="submit" name="delete[<?= $student_info['id']; ?>]" value="delete"> -->
+
+                            <?
+
                                 echo "<tr>";
 
-                                echo "<th>";
+                                echo "<th name='id'>";
                                 echo $student_info['id'];
                                 echo "</th>";
 
-                                echo "<th>";
+                                echo "<th name='name'>";
                                 echo $student_info['name'];
                                 echo "</th>";
 
-                                echo "<th>";
+                                echo "<th name='email'>";
                                 echo $student_info['email'];
                                 echo "</th>";
 
@@ -203,22 +242,7 @@ require('../dbconnect.php');
 
                             echo "</div>";
 
-                            /*
-                        以下、コピペでわからなかったところ
-                        結果セットを解放？
-                        $all_students_info->free();
-
-                        データベース切断？
-                        $mysqli->close();
-                        $i = 0;
-                        foreach ($rows as $row) {
-                        
-                        データの破棄
-                        if (isset($_SESSION['sort'])) {
-                            session_destroy();
-                            unset($_SESSION['sort']);
-                        }
-                        */
+                    
                             ?>
                     </div>
                 </form>

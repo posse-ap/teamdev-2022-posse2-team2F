@@ -24,7 +24,7 @@ require('../../dbconnect.php');
       <h1 class="util_login_title util_login_title--long">パスワード再発行</h1>
       <div class="reset_done">
         <p class="reset_done_text">パスワード再発行が完了いたしました。</p>
-        <a class="util_fullscreen_link" href="./login.php">ログイン画面に戻る</a>
+        <a class="util_login_link" href="./login.php">ログイン画面に戻る</a>
       </div>
     </div>
   </div>

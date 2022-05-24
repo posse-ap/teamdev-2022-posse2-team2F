@@ -19,7 +19,7 @@
       color: #52A49A;
       font-size: 24px;
       border-bottom: 1px solid #000;
-      margin: 20px auto;
+      margin: 10px auto 15px auto;
       padding: 5px 0;
   
       // &--long {
@@ -35,7 +35,8 @@
       margin: 13px auto;
       position: relative;
 
-      span {
+
+      .required {
         color: #fff;
         background: #fb3b6f;
         display: inline-block;
@@ -44,6 +45,8 @@
         position: absolute;
         left: 35%;
       }
+
+    
 
       
       &--label{
@@ -54,9 +57,10 @@
   
       &--box{
         width: 300px;
-        height: 35px;
+        height: 33px;
+        padding-left: 8px;
         background-color: #EBEDF1;
-        border-style: none;
+        border: transparent;
       }
   
       i {
@@ -68,6 +72,7 @@
       &--select {
         width: 200px;
         height: 35px;
+        margin-right: 110px;
         background-color: #EBEDF1;
         border-style: none;
       }
@@ -90,7 +95,7 @@
       color: white;
       border-style: none;
       font-size: 15px;
-      margin-top: 10px;
+      margin-top: 17px;
       margin-bottom: 20px;
 
       &--left {
@@ -110,7 +115,29 @@
       font-size: 18px;
     }
 
+    form {
+      position: relative;
+    }
+    
+    form p {
+      margin: 0;
+    }
+
   }
 
+
+
   
+}
+
+
+
+.form-invalid {
+  color: #f50000;
+  font-size: 12px;
+  // padding-left: 12px;
+}
+
+.input-invalid {
+  border: 1px solid #f50000 !important;
 }

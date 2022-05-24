@@ -32,7 +32,7 @@ if (isset($_GET['id'])) {
           SET agent_name = ?, agent_tag = ?,agent_tagname = ?, agent_info = ?, agent_display = ?
           WHERE id = ?';
     $stmt = $db->prepare($sql);
-    $stmt->execute(array($agent_name, $agent_tag,$agent_tagname, $agent_info, $agent_display, $id));
+    $stmt->execute(array($agent_name, $agent_tag, $agent_tagname, $agent_info, $agent_display, $id));
 
     // 画像更新
     $target_dir = "images/";
@@ -50,24 +50,20 @@ if (isset($_GET['id'])) {
     }
 
 
-    // タグ関連の処理
+    // タグ関連の処理 （すでに入っているものをまず消して、その後新しく INSERT する）
 
     $delete_sql = "DELETE FROM agent_tag_options 
           WHERE agent_id = ?";
     $stmt = $db->prepare($delete_sql);
     $stmt->execute(array($id));
-    // $stmt->execute(array($id, $agent_id));
 
+    // タグの id を hidden の input から取得
     $tag_ids = $_POST['tag_id'];
+    // これらを、個別の値に分けていく（ "2, 3, 4" -> "2" "3" "4" ) 
     $split_ids = explode(',', $tag_ids);
 
-    
-
-    // $id_stmt = $db->query('SELECT id FROM agents ORDER BY id DESC LIMIT 1');
-    // $agent_id = $id_stmt->fetch();
-
+    // 分けたものを一つ一つ $tag_id として loop 処理する
     foreach ($split_ids as $index => $tag_id) {
-
       $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) 
             VALUES (?, ?)";
       $stmt = $db->prepare($sql);
@@ -78,9 +74,9 @@ if (isset($_GET['id'])) {
     exit;
   }
 
-// リンクに id がない場合、無効リンクページに飛ばす
+  // リンクに id がない場合、無効リンクページに飛ばす
 } else {
-  
+
   header('Location: warning.php');
 }
 
@@ -124,21 +120,31 @@ $categories = $stmt->fetchAll();
     <div class="util_sidebar">
       <div class="util_sidebar_button util_sidebar_button--selected">
         <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/home.php">エージェント管理</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href=/craft_admin/tag.php>タグ編集・追加</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+        <i class="fas fa-angle-right"></i>
+      </div>
+      <div class="util_sidebar_button">
+        <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/craft_admin/invoice.php">合計請求金額確認</a>
+        <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <i class="fas fa-angle-right"></i>
       </div>
     </div>
     <div class="util_content">
@@ -259,7 +265,7 @@ $categories = $stmt->fetchAll();
         <?php endforeach; ?>
         <div class="tag_modal_container--buttons">
           <button onclick="tag_modalClose()" type="button" class="tag_modalClose">戻る</button>
-          <button onclick="tag_modalClose()" type="button" id="confirm_button"  class="tag_decision">決定</button>
+          <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision">決定</button>
         </div>
 
     </form>
