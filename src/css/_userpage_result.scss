@@ -306,6 +306,7 @@ $mb: 520px;
               width: 35.5vw;
               height: 180px;
               margin-left: 10px;
+              position: relative;
               &--tags{
                 display: flex;
             flex-wrap: wrap;
@@ -323,6 +324,15 @@ $mb: 520px;
                   justify-content: center;
                   align-items: center;
                 }
+              }
+              .student_numbers{
+                width: 115px;
+                height: 20px;
+                color: #d33f3f;
+                font-weight: bold;
+                position: absolute;
+                bottom: 10px;
+                right: 0vw;
               }
             }
           }

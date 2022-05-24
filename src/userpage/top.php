@@ -35,9 +35,32 @@ $categories = $stmt->fetchAll();
         <h4>詳細条件で比較</h4>
         <?php foreach ($categories as $category) : ?>
           <div class="search_modal_container--tag">
-            <h3>
-              <?= $category['tag_category'] ?>
-            </h3>
+            <div class="tag_category">
+
+              <div class="category_info" id="<?= 'div' . $category['id'] ?>">
+                <?= $category['tag_category_desc'] ?>
+              </div>
+              <h3>
+                <?= $category['tag_category'] ?>
+              </h3>
+              <p class="question" id="<?= 'button' . $category['id'] ?>">?</p>
+              <p class="question_delete" id="<?= 'button_delete' . $category['id'] ?>">?</p>
+              <script>
+                  // var elem = document.getElementById('<?= 'button' . $category['id']?>');
+                  // var elem_delete = document.getElementById('<?= 'button_delete' . $category['id']?>');
+                document.getElementById('<?= 'button' . $category['id']?>').addEventListener("click", function(){
+                  document.getElementById('<?= 'div' . $category['id']?>').style.display = "block";
+                  document.getElementById('<?= 'button' . $category['id']?>').style.display = "none";
+                  document.getElementById('<?= 'button_delete' . $category['id']?>').style.display = "block";
+                });
+
+                document.getElementById('<?= 'button_delete' . $category['id']?>').addEventListener("click", function(){
+                  document.getElementById('<?= 'div' . $category['id']?>').style.display = "none";
+                  document.getElementById('<?= 'button' . $category['id']?>').style.display = "block";
+                  document.getElementById('<?= 'button_delete' . $category['id']?>').style.display = "none";
+                });
+              </script>
+            </div>
             <?php
             $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
 
@@ -61,7 +84,7 @@ $categories = $stmt->fetchAll();
               <?php foreach ($tags as $tag) : ?>
 
                 <input type="checkbox" name="tag[]" value="<?= $tag['tag_option'] ?>">
-                <input type="checkbox" value="<?= $tag['id'] ?>" name="<?='tag_' . $category['id'] . '[]' ?>" id="<?= $tag['id'] ?>">
+                <input type="checkbox" value="<?= $tag['id'] ?>" name="<?= 'tag_' . $category['id'] . '[]' ?>" id="<?= $tag['id'] ?>">
                 <label for="<?= $tag['id'] ?>">
 
                   <?= $tag['tag_option'] ?>
@@ -80,9 +103,9 @@ $categories = $stmt->fetchAll();
     </form>
 
   </div>
-  
+
   <div class="top_container_compare">
-    <?='全' . $count . '社を比較'?>
+    <?= '全' . $count . '社を比較' ?>
   </div>
   <div class="top_container_agents">
 
@@ -107,7 +130,7 @@ $categories = $stmt->fetchAll();
               $stmt = $db->query("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE agent_id = '$id'");
 
               $agent_tags = $stmt->fetchAll();
-              
+
               foreach ($agent_tags as $agent_tag) : ?>
                 <p style="color: <?= $agent_tag['tag_color'] ?>;"><?= $agent_tag['tag_option'] ?></p>
               <?php endforeach; ?>
@@ -133,7 +156,7 @@ $categories = $stmt->fetchAll();
     search_modal.style.display = "block";
   };
 
-  function responsive_modalOpen(){
+  function responsive_modalOpen() {
     search_modal.style.display = "block";
     overlay.style.display = "block";
   }

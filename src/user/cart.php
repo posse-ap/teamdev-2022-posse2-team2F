@@ -96,14 +96,32 @@ header('Location: cart.php');
                         
                         <?php endforeach; ?>
                       </div>
-              <?= $product['agent_info']?>
+              <div class="agent_info">
+
+                <?= $product['agent_info']?>
+              </div>
             </div>
             <div class="favorite_ind_buttons">
-              <div class="buttons">
+              <!-- 申し込んだ人数 -->
+              <?php
+                  $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
+                  $student_num = $stmt->rowCount();
+                  ?>
+                  <?php
+                  if($student_num >= 30){ ?>
+                  <div class="student_numbers">申込者<br>🔥多数🔥</div>
+
+                  <?php }elseif($student_num >= 10){ ?>
+                    <div class="student_numbers">🔥申込者急増！</div>
+
+                  <?php }else{ ?>
+                  <?php } ?>
+                  <!-- ここまで -->
+                  
 
                 <a href="">詳細を見る</a>
                 <input type="submit" value="申し込む">
-              </div>
+              
             </div>
               </div>
               <?php endforeach; ?>

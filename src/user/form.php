@@ -5,18 +5,6 @@ use LDAP\Result;
 require('../dbconnect.php');
 session_start();
 
-//ここからお気に入り削除
-// 削除用
-if(isset($_POST['cart_delete'])){
-  $delete_id = isset($_POST['delete_id'])? htmlspecialchars($_POST['delete_id'], ENT_QUOTES, 'utf-8') : '';
-  
-  // 削除
-  if ($delete_id != '') {
-    unset($_SESSION['products'][$delete_id]);
-  }
-  header('Location: cart.php');
-  }
-
 //ここからまとめて申し込み
 if(isset($_POST['apply_id'])){
   if(isset($_POST['apply_tag']) && is_array($_POST['apply_tag'])){

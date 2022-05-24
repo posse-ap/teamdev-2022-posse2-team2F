@@ -176,18 +176,19 @@ DROP TABLE IF EXISTS students_agent;
 CREATE TABLE students_agent (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     student_id INT NOT NULL,
+    agent_id INT NOT NULL,
     agent VARCHAR(255) NOT NULL,
     deleted_at DATETIME
 );
 
 INSERT INTO
-    students_agent (student_id, agent, deleted_at)
+    students_agent (student_id, agent_id, agent, deleted_at)
 VALUES
-    (1, 'agent1', NULL),
-    (2, 'agent2', NULL),
-    (2, 'agent1', NULL),
-    (3, 'agent1', NULL),
-    (4, 'agent2', NULL);
+    (1, 1, 'agent1', NULL),
+    (2, 2, 'agent2', NULL),
+    (2, 1, 'agent1', NULL),
+    (3, 1, 'agent1', NULL),
+    (4, 2, 'agent2', NULL);
 
 -- join するためのコード
 
