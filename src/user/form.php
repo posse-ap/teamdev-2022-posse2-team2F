@@ -258,6 +258,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
               return;
           } else if (!phone_match.test(phone.value)){
               e.preventDefault();
+              phone.classList.add('input-invalid');
               errMsgPhone.textContent = '電話番号の形式が不正です。';
               return;
           } else {
@@ -555,12 +556,12 @@ if (isset($_POST["back"]) && $_POST["back"]) {
 
         }
 
-        
-        
+
+
 
 
         // メール送信 - エージェント用
-        // $to      = "agent1@agent1.com";
+        $to      = "agent1@agent1.com";
         $subject = "学生の申し込みがありました";
         $message = "
 

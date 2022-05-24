@@ -1,9 +1,7 @@
 <?php
-session_start();
-include('../_header.php');
 require('../dbconnect.php');
 
-// 画像以外の更新
+
 if (isset($_POST['submit'])) {
 
   $content = $_POST['content'];
@@ -20,7 +18,14 @@ if (isset($_POST['submit'])) {
   exit;
 }
 
+
+
+session_start();
+include('../_header.php');
+
 ?>
+
+
 
 
 <div class="util_container">
