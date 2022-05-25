@@ -190,6 +190,7 @@ $categories = $stmt->fetchAll();
       window.addEventListener("scroll", checkOffset, false);
     });
   </script>
+  <div id="fullOverlay"></div>
   <div class="top_container">
     <div class="top_container_title">
       <h5>絞り込み結果</h5>
@@ -227,7 +228,7 @@ $categories = $stmt->fetchAll();
         });
       </script>
 
-
+      
       <div class="top_container_results">
         <div class="top_container_results--agents" id="checkbox_count">
 
@@ -241,146 +242,153 @@ $categories = $stmt->fetchAll();
               $end_time = strtotime($result['end_display']);
               $start_time = strtotime($result['start_display']);
               ?>
-                <div class="top_container_results--agents__agent">
-                  <div class="top_container_results--agents__agent--checkbox">
+              <div class="top_container_results--agents__agent">
+                <div class="top_container_results--agents__agent--checkbox">
 
-                    <input class="checks" type="checkbox" id="<?= $result['id'] ?>" value="<?= $result['id'] ?>" name="apply_tag[]">
-                    <label for="<?= $result['id'] ?>"></label>
+                  <input class="checks" type="checkbox" id="<?= $result['id'] ?>" value="<?= $result['id'] ?>" name="apply_tag[]">
+                  <label for="<?= $result['id'] ?>"></label>
+                </div>
+                <div class="top_container_results--agents__agent--container">
+
+                  <div class="top_container_results--agents__agent--container--name">
+                    <h4><?= $result['agent_name'] ?></h4>
                   </div>
-                  <div class="top_container_results--agents__agent--container">
 
-                    <div class="top_container_results--agents__agent--container--name">
-                      <h4><?= $result['agent_name'] ?></h4>
+                  <div class="top_container_results--agents__agent--container--info">
+                    <div class="top_container_results--agents__agent--container--info__img">
+
+                      <img src="../craft_admin/images/<?= $result['agent_pic'] ?>" alt="" />
                     </div>
+                    <div class="top_container_results--agents__agent--container--info__right">
+                      <div class="top_container_results--agents__agent--container--info__right--tags">
 
-                    <div class="top_container_results--agents__agent--container--info">
-                      <div class="top_container_results--agents__agent--container--info__img">
+                        <?php
+                        $id = $result['id'];
+                        $stmt = $db->query("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE agent_id = '$id'");
 
-                        <img src="../craft_admin/images/<?= $result['agent_pic'] ?>" alt="" />
+                        $agent_tags = $stmt->fetchAll();
+                        ?>
+                        <?php foreach ($agent_tags as $agent_tag) : ?>
+                          <p style="color: <?= $agent_tag['tag_color'] ?>;"><?= $agent_tag['tag_option'] ?></p>
+
+                        <?php endforeach; ?>
                       </div>
-                      <div class="top_container_results--agents__agent--container--info__right">
-                        <div class="top_container_results--agents__agent--container--info__right--tags">
+                      <div class="top_container_results--agents__agent--container--info__right--exp">
 
-                          <?php
-                          $id = $result['id'];
-                          $stmt = $db->query("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE agent_id = '$id'");
+                        <?= $result['agent_info'] ?>
+                      </div>
+                      <!-- 申し込んだ人数 -->
+                      <?php
+                      $agent_id = $result['id'];
+                      $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$agent_id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
+                      
+                      $student_num =
+                      $stmt->rowCount();
+                      ?>
+                      <?php
+                      if ($student_num >= 30) { ?>
+                        <div class="student_numbers">🔥</div>
 
-                          $agent_tags = $stmt->fetchAll();
-                          ?>
-                          <?php foreach ($agent_tags as $agent_tag) : ?>
-                            <p style="color: <?= $agent_tag['tag_color'] ?>;"><?= $agent_tag['tag_option'] ?></p>
+                      <?php } elseif ($student_num >= 10) { ?>
+                        <div class="student_numbers">⬆︎</div>
 
-                          <?php endforeach; ?>
-                        </div>
-                        <div class="top_container_results--agents__agent--container--info__right--exp">
+                      <?php } else { ?>
+                        <div class="student_numbers"></div>
+                      <?php } ?>
+                      <!-- ここまで -->
+                      <!-- ここから掲載日数 -->
 
-                          <?= $result['agent_info'] ?>
-                        </div>
-                        <!-- 申し込んだ人数 -->
-                        <?php
-                        $agent_id = $result['id'];
-                        $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$agent_id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
-                        $student_num = $stmt->rowCount();
-                        ?>
-                        <?php
-                        if ($student_num >= 30) { ?>
-                          <div class="student_numbers">🔥</div>
-
-                        <?php } elseif ($student_num >= 10) { ?>
-                          <div class="student_numbers">⬆︎</div>
-
-                        <?php } else { ?>
-                          <div class="student_numbers"></div>
-                        <?php } ?>
-                        <!-- ここまで -->
-                        <!-- ここから掲載日数 -->
-                        
-                        <?php 
-                        $last_time = floor(($end_time - $now)/ (60 * 60 * 24)); 
-                        ?>
-                        <?php 
-                        if ($last_time <= 30){?>
+                      <?php
+                      $last_time = floor(($end_time - $now) / (60 * 60 * 24));
+                      ?>
+                      <?php
+                      if ($last_time <= 30) { ?>
                         <div class="last_time">
-                          <?= "掲載終了まであと" . $last_time . "日!!" ?> 
+                          <?= "掲載終了まであと" . $last_time . "日!!" ?>
                         </div>
 
-                        <?php }else{ ?>
-                        <?php }?>
+                      <?php } else { ?>
+                      <?php } ?>
 
-
-                      </div>
 
                     </div>
-                    <div class="top_container_results--agents__agent--container--buttons">
-                      <div class="favorite_button">
-                        <?php if (empty($products)) { ?>
-                          <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>" ; class="on">
-                            <p class="heart">♡</p>
-                            <p>追加</p>
-                          </a>
-                        <?php
-                        } elseif ($products[$result['id']]['agent_id'] == $result['id']) {
-                        ?>
 
-                          <a href="/user/delete_result.php?id=<?= $result['id'] ?>" class="off">
-                            <p class="heart">♥</p>
-                            <p>解除</p>
-                          </a>
-                        <?php
-                        } else {
-                        ?>
-                          <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>" class="on">
-                            <p class="heart">♡</p>
-                            <p>追加</p>
-                          </a>
-                        <?php } ?>
-                      </div>
-                      <div class="otherbuttons">
+                  </div>
+                  <div class="top_container_results--agents__agent--container--buttons">
+                    <div class="favorite_button">
+                      <?php if (empty($products)) { ?>
+                        <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>" ; class="on">
+                          <p class="heart">♡</p>
+                          <p>追加</p>
+                        </a>
+                      <?php
+                      } elseif ($products[$result['id']]['agent_id'] == $result['id']) {
+                      ?>
 
-                        <a href="">詳細を見る</a>
-                        <input type="submit" value="申し込む">
-                      </div>
-                      <!-- <input type="hidden" name="agent_name" value="<?= $result['agent_name'] ?>">
+                        <a href="/user/delete_result.php?id=<?= $result['id'] ?>" class="off">
+                          <p class="heart">♥</p>
+                          <p>解除</p>
+                        </a>
+                      <?php
+                      } else {
+                      ?>
+                        <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>" class="on">
+                          <p class="heart">♡</p>
+                          <p>追加</p>
+                        </a>
+                      <?php } ?>
+                    </div>
+                    <div class="otherbuttons">
+
+                      <a href="">詳細を見る</a>
+                      <input type="submit" value="申し込む">
+                    </div>
+                    <!-- <input type="hidden" name="agent_name" value="<?= $result['agent_name'] ?>">
                       <input type="hidden" name="agent_info" value="<?= $result['agent_info'] ?>">
                       <input type="hidden" name="agent_tag" value="<?= $result['agent_tagname'] ?>">
                       <input type="submit" name="favorite" class="btn-sm btn-blue" value="お気に入り追加"> -->
 
-                    </div>
                   </div>
                 </div>
-              <?php endforeach; ?>
+              </div>
             <?php endforeach; ?>
-              </div>
+          <?php endforeach; ?>
+        </div>
 
-              <!-- トップに戻るボタン -->
-              <a href="#" class="gotop">トップへ</a>
-              <!-- ここからまとめて申し込み（下） -->
-              <div class="under_apply_modal" id="under_apply_modal">
-                <div class="under_overlay">
+        <!-- トップに戻るボタン -->
+        <a href="#" class="gotop">トップへ</a>
+        <!-- 条件変更ボタン -->
+        <div class="research_button" onclick="researchmodalOpen()">
+        <p>条件<br>変更</p>
+        </div>
+        <!-- ここからまとめて申し込み（下） -->
+        <div class="under_apply_modal" id="under_apply_modal">
+          <div class="under_overlay">
 
-                  <p>チェックしたエージェント</p>
-                  <p class="check_count"></p>
-                  <p>件をまとめて</p>
-                  <input type="submit" name="apply_id" value="申し込む" />
-                </div>
-              </div>
-              <script>
-                $(function() {
-                  $('input:checkbox').change(function() {
-                    var cnt = $('#checkbox_count input:checkbox:checked').length;
-                    if (cnt == 0) {
-                      $('#under_apply_modal').css("display", "none");
-                    } else {
-                      $('#under_apply_modal').css("display", "block");
-                    };
-                  });
-                });
-              </script>
+            <p>チェックしたエージェント</p>
+            <p class="check_count"></p>
+            <p>件をまとめて</p>
+            <input type="submit" name="apply_id" value="申し込む" />
+          </div>
+        </div>
+        <script>
+          $(function() {
+            $('input:checkbox').change(function() {
+              var cnt = $('#checkbox_count input:checkbox:checked').length;
+              if (cnt == 0) {
+                $('#under_apply_modal').css("display", "none");
+              } else {
+                $('#under_apply_modal').css("display", "block");
+              };
+            });
+          });
+        </script>
     </form>
 
     <form action="/userpage/search.php" method="POST">
-      <div class="top_container_results--research">
+      <div class="top_container_results--research" id="research_modal">
         <h4>条件を変更する</h4>
+        <h6>詳細条件で比較</h6>
         <div class="top_container_results--research__tags">
           <?php foreach ($categories as $category) : ?>
             <div class="top_container_results--research__tags--each">
@@ -444,6 +452,17 @@ $categories = $stmt->fetchAll();
   </div>
 
   </div>
+  <script>
+    const research_modal = document.getElementById('research_modal');
+
+    const overlay = document.getElementById('fullOverlay');
+
+    function researchmodalOpen() {
+      research_modal.style.display = "block";
+      overlay.style.display = "block";
+    }
+  </script>
+
 <?php } ?>
 
 <?php require('../_footer.php'); ?>

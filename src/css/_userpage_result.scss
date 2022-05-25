@@ -66,6 +66,11 @@ $mb: 520px;
       width: 500px;
       height: 70px;
       top: 20px;
+      @include mb {
+        width: 250px;
+        height: 50px;
+        top: 10px;
+      }
 
     }
     h5{
@@ -80,6 +85,11 @@ $mb: 520px;
         padding-bottom: 5px;
         margin: 0 auto 5px auto;
         border-bottom: 2px solid #000;
+        @include mb {
+          font-size: 20px;
+          height: 20px;
+          width: 150px;
+        }
       }
     }
     &--all{
@@ -99,11 +109,16 @@ $mb: 520px;
       @include tb {
         margin: 0 auto;
         width: 250px;
+        @include mb {
+          font-size: 15px;
+          top: 2px;
+        }
       }
     }
     .favorites{
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
       align-items: center;
       position: absolute;
       right: 1vw;
@@ -113,13 +128,32 @@ $mb: 520px;
       border: 1px solid #cf7c7c;
       border-radius: 20px;
       // background-color: #F3AF56;
+      @include tb {
+        background-color: #fff;
+        padding: 3px 12px;
+        right: -0vw;
+        top: 0px;
+        width: 100px;
+        border-radius: 14 px;
+        @include mb {
+          width: 250px;
+          top: 60px;
+        }
+      }
     
       p{
         margin: 5px;
         color: #cf7c7c;
+        @include tb {
+          font-size: 14px;
+          margin: 3px;
+        }
       }
       .favorite_count{
         margin: 5px 10px;
+        @include tb {
+          margin: 2px 5px;
+        }
       }
       .favorite{
         display: inline-block;
@@ -131,13 +165,25 @@ $mb: 520px;
         border-radius: 10px;
         background-color: #cf7c7c;
         cursor: pointer;
+        @include tb {
+          box-shadow: 0 2px 0 #cf7c7c;
+          padding: 3px 6px;
+          margin-left: 2px;
+          font-size: 13px;
+        }
         &:hover{
           box-shadow: none;
   transform: translateY(3px);
+  @include tb {
+    transform: translateY(2px);
+  }
         }
         &:active{
           box-shadow: none;
   transform: translateY(3px);
+  @include tb{
+    transform: translateY(2px);
+  }
         }
       }
     }
@@ -155,9 +201,16 @@ $mb: 520px;
     position: relative;
     @include tb{
       margin-top: 30px;
-      margin-left: 5vw;
+      margin-left: 10vw;
       flex-wrap: wrap;
-      width: 35vw;
+      justify-content: center;
+      width: 300px;
+      height: 45px;
+      @include mb {
+        
+        margin-top: 60px;
+        width: 250px;
+      }
     }
     &::before{
       content: "";
@@ -168,9 +221,9 @@ $mb: 520px;
   border: 15px solid transparent;
   border-top: 15px solid white;
   @include tb{
-
-    border: 10px solid transparent;
-    border-top: 20px solid white;
+    left: 10%;
+    border: 8px solid transparent;
+    border-top: 10px solid white;
   }
     }
 
@@ -182,17 +235,20 @@ $mb: 520px;
       left: 2vw;
       margin-right: 0.3vw;
       @include tb{
-        font-size: 16px;
+        font-size: 14px;
         margin: 0 0 0 0 ;
-        left: 2vw;
-        top: -12px;
+        top: 0px;
+        left: 0px;
+        @include mb {
+          font-size: 12px;
+        }
       }
     }
     .check_count{
       font-size: 30px;
       color: #52A49A;
       @include tb{
-        font-size: 20px;
+        font-size: 18px;
       }
     }
     input{
@@ -211,6 +267,15 @@ $mb: 520px;
       position: relative;
       top: -30px;
       left: 3vw;
+      @include tb {
+        width: 100px;
+        height: 20px;
+        left: 0px;
+        top: 0px;
+        @include mb {
+          width: 80px;
+        }
+      }
     }
   }
   &_results{
@@ -218,8 +283,18 @@ $mb: 520px;
     margin: 20px 6.5vw 0px 6.5vw;
     display: flex;
     justify-content: space-between;
+    @include tb {
+      width: 80vw;
+      margin: 10px 10vw 0px 10vw;
+      @include mb {
+        margin: 10px 10vw 0px 10vw;
+      }
+    }
     &--agents{
       width: 55vw;
+      @include tb {
+        width: 80vw;
+      }
       &__agent{
         width: 55vw;
         display: flex;
@@ -227,10 +302,28 @@ $mb: 520px;
         // box-shadow: 0px 8px 8px #c4c4c4;
         box-shadow: 0px 4px 4px rgb(149, 149, 149);
         margin-bottom: 20px;
+        @include tb {
+          width: 80vw;
+          margin-bottom: 10px;
+          @include mb {
+            display: block;
+          }
+        }
         &--checkbox{
           width: 2vw;
           height: 250px;
           background-color: #CFD1D3;
+          @include tb {
+            width: 3vw;
+            height: 220px;
+            @include mb {
+              width: 20px;
+              height: 20px;
+              position: absolute;
+              z-index: 1;
+              background-color: #52A49A;
+            }
+          }
           input{
             display: none;
             &:checked + label::after{
@@ -254,6 +347,18 @@ $mb: 520px;
   // transform: translateY(-50%);
   top: 0.25vw;
   left: 0.25vw;
+  @include tb {
+    width: 2.2vw;
+    height: 2.2vw;
+    top: 0.4vw;
+    left: 0.4vw;
+    @include mb {
+      width: 14px;
+      height: 14px;
+      top: 3px;
+      left: 6px;
+    }
+  }
           }
           &::after{
             border-bottom: 0.3vw solid #52A49A;
@@ -264,6 +369,22 @@ $mb: 520px;
   transform: rotate(-45deg);
   top: 0.4vw;
   left: 0.3vw;
+  @include tb {
+    width: 2vw;
+    height: 1vw;
+    top: 0.5vw;
+    left: 0.4vw;
+    border-bottom: 0.4vw solid #52A49A;
+    border-left: 0.4vw solid #52A49A;
+    @include mb {
+      width: 11px;
+      height: 5.5px;
+      top: 4px;
+      left: 7px;
+      border-bottom: 2.4px solid #52A49A;
+      border-left: 2.4px solid #52A49A;
+    }
+  }
           }
         }
         }
@@ -271,17 +392,32 @@ $mb: 520px;
           width: 53vw;
           height: 250px;
           position: relative;
+          @include tb {
+            width: 77vw;
+            height: 220px;
+            @include mb {
+              width: 80vw;
+              height: 300px;
+            }
+          }
           &--name{
             height: 24px;
             width: 100%;
             background-color: #52A49A;
             display: flex;
             align-items: center;
+            @include tb {
+              height: 20px;
+            }
             h4{
               font-size: 16px;
               color: white;
               margin: 0;
               padding: 0px 30px;
+              @include tb { 
+                font-size: 14px;
+                padding: 0px 40px;
+              }
               
             }
           }
@@ -292,14 +428,31 @@ $mb: 520px;
             background-color: white;
             display: flex;
             justify-content: space-between;
+            @include tb {
+              width: 77vw;
+              height: 180px;
+              @include mb {
+                width: 80vw;
+                height: 260px;
+                flex-wrap: wrap;
+              }
+            }
             &__img{
-              height: 190px;
+              height: 180px;
               width: 18vw;
+              @include mb {
+                height: 200px;
+                width: 40vw;
+              }
               img{
-                height: 160px;
+                height: 140px;
                 width: 16vw;
                 object-fit: contain;
                 margin: 25px 1vw 15px 1vw;
+                @include mb {
+                  margin: 25px 1vw 25px 1vw;
+                  width: 38vw;
+                }
               }
             }
             &__right{
@@ -307,12 +460,21 @@ $mb: 520px;
               height: 190px;
               margin-left: 10px;
               position: relative;
+              @include tb {
+                width: 59vw;
+                height: 180px;
+                @include mb {
+                  width: 40vw;
+                  height: 190px;
+                  margin: 0;
+                }
+              }
               &--tags{
                 display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            margin-top: 5px;
-            margin-bottom: 5px;
+                flex-wrap: wrap;
+                align-items: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
                 p{
                   font-size: 13px;
                   margin: 3px 3px 3px 3px;
@@ -344,11 +506,27 @@ $mb: 520px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            @include tb {
+              width: 77vw;
+              height: 20px;
+              @include mb {
+                width: 80vw;
+              }
+            }
             .favorite_button{
               width: 18vw;
               height: 36px;
               display: flex;
               justify-content: center;
+              @include tb {
+                height: 20px;
+                @include mb {
+                  position: absolute;
+                  top: 194px;
+                  left: 25%;
+                  transform: translateX(-50%);
+                }
+              }
               .on{
                 width: 110px;
                 color: #6b6a6a;
@@ -363,6 +541,11 @@ $mb: 520px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                @include tb {
+                  width: 100px;
+                  height: 18px;
+                  top: -5px;
+                }
                 p{
                   position: relative;
                   top: 0px;
@@ -386,6 +569,11 @@ $mb: 520px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                @include tb {
+                  width: 100px;
+                  height: 18px;
+                  top: -5px;
+                }
                 p{
                   margin: 0;
                   position: relative;
@@ -402,6 +590,13 @@ $mb: 520px;
               height: 36px;
               display: flex;
               justify-content: space-around;
+              @include tb {
+                width: 59vw;
+                height: 20px;
+                @include mb {
+                  width: 80vw;
+                }
+              }
               a{
                 width: 120px;
                 height: 29px;
@@ -415,6 +610,11 @@ $mb: 520px;
                 position: relative;
                 top: 0px;
                 left: 2vw;
+                @include tb {
+                  width: 120px;
+                  height: 24px;
+                  top: -7px;
+                }
   
               }
               input{
@@ -433,6 +633,11 @@ $mb: 520px;
                 top: 0px;
                 left: -2vw;
                 cursor: pointer;
+                @include tb {
+                  width: 120px;
+                  height: 24px;
+                  top: -7px;
+                }
               }
             }
             
@@ -453,21 +658,33 @@ $mb: 520px;
         margin: 0;
         z-index: 1;
         opacity: 0.8;
+        @include tb {
+          height: 40px;
+        }
         .under_overlay{
           width: 100%;
           height: 60px;
           display: flex;
         justify-content: center;
         align-items: center;
+        @include tb {
+          height: 40px;
+        }
           p{
             margin: 0;
             color: #fff;
             font-size: 18px;
+            @include tb {
+              font-size: 16px;
+            }
           }
           .check_count{
             color: #F3AF56;
             font-weight: bold;
             font-size: 30px;
+            @include tb {
+              font-size: 24px;
+            }
           }
           input{
             border-style: none;
@@ -493,6 +710,23 @@ $mb: 520px;
       background-color: white;
       box-shadow: 0px 4px 4px rgb(149, 149, 149);
       padding-bottom: 5px;
+      @include tb {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        -webkit-transform: translateY(-50%) translateX(-50%);
+        display: none;
+        z-index: 2;
+        position: fixed;
+        width: 60vw;
+        box-shadow: 0px 0px 0px;
+        border-radius: 20px;
+        @include mb {
+          width: 80vw;
+        }
+  
+      }
       h4{
         width: 100%;
         height: 30px;
@@ -504,6 +738,24 @@ $mb: 520px;
         background-color: white;
         box-shadow: 0px 4px 4px rgb(149, 149, 149);
         margin: 0 0 8px 0;
+        @include tb {
+          display: none;
+        }
+      }
+      h6{
+        display: none;
+        @include tb {
+          display: block;
+          font-size: 24px;
+          border-bottom: 1px solid #000;
+          width: 180px;
+          text-align: center;
+          margin: 20px auto;
+          @include mb {
+            font-size: 20px;
+            margin: 10px auto;
+          }
+        }
       }
       &__tags{
         background-color: white;
@@ -513,6 +765,9 @@ $mb: 520px;
             display: flex;
             align-items: center;
             flex-wrap: wrap;
+            @include tb {
+              justify-content: center;
+            }
 
             .category_info{
               width: 24vw;
@@ -521,6 +776,14 @@ $mb: 520px;
               background-color: #e0e0e0;
               display: none;
               // background-color: #52A49A;
+              @include tb {
+                width: 50vw;
+                margin: 0 auto 5px auto;
+                @include mb {
+                  width: 70vw;
+                  font-size: 14px;
+                }
+              }
 
             }
 
@@ -536,6 +799,13 @@ $mb: 520px;
               font-weight: lighter;
               font-size: 16px;
               text-align: start;
+              @include tb {
+                font-size: 18px;
+                @include mb {
+                  font-size: 16px;
+                }
+
+              }
             }
             .question{
               margin: 0;
@@ -581,6 +851,14 @@ $mb: 520px;
             align-items: center;
             justify-content: start;
             margin-left: 1vw;
+            @include tb {
+              width: 45vw;
+              margin: 0 auto;
+              justify-content: space-around;
+              @include mb {
+                width: 70vw;
+              }
+            }
             input{
               display: none;
           &:checked + label::after{
@@ -598,6 +876,9 @@ $mb: 520px;
             border: 0.8px solid rgb(163, 163, 163);
             border-radius: 8px;
             box-shadow: 0px 2px 2px rgb(200, 200, 200);
+            @include tb {
+              font-size: 16px;
+            }
           &::before,&::after{
             content: "";
             display: block; 
@@ -610,12 +891,12 @@ $mb: 520px;
 
           &::before{
             background-color: #fff;
-  border: 1px solid #000;
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-  border-radius: 6px;
-  left: 6px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            border-radius: 6px;
+            left: 6px;
 }
 &::after{
   // background-color: #52A49A;
@@ -649,6 +930,10 @@ $mb: 520px;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        @include tb {
+          width: 180px;
+          font-size: 14px;
+        }
       }
     }
   }
@@ -674,6 +959,9 @@ $mb: 520px;
     bottom: 70px;
     right: 20px;
     z-index: 10000;
+    @include tb {
+      display: none;
+    }
 }
 .gotop::before{
   content: "";
@@ -691,4 +979,38 @@ $mb: 520px;
 }
 .gotop:hover{
   opacity: 1;
+}
+
+.research_button{
+  display: none;
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  color: #52A49A;
+  font-weight: bold;
+  border-radius: 50%;
+  background-color: #fff;
+  position: fixed;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #a4a4a4;
+  @include tb {
+    display: block;
+    @include mb {
+      bottom: 25px;
+      right: 15px;
+    }
+  }
+  p{
+    margin: 0;
+    width: 60px;
+    height: 60px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
