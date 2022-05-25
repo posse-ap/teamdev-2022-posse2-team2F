@@ -529,38 +529,47 @@ if (isset($_POST["back"]) && $_POST["back"]) {
         {
           foreach ($_SESSION['tag_id'] as $tag_id) {
             $stmt = $db->query("SELECT * FROM agents WHERE id = '$tag_id'");
-            $email_use = $stmt->fetch();
+            // $email_use = $stmt->fetch();
             
             $results = $stmt->fetchAll();
+
             foreach($results as $result) 
             {
             $sql = "INSERT INTO students_agent(student_id, agent) VALUES (?, ?);";
             $stmt = $db->prepare($sql);
             $stmt->execute(array($id['id'], $result['agent_name']));
 
-            // メールの送信先
-            // $to_before = array($emails['notify_email']);
+            $sql_email = "SELECT agent_users.notify_email, agent_users.agent_name FROM agent_users INNER JOIN agents ON agent_users.agent_name = agents.agent_name WHERE agent_users.agent_name = ?";
+            $stmt = $db->prepare($sql_email);
+            $stmt->execute(array($result['agent_name']));
+            $email = $stmt->fetch();
 
-            
-            // $to = implode(",", $to_before);
+            $to      = $email['notify_email'];
+            $subject = "学生の申し込みがありました";
+            $message = "
 
-            var_dump($email[2]['notify_email']);
+            〇〇agent様
+
+
+            学生の新規申し込みがありました 
+            以下でご確認ください：
+            // リンク
+            -> apple  ";
+            // 文字列の中で変数を展開
+            // $moji = "apple"
+            // echo "${moji}"
+            // ${変数名}で展開されます
+            $headers = "From: craft@boozer.com";
+
+            mb_send_mail($to, $subject, $message, $headers);
+
 
             }
 
 
-            $sql_email = "SELECT agent_users.notify_email, agent_users.agent_name FROM agent_users INNER JOIN agents ON agent_users.agent_name = agents.agent_name WHERE agent_users.agent_name = ?";
-            $stmt = $db->prepare($sql_email);
-            $stmt->execute(array($email_use['agent_name']));
-            $email = $stmt->fetch();
 
 
-
-
-            // $to = explode(",", $email['notify_email']);
-            var_dump($email['notify_email']);
-
-            // $to = implode(",", 
+            
             
             // );
 
@@ -585,6 +594,21 @@ if (isset($_POST["back"]) && $_POST["back"]) {
 
           // メールの送信先
           $to = $email['notify_email'];
+          $subject = "学生の申し込みがありました";
+          $message = "
+
+          〇〇agent様
+
+          文字列の中で変数を展開
+
+          学生の新規申し込みがありました
+          以下でご確認ください：
+          // リンク
+          ";
+
+          $headers = "From: craft@boozer.com";
+
+          mb_send_mail($to, $subject, $message, $headers);
 
         }
 
@@ -592,21 +616,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
 
 
 
-        // メール送信 - エージェント用
-        // $to      = "agent1@agent1.com";
-        $subject = "学生の申し込みがありました";
-        $message = "
-
-        〇〇agent様
-
-        学生の新規申し込みがありました
-        以下でご確認ください：
-        // リンク
-        ";
-
-        $headers = "From: craft@boozer.com";
-
-        mb_send_mail($to, $subject, $message, $headers);
+        
 
         // メール送信 - 学生用
         // $to      = "student1@gmail.com";

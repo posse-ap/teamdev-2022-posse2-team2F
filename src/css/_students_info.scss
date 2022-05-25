@@ -1,11 +1,19 @@
 .info {
   padding: 20px;
-  height: 56vh;
+  margin: 0 auto;
+  height: 380px;
+  width: 100%;
+  box-sizing: border-box;
+
+
   overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-x: scroll;
+
 
   &_control {
     display: flex;
-    justify-content: end;
+    justify-content: start;
   }
 
   &_select {
@@ -27,17 +35,35 @@
   }
 
   .table_cont {
-    padding: 0 2%;
+    // padding: 0 3%;
     // border: 1px solid #91C9C4;
+    background-image: linear-gradient(to right, white, white),
+    linear-gradient(to right, white, white),
+    linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0)),
+    linear-gradient(to left, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0));
+    background-position: left center, right center, left center, right center;
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: 20px 100%, 20px 100%, 10px 100%, 10px 100%;
+    background-attachment: local, local, scroll, scroll;
+    max-width: 100%;
 
     .table {
 
+
+      width: 100%;
       margin-top: 10px;
 
       th {
         padding: 5px;
         font-weight: normal;
         font-size: 15px;
+        height: 20px;
+        white-space: nowrap;
+      }
+
+      tr {
+        white-space: nowrap;
       }
     
       tr:first-child {

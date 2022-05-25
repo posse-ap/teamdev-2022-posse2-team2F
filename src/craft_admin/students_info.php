@@ -159,7 +159,7 @@ if (isset($_POST['delete'])) {
                         <table class="table" border=1; style=border-collapse:collapse;>
                             <tr>
                                 <th>
-                                    申し込みID
+                                    申込ID
                                 </th>
 
                                 <th>
@@ -170,9 +170,9 @@ if (isset($_POST['delete'])) {
                                     メールアドレス
                                 </th>
 
-                                <th>
+                                <!-- <th>
                                     電話番号
-                                </th>
+                                </th> -->
 
                                 <th>
                                     大学
@@ -182,22 +182,24 @@ if (isset($_POST['delete'])) {
                                     学部・学科
                                 </th>
 
-                                <th>
+                                <!-- <th>
                                     住所
-                                </th>
+                                </th> -->
 
                                 <th>
                                     卒業年
                                 </th>
 
                                 <th>
-                                    申し込み
-                                    <br>
                                     エージェント
                                 </th>
 
                                 <th>
-                                    ステータス
+                                    状態
+                                </th>
+
+                                <th>
+                                    操作
                                 </th>
                             </tr>
 
@@ -225,9 +227,9 @@ if (isset($_POST['delete'])) {
                                 echo $student_info['email'];
                                 echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['phone'];
-                                echo "</th>";
+                                // echo "<th>";
+                                // echo $student_info['phone'];
+                                // echo "</th>";
 
                                 echo "<th>";
                                 echo $student_info['university'];
@@ -237,9 +239,9 @@ if (isset($_POST['delete'])) {
                                 echo $student_info['faculty'];
                                 echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['address'];
-                                echo "</th>";
+                                // echo "<th>";
+                                // echo $student_info['address'];
+                                // echo "</th>";
 
                                 echo "<th>";
                                 echo $student_info['grad_year'];
@@ -251,6 +253,16 @@ if (isset($_POST['delete'])) {
 
                                 echo "<th>";
                                 echo $student_info['status'];
+                                echo "</th>";
+
+                                echo "<th>";
+
+                                echo "<a class='util_action_button util_action_button--list' href='students_info_more.php?id=";
+                                echo $student_info['id'];
+                                echo "'> 詳細";
+                                echo "</a>";
+
+                                
                                 echo "</th>";
 
                                 echo "</tr>";

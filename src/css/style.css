@@ -1822,7 +1822,7 @@ main {
   width: 180px;
   height: 40px;
   color: white;
-  background-color: #91C9C4;
+  background-color: #52a49a;
   margin: 10px auto 20px auto;
   font-size: 24px;
   border-style: none;
@@ -1845,6 +1845,9 @@ main {
 }
 
 .invoice__table__title {
+  background: #52a49a;
+  /*背景色*/
+  color: #fff;
   text-align: center;
   font-size: 1.5em;
 }
@@ -1854,7 +1857,7 @@ main {
 }
 
 .invoice__table__big-item {
-  background: #91C9C4;
+  background: #52a49a;
   /*背景色*/
   padding: 1.5em;
   font-size: 1.2em;
@@ -3066,17 +3069,23 @@ main {
 
 .info {
   padding: 20px;
-  height: 56vh;
+  margin: 0 auto;
+  height: 380px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-x: scroll;
 }
 
 .info_control {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: end;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
 }
 
 .info_select {
@@ -3097,10 +3106,18 @@ main {
 }
 
 .info .table_cont {
-  padding: 0 2%;
+  background-image: -webkit-gradient(linear, left top, right top, from(white), to(white)), -webkit-gradient(linear, left top, right top, from(white), to(white)), -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.25)), to(rgba(255, 255, 255, 0))), -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 0.25)), to(rgba(255, 255, 255, 0)));
+  background-image: linear-gradient(to right, white, white), linear-gradient(to right, white, white), linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0)), linear-gradient(to left, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0));
+  background-position: left center, right center, left center, right center;
+  background-repeat: no-repeat;
+  background-color: white;
+  background-size: 20px 100%, 20px 100%, 10px 100%, 10px 100%;
+  background-attachment: local, local, scroll, scroll;
+  max-width: 100%;
 }
 
 .info .table_cont .table {
+  width: 100%;
   margin-top: 10px;
 }
 
@@ -3108,6 +3125,12 @@ main {
   padding: 5px;
   font-weight: normal;
   font-size: 15px;
+  height: 20px;
+  white-space: nowrap;
+}
+
+.info .table_cont .table tr {
+  white-space: nowrap;
 }
 
 .info .table_cont .table tr:first-child {
@@ -3178,6 +3201,36 @@ main {
   left: calc(50% - 4vw);
   -webkit-box-shadow: 0px 3px 3px #9b9b9b;
           box-shadow: 0px 3px 3px #9b9b9b;
+}
+
+.manageinquiries {
+  padding: 3% 5%;
+}
+
+.manageinquiries_table {
+  margin-top: 10px;
+}
+
+.manageinquiries_table th {
+  padding: 5px;
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.manageinquiries_table tr:first-child {
+  background-color: #91c8c4;
+  color: #fff;
+}
+
+.manageinquiries_table--control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+
+.manageinquiries_table--control .space_for_inquiries {
+  margin-right: 5px;
 }
 
 /*
