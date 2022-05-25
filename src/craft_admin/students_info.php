@@ -6,13 +6,6 @@ require('../dbconnect.php');
 
 <?php
 
-// 削除機能について
-// isset post delete button
-// sql query update students_contact where id = ?
-// delete button が複数あるから、foreach で回す
-// どこかでやった気がする edit_agent.php
-
-
 // 削除関連
 if (isset($_POST['delete'])) {
     $button = key($_POST['delete']); //$buttonには押された番号が入る
@@ -155,61 +148,23 @@ if (isset($_POST['delete'])) {
                     }
                     ?>
 
-                    
+                        <div class="cont_for_scroll">
                         <table class="table" border=1; style=border-collapse:collapse;>
                             <tr>
-                                <th>
-                                    申込ID
-                                </th>
-
-                                <th>
-                                    名前
-                                </th>
-
-                                <th>
-                                    メールアドレス
-                                </th>
-
-                                <!-- <th>
-                                    電話番号
-                                </th> -->
-
-                                <th>
-                                    大学
-                                </th>
-
-                                <th>
-                                    学部・学科
-                                </th>
-
-                                <!-- <th>
-                                    住所
-                                </th> -->
-
-                                <th>
-                                    卒業年
-                                </th>
-
-                                <th>
-                                    エージェント
-                                </th>
-
-                                <th>
-                                    状態
-                                </th>
-
-                                <th>
-                                    操作
-                                </th>
+                                <th>申込ID</th>
+                                <th>名前</th>
+                                <th>メールアドレス</th>
+                                <th>大学</th>
+                                <th>学部・学科</th>
+                                <th>卒業年</th>
+                                <th>エージェント</th>
+                                <th>状態</th>
+                                <th>操作</th>
                             </tr>
 
 
                             <?php
                             foreach ($all_students_info as $student_info) { ?>
-
-<!-- 
-                                <input type="hidden" name="hidden[<?= $student_info['id']; ?>]" value="削除">
-                                <input class='util_action_button util_action_button--list' type="submit" name="delete[<?= $student_info['id']; ?>]" value="delete"> -->
 
                             <?
 
@@ -257,7 +212,7 @@ if (isset($_POST['delete'])) {
 
                                 echo "<th>";
 
-                                echo "<a class='util_action_button util_action_button--list' href='students_info_more.php?id=";
+                                echo "<a class='util_action_button util_action_button--list center_list' href='students_info_more.php?id=";
                                 echo $student_info['id'];
                                 echo "'> 詳細";
                                 echo "</a>";
@@ -268,6 +223,8 @@ if (isset($_POST['delete'])) {
                                 echo "</tr>";
                             };
                             echo "</table>";
+
+                            echo "</div>";
 
                             echo "</div>";
 
