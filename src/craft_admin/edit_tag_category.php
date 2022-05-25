@@ -139,11 +139,11 @@ if (isset($_GET['id'])) {
         <h1 class="changetag_title">タグのカテゴリーを追加</h1>
         <form action="" method="post" enctype="multipart/form-data">
           <div class="change_item">
-            <label class="change_item--label" for="tag_category">タグ名</label>
+            <label class="change_item--label" for="tag_category">カテゴリー名</label>
             <input class="change_item--input" type="text" name="tag_category" required>
           </div>
           <div class="change_item">
-            <label class="change_item--label" for="tag_category_desc">タグの説明</label>
+            <label class="change_item--label" for="tag_category_desc">カテゴリーの説明</label>
             <textarea class="change_item--textarea" name="tag_category_desc"></textarea>
           </div>
           <input type="submit" value="変更を保存" name="submit" class="changetag_button">

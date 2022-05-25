@@ -115,7 +115,8 @@ CREATE TABLE students_contact (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    phone INT NOT NULL,
+    -- phone は int だと足りない、bigint だと最初の0が消えちゃう
+    phone VARCHAR(255) NOT NULL,
     university VARCHAR(255) NOT NULL,
     faculty VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
@@ -178,7 +179,8 @@ CREATE TABLE students_agent (
     student_id INT NOT NULL,
     agent_id INT NOT NULL,
     agent VARCHAR(255) NOT NULL,
-    deleted_at DATETIME
+    deleted_at DATETIME,
+    status VARCHAR(255) DEFAULT '有効' 
 );
 
 INSERT INTO
@@ -254,10 +256,11 @@ DROP TABLE IF EXISTS delete_student_application;
 
 CREATE TABLE delete_student_application (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  application_id INT NOT NULL,
+  application_id INT NOT NULL UNIQUE,
   agent_name VARCHAR(255) NOT NULL, 
   response VARCHAR(255) DEFAULT '未対応', 
   time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+--   display INT NOT NULL DEFAULT 1
 );
 
 INSERT INTO delete_student_application(application_id, agent_name)
@@ -296,3 +299,21 @@ INSERT INTO
     agent_password_reset(email, pass_token)
 VALUES
     ("test2@test.com", "test");
+
+
+
+-- お問合せ
+
+DROP TABLE IF EXISTS agent_inquiries;
+
+CREATE TABLE agent_inquiries (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    content VARCHAR(255) NOT NULL,
+    details VARCHAR(255) NOT NULL
+);
+
+INSERT INTO
+    agent_inquiries(content, details)
+VALUES
+    ("test", "test");
+

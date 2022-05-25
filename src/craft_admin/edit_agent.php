@@ -161,7 +161,7 @@ $categories = $stmt->fetchAll();
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_tag">エージェントタグ</label>
-            <input class="change_item--input" type="text" name="agent_tag" value="<?= $result['agent_tagname'] ?>" required onclick="tag_modalOpen()" id="input">
+            <input class="change_item--input" type="text" name="agent_tag" value="<?= $result['agent_tagname'] ?>" required readonly="readonly" onclick="tag_modalOpen()" id="input">
             <input type="hidden" id="showid" name="tag_id" value="<?= $result['agent_tag'] ?>">
           </div>
           <div class="change_item preview">
@@ -232,12 +232,12 @@ $categories = $stmt->fetchAll();
     });
   </script>
 
-  <div id="tag_modal" class="tag_modal">
+  <div id="tag_modal" class="tag_modal_container">
     <form action="" method="POST">
 
-      <div class="tag_modal_container">
+      <div class="tag_modal">
         <?php foreach ($categories as $category) : ?>
-          <div id="no<?= $category['id'] ?>" class="tag_modal_container--tag">
+          <div id="no<?= $category['id'] ?>" class="tag_modal_categories">
             <h2>
 
               <?= $category['tag_category'] ?>
@@ -250,7 +250,7 @@ $categories = $stmt->fetchAll();
 
             ?>
 
-            <div class="tag_modal_container--tag_tags">
+            <div class="tag_modal_tags">
               <?php foreach ($tags as $tag) : ?>
 
                 <input type="checkbox" name="tags" id="<?= $tag['id'] ?>" value="<?= $tag['tag_option'] ?>">
@@ -263,28 +263,35 @@ $categories = $stmt->fetchAll();
             </div>
           </div>
         <?php endforeach; ?>
-        <div class="tag_modal_container--buttons">
+        <div class="tag_modal_buttons">
           <button onclick="tag_modalClose()" type="button" class="tag_modalClose">戻る</button>
           <button onclick="tag_modalClose()" type="button" id="confirm_button" class="tag_decision">決定</button>
         </div>
 
     </form>
+
   </div>
+
+  
 
 
   <?php require('../_footer.php'); ?>
 
-  <script>
-    const tag_modal = document.getElementById('tag_modal');
+  <script type="text/javascript">
+    let tag_modal = document.getElementById('tag_modal');
 
     function tag_modalOpen() {
+
       tag_modal.style.display = 'block';
     }
 
     function tag_modalClose() {
+
       tag_modal.style.display = 'none';
     }
   </script>
+
+  
 </body>
 
 </html>

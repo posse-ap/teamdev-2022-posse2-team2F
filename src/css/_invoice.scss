@@ -11,7 +11,7 @@
     width: 180px;
     height: 40px;
     color: white;
-    background-color: #91C9C4;
+    background-color: #52a49a;
     margin: 10px auto 20px auto;
     font-size: 24px;
     border-style: none;
@@ -32,6 +32,8 @@
     }
 
 &__title{
+    background: #52a49a;/*背景色*/
+    color: #fff;
     text-align: center;
     font-size: 1.5em;
 }
@@ -40,7 +42,7 @@
     background: white;
 }
 &__big-item{
-    background: #91C9C4;/*背景色*/
+    background: #52a49a;/*背景色*/
     padding: 1.5em;
     font-size: 1.2em;
     & th{

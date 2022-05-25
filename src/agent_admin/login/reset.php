@@ -14,7 +14,7 @@ if (isset($_POST['reset'])) {
   } else {
     $sql = 'UPDATE agent_users
             SET password = ?, password_conf = ?
-            WHERE email = ?';
+            WHERE login_email = ?';
     $stmt = $db->prepare($sql);
     $stmt->execute(array($password, $password_conf, $email));
     $stmt = null;

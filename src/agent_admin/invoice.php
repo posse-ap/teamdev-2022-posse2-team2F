@@ -63,9 +63,11 @@ $sql_all_prepare = $db->prepare($sql_all);
 $sql_all_prepare->execute(array($_SESSION['agent_name'], $first_day, $last_day));
 $all_students_number = $sql_all_prepare->fetchAll();
 
-/*
-    削除依頼件数 わからない！
-*/
+// 削除依頼件数 わからない！
+$sql_applydelete = "SELECT count(*) FROM students_agent JOIN delete_student_application ON delete_student_application.application_id = students_agent.id JOIN students_contact ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND created_at BETWEEN ? AND ?";
+$sql_applydelete_prepare = $db->prepare($sql_applydelete);
+$sql_applydelete_prepare->execute(array($_SESSION['agent_name'], $first_day, $last_day));
+$all_applydelete_student = $sql_applydelete_prepare->fetch();
 
 // students_contact の合計 - students_contact_delete の合計
 $sql_deleted = "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND deleted_at IS NOT NULL AND created_at BETWEEN ? AND ?";
@@ -82,7 +84,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
-            <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報編集</a>
+            <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報管理</a>
             <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
@@ -150,14 +152,6 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                     明細概観
                 </th>
             </tr>
-            <tr class="invoice__table__big-item">
-                <th>
-                    合計申し込み件数
-                </th>
-                <th class="invoice__table__number">
-                    <?php print_r($all_valid_students[0][0]); ?>件
-                </th>
-            </tr>
             <tr>
                 <td>
                     請求件数
@@ -172,7 +166,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                 </td>
                 <td class="invoice__table__small-item invoice__table__number">
                     <?php
-                    print_r("?");
+                    print_r($all_applydelete_student[0]);
                     ?>件
                 </td>
             </tr>
@@ -188,6 +182,14 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             </tr>
             <tr class="invoice__table__big-item">
                 <th>
+                    合計申し込み件数
+                </th>
+                <th class="invoice__table__number">
+                    <?php print_r($all_valid_students[0][0]); ?>件
+                </th>
+            </tr>
+            <tr class="invoice__table__big-item">
+                <th>
                     ご請求金額合計
                 </th>
                 <th class="invoice__table__number">
@@ -200,3 +202,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
         </div>
     </div>
 </div>
+
+
+<?php require('../_footer.php'); ?>
+</body>

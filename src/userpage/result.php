@@ -3,6 +3,11 @@ require('../dbconnect.php');
 
 session_start();
 
+if (isset($_SESSION['tag_id']) || isset($_SESSION['single_id']))
+{
+  session_unset();
+}
+
 $products = isset($_SESSION['products']) ? $_SESSION['products'] : [];
 
 // var_dump($products);
@@ -176,6 +181,7 @@ window.addEventListener("load", function(){
 
   </div>
   <form action="/user/form.php" method="POST">
+  <!-- <form action="" method="POST"> -->
     <div class="apply_modal">
       <p>
         チェックしたエージェント
@@ -281,7 +287,7 @@ window.addEventListener("load", function(){
                 <div class="otherbuttons">
 
                   <a href="">詳細を見る</a>
-                  <input type="submit" value="申し込む">
+                  <input type="submit" name="apply_id_single[<?= $result['id'] ?>]" value="申し込む" >
                 </div>
                 <!-- <input type="hidden" name="agent_name" value="<?= $result['agent_name'] ?>">
         <input type="hidden" name="agent_info" value="<?= $result['agent_info'] ?>">

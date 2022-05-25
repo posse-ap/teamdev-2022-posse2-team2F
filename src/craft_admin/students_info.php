@@ -6,13 +6,6 @@ require('../dbconnect.php');
 
 <?php
 
-// 削除機能について
-// isset post delete button
-// sql query update students_contact where id = ?
-// delete button が複数あるから、foreach で回す
-// どこかでやった気がする edit_agent.php
-
-
 // 削除関連
 if (isset($_POST['delete'])) {
     $button = key($_POST['delete']); //$buttonには押された番号が入る
@@ -78,9 +71,13 @@ if (isset($_POST['delete'])) {
             </div>
             <div class="info">
                 <form method="POST" action="students_info.php">
+                    <!-- 並び替え結果 -->
+                    <div class="table_cont">
+
+                    <div class="info_control">
 
                     <!-- 並び替え方法選択 -->
-                    <select name="sort">
+                    <select class="info_select" name="sort">
                         <?php
                         // POST を受け取る変数を初期化
                         $sort = '';
@@ -114,7 +111,10 @@ if (isset($_POST['delete'])) {
                     </select>
 
                     <!-- 並び替えボタン -->
-                    <input type="submit" name="sort_button" value="並び替える">
+                    <input class="info_button" type="submit" name="sort_button" value="並び替える">
+
+
+                    </div>
 
 
                     <!-- ここから並び替えの分岐 -->
@@ -132,9 +132,9 @@ if (isset($_POST['delete'])) {
                             $sort_sql = " ORDER BY phone ASC";
                         }
                         $_SESSION['sort'] = $sort_sql;
-                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL" . $_SESSION['sort'];
+                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $_SESSION['sort'];
                     } else {
-                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL ORDER BY phone ASC";
+                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id ORDER BY phone ASC";
                     }
 
                     // print_r($sql);
@@ -148,53 +148,23 @@ if (isset($_POST['delete'])) {
                     }
                     ?>
 
-                    <!-- 並び替え結果 -->
-                    <div class="table_container">
-                        <table border=1; style=border-collapse:collapse;>
+                        <div class="cont_for_scroll">
+                        <table class="table" border=1; style=border-collapse:collapse;>
                             <tr>
-                                <th>
-
-                                </th>
-                                <th>
-                                    名前
-                                </th>
-
-                                <th>
-                                    メールアドレス
-                                </th>
-
-                                <th>
-                                    電話番号
-                                </th>
-
-                                <th>
-                                    大学
-                                </th>
-
-                                <th>
-                                    学部・学科
-                                </th>
-
-                                <th>
-                                    住所
-                                </th>
-
-                                <th>
-                                    卒業年
-                                </th>
-
-                                <th>
-                                    申し込みエージェント
-                                </th>
+                                <th>申込ID</th>
+                                <th>名前</th>
+                                <th>メールアドレス</th>
+                                <th>大学</th>
+                                <th>学部・学科</th>
+                                <th>卒業年</th>
+                                <th>エージェント</th>
+                                <th>状態</th>
+                                <th>操作</th>
                             </tr>
 
 
                             <?php
                             foreach ($all_students_info as $student_info) { ?>
-
-<!-- 
-                                <input type="hidden" name="hidden[<?= $student_info['id']; ?>]" value="削除">
-                                <input class='util_action_button util_action_button--list' type="submit" name="delete[<?= $student_info['id']; ?>]" value="delete"> -->
 
                             <?
 
@@ -212,9 +182,9 @@ if (isset($_POST['delete'])) {
                                 echo $student_info['email'];
                                 echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['phone'];
-                                echo "</th>";
+                                // echo "<th>";
+                                // echo $student_info['phone'];
+                                // echo "</th>";
 
                                 echo "<th>";
                                 echo $student_info['university'];
@@ -224,9 +194,9 @@ if (isset($_POST['delete'])) {
                                 echo $student_info['faculty'];
                                 echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['address'];
-                                echo "</th>";
+                                // echo "<th>";
+                                // echo $student_info['address'];
+                                // echo "</th>";
 
                                 echo "<th>";
                                 echo $student_info['grad_year'];
@@ -236,9 +206,25 @@ if (isset($_POST['delete'])) {
                                 echo $student_info['agent'];
                                 echo "</th>";
 
+                                echo "<th>";
+                                echo $student_info['status'];
+                                echo "</th>";
+
+                                echo "<th>";
+
+                                echo "<a class='util_action_button util_action_button--list center_list' href='students_info_more.php?id=";
+                                echo $student_info['id'];
+                                echo "'> 詳細";
+                                echo "</a>";
+
+                                
+                                echo "</th>";
+
                                 echo "</tr>";
                             };
                             echo "</table>";
+
+                            echo "</div>";
 
                             echo "</div>";
 
