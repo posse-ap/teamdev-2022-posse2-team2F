@@ -1742,6 +1742,7 @@ main {
 .top_container .search-buttons {
   width: 20vw;
   margin: 5px 10px;
+  text-align: center;
 }
 
 @media screen and (max-width: 960px) {
@@ -1767,8 +1768,6 @@ main {
   width: 200px;
   font-size: 20px;
   position: relative;
-  top: 20px;
-  left: 20px;
   cursor: pointer;
 }
 
@@ -2838,6 +2837,20 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.top_container_results--agents__agent--container--info__right--title {
+  color: #52A49A;
+}
+
+.top_container_results--agents__agent--container--info__right--points {
+  color: #000;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.top_container_results--agents__agent--container--info__right--points p {
+  margin: 0;
 }
 
 .top_container_results--agents__agent--container--info__right .student_numbers {
