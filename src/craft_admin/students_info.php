@@ -4,6 +4,23 @@ include('../_header.php');
 require('../dbconnect.php');
 ?>
 
+<?php
+
+// 削除関連
+if (isset($_POST['delete'])) {
+    $button = key($_POST['delete']); //$buttonには押された番号が入る
+
+    $sql = "UPDATE students_agent
+            SET deleted_at = CURRENT_TIMESTAMP 
+            WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($button));
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +51,10 @@ require('../dbconnect.php');
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
+                <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+                <i class="fas fa-angle-right"></i>
+            </div>
+            <div class="util_sidebar_button">
                 <a class="util_sidebar_link" href="/craft_admin/invoice.php">合計請求金額確認</a>
                 <i class="fas fa-angle-right"></i>
             </div>
@@ -50,9 +71,13 @@ require('../dbconnect.php');
             </div>
             <div class="info">
                 <form method="POST" action="students_info.php">
+                    <!-- 並び替え結果 -->
+                    <div class="table_cont">
+
+                    <div class="info_control">
 
                     <!-- 並び替え方法選択 -->
-                    <select name="sort">
+                    <select class="info_select" name="sort">
                         <?php
                         // POST を受け取る変数を初期化
                         $sort = '';
@@ -79,11 +104,17 @@ require('../dbconnect.php');
                                 echo "<option value='$value'>" . $value . "</option>";
                             }
                         }
+
+
+
                         ?>
                     </select>
 
                     <!-- 並び替えボタン -->
-                    <input type="submit" name="sort_button" value="並び替える">
+                    <input class="info_button" type="submit" name="sort_button" value="並び替える">
+
+
+                    </div>
 
 
                     <!-- ここから並び替えの分岐 -->
@@ -101,9 +132,9 @@ require('../dbconnect.php');
                             $sort_sql = " ORDER BY phone ASC";
                         }
                         $_SESSION['sort'] = $sort_sql;
-                        $sql = "SELECT students_agent.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id" . $_SESSION['sort'];
+                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $_SESSION['sort'];
                     } else {
-                        $sql = "SELECT students_agent.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id ORDER BY phone ASC";
+                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id ORDER BY phone ASC";
                     }
 
                     // print_r($sql);
@@ -117,65 +148,43 @@ require('../dbconnect.php');
                     }
                     ?>
 
-                    <!-- 並び替え結果 -->
-                    <div class="table_container">
-                        <table border=1; style=border-collapse:collapse;>
+                        <div class="cont_for_scroll">
+                        <table class="table" border=1; style=border-collapse:collapse;>
                             <tr>
-                                <th>
-
-                                </th>
-                                <th>
-                                    名前
-                                </th>
-
-                                <th>
-                                    メールアドレス
-                                </th>
-
-                                <th>
-                                    電話番号
-                                </th>
-
-                                <th>
-                                    大学
-                                </th>
-
-                                <th>
-                                    学部・学科
-                                </th>
-
-                                <th>
-                                    住所
-                                </th>
-
-                                <th>
-                                    卒業年
-                                </th>
-
-                                <th>
-                                    申し込みエージェント
-                                </th>
+                                <th>申込ID</th>
+                                <th>名前</th>
+                                <th>メールアドレス</th>
+                                <th>大学</th>
+                                <th>学部・学科</th>
+                                <th>卒業年</th>
+                                <th>エージェント</th>
+                                <th>状態</th>
+                                <th>操作</th>
                             </tr>
 
+
                             <?php
-                            foreach ($all_students_info as $student_info) {
+                            foreach ($all_students_info as $student_info) { ?>
+
+                            <?
+
                                 echo "<tr>";
 
-                                echo "<th>";
+                                echo "<th name='id'>";
                                 echo $student_info['id'];
                                 echo "</th>";
 
-                                echo "<th>";
+                                echo "<th name='name'>";
                                 echo $student_info['name'];
                                 echo "</th>";
 
-                                echo "<th>";
+                                echo "<th name='email'>";
                                 echo $student_info['email'];
                                 echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['phone'];
-                                echo "</th>";
+                                // echo "<th>";
+                                // echo $student_info['phone'];
+                                // echo "</th>";
 
                                 echo "<th>";
                                 echo $student_info['university'];
@@ -185,9 +194,9 @@ require('../dbconnect.php');
                                 echo $student_info['faculty'];
                                 echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['address'];
-                                echo "</th>";
+                                // echo "<th>";
+                                // echo $student_info['address'];
+                                // echo "</th>";
 
                                 echo "<th>";
                                 echo $student_info['grad_year'];
@@ -197,28 +206,29 @@ require('../dbconnect.php');
                                 echo $student_info['agent'];
                                 echo "</th>";
 
+                                echo "<th>";
+                                echo $student_info['status'];
+                                echo "</th>";
+
+                                echo "<th>";
+
+                                echo "<a class='util_action_button util_action_button--list center_list' href='students_info_more.php?id=";
+                                echo $student_info['id'];
+                                echo "'> 詳細";
+                                echo "</a>";
+
+                                
+                                echo "</th>";
+
                                 echo "</tr>";
                             };
                             echo "</table>";
 
                             echo "</div>";
 
-                            /*
-                        以下、コピペでわからなかったところ
-                        結果セットを解放？
-                        $all_students_info->free();
+                            echo "</div>";
 
-                        データベース切断？
-                        $mysqli->close();
-                        $i = 0;
-                        foreach ($rows as $row) {
-                        
-                        データの破棄
-                        if (isset($_SESSION['sort'])) {
-                            session_destroy();
-                            unset($_SESSION['sort']);
-                        }
-                        */
+                    
                             ?>
                     </div>
                 </form>

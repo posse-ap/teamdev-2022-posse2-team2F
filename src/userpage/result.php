@@ -3,26 +3,108 @@ require('../dbconnect.php');
 
 session_start();
 
+if (isset($_SESSION['tag_id']) || isset($_SESSION['single_id']))
+{
+  session_unset();
+}
+
 $products = isset($_SESSION['products']) ? $_SESSION['products'] : [];
+
+// var_dump($products);
 
 $favorite_count = count($products);
 ?>
-
 <?php
-error_reporting(0);
-if (isset($_POST['search'])) {
+//曖昧検索
+// error_reporting(0);
+// if (isset($_POST['search'])) {
 
-  if (isset($_POST['tag_id']) && is_array($_POST['tag_id'])) {
-    $search_tag = implode("%", $_POST['tag_id']);
-  } else {
-    header("Location: top.php");
-  }
-}
+//   if (isset($_POST['tag_id']) && is_array($_POST['tag_id'])) {
+//     $search_tag = implode("%", $_POST['tag_id']);
+//   } else {
+//     header("Location: top.php");
+//   }
+// }
 
-$stmt = $db->query("SELECT * FROM agents WHERE agent_tag LIKE '%$search_tag%'");
-$results = $stmt->fetchAll();
-$count = $stmt->rowCount();
+// $stmt = $db->query("SELECT * FROM agents WHERE agent_tag LIKE '%$search_tag%'");
+// $results = $stmt->fetchAll();
+// $count = $stmt->rowCount();
 
+?>
+<?php
+// $stmt = $db->query('SELECT category_id FROM tag_options');
+
+// $tag_options = $stmt->fetchAll();
+?>
+<?php
+//タグカテゴリーの表示
+// $stmt = $db->query('SELECT * FROM tag_categories');
+
+// $categories = $stmt->fetchAll();
+?>
+<?php
+// $result_id = array();
+// $counter = 0;
+// foreach ($categories as $category) {
+//   //当てはまったエージェントのid全て格納
+//   $result_ids = array();
+//   //タグの数が配列の数と同じかどうか
+//   $select_tag = "tag_" . $category['id'];
+//   $ids = $category['id'];
+//   $stmt = $db->query("SELECT category_id FROM tag_options WHERE category_id = $ids");
+//   $tag_search = $stmt->fetchAll();
+//   $num = $stmt->rowCount();
+  
+//   if (isset($_POST["$select_tag"]) && is_array($_POST["$select_tag"])){
+//     unset($_SESSION['search_id']);
+//     //配列の数カウント
+//     $selected = $_POST["$select_tag"];
+//     $tags = implode(',', $selected);
+//     $cnt = count($selected);
+//     //タグの数が配列の数と同じかどうか
+//     if ($num == $cnt){
+//       $stmt = $db->query("SELECT id FROM agents");
+//       $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
+//       $counter++;
+//   }
+//     elseif ($cnt >= 2) {
+//       $split_tags = explode(',', $tags);
+//       foreach($split_tags as $split_tag){
+//         $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$split_tag%'");
+//         $pre_result = $stmt->fetchALL(PDO::FETCH_COLUMN);
+//         $count = $stmt->rowCount();
+//         $result_ids = array_merge($result_ids, $pre_result);
+//       }
+//       $counter++;
+//     }elseif ($cnt == 1){
+//       $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$selected[0]%'");
+//       $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
+//       $counter++;
+//     }
+//   }else{
+//     $id_results = $_SESSION['search_id'];
+//   }
+//   $result_id = array_merge($result_id, $result_ids);
+// }
+
+// if($counter >= 2){
+//   $id_results = array_unique(array_diff($result_id, array_keys(array_count_values($result_id), 1)));
+//   // $id_results = array_filter(array_count_values($result_id), function($v){return --$v;});
+// }elseif($counter == 1){
+//   $id_results = $result_id;
+// }else{
+//   header("Location: top.php");
+// }
+// var_dump($id_results);
+
+// if(isset($_SESSION['search_id']) && is_array($_SESSION['search_id'])){
+// $id_results = $_SESSION['search_id'];
+// }
+  
+// var_dump($id_results);
+
+
+$count = count($_SESSION['search_id']);
 ?>
 <?php
 // $stmt = $db->query('SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id');
@@ -99,6 +181,7 @@ window.addEventListener("load", function(){
 
   </div>
   <form action="/user/form.php" method="POST">
+  <!-- <form action="" method="POST"> -->
     <div class="apply_modal">
       <p>
         チェックしたエージェント
@@ -125,7 +208,10 @@ window.addEventListener("load", function(){
       <div class="top_container_results--agents" id="checkbox_count">
 
         <?php
-        foreach ($results as $result) :
+        foreach ($_SESSION['search_id'] as $search_id) :
+          $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+          $results = $stmt->fetchAll();
+          foreach($results as $result):
         ?>
           <div class="top_container_results--agents__agent">
             <div class="top_container_results--agents__agent--checkbox">
@@ -162,28 +248,46 @@ window.addEventListener("load", function(){
 
                     <?= $result['agent_info'] ?>
                   </div>
+                  <!-- 申し込んだ人数 -->
+                  <?php
+                  $agent_id = $result['id'];
+                  $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$agent_id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
+                  $student_num = $stmt->rowCount();
+                  ?>
+                  <?php
+                  if($student_num >= 30){ ?>
+                  <div class="student_numbers">🔥申込者多数！</div>
+
+                  <?php }elseif($student_num >= 10){ ?>
+                    <div class="student_numbers">🔥申込者急増！</div>
+
+                  <?php }else{ ?>
+                    <div class="student_numbers"></div>
+                  <?php } ?>
+                  <!-- ここまで -->
 
                 </div>
 
               </div>
               <div class="top_container_results--agents__agent--container--buttons">
                 <div class="favorite_button">
-
+                  <?php if (empty($products)){ ?>
+                    <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>"  ; class="on"><p class="heart">♡</p><p>追加</p></a>
                   <?php
-                    if ($products[$result['id']]['agent_id'] == $result['agent_id']) {
+                    }elseif ($products[$result['id']]['agent_id'] == $result['id']) {
                     ?>
                       
-                      <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>"  class="on"><p class="heart">♡</p><p>追加</p></a>
+                      <a href="/user/delete_cart.php?id=<?=$result['id']?>" class="off"><p class="heart">♥</p><p>解除</p></a>
                     <?php
                     } else {
                     ?>
-                      <a href="/user/delete_cart.php?id=<?=$result['id']?>" class="off"><p class="heart">♥</p><p>解除</p></a>
+                      <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>"  class="on"><p class="heart">♡</p><p>追加</p></a>
                     <?php } ?>
                 </div>
                 <div class="otherbuttons">
 
                   <a href="">詳細を見る</a>
-                  <input type="submit" value="申し込む">
+                  <input type="submit" name="apply_id_single[<?= $result['id'] ?>]" value="申し込む" >
                 </div>
                 <!-- <input type="hidden" name="agent_name" value="<?= $result['agent_name'] ?>">
         <input type="hidden" name="agent_info" value="<?= $result['agent_info'] ?>">
@@ -193,6 +297,7 @@ window.addEventListener("load", function(){
               </div>
             </div>
           </div>
+        <?php endforeach; ?>
         <?php endforeach; ?>
       </div>
 
@@ -267,7 +372,7 @@ window.addEventListener("load", function(){
               <?php foreach ($tags as $tag) : ?>
 
                 <input type="checkbox" name="tag[]" value="<?= $tag['tag_option'] ?>">
-                <input type="checkbox" value="<?= $tag['id'] ?>" name="tag_id[]" id="<?= $tag['id'] . "1" ?>">
+                <input type="checkbox" value="<?= $tag['id'] ?>" name="<?= 'tag_' . $category['id'] . '[]' ?>" id="<?= $tag['id'] . "1" ?>">
                 <label for="<?= $tag['id'] . "1" ?>">
 
                   <?= $tag['tag_option'] ?>

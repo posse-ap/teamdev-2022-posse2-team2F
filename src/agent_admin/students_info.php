@@ -23,7 +23,7 @@ require('../dbconnect.php');
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
-                <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報編集</a>
+                <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報管理</a>
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
@@ -50,9 +50,11 @@ require('../dbconnect.php');
             <div class="info">
                 <form method="POST" action="students_info.php">
 
-                    <!-- <h2>検索結果</h2> -->
-
                     <!-- 並び替え方法選択 -->
+                    <div class="table_cont">
+
+                    <div class="info_control">
+
                     <select name="sort">
                         <?php
                         // POST を受け取る変数を初期化
@@ -86,6 +88,8 @@ require('../dbconnect.php');
                     <!-- 並び替えボタン -->
                     <input type="submit" name="sort_button" value="並び替える">
 
+                    </div>
+
 
                     <!-- ここから並び替えの分岐 -->
                     <?php
@@ -98,11 +102,15 @@ require('../dbconnect.php');
                             $sort_sql = " ";
                         }
                         $_SESSION['sort'] = $sort_sql;
-                        // $sql = "SELECT * FROM students_contact_all WHERE agent = ? " . $_SESSION['sort'];
-                        $sql = "SELECT students_contact_all.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE students_agent.agent = ?" . $_SESSION['sort'];
+                        // $sql = "SELECT * FROM students_contact WHERE agent = ? " . $_SESSION['sort'];
+                        // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ?" . $_SESSION['sort'];
+                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ?" . $_SESSION['sort'];
                     } else {
                         // $sql = "SELECT * FROM students_contact_all WHERE agent = ? ORDER BY phone ASC";
                         $sql = "SELECT students_contact_all.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE students_agent.agent = ?";
+                        // $sql = "SELECT * FROM students_contact WHERE agent = ? ORDER BY phone ASC";
+                        // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ? ORDER BY phone ASC";
+                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? ORDER BY phone ASC";
                     }
 
                     // print_r($sql);
@@ -116,43 +124,39 @@ require('../dbconnect.php');
                     }
                     ?>
 
+                    <!-- ここからmodal -->
+                    <!-- <div id="util_delete_application<?= $category['id'] ?>" class="util_modalcont">
+                        <div class="util_delete_application util_deletemodal">
+
+                            <p class="util_delete_application_alert util_deletemodal">学生情報削除申請</p>
+                            <div class="util_deletebuttons util_deletemodal">
+                                <button class="util_deletebuttons_item util_deletebuttons_item--no" onclick="closeFunction(<?= $category['id'] ?>)">キャンセル</button>
+                                <a href="./delete_tag.php?id=<?= $category['id'] ?>" style="text-decoration: none">
+                                    <button class="yes" onclick="deleteAgent()">はい 
+                                    <button class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction(<?= $category['id'] ?>)">送信
+
+                                    </button>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div> -->
+
+
                     <!-- 並び替え結果 -->
-                    <div class="table_container">
-                        <table border=1; style=border-collapse:collapse;>
+                    <div class="cont_for_scroll">
+                        <table class="table" border=1; style=border-collapse:collapse;>
                             <tr>
-                                <th></th>
-
-                                <th>
-                                    名前
-                                </th>
-
-                                <th>
-                                    メールアドレス
-                                </th>
-
-                                <th>
-                                    電話番号
-                                </th>
-
-                                <th>
-                                    大学
-                                </th>
-
-                                <th>
-                                    学部・学科
-                                </th>
-
-                                <th>
-                                    住所
-                                </th>
-
-                                <th>
-                                    卒業年
-                                </th>
-
-                                <th>
-                                    申し込みエージェント
-                                </th>
+                                <th>申込ID</th>
+                                <th>名前</th>
+                                <th>メールアドレス</th>
+                                <!-- <th>電話番号</th> -->
+                                <th>大学</th>
+                                <th>学部・学科</th>
+                                <!-- <th>住所</th> -->
+                                <th>卒業年</th>
+                                <th>状態</th>
+                                <th>詳細</th>
                             </tr>
 
                             <?php
@@ -171,9 +175,9 @@ require('../dbconnect.php');
                                 echo $student_info['email'];
                                 echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['phone'];
-                                echo "</th>";
+                                // echo "<th>";
+                                // echo $student_info['phone'];
+                                // echo "</th>";
 
                                 echo "<th>";
                                 echo $student_info['university'];
@@ -183,17 +187,22 @@ require('../dbconnect.php');
                                 echo $student_info['faculty'];
                                 echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['address'];
-                                echo "</th>";
+                                // echo "<th>";
+                                // echo $student_info['address'];
+                                // echo "</th>";
 
                                 echo "<th>";
                                 echo $student_info['grad_year'];
                                 echo "</th>";
 
                                 echo "<th>";
-                                echo $student_info['agent'];
+                                echo $student_info['status'];
                                 echo "</th>";
+
+                                echo "<th><a class='util_action_button util_action_button--list center_list' href='students_info_more.php?id=";
+                                echo $student_info['application_id'];
+                                echo "'> 詳細";
+                                echo "</a></th>";
 
                                 echo "</tr>";
                             };
@@ -201,25 +210,11 @@ require('../dbconnect.php');
 
                             echo "</div>";
 
-                            /*
-                            以下、コピペでわからなかったところ
-                            結果セットを解放？
-                            $all_students_info->free();
+                            echo "</div>";
 
-                            データベース切断？
-                            $mysqli->close();
-                            $i = 0;
-                            foreach ($rows as $row) {
-
-                            データの破棄？
-                            if (isset($_SESSION['sort'])) {
-                                session_destroy();
-                                unset($_SESSION['sort']);
-                            }
-                            */
                             ?>
+                </div>
                 </form>
-
             </div>
         </div>
     </div>

@@ -26,8 +26,10 @@ main{
 
 #fullOverlay{
   position: absolute;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
+  left: 0; 
+  top: 0;
+  width: 100%; 
+  height: 100%;
   background: rgba(97, 131, 129, 0.9);
   z-index: 1;
   position: fixed;
@@ -96,7 +98,7 @@ main{
       display: none;
 
       }
-    }
+  }
     .search-button_res{
       display: none;
       @include tb {
@@ -154,7 +156,7 @@ main{
       top: 15vh;
       left: 50%;
       transform: translateX(-50%);
-  -webkit-transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
       box-shadow: 0px 0px 0px rgb(203, 202, 202);
       width: 90vw;
       border-radius: 25px;
@@ -195,6 +197,7 @@ main{
     }
 
     &--tag{
+      width: 20vw;
       margin: 5px 10px;
       @include tb{
         width: 70vw;
@@ -203,19 +206,98 @@ main{
           width: 88vw;
         }
       }
-      h3{
-        font-weight: lighter;
-        font-size: 20px;
-        margin: 10px 0;
-        position: relative;
-        left: -50px;
-        @include tb {
-          font-weight: 300;
+      .tag_category{
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+          .category_info{
+            width: 20vw;
+            text-align: center;
+            background-color: #e0e0e0;
+            display: none;
+            @include tb {
+              width: 55vw;
+              margin: 0 auto;
+              @include mb {
+                width: 75vw;
+                font-size: 14px;
+
+              }
+            }
+          }
+        h3{
+          font-weight: lighter;
           font-size: 20px;
-          margin-bottom: 10px;
-          left: 0px;
-          @include mb {
-            font-size: 16px;
+          margin: 10px 0;
+          position: relative;
+          left: -20px;
+          @include tb {
+            font-weight: 300;
+            font-size: 20px;
+            margin-bottom: 10px;
+            left: 30px;
+            @include mb {
+              font-size: 16px;
+            }
+          }
+        }
+        .question{
+          margin: 0;
+          font-size: 18px;
+          width: 20px;
+          height: 20px;
+          // border: 1px solid #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          border-radius: 50%;
+          font-weight: bold;
+          color: #fff;
+          background-color: #52A49A;
+          margin-bottom: 0px;
+          border-style: none;
+          cursor: pointer;
+          display: block;
+          position: relative;
+          left: -16px;
+          @include tb{
+            left: 34px;
+            @include mb {
+              width: 16px;
+              height: 16px;
+              font-size: 14px;
+            }
+
+          }
+        }
+        .question_delete{
+          margin: 0;
+          font-size: 18px;
+          width: 20px;
+          height: 20px;
+          // border: 1px solid #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          border-radius: 50%;
+          font-weight: bold;
+          color: #fff;
+          background-color: #52A49A;
+          margin-bottom: 0px;
+          border-style: none;
+          cursor: pointer;
+          display: none;
+          position: relative;
+          left: -16px;
+          @include tb {
+            left: 34px;
+            @include mb {
+              width: 16px;
+              height: 16px;
+              font-size: 14px;
+            }
           }
         }
       }
@@ -269,9 +351,9 @@ main{
 
           &::before{
             background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 18px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 18px;
   height: 18px;
   left: -15px;
   @include tb{

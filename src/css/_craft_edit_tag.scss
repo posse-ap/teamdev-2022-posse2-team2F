@@ -97,51 +97,52 @@
 }
 
 
-#tag_modal {
-  max-width: 60vw;
-  min-width: 22vw;
-  max-height: 60vh;
-  overflow-x: scroll;
-  background-color: white;
-  z-index: 1;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateY(-50%) translateX(-50%);
-  -webkit-transform: translateY(-50%) translateX(-50%);
-  display: none;
-  .tag_modal_container {
-    max-width: 60vw;
-    min-width: 22vw;
-    max-height: 60vh;
-    overflow-x: scroll;
+// .tag_modal_container {
+//   max-width: 60vw;
+//   min-width: 22vw;
+//   max-height: 60vh;
+//   overflow-x: scroll;
+//   background-color: white;
+//   z-index: 1;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translateY(-50%) translateX(-50%);
+//   -webkit-transform: translateY(-50%) translateX(-50%);
+//   display: none;
 
-    .tag_modal_buttons {
-      width: 20vw;
-      display: flex;
-      justify-content: space-between;
-      position: absolute;
-      margin-bottom: 20px;
-      bottom: 0px;
-      left: 50%;
-      transform: translateX(-50%);
-      -webkit-transform: translateX(-50%);
-      button {
-        width: 8vw;
-        height: 5vh;
-        border-style: none;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .tag_modalClose {
-        background-color: #91c9c4;
-      }
+//   .tag_modal {
+//     max-width: 60vw;
+//     min-width: 22vw;
+//     max-height: 60vh;
+//     overflow-x: scroll;
 
-      .tag_decision {
-        background-color: #cf7c7c;
-      }
-    }
-  }
-}
+//     .tag_modal_buttons {
+//       width: 20vw;
+//       display: flex;
+//       justify-content: space-between;
+//       position: absolute;
+//       margin-bottom: 20px;
+//       bottom: 0px;
+//       left: 50%;
+//       transform: translateX(-50%);
+//       -webkit-transform: translateX(-50%);
+//       button {
+//         width: 8vw;
+//         height: 5vh;
+//         border-style: none;
+//         color: white;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//       }
+//       .tag_back {
+//         background-color: #91c9c4;
+//       }
+
+//       .tag_decision {
+//         background-color: #cf7c7c;
+//       }
+//     }
+//   }
+// }

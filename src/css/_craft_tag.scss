@@ -1,6 +1,6 @@
 .tag-list {
   width: 64vw;
-  // height: 64vh;
+  height: 60vh;
   border: 1px solid #91c9c4;
   position: absolute;
   left: calc(50% - 32vw);
@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     &--left {
-      width: 44.8vw;
+      width: 36vw;
       height: 30px;
       display: flex;
       justify-content: center;
@@ -22,8 +22,20 @@
       color: white;
       border-right: 1px solid #91c9c4;
     }
+
+    &--middle {
+      width: 8vw;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #52a49a;
+      color: white;
+      border-right: 1px solid #91c9c4;
+    }
+
     &--right {
-      width: 19.2vw;
+      width: 20vw;
       height: 30px;
       display: flex;
       justify-content: center;
@@ -38,7 +50,7 @@
   display: flex;
   overflow-x: scroll;
   &_info {
-    width: 44.8vw;
+    width: 36vw;
     height: 7vh;
     display: flex;
     align-items: center;
@@ -51,8 +63,27 @@
       margin-left: 5px;
     }
   }
+
+  &_display {
+
+    width: 8vw;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #91c9c4;
+    border-right: 1px solid #91c9c4;
+    box-shadow: 1px 3px 3px #c4c4c4;
+
+    &--eye {
+      -webkit-appearance: none;
+      background-color: transparent;
+      border: none;
+    }
+  }
+
   &_buttons {
-    width: 19.2vw;
+    width: 20vw;
     height: 7vh;
     border-bottom: 1px solid #91c9c4;
     display: flex;

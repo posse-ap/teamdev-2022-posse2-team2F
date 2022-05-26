@@ -49,29 +49,32 @@ $all_students_info = $sql_prepare->fetchAll();
 // ============================SELECT文============================
 
 // 合計件数 有効な件数;
-// $sql_valid = "SELECT count(students_agent.id) FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
-$sql_valid = "SELECT count(*) FROM students_contact_delete WHERE created_at BETWEEN ? AND ?";
+// $sql_valid = "SELECT count(students_agent.id) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
+$sql_valid = "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE deleted_at IS NULL AND created_at BETWEEN ? AND ?";
 $sql_valid_prepare = $db->prepare($sql_valid);
 $sql_valid_prepare->execute(array($first_day, $last_day));
 $all_valid_students = $sql_valid_prepare->fetchAll();
 
 // 請求件数 idの最大値とってます（idは間の何件かが削除されてもそのまま変わらないイメージ）
-// $sql_all = "SELECT max(students_agent.id) FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
-$sql_all = "SELECT count(*) FROM students_contact_all WHERE created_at BETWEEN ? AND ?";
+// $sql_all = "SELECT max(students_agent.id) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
+$sql_all = "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
 $sql_all_prepare = $db->prepare($sql_all);
 $sql_all_prepare->execute(array($first_day, $last_day));
 $all_students_number = $sql_all_prepare->fetchAll();
 
-/*
-    削除依頼件数 わからない！
-*/
+// 削除依頼件数 
+$sql_applydelete = "SELECT count(*) FROM students_agent JOIN delete_student_application ON delete_student_application.application_id = students_agent.id JOIN students_contact ON students_contact.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
+$sql_applydelete_prepare = $db->prepare($sql_applydelete);
+$sql_applydelete_prepare->execute(array($first_day, $last_day));
+$all_applydelete_student = $sql_applydelete_prepare->fetch();
+
 
 // 削除件数 idの最大値から、残った実際の数を引いています
-$sql_deleted = 
-"SELECT  (SELECT COUNT(id) FROM students_contact_all WHERE created_at BETWEEN ? AND ?)  - (SELECT COUNT(id) FROM students_contact_delete WHERE created_at BETWEEN ? AND ?)";
-
+$sql_deleted =
+    // "SELECT  (SELECT COUNT(id) FROM students_contact WHERE created_at BETWEEN ? AND ?)  - (SELECT COUNT(id) FROM students_contact_delete WHERE created_at BETWEEN ? AND ?)";
+    "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE deleted_at IS NOT NULL AND created_at BETWEEN ? AND ?";
 $sql_deleted_prepare = $db->prepare($sql_deleted);
-$sql_deleted_prepare->execute(array($first_day, $last_day, $first_day, $last_day));
+$sql_deleted_prepare->execute(array($first_day, $last_day));
 $deleted_students = $sql_deleted_prepare->fetchAll();
 ?>
 
@@ -94,6 +97,10 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
             <i class="fas fa-angle-right"></i>
         </div>
+        <div class="util_sidebar_button">
+            <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+            <i class="fas fa-angle-right"></i>
+        </div>
         <div class="util_sidebar_button util_sidebar_button--selected">
             <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/invoice.php">合計請求金額確認</a>
             <i class="fas fa-angle-right"></i>
@@ -103,7 +110,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             <i class="fas fa-angle-right"></i>
         </div>
     </div>
-        
+
     <div class="util_content">
         <div class="util_title no-print-area">
             <h2 class="util_title--text no-print-area">
@@ -154,14 +161,6 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                     明細概観
                 </th>
             </tr>
-            <tr class="invoice__table__big-item">
-                <th>
-                    合計申し込み件数
-                </th>
-                <th class="invoice__table__number">
-                    <?php print_r($all_valid_students[0][0]); ?>件
-                </th>
-            </tr>
             <tr>
                 <td>
                     請求件数
@@ -176,7 +175,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                 </td>
                 <td class="invoice__table__small-item invoice__table__number">
                     <?php
-                    print_r("?");
+                    print_r("$all_applydelete_student[0]");
                     ?>件
                 </td>
             </tr>
@@ -189,6 +188,14 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                     print_r($deleted_students[0][0]);
                     ?>件
                 </td>
+            </tr>
+            <tr class="invoice__table__big-item">
+                <th>
+                    合計申し込み件数
+                </th>
+                <th class="invoice__table__number">
+                    <?php print_r($all_valid_students[0][0]); ?>件
+                </th>
             </tr>
             <tr class="invoice__table__big-item">
                 <th>
