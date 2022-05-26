@@ -62,14 +62,14 @@ require('../dbconnect.php');
 
                         // セレクトボックスの値を格納する配列
                         $orders_list = array(
-                            "名前（昇順）",
-                            "名前（降順）",
                             "申込日時（昇順）",
                             "申込日時（降順）"
                         );
 
                         // 戻ってきた場合
-                        if (isset($_POST['sort'])) {
+                        if (isset($_SESSION['sort_select'])) {
+                            $sort = $_SESSION['sort_select'];
+                        }else if (isset($_POST['sort'])) {
                             $sort = $_POST['sort'];
                         }
 
@@ -95,9 +95,11 @@ require('../dbconnect.php');
                     <?php
                     if (isset($_POST['sort_button'])) {
                         if ($_POST['sort'] == "申込日時（昇順）") {
-                            $sort_sql = " ORDER BY students_contact_all.created_at ASC";
+                            $_SESSION['sort_select'] = $_POST['sort'];
+                            $sort_sql = " ORDER BY students_contact.created_at ASC";
                         } elseif ($_POST['sort'] == "申込日時（降順）") {
-                            $sort_sql = " ORDER BY students_contact_all.created_at DESC";
+                            $_SESSION['sort_select'] = $_POST['sort'];
+                            $sort_sql = " ORDER BY students_contact.created_at DESC";
                         } else {
                             $sort_sql = " ";
                         }
