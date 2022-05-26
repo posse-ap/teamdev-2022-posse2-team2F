@@ -2045,6 +2045,12 @@ a {
   margin-top: 20px;
 }
 
+@media screen and (max-width: 520px) {
+  .table_heading {
+    font-size: 15px;
+  }
+}
+
 .table {
   width: 96%;
   height: 35%;

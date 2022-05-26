@@ -91,6 +91,9 @@ $mb: 520px;
   margin: 0px;
   font-size: 20px;
   margin-top: 20px;
+  @include mb{
+    font-size: 15px;
+  }
 }
 
 .table{
