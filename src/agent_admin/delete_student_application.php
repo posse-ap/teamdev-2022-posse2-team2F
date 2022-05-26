@@ -1,8 +1,12 @@
 <?php
 require('../dbconnect.php');
+session_start();
 
 $id = $_GET['id'];
 $agent = $_GET['agent'];
+$email = $_SESSION['notify_email'];
+
+
 
 if (isset($_POST['delete_request'])) {
 
@@ -34,6 +38,24 @@ if (isset($_POST['delete_request'])) {
   if (!$success) {
     die($db->error);
   }
+
+  $to      = "craft@boozer.com";
+  $subject = "新規削除申請があります";
+  $message = "
+
+  新規削除申請があります。
+    
+  以下でご確認ください
+  http://localhost/craft_admin/inquiries_delete.php";
+  // 文字列の中で変数を展開
+  // $moji = "apple"
+  // echo "${moji}"
+  // ${変数名}で展開されます
+  $headers = "From: $email";
+
+  mb_send_mail($to, $subject, $message, $headers);
+
+
   sleep(1);
   header('Location: students_info.php');
 

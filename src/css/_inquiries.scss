@@ -88,6 +88,11 @@
   &_table {
 
     margin-top: 10px;
+    // white-space: nowrap;
+
+    .dontwrap {
+      white-space: nowrap;
+    }
 
     th {
       padding: 5px;
@@ -98,6 +103,7 @@
     tr:first-child {
       background-color: #91c8c4;
       color: #fff;
+
     }
 
     &--control {
@@ -112,4 +118,101 @@
   }
 
   
+}
+
+// 管理画面モーダル
+
+
+.replymodal_bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+
+
+.replymodal_container {
+  height: 340px;
+  width: 500px;
+  background-color: white;
+  z-index: 1;
+  border: 1px solid #91c8c4;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  display: none;
+
+  form {
+    height: 100%;
+  }
+
+  .replymodal {
+    height: 340px;
+    width: 500px;
+    padding: 10px;
+    text-align: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    z-index: 1;
+
+    &_text {
+      font-size: 20px;
+      font-weight: 500;
+      margin: 15px auto;
+    }
+    
+    &_textarea {
+      width: 400px;
+      height: 200px;
+      border-style: none;
+      background-color: #ebedf1;
+      border-radius: 1vh;
+      font-size: 1.4vw;
+    }
+
+    &_buttons{
+      width: 20vw;
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      margin-bottom: 20px;
+      bottom: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
+      
+      &--back {
+        width: 100px;
+        height: 35px;
+        border-style: none;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #c4c4c4;
+        cursor: pointer;
+      }
+
+      &--confirm {
+        width: 100px;
+        height: 35px;
+        border-style: none;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #91c8c4;
+        cursor: pointer;
+      }
+    }
+
+    &_text {
+      text-align: center;
+    }
+  }
 }

@@ -307,12 +307,15 @@ DROP TABLE IF EXISTS agent_inquiries;
 
 CREATE TABLE agent_inquiries (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    agent_name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
     content VARCHAR(255) NOT NULL,
     details VARCHAR(255) NOT NULL
 );
 
 INSERT INTO
-    agent_inquiries(content, details)
+    agent_inquiries(agent_name, name, email, content, details)
 VALUES
-    ("test", "test");
+    ("test", "test", "asd@asdasd", "エージェントの情報変更依頼", "エージェント名が変わりました。");
 

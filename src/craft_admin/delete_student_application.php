@@ -4,11 +4,19 @@ require('../dbconnect.php');
 // 詳細ページから削除したい場合
 
 
+
+
 if (isset($_POST['delete_more'])) {
 
-
-  $id = $_GET['id'];
-// $agent = $_GET['agent'];
+$agent = $_GET['agent'];
+$id = $_GET['id'];
+  
+$sql = "SELECT notify_email FROM agent_users JOIN students_agent ON agent_users.agent_name = students_agent.agent WHERE students_agent.agent = ?";
+$sql_prepare = $db->prepare($sql);
+$sql_prepare->execute(array($agent));
+$agent_email = $sql_prepare->fetch();
+  
+$to = $agent_email['notify_email'];
 
 // var_dump($id);
 
@@ -46,6 +54,25 @@ $success = $stmt->execute(array($id, $id));
 if (!$success) {
   die($db->error);
 }
+
+
+// $to      = $agent;
+$subject = "新規削除申請があります";
+$message = "
+
+学生情報の削除がありました。
+    
+以下からログインしてご確認ください。
+http://localhost/agent_admin/login/login.php";
+// 文字列の中で変数を展開
+// $moji = "apple"
+// echo "${moji}"
+// ${変数名}で展開されます
+$headers = "From: craft@boozer.com";
+
+mb_send_mail($to, $subject, $message, $headers);
+
+
 sleep(1);
 header('Location: students_info.php');
 
@@ -76,6 +103,21 @@ if (isset($_POST['delete']) && $_POST["delete"]) {
   $stmt = $db->prepare($sql);
   $stmt->execute(array($button_delete, $button_delete));
 
+  $subject = "新規削除申請があります";
+  $message = "
+
+  学生情報の削除がありました。
+      
+  以下からログインしてご確認ください。
+  http://localhost/agent_admin/login/login.php";
+  // 文字列の中で変数を展開
+  // $moji = "apple"
+  // echo "${moji}"
+  // ${変数名}で展開されます
+  $headers = "From: craft@boozer.com";
+
+  mb_send_mail($to, $subject, $message, $headers);
+
   header('Location: http://localhost/craft_admin/inquiries.php');
 }
 
@@ -97,6 +139,21 @@ if (isset($_POST['keep']) && $_POST["keep"]) {
           COMMIT;";
   $stmt = $db->prepare($sql);
   $stmt->execute(array($button_keep, $button_keep));
+
+  $subject = "新規削除申請があります";
+  $message = "
+
+  学生情報の削除がありました。
+      
+  以下からログインしてご確認ください。
+  http://localhost/agent_admin/login/login.php";
+  // 文字列の中で変数を展開
+  // $moji = "apple"
+  // echo "${moji}"
+  // ${変数名}で展開されます
+  $headers = "From: craft@boozer.com";
+
+  mb_send_mail($to, $subject, $message, $headers);
 
   header('Location: http://localhost/craft_admin/inquiries.php');
 }
