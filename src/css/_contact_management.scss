@@ -1,0 +1,37 @@
+.tab_container {
+    width: 50%;
+    display: flex;
+    justify-content: right;
+    margin-left: auto;
+    .tab-area {
+    height: 3em;
+    display: flex;
+    justify-content: center;
+    // background-color: #e5e5e5;
+    cursor: pointer;
+    .tab {
+        height: 100%;
+        padding-top: 1em;
+        justify-content: center;
+        // border: 1px #c4c4c4 solid;
+        box-sizing: border-box;
+        margin-right: 2em;
+    }
+    .tab.active {
+        border-bottom: 4px #c4c4c4 solid;
+        background-color: white;
+        color: #52a49a;
+        // border: none;
+    }
+    }
+}
+.lists_container {
+    .content-area {
+    .management__content {
+        display: none;
+    }
+    .management__content.show {
+        display: block;
+    }
+    }
+}

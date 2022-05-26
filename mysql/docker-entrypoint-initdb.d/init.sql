@@ -442,6 +442,7 @@ DROP TABLE IF EXISTS user_contact_form;
 
 CREATE TABLE user_contact_form (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(255) NOT NULL,
@@ -451,6 +452,7 @@ CREATE TABLE user_contact_form (
 
 INSERT INTO 
     user_contact_form (
+        title,
         name,
         email,
         phone,
@@ -458,12 +460,14 @@ INSERT INTO
     )
 VALUES
     (
+        'その他',
         '山田太郎',
         'taroyamada@gmail.com',
         '11111111111',
         'うわあああああああ'
     ),
     (
+        'その他',
         '金子夏蓮',
         'careen@gmail.com',
         '11111111111',

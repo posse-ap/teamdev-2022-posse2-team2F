@@ -60,10 +60,10 @@ require('../dbconnect.php');
 
                         // セレクトボックスの値を格納する配列
                         $orders_list = array(
-                            "電話番号の小さい順",
-                            "電話番号の大きい順",
-                            "名前順",
-                            "申込順"
+                            "名前（昇順）",
+                            "名前（降順）",
+                            "申込日時（昇順）",
+                            "申込日時（降順）"
                         );
 
                         // 戻ってきた場合
@@ -90,23 +90,19 @@ require('../dbconnect.php');
                     <!-- ここから並び替えの分岐 -->
                     <?php
                     if (isset($_POST['sort_button'])) {
-                        if ($_POST['sort'] == '電話番号の小さい順') {
-                            $sort_sql = " ORDER BY phone ASC";
-                        } elseif ($_POST['sort'] == '電話番号の大きい順') {
-                            $sort_sql = " ORDER BY phone DESC";
-                        } elseif ($_POST['sort'] == '名前順') {
-                            $sort_sql = " ORDER BY name ASC";
-                        } elseif ($_POST['sort'] == '申込順') {
-                            $sort_sql = " ORDER BY created_at ASC";
+                        if ($_POST['sort'] == "申込日時（昇順）") {
+                            $sort_sql = " ORDER BY students_contact_all.created_at ASC";
+                        } elseif ($_POST['sort'] == "申込日時（降順）") {
+                            $sort_sql = " ORDER BY students_contact_all.created_at DESC";
                         } else {
-                            $sort_sql = " ORDER BY phone ASC";
+                            $sort_sql = " ";
                         }
                         $_SESSION['sort'] = $sort_sql;
                         // $sql = "SELECT * FROM students_contact_all WHERE agent = ? " . $_SESSION['sort'];
                         $sql = "SELECT students_contact_all.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE students_agent.agent = ?" . $_SESSION['sort'];
                     } else {
                         // $sql = "SELECT * FROM students_contact_all WHERE agent = ? ORDER BY phone ASC";
-                        $sql = "SELECT students_contact_all.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE students_agent.agent = ? ORDER BY phone ASC";
+                        $sql = "SELECT students_contact_all.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE students_agent.agent = ?";
                     }
 
                     // print_r($sql);

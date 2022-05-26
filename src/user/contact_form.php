@@ -125,10 +125,10 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                 // $_POST['student_name'] = $student_name;
                 // echo $student_name;
 
-                $sql = 'INSERT INTO user_contact_form(name, email, phone, detail) 
-                VALUES (?, ?, ?, ?)';
+                $sql = 'INSERT INTO user_contact_form(title, name, email, phone, detail) 
+                VALUES (?, ?, ?, ?, ?)';
                 $stmt = $db->prepare($sql);
-                $stmt->execute(array($_SESSION['student_name'], $_SESSION['student_email'], $_SESSION['student_phone'], $_SESSION['student_detail']));
+                $stmt->execute(array( $_SESSION["title_select"], $_SESSION['student_name'], $_SESSION['student_email'], $_SESSION['student_phone'], $_SESSION['student_detail']));
 
                 echo '<p>お問合せが完了しました</p>';
 
