@@ -16,14 +16,21 @@
         // border: 1px #c4c4c4 solid;
         box-sizing: border-box;
         margin-right: 2em;
+        color: black;
     }
     .tab.active {
         border-bottom: 4px #c4c4c4 solid;
         background-color: white;
-        color: #52a49a;
+        color: black;
         // border: none;
     }
+}
+.tab__link{
+    color: black;
+    &__active{
+        color: #52a49a;
     }
+}
 }
 .lists_container {
     .content-area {

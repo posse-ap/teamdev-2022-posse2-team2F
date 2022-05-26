@@ -3226,11 +3226,20 @@ main {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin-right: 2em;
+  color: black;
 }
 
 .tab_container .tab-area .tab.active {
   border-bottom: 4px #c4c4c4 solid;
   background-color: white;
+  color: black;
+}
+
+.tab_container .tab__link {
+  color: black;
+}
+
+.tab_container .tab__link__active {
   color: #52a49a;
 }
 

@@ -19,7 +19,7 @@ $results = $stmt->fetchAll();
 //   $button_delete = key($_POST['delete']); //$button_deleteには押された番号が入る
 
 //   $sql = "START TRANSACTION;
-          
+
 //           UPDATE students_agent
 //           SET 
 //           deleted_at = CURRENT_TIMESTAMP,
@@ -43,7 +43,7 @@ $results = $stmt->fetchAll();
 //   $button_keep = key($_POST['keep']); //$buttonには押された番号が入る
 
 //   $sql = "START TRANSACTION;
-          
+
 //           UPDATE students_agent
 //           SET 
 //           status = '有効' 
@@ -114,92 +114,109 @@ $results = $stmt->fetchAll();
         <h2 class="util_title--text">
           お問合せ管理
         </h2>
+        <div class="tab_container">
+          <div class="tab-area">
+            <div class="tab">
+              <a class="tab__link" href="contact_management.php">学生から</a>
+            </div>
+            <div class="tab">
+              <a class="tab__link">
+                エージェントから
+              </a>
+            </div>
+            <div class="tab  active">
+              <a class="tab__link__active" href="inquiries.php">
+                削除依頼
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- 並び替え結果 -->
       <div class="manageinquiries">
         <div class="cont_for_scroll">
-        <table class="manageinquiries_table" border=1; style=border-collapse:collapse;>
-          <tr>
-            <th>申請ID</th>
-            <th>対応状況</th>
-            <th>申請日時</th>
-            <th>氏名</th>
-            <th>メールアドレス</th>
-            <th>申込エージェント名</th>
-            <th>操作</th>
-          </tr>
+          <table class="manageinquiries_table" border=1; style=border-collapse:collapse;>
+            <tr>
+              <th>申請ID</th>
+              <th>対応状況</th>
+              <th>申請日時</th>
+              <th>氏名</th>
+              <th>メールアドレス</th>
+              <th>申込エージェント名</th>
+              <th>操作</th>
+            </tr>
 
-          <form action="delete_student_application.php?id=" method="POST">
-          <?php
-            foreach ($results as $result) { ?>
-
-            
-
-          <?php
-
-              echo "<tr>";
+            <form action="delete_student_application.php?id=" method="POST">
+              <?php
+              foreach ($results as $result) { ?>
 
 
-              echo "<th>";
-              echo $result['id'];
-              echo "</th>";
 
-              echo "<th>";
-              echo $result['response'];
-              echo "</th>";
+                <?php
 
-              echo "<th>";
-              echo $result['time'];
-              echo "</th>";
+                echo "<tr>";
 
-              echo "<th>";
-              echo $result['name'];
-              echo "</th>";
 
-              echo "<th>";
-              echo $result['email'];
-              echo "</th>";
+                echo "<th>";
+                echo $result['id'];
+                echo "</th>";
 
-              echo "<th>";
-              echo $result['agent_name'];
-              echo "</th>";
+                echo "<th>";
+                echo $result['response'];
+                echo "</th>";
 
-              echo "<th>"
+                echo "<th>";
+                echo $result['time'];
+                echo "</th>";
 
-          ?>
-            <div class="manageinquiries_table--control">
-              <!-- <input type="hidden" name="hidden[<?= $result['id']; ?>]" value="削除"> -->
-              <input type="submit" class='util_action_button util_action_button--delete space_for_inquiries' name="delete[<?= $result['id']; ?>]" value="削除">
-              <!-- <input type="hidden" name="hidden_keep[<?= $result['id']; ?>]" value="キープ"> -->
-              <input type="submit" class='util_action_button util_action_button--list' name="keep[<?= $result['id']; ?>]" value="削除しない">
-            </div>
-            
-          
-          <?php
+                echo "<th>";
+                echo $result['name'];
+                echo "</th>";
 
-              echo "</th>";
+                echo "<th>";
+                echo $result['email'];
+                echo "</th>";
 
-          ?>
+                echo "<th>";
+                echo $result['agent_name'];
+                echo "</th>";
 
-          <?php
+                echo "<th>"
 
-              echo "</tr>";
-          };
+                ?>
+                <div class="manageinquiries_table--control">
+                  <!-- <input type="hidden" name="hidden[<?= $result['id']; ?>]" value="削除"> -->
+                  <input type="submit" class='util_action_button util_action_button--delete space_for_inquiries' name="delete[<?= $result['id']; ?>]" value="削除">
+                  <!-- <input type="hidden" name="hidden_keep[<?= $result['id']; ?>]" value="キープ"> -->
+                  <input type="submit" class='util_action_button util_action_button--list' name="keep[<?= $result['id']; ?>]" value="削除しない">
+                </div>
+
+
+                <?php
+
+                echo "</th>";
+
+                ?>
+
+              <?php
+
+                echo "</tr>";
+              };
               echo "</table>";
 
               echo "</div>";
 
               echo "</div>";
 
-          ?>
-                </form>
+              ?>
+            </form>
 
-            </div>
-  </div>
+        </div>
+      </div>
 
-  
 
-  <?php require('../_footer.php'); ?>
+
+      <?php require('../_footer.php'); ?>
 
 </body>
 

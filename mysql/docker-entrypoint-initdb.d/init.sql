@@ -288,9 +288,9 @@ VALUES
         '11111111111',
         'うわあああああああ'
     );
-  (1,1),
-  (2,1),
-  (3,1);
+--   (1,1),
+--   (2,1),
+--   (3,1);
 
 DROP TABLE IF EXISTS delete_student_application;
 

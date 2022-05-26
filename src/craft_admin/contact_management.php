@@ -16,28 +16,34 @@ $contact_form_lists = $sql_prepare->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <title>お問い合わせ管理</title>
 </head>
 
 <body>
     <div class="util_container">
         <div class="util_sidebar">
-            <div class="util_sidebar_button util_sidebar_button--selected">
-                <a class="util_sidebar_link  util_sidebar_link--selected" href="/agent_admin/students_info.php">学生申し込み一覧</a>
+            <div class="util_sidebar_button">
+                <a class="util_sidebar_link" href="/craft_admin/home.php">エージェント管理</a>
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
-                <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報編集</a>
+                <a class="util_sidebar_link" href="/craft_admin/add_agent.php">エージェント追加</a>
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
-                <a class="util_sidebar_link" href="">お問合せ</a>
+                <a class="util_sidebar_link" href="/craft_admin/tag.php">タグ編集・追加</a>
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
-                <a class="util_sidebar_link" href="/agent_admin/invoice.php">請求金額確認</a>
+                <a class="util_sidebar_link" href="/craft_admin/students_info.php">学生申し込み一覧</a>
+                <i class="fas fa-angle-right"></i>
+            </div>
+            <div class="util_sidebar_button  util_sidebar_button--selected">
+                <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/inquiries.php">お問合せ管理</a>
+                <i class="fas fa-angle-right"></i>
+            </div>
+            <div class="util_sidebar_button">
+                <a class="util_sidebar_link" href="/craft_admin/invoice.php">合計請求金額確認</a>
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
@@ -54,14 +60,18 @@ $contact_form_lists = $sql_prepare->fetchAll();
                 </h2>
                 <div class="tab_container">
                     <div class="tab-area">
-                        <div class="tab active">
-                            学生から
+                        <div class="tab  active">
+                            <a class="tab__link__active" href="contact_management.php">学生から</a>
                         </div>
                         <div class="tab">
-                            エージェントから
+                            <a class="tab__link" href="inquiries.php">
+                                エージェントから
+                            </a>
                         </div>
                         <div class="tab">
-                            削除依頼
+                            <a class="tab__link" href="inquiries.php">
+                                削除依頼
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -115,13 +125,6 @@ $contact_form_lists = $sql_prepare->fetchAll();
                                 ?>
                             </table>
                         </div>
-
-                        <div class="management__content">
-                            タブ２の中身です
-                        </div>
-                        <div class="management__content">
-                            タブ3の中身です
-                        </div>
                     </div>
                 </div>
             </div>
@@ -133,15 +136,3 @@ $contact_form_lists = $sql_prepare->fetchAll();
 <?php require('../_footer.php'); ?>
 
 </html>
-
-<script type="text/javascript">
-    $(function() {
-        let tabs = $(".tab"); // tabのクラスを全て取得し、変数tabsに配列で定義
-        $(".tab").on("click", function() { // tabをクリックしたらイベント発火
-            $(".active").removeClass("active"); // activeクラスを消す
-            $(this).addClass("active"); // クリックした箇所にactiveクラスを追加
-            const index = tabs.index(this); // クリックした箇所がタブの何番目か判定し、定数indexとして定義
-            $(".management__content").removeClass("show").eq(index).addClass("show"); // showクラスを消して、contentクラスのindex番目にshowクラスを追加
-        })
-    })
-</script>
