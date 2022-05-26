@@ -2,11 +2,11 @@
 session_start();
 require('../dbconnect.php');
 
-// 画像 & エージェント名表示用
 $stmt = $db->query("SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, delete_student_application.agent_name, delete_student_application.response, delete_student_application.time
                     FROM students_contact 
                     JOIN students_agent ON students_contact.id = students_agent.student_id
                     JOIN delete_student_application on delete_student_application.application_id = students_agent.id
+                    -- WHERE delete_student_application.display = 1;
 
                     -- FROM delete_student_application
                     -- JOIN students_contact ON delete_student_application.student_id = students_contact.id
@@ -14,29 +14,51 @@ $stmt = $db->query("SELECT students_agent.id, students_contact.name, students_co
                     ;");
 $results = $stmt->fetchAll();
 
-// 削除関連
-if (isset($_POST['delete']) && $_POST["delete"]) {
-  $button = key($_POST['delete']); //$buttonには押された番号が入る
+// // 削除関連
+// if (isset($_POST['delete']) && $_POST["delete"]) {
+//   $button_delete = key($_POST['delete']); //$button_deleteには押された番号が入る
 
-  $sql = "START TRANSACTION;
+//   $sql = "START TRANSACTION;
           
-          UPDATE students_agent
-          SET deleted_at = CURRENT_TIMESTAMP 
-          WHERE id = ?;
+//           UPDATE students_agent
+//           SET 
+//           deleted_at = CURRENT_TIMESTAMP,
+//           status = '削除済み' 
+//           WHERE id = ?;
 
-          UPDATE delete_student_application
-          SET response = '削除済み'
-          WHERE application_id = ?;
+//           UPDATE delete_student_application
+//           SET response = '削除済み'
+//           WHERE application_id = ?;
 
-          COMMIT;
-          ";
-  $stmt = $db->prepare($sql);
-  $stmt->execute(array($button, $button));
+//           COMMIT;
+//           ";
+//   $stmt = $db->prepare($sql);
+//   $stmt->execute(array($button_delete, $button_delete));
 
-  header('Location: http://localhost/craft_admin/inquiries.php');
-}
+//   header('Location: http://localhost/craft_admin/inquiries.php');
+// }
 
+// //削除したくない場合
+// if (isset($_POST['keep']) && $_POST["keep"]) {
+//   $button_keep = key($_POST['keep']); //$buttonには押された番号が入る
 
+//   $sql = "START TRANSACTION;
+          
+//           UPDATE students_agent
+//           SET 
+//           status = '有効' 
+//           WHERE id = ?;
+
+//           UPDATE delete_student_application
+//           SET response = '削除なし'
+//           WHERE application_id = ?;
+
+//           COMMIT;";
+//   $stmt = $db->prepare($sql);
+//   $stmt->execute(array($button_keep, $button_keep));
+
+//   header('Location: http://localhost/craft_admin/inquiries.php');
+// }
 
 
 
@@ -94,8 +116,9 @@ if (isset($_POST['delete']) && $_POST["delete"]) {
         </h2>
       </div>
       <!-- 並び替え結果 -->
-      <div class="table_container">
-        <table border=1; style=border-collapse:collapse;>
+      <div class="manageinquiries">
+        <div class="cont_for_scroll">
+        <table class="manageinquiries_table" border=1; style=border-collapse:collapse;>
           <tr>
             <th>申請ID</th>
             <th>対応状況</th>
@@ -103,10 +126,10 @@ if (isset($_POST['delete']) && $_POST["delete"]) {
             <th>氏名</th>
             <th>メールアドレス</th>
             <th>申込エージェント名</th>
-            <th>削除</th>
+            <th>操作</th>
           </tr>
 
-          <form action="" method="POST">
+          <form action="delete_student_application.php?id=" method="POST">
           <?php
             foreach ($results as $result) { ?>
 
@@ -144,9 +167,13 @@ if (isset($_POST['delete']) && $_POST["delete"]) {
               echo "<th>"
 
           ?>
-
-            <input type="hidden" name="hidden[<?= $result['id']; ?>]" value="削除">
-            <input type="submit" class='util_action_button util_action_button--delete' name="delete[<?= $result['id']; ?>]" value="削除">
+            <div class="manageinquiries_table--control">
+              <!-- <input type="hidden" name="hidden[<?= $result['id']; ?>]" value="削除"> -->
+              <input type="submit" class='util_action_button util_action_button--delete space_for_inquiries' name="delete[<?= $result['id']; ?>]" value="削除">
+              <!-- <input type="hidden" name="hidden_keep[<?= $result['id']; ?>]" value="キープ"> -->
+              <input type="submit" class='util_action_button util_action_button--list' name="keep[<?= $result['id']; ?>]" value="削除しない">
+            </div>
+            
           
           <?php
 
@@ -161,6 +188,9 @@ if (isset($_POST['delete']) && $_POST["delete"]) {
               echo "</table>";
 
               echo "</div>";
+
+              echo "</div>";
+
           ?>
                 </form>
 
@@ -170,44 +200,6 @@ if (isset($_POST['delete']) && $_POST["delete"]) {
   
 
   <?php require('../_footer.php'); ?>
-
-
-  <script>
-    //ボタンをクリックした時の処理
-    let deleteModal = function (id) {
-          let modal = document.getElementById(`util_deletemodal${id}`);
-          function modalOpen() {
-            modal.style.display = 'block';
-          };
-          modalOpen();
-    }
-
-    let deleteFunction = function (id) {
-          let modal = document.getElementById(`util_deletemodal${id}`);
-          let modalComplete = document.getElementById(`util_modalcont${id}`);
-          function deleteAgent() {
-            modal.style.display = 'none';
-            modalComplete.style.display = 'block';
-          };
-          deleteAgent();
-    }
-
-    let closeFunction = function (id) {
-          let modal = document.getElementById(`util_deletemodal${id}`);
-          
-          function modalClose() {
-            modal.style.display = 'none';
-          };
-          modalClose();
-    }
-
-    
-
-
-    
-  </script>
-
-  
 
 </body>
 

@@ -32,6 +32,12 @@ foreach ($agent_results as $rlt) {
   }
 }
 
+
+if (isset($_SESSION['tag_id']) || isset($_SESSION['single_id']))
+{
+  session_unset();
+}
+
 $products = isset($_SESSION['products']) ? $_SESSION['products'] : [];
 
 // var_dump($products);
@@ -42,6 +48,55 @@ $favorite_count = count($products);
 $now = time();
 ?>
 <?php
+//並び替え
+if (isset($_POST['sort_button'])){
+  //人気順
+  if($_POST['sort'] == "人気順") {
+    unset($_SESSION['search_id']);
+    //ここから人気順（申込人数多い順）
+$search_ids = array();
+foreach($_SESSION['default_id'] as $search_id){
+  $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+            $results = $stmt->fetchAll();
+            foreach ($results as $result){
+              $agent_id = $result['id'];
+                      $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$agent_id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
+                      
+                      $student_num =
+                      $stmt->rowCount();
+                      $student_nums = array($agent_id => $student_num);
+                      $search_ids += $student_nums;
+
+            }
+}
+
+arsort($search_ids);
+$search_id = array_keys($search_ids);
+// var_dump($search_id);
+
+
+$_SESSION['search_id'] = $search_id;
+    
+  }elseif($_POST['sort'] == "掲載期間の短い順"){
+  //掲載期間短い順
+  unset($_SESSION['search_id']);
+  $search_ids = array();
+  foreach ($_SESSION['default_id'] as $search_id){
+    $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+    $results = $stmt->fetchAll();
+    foreach($results as $result){
+      $agent_id = $result['id'];
+      $end_time = strtotime($result['end_display']);
+      $student_nums = array($agent_id => $end_time);
+      $search_ids += $student_nums;
+    }
+  }
+  asort($search_ids);
+  $search_id = array_keys($search_ids);
+
+  $_SESSION['search_id'] = $search_id;
+  }
+}
 //曖昧検索
 // error_reporting(0);
 // if (isset($_POST['search'])) {
@@ -206,6 +261,45 @@ $categories = $stmt->fetchAll();
       </div>
 
     </div>
+    <form action="result.php" method="POST">
+
+      <select name="sort" class="sort_select">
+      <?php
+                        if($_SESSION['sort_name'] == ""){
+
+                          //$sortの初期値
+                          $_SESSION['sort_name'] = "人気順";
+                        }
+                        // セレクトボックスの値を格納する配列
+                        $orders_list = array(
+                            "人気順",
+                            "掲載期間の短い順",
+                        );
+
+                        // 戻ってきた場合
+                        if (isset($_POST['sort'])) {
+                            unset($_SESSION['sort']);
+                            $sort = $_POST['sort'];
+                            //セッションに保存
+                            $_SESSION['sort_name'] = $sort;
+                        }
+
+                        foreach ($orders_list as $value) {
+                            if ($value === $_SESSION['sort_name']) {
+                                // ① POST データが存在する場合はこちらの分岐に入る
+                                echo "<option value='$value' selected>" . $value . "</option>";
+                            } else {
+                                // ② POST データが存在しない場合はこちらの分岐に入る
+                                echo "<option value='$value'>" . $value . "</option>";
+                            }
+                        }
+
+
+
+                        ?>
+      </select>
+      <input type="submit" value="並び替え" name="sort_button" class="sort_button">
+    </form>
     <form action="/user/form.php" method="POST">
       <div class="apply_modal">
         <p>
@@ -284,6 +378,7 @@ $categories = $stmt->fetchAll();
                       
                       $student_num =
                       $stmt->rowCount();
+                      echo $student_num;
                       ?>
                       <?php
                       if ($student_num >= 30) { ?>
@@ -341,14 +436,13 @@ $categories = $stmt->fetchAll();
                     <div class="otherbuttons">
 
                       <a href="">詳細を見る</a>
-                      <input type="submit" value="申し込む">
+                      <input type="submit" name="apply_id_single[<?= $result['id'] ?>]" value="申し込む">
                     </div>
                     <!-- <input type="hidden" name="agent_name" value="<?= $result['agent_name'] ?>">
                       <input type="hidden" name="agent_info" value="<?= $result['agent_info'] ?>">
                       <input type="hidden" name="agent_tag" value="<?= $result['agent_tagname'] ?>">
                       <input type="submit" name="favorite" class="btn-sm btn-blue" value="お気に入り追加"> -->
-
-                  </div>
+                </div>
                 </div>
               </div>
             <?php endforeach; ?>
@@ -450,8 +544,8 @@ $categories = $stmt->fetchAll();
       </div>
     </form>
   </div>
-
   </div>
+
   <script>
     const research_modal = document.getElementById('research_modal');
 

@@ -920,6 +920,16 @@ a {
   background-color: #cf7c7c;
 }
 
+.form-invalid {
+  color: #f50000;
+  font-size: 12px;
+  padding-left: 12px;
+}
+
+.input-invalid {
+  border: 1px solid #f50000;
+}
+
 .tag-list {
   width: 64vw;
   height: 60vh;
@@ -1967,7 +1977,7 @@ main {
   width: 180px;
   height: 40px;
   color: white;
-  background-color: #91C9C4;
+  background-color: #52a49a;
   margin: 10px auto 20px auto;
   font-size: 24px;
   border-style: none;
@@ -1990,6 +2000,9 @@ main {
 }
 
 .invoice__table__title {
+  background: #52a49a;
+  /*背景色*/
+  color: #fff;
   text-align: center;
   font-size: 1.5em;
 }
@@ -1999,7 +2012,7 @@ main {
 }
 
 .invoice__table__big-item {
-  background: #91C9C4;
+  background: #52a49a;
   /*背景色*/
   padding: 1.5em;
   font-size: 1.2em;
@@ -2111,12 +2124,6 @@ main {
   .invoice__table__number {
     text-align: right;
   }
-}
-
-.info {
-  padding: 20px;
-  height: 56vh;
-  overflow-y: scroll;
 }
 
 .no_match {
@@ -2365,9 +2372,22 @@ main {
   }
 }
 
+.top_container .sort_select {
+  position: absolute;
+  right: 46vw;
+  top: 180px;
+}
+
+.top_container .sort_button {
+  position: absolute;
+  top: 180px;
+  right: 40vw;
+}
+
 .top_container .apply_modal {
   margin-top: 40px;
   width: 42vw;
+  max-width: 500px;
   height: 40px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3547,6 +3567,7 @@ main {
   text-align: center;
   background-color: white;
   vertical-align: middle;
+  overflow-y: scroll;
 }
 
 .util_fullscreen--small {
@@ -3560,6 +3581,60 @@ main {
   border-bottom: 1px solid #000;
   margin: 10px auto 15px auto;
   padding: 5px 0;
+}
+
+.util_fullscreen .userform_heading {
+  margin: 20px 0 10px 100px;
+  text-align: left;
+  text-decoration: underline;
+  color: #91c8c4;
+  font-weight: bold;
+}
+
+.util_fullscreen .userform_applied--table {
+  width: 550px;
+  margin: 0 auto;
+  border: 1px solid #91C9C4;
+}
+
+.util_fullscreen .userform_applied--table th {
+  padding: 5px;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+.util_fullscreen .userform_applied--table tr:first-child {
+  background-color: #91c8c4;
+  color: #fff;
+}
+
+.util_fullscreen .userform_agreement {
+  width: 500px;
+  height: 200px;
+  overflow-y: scroll;
+  border: 1px solid #000;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.util_fullscreen .userform_agreement p {
+  text-align: left;
+}
+
+.util_fullscreen .userform_check {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.util_fullscreen .userform_check p {
+  margin-left: 10px;
 }
 
 .util_fullscreen .userform_text {
@@ -3597,6 +3672,10 @@ main {
   padding-left: 8px;
   background-color: #EBEDF1;
   border: transparent;
+}
+
+.util_fullscreen .userform_text .box-white {
+  background-color: #fff !important;
 }
 
 .util_fullscreen .userform_text i {
@@ -3655,6 +3734,44 @@ main {
 
 .input-invalid {
   border: 1px solid #f50000 !important;
+}
+
+.done {
+  height: 50vh;
+  margin: 70px 50px;
+}
+
+.done_title {
+  width: 600px;
+  color: #52A49A;
+  font-size: 36px;
+  border-bottom: 1px solid #000;
+  margin: 10px auto 40px auto;
+  padding-bottom: 5px;
+  padding-top: 30px;
+}
+
+.done_body {
+  margin-bottom: 50px;
+}
+
+.done_button {
+  width: 180px;
+  height: 40px;
+  color: white;
+  background-color: #91C9C4;
+  margin: 30px auto 20px auto;
+  padding: 10px;
+  font-size: 24px;
+  border-style: none;
+  -webkit-box-shadow: 6px 2px 3px #c0c1c5;
+          box-shadow: 6px 2px 3px #c0c1c5;
+}
+
+.done_link {
+  color: #52A49A;
+  border-bottom: 0.5px solid;
+  font-size: 18px;
 }
 
 .util_warning_title {
@@ -4045,6 +4162,375 @@ main {
   cursor: pointer;
   border-radius: 20px;
   font-weight: bold;
+}
+
+.info {
+  padding: 20px 40px;
+  margin: 0 auto;
+  height: 380px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.info_control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+}
+
+.info_select {
+  height: 25px;
+}
+
+.info_button {
+  width: 90px;
+  height: 25px;
+  margin-left: 10px;
+  border-style: none;
+  font-size: 1vw;
+  -webkit-box-shadow: 0px 3px 3px #c4c4c4;
+  box-shadow: 0px 3px 3px #c4c4c4;
+  cursor: pointer;
+  background-color: #91c9c4;
+  color: white;
+}
+
+.info .table_cont .cont_for_scroll {
+  height: 360px;
+  overflow-y: hidden;
+  overflow-y: scroll;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(white), to(white)), -webkit-gradient(linear, left bottom, left top, from(white), to(white)), -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.25)), to(rgba(255, 255, 255, 0))), -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.25)), to(rgba(255, 255, 255, 0)));
+  background-image: linear-gradient(to top, white, white), linear-gradient(to top, white, white), linear-gradient(to top, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0)), linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0));
+  background-position: bottom center, top center, bottom center, top center;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
+  background-attachment: local, local, scroll, scroll;
+}
+
+.info .table_cont .table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.info .table_cont .table th {
+  padding: 5px;
+  font-weight: normal;
+  font-size: 15px;
+  height: 20px;
+  white-space: nowrap;
+}
+
+.info .table_cont .table tr {
+  white-space: nowrap;
+}
+
+.info .table_cont .table tr:first-child {
+  background-color: #91c8c4;
+  color: #fff;
+}
+
+.moreinfo {
+  padding: 20px;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.moreinfo_table {
+  width: 70%;
+  margin: 10px auto 20px auto;
+}
+
+.moreinfo_table th {
+  padding: 5px 10px;
+  font-weight: normal;
+  height: 22px;
+  width: 40%;
+  white-space: nowrap;
+  background-color: #91c8c4;
+  color: #fff;
+  text-align: right;
+}
+
+.moreinfo_table td {
+  padding: 5px 10px;
+  width: 60%;
+  text-align: left;
+}
+
+.moreinfo_table tr {
+  white-space: nowrap;
+}
+
+.moreinfo_buttons {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.moreinfo_buttons--back {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100px;
+  height: 40px;
+  border-style: none;
+  font-size: 1vw;
+  -webkit-box-shadow: 0px 3px 3px #c4c4c4;
+          box-shadow: 0px 3px 3px #c4c4c4;
+  cursor: pointer;
+  color: #fff;
+  background-color: #c4c4c4;
+  margin-right: 100px;
+}
+
+.moreinfo_buttons--delete {
+  width: 100px;
+  height: 40px;
+  border-style: none;
+  font-size: 1vw;
+  -webkit-box-shadow: 0px 3px 3px #c4c4c4;
+          box-shadow: 0px 3px 3px #c4c4c4;
+  cursor: pointer;
+  background-color: #cf7c7c;
+  color: #fff;
+}
+
+.util_deletemodal_bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+
+.util_deletemodal_container {
+  height: 130px;
+  width: 500px;
+  background-color: white;
+  z-index: 1;
+  border: 1px solid #91c8c4;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  display: none;
+}
+
+.util_deletemodal_container form {
+  height: 100%;
+}
+
+.util_deletemodal_container .util_deletemodal {
+  height: 130px;
+  width: 500px;
+  padding: 10px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  z-index: 1;
+}
+
+.util_deletemodal_container .util_deletemodal_text {
+  text-align: center;
+  margin: 0;
+  padding: 10px;
+}
+
+.util_deletemodal_container .util_deletemodal_message {
+  text-align: center;
+  margin-top: 40px;
+  padding: 10px;
+}
+
+.util_deletemodal_container .util_deletemodal_buttons {
+  width: 20vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: absolute;
+  margin-bottom: 20px;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
+
+.util_deletemodal_container .util_deletemodal_buttons .util_deletemodal_back {
+  width: 100px;
+  height: 35px;
+  border-style: none;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #c4c4c4;
+  cursor: pointer;
+}
+
+.util_deletemodal_container .util_deletemodal_buttons .util_deletemodal_confirm {
+  width: 100px;
+  height: 35px;
+  border-style: none;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #cf7c7c;
+  cursor: pointer;
+}
+
+.util_deletemodal_container .util_deletemodal_text {
+  text-align: center;
+}
+
+.center_list {
+  margin: 0 auto;
+}
+
+.inquiries {
+  width: 64vw;
+  height: 63vh;
+  margin: 50px;
+}
+
+.inquiries_item {
+  width: 60vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 70px;
+  font-size: 20px;
+}
+
+.inquiries_item--label {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.inquiries_item--textarea {
+  padding-left: 10px;
+  width: 40vw;
+  height: 20vh;
+  border-style: none;
+  background-color: #ebedf1;
+  overflow-x: scroll;
+  border-radius: 1vh;
+  font-size: 1.4vw;
+  color: black;
+}
+
+.inquiries_item--select {
+  width: 25vw;
+  height: 5vh;
+  margin-right: 230px;
+  border-style: none;
+  background-color: #ebedf1;
+  border-radius: 1vh;
+}
+
+.inquiries .dropdown {
+  width: 31vw;
+  margin-bottom: 10px;
+}
+
+.inquiries_button {
+  width: 12vw;
+  height: 6vh;
+  border-style: none;
+  background-color: #91c9c4;
+  font-size: 20px;
+  color: white;
+  position: absolute;
+  left: calc(50% - 4vw);
+  -webkit-box-shadow: 0px 3px 3px #9b9b9b;
+          box-shadow: 0px 3px 3px #9b9b9b;
+}
+
+.manageinquiries {
+  padding: 3% 5%;
+  height: 380px;
+}
+
+.manageinquiries .cont_for_scroll {
+  height: 360px;
+  overflow-y: hidden;
+  overflow-y: scroll;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(white), to(white)), -webkit-gradient(linear, left bottom, left top, from(white), to(white)), -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.25)), to(rgba(255, 255, 255, 0))), -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.25)), to(rgba(255, 255, 255, 0)));
+  background-image: linear-gradient(to top, white, white), linear-gradient(to top, white, white), linear-gradient(to top, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0)), linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0));
+  background-position: bottom center, top center, bottom center, top center;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
+  background-attachment: local, local, scroll, scroll;
+}
+
+.manageinquiries_table {
+  margin-top: 10px;
+}
+
+.manageinquiries_table th {
+  padding: 5px;
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.manageinquiries_table tr:first-child {
+  background-color: #91c8c4;
+  color: #fff;
+}
+
+.manageinquiries_table--control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+
+.manageinquiries_table--control .space_for_inquiries {
+  margin-right: 5px;
 }
 
 /*

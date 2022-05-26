@@ -50,6 +50,7 @@ $mb: 520px;
 
 .top_container{
   &_title{
+    // display: none;
     display: flex;
     align-items: center;
     background-color: white;
@@ -188,9 +189,20 @@ $mb: 520px;
       }
     }
   }
+  .sort_select{
+    position: absolute;
+    right: 46vw;
+    top: 180px;
+  }
+  .sort_button{
+    position: absolute;
+    top: 180px;
+    right: 40vw;
+  }
   .apply_modal{
     margin-top: 40px;
     width: 42vw;
+    max-width: 500px;
     height: 40px;
     display: flex;
     justify-content: flex-start;

@@ -11,6 +11,7 @@ $categories = $stmt->fetchAll();
 ?>
 <?php
 unset($_SESSION['search_id']);
+unset($_SESSION['default_id']);
 $result_id = array();
 $counter = 0;
 foreach ($categories as $category) {
@@ -62,7 +63,50 @@ if($counter >= 2){
   header("Location: top.php");
 }
 
-$_SESSION['search_id'] = $id_results;
+$_SESSION['default_id'] = $id_results;
+// var_dump($_SESSION['search_id']);
+
+//ここから人気順（申込人数多い順）
+$search_ids = array();
+foreach($id_results as $search_id){
+  $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+            $results = $stmt->fetchAll();
+            foreach ($results as $result){
+              $agent_id = $result['id'];
+                      $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$agent_id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
+                      
+                      $student_num =
+                      $stmt->rowCount();
+                      $student_nums = array($agent_id => $student_num);
+                      $search_ids += $student_nums;
+
+            }
+}
+
+arsort($search_ids);
+$search_id = array_keys($search_ids);
+// var_dump($search_id);
+
+
+$_SESSION['search_id'] = $search_id;
+
+//ここから掲載期間短い順
+// $search_ids = array();
+//   foreach ($_SESSION['default_id'] as $search_id){
+//     $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+//     $results = $stmt->fetchAll();
+//     foreach($results as $result){
+//       $agent_id = $result['id'];
+//       $end_time = strtotime($result['end_display']);
+//       $student_nums = array($agent_id => $end_time);
+//       $search_ids += $student_nums;
+//     }
+//   }
+//   asort($search_ids);
+//   $search_id = array_keys($search_ids);
+//   // var_dump($search_id);
+
+//   $_SESSION['search_id'] = $search_id;
 
 header("Location: result.php");
 ?>

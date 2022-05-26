@@ -28,6 +28,30 @@ foreach ($results as $rlt) {
           WHERE id = ?";
     $stmt = $db->prepare($sql);
     $stmt->execute(array($id));
+  }elseif ($rlt['hide'] == 0){
+    $sql = "UPDATE agents
+          SET hide = 0
+          WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id));
+  }elseif ($rlt['hide'] == 1){
+    $sql = "UPDATE agents
+          SET hide = 1
+          WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id));
+  }elseif($now >= $start_time){
+    $sql = "UPDATE agents
+          SET hide = 0
+          WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id));
+  }elseif($now <= $end_time){
+    $sql = "UPDATE agents
+    SET hide = 0
+    WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id));
   }
 }
 

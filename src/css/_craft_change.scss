@@ -232,3 +232,14 @@
   }
 }
 
+//バリデーションで使用
+.form-invalid {
+  color: #f50000;
+  font-size: 12px;
+  padding-left: 12px;
+}
+
+.input-invalid {
+  border: 1px solid #f50000;
+}
+

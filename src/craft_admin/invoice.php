@@ -62,9 +62,12 @@ $sql_all_prepare = $db->prepare($sql_all);
 $sql_all_prepare->execute(array($first_day, $last_day));
 $all_students_number = $sql_all_prepare->fetchAll();
 
-/*
-    削除依頼件数 わからない！
-*/
+// 削除依頼件数 
+$sql_applydelete = "SELECT count(*) FROM students_agent JOIN delete_student_application ON delete_student_application.application_id = students_agent.id JOIN students_contact ON students_contact.id = students_agent.student_id WHERE created_at BETWEEN ? AND ?";
+$sql_applydelete_prepare = $db->prepare($sql_applydelete);
+$sql_applydelete_prepare->execute(array($first_day, $last_day));
+$all_applydelete_student = $sql_applydelete_prepare->fetch();
+
 
 // 削除件数 idの最大値から、残った実際の数を引いています
 $sql_deleted =
@@ -158,14 +161,6 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                     明細概観
                 </th>
             </tr>
-            <tr class="invoice__table__big-item">
-                <th>
-                    合計申し込み件数
-                </th>
-                <th class="invoice__table__number">
-                    <?php print_r($all_valid_students[0][0]); ?>件
-                </th>
-            </tr>
             <tr>
                 <td>
                     請求件数
@@ -180,7 +175,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                 </td>
                 <td class="invoice__table__small-item invoice__table__number">
                     <?php
-                    print_r("?");
+                    print_r("$all_applydelete_student[0]");
                     ?>件
                 </td>
             </tr>
@@ -193,6 +188,14 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                     print_r($deleted_students[0][0]);
                     ?>件
                 </td>
+            </tr>
+            <tr class="invoice__table__big-item">
+                <th>
+                    合計申し込み件数
+                </th>
+                <th class="invoice__table__number">
+                    <?php print_r($all_valid_students[0][0]); ?>件
+                </th>
             </tr>
             <tr class="invoice__table__big-item">
                 <th>

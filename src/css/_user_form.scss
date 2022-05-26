@@ -6,6 +6,7 @@
   text-align: center;
   background-color: white;
   vertical-align: middle;
+  overflow-y: scroll;
 
 
   &--small {
@@ -13,6 +14,7 @@
   }
 
   .userform {
+
   
     &_title{
       width: 170px;
@@ -26,6 +28,61 @@
       //   width: 400px !important;
       // }
     }
+
+    &_heading {
+      // margin-bottom: 5px;
+      // margin-top: 20px;
+      margin: 20px 0 10px 100px;
+      text-align: left;
+      text-decoration: underline;
+      color: #91c8c4;
+      font-weight: bold;
+    }
+
+    &_applied {
+
+      &--table {
+
+        width: 550px;
+        margin: 0 auto;
+        border: 1px solid #91C9C4;
+
+        th {
+          padding: 5px;
+          font-weight: normal;
+          font-size: 13px;
+        }
+
+        tr:first-child {
+          background-color: #91c8c4;
+          color: #fff;
+        }
+      }
+      
+    }
+
+    &_agreement {
+      width: 500px;
+      height: 200px;
+      overflow-y: scroll;
+      border: 1px solid #000;
+      margin: 0 auto;
+      padding: 0 20px;
+
+      p {
+        text-align: left;
+      }
+    }
+
+    &_check {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        margin-left: 10px;
+      }
+    }
   
     &_text {
       width: 550px;
@@ -34,6 +91,7 @@
       align-items: center;
       margin: 13px auto;
       position: relative;
+
 
 
       .required {
@@ -62,6 +120,10 @@
         background-color: #EBEDF1;
         border: transparent;
       }
+
+      .box-white {
+        background-color: #fff !important;
+      }
   
       i {
         position: absolute;
@@ -76,7 +138,10 @@
         background-color: #EBEDF1;
         border-style: none;
       }
+
+
     }
+
   
     // &_button{
     //   width: 180px;
@@ -141,3 +206,42 @@
 .input-invalid {
   border: 1px solid #f50000 !important;
 }
+
+.done {
+
+  height: 50vh;
+  margin: 70px 50px;
+
+  &_title {
+    width: 600px;
+    color: #52A49A;
+    font-size: 36px;
+    border-bottom: 1px solid #000;
+    margin: 10px auto 40px auto;
+    padding-bottom: 5px;
+    padding-top: 30px;
+  }
+
+  &_body {
+    margin-bottom: 50px;
+  }
+
+  &_button{
+    width: 180px;
+    height: 40px;
+    color: white;
+    background-color: #91C9C4;
+    margin: 30px auto 20px auto;
+    padding: 10px;
+    font-size: 24px;
+    border-style: none;
+    box-shadow: 6px 2px 3px #c0c1c5;
+  }
+
+  &_link{
+    color: #52A49A;
+    border-bottom: 0.5px solid;
+    font-size: 18px;
+  }
+}
+
