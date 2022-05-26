@@ -15,8 +15,40 @@ require('../dbconnect.php');?>
     <div class="info_inner">
       <div class="info_inner-box">
         <div class="info_inner-leftbox">
-          <img src="https://msp.c.yimg.jp/images/v2/FUTi93tXq405grZVGgDqGxuQACxqi0fkbGNWy3I1FNVBepEwDgN39TsXY8C5PI3LIRcl5vUjWn5W9MG8-P9TrTMwqx4j6JcYDIcqw_MaPg4YSsMhnpaCpUeVPyG9yk9XCth2cBr0pHYs9L6kGvWtxtyBPfrGyo5qJCcXxPGa6NEuKtVajSOCYe7GRgJtAHcL/maxresdefault.jpg?errorImage=false" class="img_agent" alt="">
-          <div class="info_inner-compararison"></div>
+          <img src="\img\mynavishinnsotsu.png" class="img_agent" alt="">
+          <!-- <table class="table_1">
+            <tr>
+              <td class="table_title">運営会社の規模</td>
+              <td class="table_content">大手</td>
+            </tr>
+            <tr>
+              <td class="table_title">登録会社の規模</td>
+              <td class="table_content">大手含む</td>
+            </tr>
+            <tr>
+              <td class="table_title">累計利用者</td>
+              <td class="table_content">90万人以上</td>
+            </tr>
+            <tr>
+              <td class="table_title">面談拠点</td>
+              <td class="table_content">北海道、宮城県、福岡県、埼玉県、東京都、神奈川県</td>
+            </tr>
+            <tr>
+              <td class="table_title">オンライン面談の有無</td>
+              <td class="table_content">無</td>
+            </tr>
+          </table>
+          <table class="table_2">
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table> -->
         </div>
         <div class="info_inner-rightbox">
           <h3 class="info_inner-rightbox_catchcopy">国内トップクラスのデータベースで<br>幅広い求人紹介を見つけられる！</h3>
