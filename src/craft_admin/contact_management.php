@@ -78,11 +78,11 @@ $contact_form_lists = $sql_prepare->fetchAll();
             </div>
 
 
-            <div class="lists_container">
+            <div class="manageinquiries">
                 <div class="content-area">
                     <div class="management__content show">
                         <div class="info">
-                            <table class="contact-form__table">
+                            <table class="manageinquiries_table" border=1; style=border-collapse:collapse;>
                                 <tr class="invoice__table__big-item">
                                     <th>
                                         id
