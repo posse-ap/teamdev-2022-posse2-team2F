@@ -23,16 +23,14 @@ if (isset($_GET['id'])) {
     // $agent_pic = $_POST['agent_pic'];
     $agent_info = $_POST['agent_info'];
     // $agent_display = $_POST['agent_display'];
-    if (isset($_POST['agent_display'])) {
-      // セレクトボックスで選択された値を受け取る
-      $agent_display = $_POST['agent_display'];
-    }
+    $start_display = $_POST['agent_display_start'];
+    $end_display = $_POST['agent_display_end'];
 
     $sql = 'UPDATE agents
-          SET agent_name = ?, agent_tag = ?,agent_tagname = ?, agent_info = ?, agent_display = ?
+          SET agent_name = ?, agent_tag = ?,agent_tagname = ?, agent_info = ?, start_display = ?, end_display = ?
           WHERE id = ?';
     $stmt = $db->prepare($sql);
-    $stmt->execute(array($agent_name, $agent_tag, $agent_tagname, $agent_info, $agent_display, $id));
+    $stmt->execute(array($agent_name, $agent_tag, $agent_tagname, $agent_info, $start_display, $end_display, $id));
 
     // 画像更新
     $target_dir = "images/";
@@ -115,6 +113,10 @@ $categories = $stmt->fetchAll();
 
 <body>
   <?php require('../_header.php'); ?>
+  <!-- ここでカレンダー読み込み -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 
   <div class="util_container">
     <div class="util_sidebar">
@@ -195,13 +197,28 @@ $categories = $stmt->fetchAll();
           </div>
           <div class="change_item dropdown">
             <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
-            <select class="change_item--select" name="agent_display">
-              <option value="1">1ヶ月</option>
-              <option value="3">3ヶ月</option>
-              <option value="6">6ヶ月</option>
-              <option value="12">12ヶ月</option>
-            </select>
-            <!-- <span>ヶ月</span> -->
+            <!-- ここからカレンダー -->
+            <div class="dropdown_container">
+              <p class="start_display_error"></p>
+              <p class="end_display _error"></p>
+              <input type="text" id="start_display" name="agent_display_start" value="<?= $result['start_display'] ?>">
+              <p class="between"> 〜 </p>
+              <input type="text" name="agent_display_end" id="end_display"
+              value="<?= $result['end_display'] ?>">
+            </div>
+
+            <script>
+              const config = {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+              }
+              var start_calender = document.getElementById("start_display");
+              var fp = flatpickr(start_calender, config);
+
+              var end_calender = document.getElementById("end_display");
+              var fd = flatpickr(end_calender, config);
+            </script>
+
           </div>
 
           <input class="change_button" type="submit" value="変更を保存" name="submit">

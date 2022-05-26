@@ -93,7 +93,8 @@ CREATE TABLE agents (
     agent_tag VARCHAR(255) NOT NULL,
     agent_tagname VARCHAR(255) NOT NULL,
     agent_info VARCHAR(255) NOT NULL,
-    agent_display INT NOT NULL,
+    start_display TIMESTAMP NOT NULL,
+    end_display TIMESTAMP NOT NULL,
     hide INT NOT NULL
 );
 
@@ -105,7 +106,8 @@ SET
     agent_tag = '1,2,3',
     agent_tagname = 'ベンチャー、大手、ベンチャー',
     agent_info = 'はい！',
-    agent_display = 3,
+    start_display = '2022-05-24 00:00:00',
+    end_display = '2022-12-24 00:00:00',
     hide = 0;
 
 
@@ -177,19 +179,20 @@ DROP TABLE IF EXISTS students_agent;
 CREATE TABLE students_agent (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     student_id INT NOT NULL,
+    agent_id INT NOT NULL,
     agent VARCHAR(255) NOT NULL,
     deleted_at DATETIME,
     status VARCHAR(255) DEFAULT '有効' 
 );
 
 INSERT INTO
-    students_agent (student_id, agent, deleted_at)
+    students_agent (student_id, agent_id, agent, deleted_at)
 VALUES
-    (1, 'agent1', NULL),
-    (2, 'agent2', NULL),
-    (2, 'agent1', NULL),
-    (3, 'agent1', NULL),
-    (4, 'agent2', NULL);
+    (1, 1, 'agent1', NULL),
+    (2, 2, 'agent2', NULL),
+    (2, 1, 'agent1', NULL),
+    (3, 1, 'agent1', NULL),
+    (4, 2, 'agent2', NULL);
 
 -- join するためのコード
 

@@ -16,6 +16,7 @@
         "_userpage_result.scss",
         "_user_form.scss",
         "_warning.scss",
+        "_user_cart.scss",
         "_students_info.scss",
         "_inquiries.scss"
     ],

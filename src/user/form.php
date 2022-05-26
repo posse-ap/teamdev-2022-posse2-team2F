@@ -535,9 +535,9 @@ if (isset($_POST["back"]) && $_POST["back"]) {
 
             foreach($results as $result) 
             {
-            $sql = "INSERT INTO students_agent(student_id, agent) VALUES (?, ?);";
+            $sql = "INSERT INTO students_agent(student_id, agent_id, agent) VALUES (?, ?, ?);";
             $stmt = $db->prepare($sql);
-            $stmt->execute(array($id['id'], $result['agent_name']));
+            $stmt->execute(array($id['id'], $result['id'], $result['agent_name']));
 
             $sql_email = "SELECT agent_users.notify_email, agent_users.agent_name FROM agent_users INNER JOIN agents ON agent_users.agent_name = agents.agent_name WHERE agent_users.agent_name = ?";
             $stmt = $db->prepare($sql_email);
@@ -584,9 +584,9 @@ if (isset($_POST["back"]) && $_POST["back"]) {
           $stmt = $db->query("SELECT * FROM agents WHERE id = '$single_id'");
           $result = $stmt->fetch();
 
-          $sql = "INSERT INTO students_agent(student_id, agent) VALUES (?, ?);";
+          $sql = "INSERT INTO students_agent(student_id, agent_id, agent) VALUES (?, ?, ?);";
           $stmt = $db->prepare($sql);
-          $stmt->execute(array($id['id'], $result['agent_name']));
+          $stmt->execute(array($id['id'], $result['id'], $result['agent_name']));
 
           $sql_email = "SELECT agent_users.notify_email, agent_users.agent_name FROM agent_users INNER JOIN agents ON agent_users.agent_name = agents.agent_name WHERE agent_users.agent_name = ?";
           $stmt = $db->prepare($sql_email);
