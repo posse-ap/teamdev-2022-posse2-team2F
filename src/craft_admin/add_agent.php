@@ -121,7 +121,7 @@ $categories = $stmt->fetchAll();
       <div class="change">
         <form action="" method="post" enctype="multipart/form-data">
           <div class="change_item">
-            <label class="change_item--label" for="agent_name">エージェント名</label>
+            <label class="change_item--label" for="agent_name" id="agent_name">エージェント名</label>
             <input class="change_item--input" type="text" name="agent_name" required>
           </div>
           <div class="change_item">
@@ -161,12 +161,10 @@ $categories = $stmt->fetchAll();
           <div class="change_item dropdown">
             <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
             <div class="dropdown_container">
-            <p class="start_display_error"></p>
-            <p class="end_display _error"></p>
-              <input type="text" id="start_display" name="agent_display_start" value="">
+              <input type="text" id="start_display" name="agent_display_start" value="" required>
               <p class="between"> 〜 </p>
               <input type="text" name="agent_display_end" id="end_display"
-              value="">
+              value="" required>
             </div>
 
             <script>
@@ -187,64 +185,7 @@ $categories = $stmt->fetchAll();
     </div>
   </div>
 
-  <!-- ここからバリデーション -->
-  <script>
-    // window.addEventListener('DOMContentLoaded', () => {
-
-    // 「送信」ボタンの要素を取得
-    const submit = document.querySelector('.submit');
-
-    // 「送信」ボタンの要素にクリックイベントを設定する
-    submit.addEventListener('click', (e) => {
-
-    // 「お名前」入力欄の空欄チェック
-    //要素取得
-    const start_display = document.querySelector('#start_display');
-    const end_display = document.querySelector('#end_display');
-    // エラーメッセージを表示させる要素を取得
-    const errMsgName1 = document.querySelector('.start_display_error');
-    const errMsgName2 = document.querySelector('.end_display_error');
-
-    if(!start_display.value){
-
-        // デフォルトアクションをキャンセル
-        e.preventDefault();
-        // クラスを追加(エラーメッセージを表示する)
-        errMsgName1.classList.add('form-invalid');
-        // エラーメッセージのテキスト
-        errMsgName1.textContent = '掲載期間が選択されていません';
-        // クラスを追加(フォームの枠線を赤くする)
-        start_display.classList.add('input-invalid');
-        // 後続の処理を止める
-        return;
-    }else{
-        // エラーメッセージのテキストに空文字を代入
-        errMsgName1.textContent ='';
-        // クラスを削除
-        start_display.classList.remove('input-invalid');
-    }
-
-    if(!end_display.value){
-        // デフォルトアクションをキャンセル
-        e.preventDefault();
-        // クラスを追加(エラーメッセージを表示する)
-        errMsgName2.classList.add('form-invalid');
-        // エラーメッセージのテキスト
-        errMsgName2.textContent = '掲載期間が表示されていません';
-        // クラスを追加(フォームの枠線を赤くする)
-        end_display.classList.add('input-invalid');
-        // 後続の処理を止める
-        return;
-    }else{
-        // エラーメッセージのテキストに空文字を代入
-        errMsgName2.textContent ='';
-        // クラスを削除
-        end_display.classList.remove('input-invalid');
-    }
-
-  }, false);
-// }, false);
-  </script>
+  
 
   <!-- ここからtag_modal -->
 

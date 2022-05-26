@@ -246,7 +246,7 @@ $categories = $stmt->fetchAll();
       window.addEventListener("scroll", checkOffset, false);
     });
   </script>
-  <div id="fullOverlay"></div>
+  <div id="fullOverlay" onclick="OverlayOpen()"></div>
   <div class="top_container">
     <div class="top_container_title">
       <h5>絞り込み結果</h5>
@@ -266,11 +266,6 @@ $categories = $stmt->fetchAll();
 
       <select name="sort" class="sort_select">
       <?php
-                        if($_SESSION['sort_name'] == ""){
-
-                          //$sortの初期値
-                          $_SESSION['sort_name'] = "人気順";
-                        }
                         // セレクトボックスの値を格納する配列
                         $orders_list = array(
                             "人気順",
@@ -555,6 +550,11 @@ $categories = $stmt->fetchAll();
     function researchmodalOpen() {
       research_modal.style.display = "block";
       overlay.style.display = "block";
+    }
+
+    function OverlayOpen() {
+      research_modal.style.display = "none";
+      overlay.style.display = "none";
     }
   </script>
 

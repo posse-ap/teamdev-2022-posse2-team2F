@@ -89,6 +89,7 @@ $search_id = array_keys($search_ids);
 
 
 $_SESSION['search_id'] = $search_id;
+$_SESSION['sort_name'] = "人気順";
 
 //ここから掲載期間短い順
 // $search_ids = array();

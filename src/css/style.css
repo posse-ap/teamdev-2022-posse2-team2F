@@ -2851,6 +2851,15 @@ main {
   left: -18.5vw;
 }
 
+.top_container_results--agents__agent--container--info__right .last_time {
+  height: 20px;
+  font-weight: 600;
+  position: absolute;
+  color: orange;
+  top: 3px;
+  left: -16vw;
+}
+
 .top_container_results--agents__agent--container--buttons {
   width: 53vw;
   height: 36px;
@@ -3821,9 +3830,14 @@ main {
   font-size: 18px;
 }
 
-.favorite_container .apply_modal {
-  margin-top: 30px;
-  width: 42vw;
+.favorite_container .apply_modal_cover {
+  width: 800px;
+  height: 40px;
+  margin: 30px auto 0 auto;
+}
+
+.favorite_container .apply_modal_cover .apply_modal {
+  width: 460px;
   height: 40px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3835,22 +3849,17 @@ main {
       -ms-flex-align: baseline;
           align-items: baseline;
   background-color: white;
-  margin-left: 10vw;
   border-radius: 8px;
   position: relative;
 }
 
 @media screen and (max-width: 960px) {
-  .favorite_container .apply_modal {
+  .favorite_container .apply_modal_cover .apply_modal {
     margin-top: 30px;
-    margin-left: 5vw;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    width: 35vw;
   }
 }
 
-.favorite_container .apply_modal::before {
+.favorite_container .apply_modal_cover .apply_modal::before {
   content: "";
   position: absolute;
   top: 100%;
@@ -3860,46 +3869,24 @@ main {
   border-top: 15px solid white;
 }
 
-@media screen and (max-width: 960px) {
-  .favorite_container .apply_modal::before {
-    border: 10px solid transparent;
-    border-top: 20px solid white;
-  }
-}
-
-.favorite_container .apply_modal p {
+.favorite_container .apply_modal_cover .apply_modal p {
   font-size: 14px;
   font-weight: bold;
   margin-top: 6px;
   position: relative;
-  left: 2vw;
-  margin-right: 0.3vw;
+  left: 26px;
+  margin-right: 4px;
 }
 
-@media screen and (max-width: 960px) {
-  .favorite_container .apply_modal p {
-    font-size: 16px;
-    margin: 0 0 0 0;
-    left: 2vw;
-    top: -12px;
-  }
-}
-
-.favorite_container .apply_modal .check_count {
+.favorite_container .apply_modal_cover .apply_modal .check_count {
   font-size: 30px;
   color: #52A49A;
 }
 
-@media screen and (max-width: 960px) {
-  .favorite_container .apply_modal .check_count {
-    font-size: 20px;
-  }
-}
-
-.favorite_container .apply_modal input {
+.favorite_container .apply_modal_cover .apply_modal input {
   border-style: none;
   color: white;
-  width: 7vw;
+  width: 100px;
   height: 25px;
   border-radius: 20px;
   font-size: 14px;
@@ -3917,17 +3904,17 @@ main {
   cursor: pointer;
   margin-top: 5px;
   position: relative;
-  left: 2.5vw;
+  left: 40px;
   top: -5px;
 }
 
 .favorite_container .favorite_list {
-  width: 80vw;
   margin: 30px auto 0 auto;
+  width: 800px;
 }
 
 .favorite_container .favorite_list .favorite_ind {
-  width: 80vw;
+  width: 800px;
   height: 200px;
   margin-bottom: 20px;
   display: -webkit-box;
@@ -3938,7 +3925,7 @@ main {
 
 .favorite_container .favorite_list .favorite_ind .checkbox {
   height: 200px;
-  width: 2.5vw;
+  width: 36px;
   background-color: #CFD1D3;
 }
 
@@ -3952,7 +3939,7 @@ main {
 
 .favorite_container .favorite_list .favorite_ind .checkbox label {
   position: relative;
-  width: 2.5vw;
+  width: 22px;
   height: 200px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3975,58 +3962,70 @@ main {
 .favorite_container .favorite_list .favorite_ind .checkbox label::before {
   background-color: #fff;
   border-radius: 0%;
-  width: 1.6vw;
-  height: 1.6vw;
+  width: 24px;
+  height: 24px;
+  left: 6px;
 }
 
 .favorite_container .favorite_list .favorite_ind .checkbox label::after {
-  border-bottom: 0.3vw solid #52A49A;
-  border-left: 0.3vw solid #52A49A;
+  border-bottom: 3.5px solid #52A49A;
+  border-left: 3.5px solid #52A49A;
   opacity: 0;
-  height: 0.6vw;
-  width: 1.2vw;
+  height: 12px;
+  width: 24px;
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
   position: relative;
   top: -3px;
+  left: 8px;
 }
 
 .favorite_container .favorite_list .favorite_ind_title {
-  width: 22vw;
   height: 200px;
+  width: 300px;
 }
 
 .favorite_container .favorite_list .favorite_ind_title h2 {
-  width: 22vw;
+  width: 300px;
   text-align: center;
   margin: 5px auto;
   font-size: 16px;
 }
 
 .favorite_container .favorite_list .favorite_ind_title img {
-  width: 18vw;
+  width: 244px;
   height: 146px;
   -o-object-fit: contain;
      object-fit: contain;
-  margin: 0px 2vw 5px 2vw;
+  margin: 0px 28px 5px 28px;
 }
 
 .favorite_container .favorite_list .favorite_ind_title a {
+  width: 200px;
   border-style: none;
   color: #fff;
   background-color: #CF7C7C;
-  width: 14vw;
   border-radius: 10px;
   cursor: pointer;
-  margin: 0px 4vw;
+  margin: 0px auto;
+  height: 14px;
   padding: 2px 5px;
   position: relative;
-  top: -6px;
+  top: -4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .favorite_container .favorite_list .favorite_ind_info {
-  width: 45.5vw;
   height: 200px;
+  width: 325px;
 }
 
 .favorite_container .favorite_list .favorite_ind_info .tags {
@@ -4040,9 +4039,9 @@ main {
 }
 
 .favorite_container .favorite_list .favorite_ind_info .tags p {
-  font-size: 14px;
+  font-size: 13px;
   margin: 3px 3px 3px 3px;
-  padding: 3px 8px;
+  padding: 2px 6px;
   border: 1px solid;
   border-radius: 15px;
   height: 16px;
@@ -4058,8 +4057,8 @@ main {
 }
 
 .favorite_container .favorite_list .favorite_ind_buttons {
-  width: 10vw;
   height: 200px;
+  width: 140px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4075,7 +4074,7 @@ main {
 }
 
 .favorite_container .favorite_list .favorite_ind_buttons .student_numbers {
-  width: 10vw;
+  width: 140px;
   height: 50px;
   font-size: 18px;
   font-weight: bold;
@@ -4094,7 +4093,7 @@ main {
 
 .favorite_container .favorite_list .favorite_ind_buttons a {
   color: #fff;
-  width: 9vw;
+  width: 126px;
   height: 40px;
   background-color: #52A49A;
   display: -webkit-box;
@@ -4111,7 +4110,7 @@ main {
 }
 
 .favorite_container .favorite_list .favorite_ind_buttons input {
-  width: 9vw;
+  width: 126px;
   height: 40px;
   background-color: #F3AF56;
   display: -webkit-box;
@@ -4132,7 +4131,7 @@ main {
 }
 
 .favorite_container .favorite_list .cart-btn {
-  width: 80vw;
+  width: 800px;
   height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
