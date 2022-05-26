@@ -130,7 +130,7 @@ $now = time();
               <?php foreach ($tags as $tag) : ?>
 
                 <input type="checkbox" name="tag[]" value="<?= $tag['tag_option'] ?>">
-                <input type="checkbox" value="<?= $tag['id'] ?>" name="<?= 'tag_' . $category['id'] . '[]' ?>" id="<?= $tag['id'] ?>">
+                <input type="checkbox" value=<?= $tag['id'] ?> name="<?= 'tag_' . $category['id'] . '[]' ?>" id="<?= $tag['id'] ?>">
                 <label for="<?= $tag['id'] ?>">
 
                   <?= $tag['tag_option'] ?>

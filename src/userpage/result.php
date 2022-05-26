@@ -363,10 +363,16 @@ $categories = $stmt->fetchAll();
 
                         <?php endforeach; ?>
                       </div>
-                      <div class="top_container_results--agents__agent--container--info__right--exp">
+                      <div class="top_container_results--agents__agent--container--info__right--title">
 
-                        <?= $result['agent_info'] ?>
+                        <?= $result['agent_title'] ?>
                       </div>
+                      <div class="top_container_results--agents__agent--container--info__right--points">
+                        <p><?= $result['agent_point1'] ?></p>
+                        <p><?= $result['agent_point2'] ?></p>
+                        <p><?= $result['agent_point3'] ?></p>
+                      </div>
+                      
                       <!-- 申し込んだ人数 -->
                       <?php
                       $agent_id = $result['id'];
@@ -521,7 +527,7 @@ $categories = $stmt->fetchAll();
                 <?php foreach ($tags as $tag) : ?>
 
                   <input type="checkbox" name="tag[]" value="<?= $tag['tag_option'] ?>">
-                  <input type="checkbox" value="<?= $tag['id'] ?>" name="<?= 'tag_' . $category['id'] . '[]' ?>" id="<?= $tag['id'] . "1" ?>">
+                  <input type="checkbox" value=<?= $tag['id'] ?> name="<?= 'tag_' . $category['id'] . '[]' ?>" id="<?= $tag['id'] . "1" ?>">
                   <label for="<?= $tag['id'] . "1" ?>">
 
                     <?= $tag['tag_option'] ?>

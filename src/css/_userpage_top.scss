@@ -215,6 +215,8 @@ main{
             text-align: center;
             background-color: #e0e0e0;
             display: none;
+            position: relative;
+            left: -2vw;
             @include tb {
               width: 55vw;
               margin: 0 auto;
@@ -398,6 +400,7 @@ main{
   .search-buttons{
     width: 20vw;
     margin: 5px 10px;
+    text-align: center;
     @include tb {
       margin: 5px;
       width: 28vw;
@@ -415,8 +418,8 @@ main{
       width: 200px;
       font-size: 20px;
       position: relative;
-      top: 20px;
-      left: 20px;
+      // top: 20px;
+      // left: 20px;
       cursor: pointer;
       @include tb {
         display: none;
