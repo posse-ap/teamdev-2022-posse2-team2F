@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('../dbconnect.php');
 
 
@@ -6,21 +7,32 @@ if (isset($_POST['submit'])) {
 
   $content = $_POST['content'];
   $details = $_POST['details'];
+  $login_email = $_SESSION['login_email'];
 
 
-  $sql = 'INSERT INTO agent_inquiries(content, details) 
-          VALUES (?, ?)';
+  $sql = 'INSERT INTO agent_inquiries(agent_name, name, email, content, details) 
+          VALUES (?, ?, ?, ?, ?)';
   $stmt = $db->prepare($sql);
-  $stmt->execute(array($content, $details));
+  $stmt->execute(array($_SESSION['agent_name'], $_SESSION['name'], $_SESSION['login_email'], $content, $details));
 
-  
+  // メール送信 
+  $to      = "craft@boozer.com";
+  $subject = "新規お問合せがありました";
+  $message = "
+  新たなお問合せがありました。
+
+  以下URLをクリックしご確認ください。
+  http://localhost/craft_admin/inquiries_agent.php";
+  $headers = "From: $login_email";
+
+  mb_send_mail($to, $subject, $message, $headers);
+
   header('Location: students_info.php');
   exit;
 }
 
 
 
-session_start();
 include('../_header.php');
 
 ?>

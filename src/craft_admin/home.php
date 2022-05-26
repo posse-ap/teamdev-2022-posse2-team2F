@@ -2,32 +2,81 @@
 session_start();
 require('../dbconnect.php');
 
+//agent自動更新
 // 画像 & エージェント名表示用
 $stmt = $db->query("SELECT * FROM agents");
 $results = $stmt->fetchAll();
 
+//現在時刻の取得
+$now = time();
+//掲載期間超えているエージェントは自動的に非表示に
+foreach ($results as $rlt) {
+  $id = $rlt['id'];
+  $end_time = strtotime($rlt['end_display']);
+  $start_time = strtotime($rlt['start_display']);
+  if ($now <= $start_time) {
+    //掲載前=2
+    $sql = "UPDATE agents
+          SET hide = 2
+          WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id));
+  } elseif ($now >= $end_time) {
+    //掲載後=3
+    $sql = "UPDATE agents
+          SET hide = 3
+          WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id));
+  }elseif ($rlt['hide'] == 0){
+    $sql = "UPDATE agents
+          SET hide = 0
+          WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id));
+  }elseif ($rlt['hide'] == 1){
+    $sql = "UPDATE agents
+          SET hide = 1
+          WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id));
+  }elseif($now >= $start_time){
+    $sql = "UPDATE agents
+          SET hide = 0
+          WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id));
+  }elseif($now <= $end_time){
+    $sql = "UPDATE agents
+    SET hide = 0
+    WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id));
+  }
+}
+
 
 // 表示する処理
 if (isset($_POST['show'])) {
-  $show = key($_POST['show']); 
+  $show = key($_POST['show']);
 
   $sql = "UPDATE agents
           SET hide = 0
           WHERE id = ?";
   $stmt = $db->prepare($sql);
   $stmt->execute(array($show));
-} 
+}
 
 // 隠す処理
 if (isset($_POST['hide'])) {
-  $hide = key($_POST['hide']); 
+  $hide = key($_POST['hide']);
 
   $sql = "UPDATE agents
           SET hide = 1
           WHERE id = ?";
   $stmt = $db->prepare($sql);
   $stmt->execute(array($hide));
-} 
+}
 
 ?>
 
@@ -89,115 +138,118 @@ if (isset($_POST['hide'])) {
 
         </div>
         <form action="" method="POST">
-        <?php foreach ($results as $result) : ?>
-          <div class="home-agents">
+          <?php foreach ($results as $result) : ?>
+            <div class="home-agents">
 
-            <div class="home-agents_info">
-              <img class="home-agents_info--img" src="./images/<?= $result['agent_pic'] ?>" alt="" style="height: 6.5vh">
-              <p class="home-agents_info--name"><?= $result['agent_name'] ?></p>
-            </div>
-            
-            <div class="home-agents_display">
-        
-            <?php 
-            // hide = 0 ： 表示されている
-            $sql = 'SELECT count(*) FROM agents WHERE id = ? AND hide = 0';
-            $stmt = $db->prepare($sql);
-            $stmt->execute(array($result['id']));
-            $display = $stmt->fetch();
-            // 表示されているなら、隠すオプションを表示
-            if ($display[0] == 1) {
-            ?>
-            
-            <input type="submit" value="&#xf06e;" class="fas home-agents_display--eye" name="hide[<?= $result['id'] ?>]" >
-            
-            
-            <!-- 表示されていないなら、見せるオプションを表示 -->
-            <?php } else { ?>
+              <div class="home-agents_info">
+                <img class="home-agents_info--img" src="./images/<?= $result['agent_pic'] ?>" alt="" style="height: 6.5vh">
+                <p class="home-agents_info--name"><?= $result['agent_name'] ?></p>
+              </div>
 
-            <input type="submit" value="&#xf070;" class="fas home-agents_display--eye" name="show[<?= $result['id'] ?>]">
+              <div class="home-agents_display">
 
-            <?php } ?>
-            
-              
+                <?php
+                // hide = 0 ： 表示されている
+                $sql = 'SELECT hide FROM agents WHERE id = ?';
+                $stmt = $db->prepare($sql);
+                $stmt->execute(array($result['id']));
+                $display = $stmt->fetch();
+                // var_dump($display);
 
-              
-            </div>
+                // 表示されているなら、隠すオプションを表示
+                if ($display[0] == 1) {
+                ?>
 
-            <div class="home-agents_buttons">
-              <a href="./edit_agent.php?id=<?= $result['id'] ?>" class="util_action_button util_action_button--edit">編集</a>
+                  <input type="submit" value="&#xf070;" class="fas home-agents_display--eye" name="show[<?= $result['id'] ?>]">
 
-              <!-- <button class="sakujyo" onclick="modalOpen()">削除</button> -->
-              <button type="button" class="util_action_button util_action_button--delete" onclick="deleteModal(<?= $result['id'] ?>)">削除</button>
 
-              <a href="./students_info.php" class="util_action_button util_action_button--list">申込一覧</a>
-            </div>
-          </div>
-          <!-- ここからmodal -->
-          <div id="util_deletemodal<?= $result['id'] ?>" class="util_modalcont">
-            <div class="util_deletemodal">
-              <p class="util_deletemodal_alert">本当に削除しますか？</p>
-              <div class="util_deletebuttons">
-                <button type="button" class="util_deletebuttons_item util_deletebuttons_item--no" onclick="closeFunction(<?= $result['id'] ?>)">いいえ</button>
-                <a href="./delete_agent.php?id=<?= $result['id'] ?>">
-                  <button type="button" class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction(<?= $result['id'] ?>)">はい</button>
-                </a>
+                  <!-- 表示されていないなら、見せるオプションを表示 -->
+                <?php } elseif ($display[0] == 0) { ?>
+
+                  <input type="submit" value="&#xf06e;" class="fas home-agents_display--eye" name="hide[<?= $result['id'] ?>]">
+
+                <?php } elseif ($display[0] == 2) { ?>
+                  <p>掲載前</p>
+                <?php } elseif ($display[0] == 3) { ?>
+                  <p>掲載終了</p>
+                <?php } ?>
+
+
+
+
+              </div>
+
+              <div class="home-agents_buttons">
+                <a href="./edit_agent.php?id=<?= $result['id'] ?>" class="util_action_button util_action_button--edit">編集</a>
+
+                <!-- <button class="sakujyo" onclick="modalOpen()">削除</button> -->
+                <button type="button" class="util_action_button util_action_button--delete" onclick="deleteModal(<?= $result['id'] ?>)">削除</button>
+
+                <a href="./students_info.php" class="util_action_button util_action_button--list">申込一覧</a>
               </div>
             </div>
-          </div>
-          <!-- ここから削除完了画面 -->
-          <div id="util_modalcont<?= $result['id'] ?>" class="util_modalcont">
-            <p class="util_modalcont_text">削除されました。</p>
-          </div>
+            <!-- ここからmodal -->
+            <div id="util_deletemodal<?= $result['id'] ?>" class="util_modalcont">
+              <div class="util_deletemodal">
+                <p class="util_deletemodal_alert">本当に削除しますか？</p>
+                <div class="util_deletebuttons">
+                  <button type="button" class="util_deletebuttons_item util_deletebuttons_item--no" onclick="closeFunction(<?= $result['id'] ?>)">いいえ</button>
+                  <a href="./delete_agent.php?id=<?= $result['id'] ?>">
+                    <button type="button" class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction(<?= $result['id'] ?>)">はい</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- ここから削除完了画面 -->
+            <div id="util_modalcont<?= $result['id'] ?>" class="util_modalcont">
+              <p class="util_modalcont_text">削除されました。</p>
+            </div>
 
-          
-        <?php endforeach; ?>
+
+          <?php endforeach; ?>
         </form>
       </div>
     </div>
   </div>
 
-  
+
 
   <?php require('../_footer.php'); ?>
 
 
   <script>
     //ボタンをクリックした時の処理
-    let deleteModal = function (id) {
-          let modal = document.getElementById(`util_deletemodal${id}`);
-          function modalOpen() {
-            modal.style.display = 'block';
-          };
-          modalOpen();
+    let deleteModal = function(id) {
+      let modal = document.getElementById(`util_deletemodal${id}`);
+
+      function modalOpen() {
+        modal.style.display = 'block';
+      };
+      modalOpen();
     }
 
-    let deleteFunction = function (id) {
-          let modal = document.getElementById(`util_deletemodal${id}`);
-          let modalComplete = document.getElementById(`util_modalcont${id}`);
-          function deleteAgent() {
-            modal.style.display = 'none';
-            modalComplete.style.display = 'block';
-          };
-          deleteAgent();
+    let deleteFunction = function(id) {
+      let modal = document.getElementById(`util_deletemodal${id}`);
+      let modalComplete = document.getElementById(`util_modalcont${id}`);
+
+      function deleteAgent() {
+        modal.style.display = 'none';
+        modalComplete.style.display = 'block';
+      };
+      deleteAgent();
     }
 
-    let closeFunction = function (id) {
-          let modal = document.getElementById(`util_deletemodal${id}`);
-          
-          function modalClose() {
-            modal.style.display = 'none';
-          };
-          modalClose();
+    let closeFunction = function(id) {
+      let modal = document.getElementById(`util_deletemodal${id}`);
+
+      function modalClose() {
+        modal.style.display = 'none';
+      };
+      modalClose();
     }
-
-    
-
-
-    
   </script>
 
-  
+
 
 </body>
 

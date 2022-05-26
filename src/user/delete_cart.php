@@ -17,6 +17,6 @@ if(isset($result['id'])){
   if ($delete_id != '') {
     unset($_SESSION['products'][$delete_id]);
   }
-  header('Location: /userpage/result.php');
+  header('Location: /user/cart.php');
   }
   ?>

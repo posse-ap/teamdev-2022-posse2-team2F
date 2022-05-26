@@ -19,6 +19,8 @@ $sql_prepare = $db->prepare($sql);
 $sql_prepare->execute(array($application_id));
 $student_info = $sql_prepare->fetch();
 
+$agent = $student_info['agent'];
+
 // if (isset($_POST['delete_more'])) {
 
 //   $sql = "START TRANSACTION;
@@ -124,7 +126,7 @@ $student_info = $sql_prepare->fetch();
   <!-- ============================ここからモーダル============================ -->
   <div id="moreinfo_modal_bg" class="util_deletemodal_bg">
     <div id="moreinfo_modal" class="util_deletemodal_container">
-        <form action="delete_student_application.php?id=<?= $application_id ?>" method="POST">
+        <form action="delete_student_application.php?id=<?= $application_id ?>&agent=<?= $student_info['agent'] ?>" method="POST">
             <div class="util_deletemodal">
                 <?php
                         // foreach ($split_ids as $index => $tag_id) {
@@ -132,7 +134,6 @@ $student_info = $sql_prepare->fetch();
                         // $stmt->execute(array($tag_id, $id));
 
                         ?>
-                <!-- <p class="util_deletemodal_text">「<?= $student_info['name'] ?>」さんの情報の削除を実行しますか？</p> -->
                 <p class="util_deletemodal_text">「<?= $student_info['name'] ?>」さんの情報を削除しますか？</p>
                 <div class="util_deletemodal_buttons">
                     <button onclick="modalClose()" type="button" class="util_deletemodal_back">いいえ</button>
@@ -144,7 +145,7 @@ $student_info = $sql_prepare->fetch();
     <!-- ここから削除完了画面 -->
     <div id="moreinfo_modaldone" class="util_deletemodal_container">
       <div class="util_deletemodal">
-        <p class="util_deletemodal_message">削除申請が完了しました。</p>
+        <p class="util_deletemodal_message">削除が完了しました。</p>
       </div>
     </div>
   </div>
