@@ -35,7 +35,8 @@ foreach ($agent_results as $rlt) {
 
 if (isset($_SESSION['tag_id']) || isset($_SESSION['single_id']))
 {
-  session_unset();
+  unset($_SESSION['tag_id']);
+  unset($_SESSION['single_id']);
 }
 
 $products = isset($_SESSION['products']) ? $_SESSION['products'] : [];
