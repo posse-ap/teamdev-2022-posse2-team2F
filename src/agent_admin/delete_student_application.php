@@ -39,7 +39,7 @@ if (isset($_POST['delete_request'])) {
     die($db->error);
   }
 
-  $to      = "craft@boozer.com";
+  $to      = "admin@boozer.com";
   $subject = "新規削除申請があります";
   $message = "
 
@@ -51,7 +51,8 @@ if (isset($_POST['delete_request'])) {
   // $moji = "apple"
   // echo "${moji}"
   // ${変数名}で展開されます
-  $headers = "From: $email";
+  // $headers = "From: $email";
+  $headers = "From: craft@boozer.com";
 
   mb_send_mail($to, $subject, $message, $headers);
 

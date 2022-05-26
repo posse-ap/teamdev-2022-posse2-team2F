@@ -2,7 +2,7 @@
 session_start();
 require('../dbconnect.php');
 
-$stmt = $db->query("SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, delete_student_application.agent_name, delete_student_application.response, delete_student_application.time
+$stmt = $db->query("SELECT students_agent.id, students_agent.agent_id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, delete_student_application.agent_name, delete_student_application.response, delete_student_application.time
                     FROM students_contact 
                     JOIN students_agent ON students_contact.id = students_agent.student_id
                     JOIN delete_student_application on delete_student_application.application_id = students_agent.id
@@ -165,10 +165,8 @@ $results = $stmt->fetchAll();
 
           ?>
             <div class="manageinquiries_table--control">
-              <!-- <input type="hidden" name="hidden[<?= $result['id']; ?>]" value="削除"> -->
               <input type="submit" class='util_action_button util_action_button--delete space_for_inquiries' name="delete[<?= $result['id']; ?>]" value="削除">
-              <!-- <input type="hidden" name="agent[<?= $result['agent_name'] ?>]"> -->
-              <!-- <input type="hidden" name="hidden_keep[<?= $result['id']; ?>]" value="キープ"> -->
+              <input type="hidden" name="agentid[<?= $result['agent_id']; ?>]">
               <input type="submit" class='util_action_button util_action_button--list' name="keep[<?= $result['id']; ?>]" value="削除しない">
             </div>
             

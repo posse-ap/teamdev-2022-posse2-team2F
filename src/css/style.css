@@ -4530,6 +4530,7 @@ main {
 
 .manageinquiries_table {
   margin-top: 10px;
+  width: 100%;
 }
 
 .manageinquiries_table .dontwrap {
