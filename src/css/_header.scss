@@ -23,7 +23,8 @@ a {
 .header {
   background: #52a49a;
   width: 100vw;
-  height: 65px;
+  height: 10vh;
+  min-height: 65px;
   display: flex;
   justify-content: center;
 

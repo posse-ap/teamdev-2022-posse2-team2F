@@ -5,7 +5,7 @@ session_start();
 ?>
 <?php
 //タグカテゴリーの表示
-$stmt = $db->query('SELECT * FROM tag_categories');
+$stmt = $db->query('SELECT * FROM tag_categories WHERE hide = 0');
 
 $categories = $stmt->fetchAll();
 ?>
@@ -20,7 +20,7 @@ foreach ($categories as $category) {
   //タグの数が配列の数と同じかどうか
   $select_tag = "tag_" . $category['id'];
   $ids = $category['id'];
-  $stmt = $db->query("SELECT category_id FROM tag_options WHERE category_id = $ids");
+  $stmt = $db->query("SELECT category_id FROM tag_options WHERE category_id = $ids AND hide = 0");
   $tag_search = $stmt->fetchAll();
   $num = $stmt->rowCount();
   

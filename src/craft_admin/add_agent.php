@@ -119,10 +119,10 @@ $categories = $stmt->fetchAll();
       </div>
 
       <div class="change">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data" id="postForm">
           <div class="change_item">
             <label class="change_item--label" for="agent_name" id="agent_name">エージェント名</label>
-            <input class="change_item--input" type="text" name="agent_name" required>
+            <input class="change_item--input" type="text" name="agent_name">
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_tag">エージェントタグ</label>
@@ -161,10 +161,11 @@ $categories = $stmt->fetchAll();
           <div class="change_item dropdown">
             <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
             <div class="dropdown_container">
-              <input type="text" id="start_display" name="agent_display_start" value="" required>
+              <p class="err-msg-name"></p>
+              <input type="text" id="start_display" name="agent_display_start" value="" >
               <p class="between"> 〜 </p>
               <input type="text" name="agent_display_end" id="end_display"
-              value="" required>
+              value="" >
             </div>
 
             <script>
@@ -179,14 +180,11 @@ $categories = $stmt->fetchAll();
               var fd = flatpickr(end_calender, config);
             </script>
           </div>
-          <input class="change_button" class="submit" type="submit" value="追加" name="submit">
+          <input class="change_button" class="add" type="submit" value="追加" name="submit">
         </form>
       </div>
     </div>
   </div>
-
-  
-
   <!-- ここからtag_modal -->
 
   <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
@@ -262,5 +260,7 @@ $categories = $stmt->fetchAll();
     }
   </script>
 </body>
+
+
 
 </html>

@@ -11,7 +11,8 @@ a {
 .header {
   background: #52a49a;
   width: 100vw;
-  height: 65px;
+  height: 10vh;
+  min-height: 65px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -72,7 +73,8 @@ a {
 .footer {
   background: #52a49a;
   width: 100vw;
-  height: 47px;
+  height: 8vh;
+  min-height: 47px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
