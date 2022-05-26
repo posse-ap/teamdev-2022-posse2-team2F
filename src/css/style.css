@@ -2036,6 +2036,44 @@ a {
   margin-left: 10px;
 }
 
+.table_heading {
+  text-align: center;
+  color: #52A49A;
+  font-weight: bold;
+  margin: 0px;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.table {
+  width: 96%;
+  height: 35%;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 11px;
+  border-collapse: collapse;
+  border: solid 1px #888;
+}
+
+.table_title, .table_content {
+  border: solid 1px #CCCCCC;
+  padding: 3px 10px;
+}
+
+.table_title {
+  width: 160px;
+}
+
+@media screen and (max-width: 520px) {
+  .table_title {
+    width: 70px;
+  }
+}
+
+.table_title {
+  background-color: #EBEDF1;
+}
+
 .info_inner-box {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2236,6 +2274,7 @@ a {
   width: 200px;
   padding-top: 12px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 520px) {
@@ -2249,6 +2288,7 @@ a {
 @media screen and (max-width: 960px) {
   .btn-fav {
     margin-left: 20px;
+    font-size: 13px;
   }
 }
 
@@ -2258,18 +2298,13 @@ a {
   width: 160px;
   padding-top: 12px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 960px) {
   .btn-register {
     font-size: 13px;
     margin-right: 10px;
-  }
-}
-
-@media screen and (max-width: 960px) {
-  .btn {
-    font-size: 13px;
   }
 }
 

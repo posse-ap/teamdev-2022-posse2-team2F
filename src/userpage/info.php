@@ -16,7 +16,8 @@ require('../dbconnect.php');?>
       <div class="info_inner-box">
         <div class="info_inner-leftbox">
           <img src="\img\mynavishinnsotsu.png" class="img_agent" alt="">
-          <!-- <table class="table_1">
+          <h4 class="table_heading">〈 エージェント情報 〉</h4>
+          <table class="table">
             <tr>
               <td class="table_title">運営会社の規模</td>
               <td class="table_content">大手</td>
@@ -37,18 +38,27 @@ require('../dbconnect.php');?>
               <td class="table_title">オンライン面談の有無</td>
               <td class="table_content">無</td>
             </tr>
-          </table>
-          <table class="table_2">
             <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td class="table_title">公開求人数</td>
+              <td class="table_content">無</td>
             </tr>
-          </table> -->
+            <tr>
+              <td class="table_title">強い分野</td>
+              <td class="table_content">-</td>
+            </tr>
+            <tr>
+              <td class="table_title">特別選考の有無
+              </td class="table_content">
+              <td class="table_content">有</td>
+            </tr>
+            <tr>
+              <td class="table_title">イベントの有無(23卒/24卒)</td>
+              <td class="table_content">-/現在公開なし</td>
+            </tr>
+              <td class="table_title">タイプ</td>
+              <td class="table_content">総合</td>
+            </tr>
+          </table>
         </div>
         <div class="info_inner-rightbox">
           <h3 class="info_inner-rightbox_catchcopy">国内トップクラスのデータベースで<br>幅広い求人紹介を見つけられる！</h3>
