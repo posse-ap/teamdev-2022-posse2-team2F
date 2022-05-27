@@ -26,6 +26,7 @@ if (isset($_POST['login'])) {
     //DBのユーザー情報をセッションに保存
     $_SESSION['id'] = $login_info['id'];
     $_SESSION['agent_name'] = $login_info['agent_name'];
+    $_SESSION['agent_id'] = $login_info['agent_id'];
     $_SESSION['name'] = $login_info['name'];
     $_SESSION['dept'] = $login_info['dept'];
     $_SESSION['image'] = $login_info['image'];

@@ -33,27 +33,30 @@ CREATE TABLE agent_users (
     notify_email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     password_conf VARCHAR(255) NOT NULL,
-    agent_name VARCHAR(255) NOT NULL
+    agent_name VARCHAR(255) NOT NULL,
+    agent_id INT NOT NULL
 );
 
 INSERT INTO
     agent_users
 SET
-    login_email = 'admin@agent.com',
-    contract_email = 'contract1@agent.com',
-    notify_email = 'notify1@agent.com',
+    login_email = 'admin@mainabi.com',
+    contract_email = 'contract@mainabi.com',
+    notify_email = 'notify@mainabi.com',
     password = sha1('password'),
     password_conf = sha1('password'),
-    agent_name = 'agent1';
+    agent_name = 'まいなび新卒紹介',
+    agent_id = 1;
 
 INSERT INTO
     agent_users
 SET
-    login_email = 'admin2@agent.com',
+    login_email = 'admin@agent.com',
     contract_email = 'contract2@agent.com',
     notify_email = 'notify2@agent.com',
     password = sha1('password'),
     password_conf = sha1('password'),
+    agent_id = 2,
     agent_name = 'agent2';
 
 DROP TABLE IF EXISTS agent_users_info;
@@ -109,7 +112,7 @@ SET
     agent_pic = 'mainabi.jpg',
     agent_tag = '1,2,3',
     agent_tagname = 'ベンチャー、大手、ベンチャー',
-    agent_title = '国内トップクラスのデータベースで幅広い求人紹介を見つけられる！',
+    agent_title = 'データベースで幅広い求人を見つけられる！',
     agent_info = '大手人材会社のマイナビが運営するこちらの就活エージェント。人材業界最大手の企業だからこそ、企業データを豊富に持っており紹介できる企業が幅広いといえます。東京・名古屋・大阪・京都と4つの拠点があるうえ、マイナビ全体の営業担当が全国各地で活動。地方の就職をサポートする体制が整っていることが魅力です。また、マイナビは展開しているすべてのサービスで面談を徹底していることが特徴。時間をかけて面談がしたい人向きのエージェントです。',
     agent_point1 = '新卒カテゴリから深掘りしたコンテンツを用意',
     agent_point2 = '全国各地での企業マッチングセミナーを開催',
@@ -125,7 +128,7 @@ SET
     agent_pic = 'irodas.png',
     agent_tag = '1,2,3',
     agent_tagname = 'ベンチャー、大手、ベンチャー',
-    agent_title = '設立5年のベンチャー企業が運営！仲間を見つけやすい！',
+    agent_title = '設立5年のベンチャー企業が運営！',
     agent_info = '「irodas」はもともと、関西の学生を支援するために立ち上げられた就活エージェントです。最近では関東にも進出しており、多くの学生が利用しています。登録学生同士で交流できるイベントが盛んなので、情報交換したり、悩みを相談したりできる仲間を見つけやすいでしょう。2022年2月現在で、23卒の登録者は1万人以上です。サービス開始が2017年とまだ若いサービスであることから、紹介企業は大手に劣る可能性があるものの、学生同士のコミュニティに参加できることはメリット。登録して損はないでしょう。',
     agent_point1 = '学生が集まるコミュニティ型の就活支援サービス',
     agent_point2 = '内定先は大手・有名企業が多数！',
@@ -173,7 +176,7 @@ SET
     agent_pic = 'meetscompany.png',
     agent_tag = '1,2,3',
     agent_tagname = 'ベンチャー、大手、ベンチャー',
-    agent_title = '適性検査を用いて就活生にぴったりの企業を紹介！',
+    agent_title = 'あなたにとって特別な一社との出会いを！',
     agent_info = 'Meets Companyは全国各地、一年中いつでも学生と接点を持つことができ、通年での母集団形成・採用計画が立てられるイベントです。座談会形式で直接マッチングできる就活支援プログラムなので、一般的な合同説明会よりも学生とじっくりと話すことができます。大手ナビ媒体での採用がうまくいっていない場合でも、成長意欲の高い学生とのマッチングを実現します。業種・業界、採用課題などの情報に基づき、貴社のニーズにマッチした学生のみをご紹介することで、効率的に採用活動をおこなうことができます。',
     agent_point1 = '企業の人事と直接交流できる合同説明会開催',
     agent_point2 = '合同説明会は全国各地で開かれる',
@@ -189,7 +192,7 @@ SET
     agent_pic = 'synad.png',
     agent_tag = '1,2,3',
     agent_tagname = 'ベンチャー、大手、ベンチャー',
-    agent_title = '珍しい広告・IT業界専門エージェント！豊富なセミナーが魅力！',
+    agent_title = '珍しい広告・IT業界専門エージェント！',
     agent_info = 'Meets イングリウッドが運営する「シンアド就活」は、主に広告・PR・IT業界を専門に就活支援を行うエージェントです。業界が絞られている分、業界動向などの情報を詳しく聞きやすいものの、利用者が限られる点には注意しましょう。シンアド就活は、セミナー開催が豊富であることが魅力。3月から4月までは、ほとんど毎日セミナー・説明会を開催しています。広告・IT業界を志望する人は、登録の価値がある就活エージェントです。',
     agent_point1 = 'クリエイティブ業界に行きたい人におすすめ',
     agent_point2 = '予算や再方針に合わせて2種類のプランから選択可能',
@@ -237,7 +240,7 @@ SET
     agent_pic = 'careerstart.png',
     agent_tag = '1,2,3',
     agent_tagname = 'ベンチャー、大手、ベンチャー',
-    agent_title = '「量より質」！就活生の価値観に合う企業だけを紹介！',
+    agent_title = '量より質！就活生の価値観に合う企業だけ紹介！',
     agent_info = '「キャリアスタート」は、既卒や第二新卒の就職・転職支援に特化したエージェントで、2012年のサービス開始から多くの20代転職者に利用されています。第二新卒やフリーターに特化している分、サポートが手厚いため、利用してみる価値が高いサービスです。企業ごとに採用担当者の特徴や過去の質問事例などを教えてもらえて何度でも納得いくまで練習が可能です。',
     agent_point1 = '未経験からの正社員就職が強み',
     agent_point2 = '企業それぞれに合わせた面接対策',

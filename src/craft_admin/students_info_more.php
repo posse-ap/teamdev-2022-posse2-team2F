@@ -13,13 +13,14 @@ if (!isset($application_id)) {
 
 
 // $sql = "SELECT students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND students_agent.id = ?";
-$sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.id = ?";
+$sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent_id, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.id = ?";
 
 $sql_prepare = $db->prepare($sql);
 $sql_prepare->execute(array($application_id));
 $student_info = $sql_prepare->fetch();
 
-$agent = $student_info['agent'];
+// $agent = $student_info['agent'];
+$agent = $student_info['agent_id'];
 
 // if (isset($_POST['delete_more'])) {
 

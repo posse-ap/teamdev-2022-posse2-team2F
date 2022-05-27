@@ -37,7 +37,12 @@ include('../_header.php');
 
 ?>
 
-
+<div class="util_logout">
+    <a href="./login/logout.php">
+        ログアウト
+        <i class="fas fa-sign-out-alt"></i> 
+    </a>   
+</div>
 
 
 <div class="util_container">

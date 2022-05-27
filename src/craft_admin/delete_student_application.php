@@ -11,7 +11,8 @@ if (isset($_POST['delete_more'])) {
 $agent = $_GET['agent'];
 $id = $_GET['id'];
   
-$sql = "SELECT notify_email FROM agent_users JOIN students_agent ON agent_users.agent_name = students_agent.agent WHERE students_agent.agent = ?";
+// $sql = "SELECT notify_email FROM agent_users JOIN students_agent ON agent_users.agent_name = students_agent.agent WHERE students_agent.agent = ?";
+$sql = "SELECT notify_email FROM agent_users JOIN students_agent ON agent_users.id = students_agent.agent_id WHERE students_agent.agent.agent_id = ?";
 $sql_prepare = $db->prepare($sql);
 $sql_prepare->execute(array($agent));
 $agent_email = $sql_prepare->fetch();
@@ -86,7 +87,8 @@ if (isset($_POST['delete']) && $_POST["delete"]) {
   $button_delete = key($_POST['delete']); //$button_deleteには押された番号が入る
   $agent_id = key($_POST['agentid']); 
 
-  $sql = "SELECT * FROM agent_users JOIN students_agent ON students_agent.agent = agent_users.agent_name WHERE students_agent.agent_id = ? LIMIT 1";
+  // $sql = "SELECT * FROM agent_users JOIN students_agent ON students_agent.agent = agent_users.agent_name WHERE students_agent.agent_id = ? LIMIT 1";
+  $sql = "SELECT * FROM agent_users JOIN students_agent ON students_agent.agent_id = agent_users.id WHERE students_agent.agent_id = ? LIMIT 1";
   $mail_stmt = $db->prepare($sql);
   $mail_stmt->execute(array($agent_id));
 
@@ -139,7 +141,8 @@ if (isset($_POST['keep']) && $_POST["keep"]) {
   $button_keep = key($_POST['keep']); //$buttonには押された番号が入る
   $agent_id = key($_POST['agentid']); 
 
-  $sql = "SELECT * FROM agent_users JOIN students_agent ON students_agent.agent = agent_users.agent_name WHERE students_agent.agent_id = ? LIMIT 1";
+  // $sql = "SELECT * FROM agent_users JOIN students_agent ON students_agent.agent = agent_users.agent_name WHERE students_agent.agent_id = ? LIMIT 1";
+  $sql = "SELECT * FROM agent_users JOIN students_agent ON students_agent.agent_id = agent_users.id WHERE students_agent.agent_id = ? LIMIT 1";
   $mail_stmt = $db->prepare($sql);
   $mail_stmt->execute(array($agent_id));
 

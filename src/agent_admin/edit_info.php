@@ -91,6 +91,12 @@ if ($count[0] != 0) {
   <?php require('../_header.php'); ?>
 
   <div class="util_container">
+    <div class="util_logout">
+        <a href="./login/logout.php">
+            ログアウト
+            <i class="fas fa-sign-out-alt"></i> 
+        </a>   
+    </div>
     <div class="util_sidebar">
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/agent_admin/students_info.php">学生申し込み一覧</a>
