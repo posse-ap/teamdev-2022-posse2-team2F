@@ -9,10 +9,8 @@ if (isset($_POST['submit'])) {
   $agent_tagname = $_POST['agent_tag'];
   $agent_tag = $_POST['tag_id'];
   $agent_info = $_POST['agent_info'];
-  if (isset($_POST['agent_display'])) {
-    // セレクトボックスで選択された値を受け取る
-    $agent_display = $_POST['agent_display'];
-  }
+  $start_display = $_POST['agent_display_start'];
+  $end_display = $_POST['agent_display_end'];
 
   // 画像更新
   $target_dir = "images/";
@@ -32,10 +30,10 @@ if (isset($_POST['submit'])) {
   // INSERT INTO文 は一回で書かないとだから、編集画面みたいに分けて書けない
   // 画像をアップロードして、さらに登録ボタンが押されたら SQL文を書く仕組みにした！ （どうせ画像の登録は必要になるから）
 
-  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_tagname, agent_info, agent_display, hide) 
-          VALUES (?, ?, ?, ?, ?, ?, 0)';
+  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_tagname, agent_info, start_display, end_display, hide) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, 0)';
   $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_tagname, $agent_info, $agent_display));
+  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_tagname, $agent_info, $start_display, $end_display));
 
   /* ここからタグ系の処理イメージ記述します */
   $tag_ids = $_POST['tag_id'];
@@ -78,6 +76,10 @@ $categories = $stmt->fetchAll();
 
 <body>
   <?php require('../_header.php'); ?>
+  <!-- ここでカレンダー読み込み -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
   <div class="util_container">
     <div class="util_sidebar">
       <div class="util_sidebar_button">
@@ -97,7 +99,7 @@ $categories = $stmt->fetchAll();
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
-        <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+        <a class="util_sidebar_link" href="/craft_admin/contact_management.php">お問合せ管理</a>
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
@@ -158,18 +160,91 @@ $categories = $stmt->fetchAll();
           </div>
           <div class="change_item dropdown">
             <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
-            <select class="change_item--select" name="agent_display">
-              <option value="1">1ヶ月</option>
-              <option value="3">3ヶ月</option>
-              <option value="6">6ヶ月</option>
-              <option value="12">12ヶ月</option>
-            </select>
+            <div class="dropdown_container">
+            <p class="start_display_error"></p>
+            <p class="end_display _error"></p>
+              <input type="text" id="start_display" name="agent_display_start" value="">
+              <p class="between"> 〜 </p>
+              <input type="text" name="agent_display_end" id="end_display"
+              value="">
+            </div>
+
+            <script>
+              const config = {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+              }
+              var start_calender = document.getElementById("start_display");
+              var fp = flatpickr(start_calender, config);
+
+              var end_calender = document.getElementById("end_display");
+              var fd = flatpickr(end_calender, config);
+            </script>
           </div>
-          <input class="change_button" type="submit" value="追加" name="submit">
+          <input class="change_button" class="submit" type="submit" value="追加" name="submit">
         </form>
       </div>
     </div>
   </div>
+
+  <!-- ここからバリデーション -->
+  <script>
+    // window.addEventListener('DOMContentLoaded', () => {
+
+    // 「送信」ボタンの要素を取得
+    const submit = document.querySelector('.submit');
+
+    // 「送信」ボタンの要素にクリックイベントを設定する
+    submit.addEventListener('click', (e) => {
+
+    // 「お名前」入力欄の空欄チェック
+    //要素取得
+    const start_display = document.querySelector('#start_display');
+    const end_display = document.querySelector('#end_display');
+    // エラーメッセージを表示させる要素を取得
+    const errMsgName1 = document.querySelector('.start_display_error');
+    const errMsgName2 = document.querySelector('.end_display_error');
+
+    if(!start_display.value){
+
+        // デフォルトアクションをキャンセル
+        e.preventDefault();
+        // クラスを追加(エラーメッセージを表示する)
+        errMsgName1.classList.add('form-invalid');
+        // エラーメッセージのテキスト
+        errMsgName1.textContent = '掲載期間が選択されていません';
+        // クラスを追加(フォームの枠線を赤くする)
+        start_display.classList.add('input-invalid');
+        // 後続の処理を止める
+        return;
+    }else{
+        // エラーメッセージのテキストに空文字を代入
+        errMsgName1.textContent ='';
+        // クラスを削除
+        start_display.classList.remove('input-invalid');
+    }
+
+    if(!end_display.value){
+        // デフォルトアクションをキャンセル
+        e.preventDefault();
+        // クラスを追加(エラーメッセージを表示する)
+        errMsgName2.classList.add('form-invalid');
+        // エラーメッセージのテキスト
+        errMsgName2.textContent = '掲載期間が表示されていません';
+        // クラスを追加(フォームの枠線を赤くする)
+        end_display.classList.add('input-invalid');
+        // 後続の処理を止める
+        return;
+    }else{
+        // エラーメッセージのテキストに空文字を代入
+        errMsgName2.textContent ='';
+        // クラスを削除
+        end_display.classList.remove('input-invalid');
+    }
+
+  }, false);
+// }, false);
+  </script>
 
   <!-- ここからtag_modal -->
 

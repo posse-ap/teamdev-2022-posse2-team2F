@@ -535,26 +535,27 @@ if (isset($_POST["back"]) && $_POST["back"]) {
 
             foreach($results as $result) 
             {
-            $sql = "INSERT INTO students_agent(student_id, agent) VALUES (?, ?);";
+            $sql = "INSERT INTO students_agent(student_id, agent_id, agent) VALUES (?, ?, ?);";
             $stmt = $db->prepare($sql);
-            $stmt->execute(array($id['id'], $result['agent_name']));
+            $stmt->execute(array($id['id'], $result['id'], $result['agent_name']));
 
             $sql_email = "SELECT agent_users.notify_email, agent_users.agent_name FROM agent_users INNER JOIN agents ON agent_users.agent_name = agents.agent_name WHERE agent_users.agent_name = ?";
             $stmt = $db->prepare($sql_email);
             $stmt->execute(array($result['agent_name']));
             $email = $stmt->fetch();
 
+            $agent_name = $result['agent_name'];
+
             $to      = $email['notify_email'];
             $subject = "学生の申し込みがありました";
             $message = "
 
-            〇〇agent様
+            ${agent_name}様
 
 
             学生の新規申し込みがありました 
             以下でご確認ください：
-            // リンク
-            -> apple  ";
+            // リンク";
             // 文字列の中で変数を展開
             // $moji = "apple"
             // echo "${moji}"
@@ -566,14 +567,6 @@ if (isset($_POST["back"]) && $_POST["back"]) {
 
             }
 
-
-
-
-            
-            
-            // );
-
-
           }
         // 個別申し込みした場合
         } else {
@@ -583,27 +576,29 @@ if (isset($_POST["back"]) && $_POST["back"]) {
           $stmt = $db->query("SELECT * FROM agents WHERE id = '$single_id'");
           $result = $stmt->fetch();
 
-          $sql = "INSERT INTO students_agent(student_id, agent) VALUES (?, ?);";
+          $sql = "INSERT INTO students_agent(student_id, agent_id, agent) VALUES (?, ?, ?);";
           $stmt = $db->prepare($sql);
-          $stmt->execute(array($id['id'], $result['agent_name']));
+          $stmt->execute(array($id['id'], $result['id'], $result['agent_name']));
 
           $sql_email = "SELECT agent_users.notify_email, agent_users.agent_name FROM agent_users INNER JOIN agents ON agent_users.agent_name = agents.agent_name WHERE agent_users.agent_name = ?";
           $stmt = $db->prepare($sql_email);
           $stmt->execute(array($result['agent_name']));
           $email = $stmt->fetch();
 
+          $agent_name = $result['agent_name'];
+
           // メールの送信先
           $to = $email['notify_email'];
           $subject = "学生の申し込みがありました";
           $message = "
 
-          〇〇agent様
+          ${agent_name}様
 
           文字列の中で変数を展開
 
           学生の新規申し込みがありました
-          以下でご確認ください：
-          // リンク
+          以下からログインしてご確認ください：
+          http://localhost/agent_admin/login/login.php
           ";
 
           $headers = "From: craft@boozer.com";
@@ -641,7 +636,6 @@ if (isset($_POST["back"]) && $_POST["back"]) {
     
         〇〇エージェントから申し込みがありました！
         以下でご確認ください：
-        // リンク
 
       ";
         $headers = "From: craft@boozer.com";

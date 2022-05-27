@@ -93,7 +93,8 @@ CREATE TABLE agents (
     agent_tag VARCHAR(255) NOT NULL,
     agent_tagname VARCHAR(255) NOT NULL,
     agent_info VARCHAR(255) NOT NULL,
-    agent_display INT NOT NULL,
+    start_display TIMESTAMP NOT NULL,
+    end_display TIMESTAMP NOT NULL,
     hide INT NOT NULL
 );
 
@@ -105,7 +106,8 @@ SET
     agent_tag = '1,2,3',
     agent_tagname = 'ベンチャー、大手、ベンチャー',
     agent_info = 'はい！',
-    agent_display = 3,
+    start_display = '2022-05-24 00:00:00',
+    end_display = '2022-12-24 00:00:00',
     hide = 0;
 
 
@@ -248,9 +250,49 @@ CREATE TABLE agent_tag_options (
 INSERT INTO
     agent_tag_options(tag_option_id, agent_id)
 VALUES
-  (1,1),
-  (2,1),
-  (3,1);
+    (1, 1),
+    (2, 1),
+    (3, 1);
+
+
+DROP TABLE IF EXISTS user_contact_form;
+
+CREATE TABLE user_contact_form (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(255) NOT NULL,
+    detail VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO 
+    user_contact_form (
+        title,
+        name,
+        email,
+        phone,
+        detail
+    )
+VALUES
+    (
+        'その他',
+        '山田太郎',
+        'taroyamada@gmail.com',
+        '11111111111',
+        'うわあああああああ'
+    ),
+    (
+        'その他',
+        '金子夏蓮',
+        'careen@gmail.com',
+        '11111111111',
+        'うわあああああああ'
+    );
+--   (1,1),
+--   (2,1),
+--   (3,1);
 
 DROP TABLE IF EXISTS delete_student_application;
 
@@ -308,12 +350,15 @@ DROP TABLE IF EXISTS agent_inquiries;
 
 CREATE TABLE agent_inquiries (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    agent_name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
     content VARCHAR(255) NOT NULL,
     details VARCHAR(255) NOT NULL
 );
 
 INSERT INTO
-    agent_inquiries(content, details)
+    agent_inquiries(agent_name, name, email, content, details)
 VALUES
-    ("test", "test");
+    ("test", "test", "asd@asdasd", "エージェントの情報変更依頼", "エージェント名が変わりました。");
 

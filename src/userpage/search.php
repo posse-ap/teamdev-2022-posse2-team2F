@@ -11,6 +11,7 @@ $categories = $stmt->fetchAll();
 ?>
 <?php
 unset($_SESSION['search_id']);
+unset($_SESSION['default_id']);
 $result_id = array();
 $counter = 0;
 foreach ($categories as $category) {
@@ -30,30 +31,31 @@ foreach ($categories as $category) {
     $cnt = count($selected);
     //タグの数が配列の数と同じかどうか
     if ($num == $cnt){
-      $stmt = $db->query("SELECT id FROM agents");
+      $stmt = $db->query("SELECT id FROM agents WHERE hide = 0");
       $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
       $counter++;
   }
     elseif ($cnt >= 2) {
       $split_tags = explode(',', $tags);
       foreach($split_tags as $split_tag){
-        $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$split_tag%'");
+        $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$split_tag%' AND hide = 0");
         $pre_result = $stmt->fetchALL(PDO::FETCH_COLUMN);
         $count = $stmt->rowCount();
         $result_ids = array_merge($result_ids, $pre_result);
       }
       $counter++;
     }elseif ($cnt == 1){
-      $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$selected[0]%'");
+      $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$selected[0]%' AND hide = 0");
       $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
       $counter++;
     }
   }
   $result_id = array_merge($result_id, $result_ids);
 }
-
+$overlap = $counter - 1;
 if($counter >= 2){
-  $id_results = array_unique(array_diff($result_id, array_keys(array_count_values($result_id), 1)));
+  //$counter個重複している要素を取り出す
+  $id_results = array_unique(array_diff($result_id, array_keys(array_count_values($result_id), $overlap)));
   // $id_results = array_filter(array_count_values($result_id), function($v){return --$v;});
 }elseif($counter == 1){
   $id_results = $result_id;
@@ -61,7 +63,50 @@ if($counter >= 2){
   header("Location: top.php");
 }
 
-$_SESSION['search_id'] = $id_results;
+$_SESSION['default_id'] = $id_results;
+// var_dump($_SESSION['search_id']);
+
+//ここから人気順（申込人数多い順）
+$search_ids = array();
+foreach($id_results as $search_id){
+  $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+            $results = $stmt->fetchAll();
+            foreach ($results as $result){
+              $agent_id = $result['id'];
+                      $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$agent_id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
+                      
+                      $student_num =
+                      $stmt->rowCount();
+                      $student_nums = array($agent_id => $student_num);
+                      $search_ids += $student_nums;
+
+            }
+}
+
+arsort($search_ids);
+$search_id = array_keys($search_ids);
+// var_dump($search_id);
+
+
+$_SESSION['search_id'] = $search_id;
+
+//ここから掲載期間短い順
+// $search_ids = array();
+//   foreach ($_SESSION['default_id'] as $search_id){
+//     $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+//     $results = $stmt->fetchAll();
+//     foreach($results as $result){
+//       $agent_id = $result['id'];
+//       $end_time = strtotime($result['end_display']);
+//       $student_nums = array($agent_id => $end_time);
+//       $search_ids += $student_nums;
+//     }
+//   }
+//   asort($search_ids);
+//   $search_id = array_keys($search_ids);
+//   // var_dump($search_id);
+
+//   $_SESSION['search_id'] = $search_id;
 
 header("Location: result.php");
 ?>

@@ -55,21 +55,21 @@ require('../dbconnect.php');
 
                     <div class="info_control">
 
-                    <select name="sort">
+                    <select class="info_select" name="sort">
                         <?php
                         // POST を受け取る変数を初期化
                         $sort = '';
 
                         // セレクトボックスの値を格納する配列
                         $orders_list = array(
-                            "電話番号の小さい順",
-                            "電話番号の大きい順",
-                            "名前順",
-                            "申込順"
+                            "申込日時（昇順）",
+                            "申込日時（降順）"
                         );
 
                         // 戻ってきた場合
-                        if (isset($_POST['sort'])) {
+                        if (isset($_SESSION['sort_select'])) {
+                            $sort = $_SESSION['sort_select'];
+                        }else if (isset($_POST['sort'])) {
                             $sort = $_POST['sort'];
                         }
 
@@ -86,7 +86,7 @@ require('../dbconnect.php');
                     </select>
 
                     <!-- 並び替えボタン -->
-                    <input type="submit" name="sort_button" value="並び替える">
+                    <input class="info_button" type="submit" name="sort_button" value="並び替える">
 
                     </div>
 
@@ -94,22 +94,22 @@ require('../dbconnect.php');
                     <!-- ここから並び替えの分岐 -->
                     <?php
                     if (isset($_POST['sort_button'])) {
-                        if ($_POST['sort'] == '電話番号の小さい順') {
-                            $sort_sql = " ORDER BY phone ASC";
-                        } elseif ($_POST['sort'] == '電話番号の大きい順') {
-                            $sort_sql = " ORDER BY phone DESC";
-                        } elseif ($_POST['sort'] == '名前順') {
-                            $sort_sql = " ORDER BY name ASC";
-                        } elseif ($_POST['sort'] == '申込順') {
-                            $sort_sql = " ORDER BY created_at ASC";
+                        if ($_POST['sort'] == "申込日時（昇順）") {
+                            $_SESSION['sort_select'] = $_POST['sort'];
+                            $sort_sql = " ORDER BY students_contact.created_at ASC";
+                        } elseif ($_POST['sort'] == "申込日時（降順）") {
+                            $_SESSION['sort_select'] = $_POST['sort'];
+                            $sort_sql = " ORDER BY students_contact.created_at DESC";
                         } else {
-                            $sort_sql = " ORDER BY phone ASC";
+                            $sort_sql = " ";
                         }
                         $_SESSION['sort'] = $sort_sql;
                         // $sql = "SELECT * FROM students_contact WHERE agent = ? " . $_SESSION['sort'];
                         // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ?" . $_SESSION['sort'];
                         $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ?" . $_SESSION['sort'];
                     } else {
+                        // $sql = "SELECT * FROM students_contact_all WHERE agent = ? ORDER BY phone ASC";
+                        $sql = "SELECT students_contact_all.id, students_contact_all.name, students_contact_all.email, students_contact_all.phone, students_contact_all.university, students_contact_all.faculty, students_contact_all.address, students_contact_all.grad_year, students_agent.agent FROM students_contact_all JOIN students_agent ON students_contact_all.id = students_agent.student_id WHERE students_agent.agent = ?";
                         // $sql = "SELECT * FROM students_contact WHERE agent = ? ORDER BY phone ASC";
                         // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ? ORDER BY phone ASC";
                         $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? ORDER BY phone ASC";

@@ -13,7 +13,7 @@ if (isset($_POST['login'])) {
   $stmt->execute(array($email, $password));
   $result = $stmt->fetch();
   $stmt = null;
-  $sql_for_session = 'SELECT * FROM agent_users WHERE login_email = ? AND password = ?';
+  $sql_for_session = 'SELECT * FROM agent_users JOIN agent_users_info ON agent_users.id = agent_users_info.user_id WHERE login_email = ? AND password = ?';
   $stmt_for_session = $db->prepare($sql_for_session);
   $stmt_for_session->execute(array($email, $password));
   $login_info = $stmt_for_session->fetch();
@@ -30,6 +30,8 @@ if (isset($_POST['login'])) {
     $_SESSION['dept'] = $login_info['dept'];
     $_SESSION['image'] = $login_info['image'];
     $_SESSION['message'] = $login_info['message'];
+    $_SESSION['login_email'] = $login_info['login_email'];
+    $_SESSION['notify_email'] = $login_info['notify_email'];
     exit;
   } else {
     $err_msg = "ユーザー名またはパスワードが間違っています";
