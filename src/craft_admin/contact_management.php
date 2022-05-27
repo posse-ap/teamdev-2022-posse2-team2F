@@ -16,6 +16,7 @@ $contact_form_lists = $sql_prepare->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
     <title>お問い合わせ管理</title>
 </head>
 
@@ -39,7 +40,7 @@ $contact_form_lists = $sql_prepare->fetchAll();
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button  util_sidebar_button--selected">
-                <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/inquiries.php">お問合せ管理</a>
+                <a class="util_sidebar_link util_sidebar_link--selected" href="contact_management.php">お問合せ管理</a>
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
@@ -51,8 +52,6 @@ $contact_form_lists = $sql_prepare->fetchAll();
                 <i class="fas fa-angle-right"></i>
             </div>
         </div>
-
-
         <div class="util_content">
             <div class="util_title">
                 <h2 class="util_title--text">
@@ -64,12 +63,12 @@ $contact_form_lists = $sql_prepare->fetchAll();
                             <a class="tab__link__active" href="contact_management.php">学生から</a>
                         </div>
                         <div class="tab">
-                            <a class="tab__link" href="inquiries.php">
+                            <a class="tab__link" href="inquiries_agent.php">
                                 エージェントから
                             </a>
                         </div>
                         <div class="tab">
-                            <a class="tab__link" href="inquiries.php">
+                            <a class="tab__link" href="inquiries_delete.php">
                                 削除依頼
                             </a>
                         </div>

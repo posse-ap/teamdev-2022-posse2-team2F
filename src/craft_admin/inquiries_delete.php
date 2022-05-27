@@ -69,7 +69,7 @@ $results = $stmt->fetchAll();
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>お問い合わせ管理</title>
   <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 </head>
 
@@ -94,7 +94,7 @@ $results = $stmt->fetchAll();
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button  util_sidebar_button--selected">
-        <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/inquiries.php">お問合せ管理</a>
+        <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/contact_management.php">お問合せ管理</a>
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
@@ -117,12 +117,12 @@ $results = $stmt->fetchAll();
               <a class="tab__link" href="contact_management.php">学生から</a>
             </div>
             <div class="tab">
-              <a class="tab__link">
+              <a class="tab__link" href="inquiries_agent.php">
                 エージェントから
               </a>
             </div>
             <div class="tab  active">
-              <a class="tab__link__active" href="inquiries.php">
+              <a class="tab__link__active" href="inquiries_delete.php">
                 削除依頼
               </a>
             </div>

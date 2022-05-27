@@ -55,7 +55,7 @@ require('../dbconnect.php');
 
                     <div class="info_control">
 
-                    <select name="sort">
+                    <select class="info_select" name="sort">
                         <?php
                         // POST を受け取る変数を初期化
                         $sort = '';
@@ -86,7 +86,7 @@ require('../dbconnect.php');
                     </select>
 
                     <!-- 並び替えボタン -->
-                    <input type="submit" name="sort_button" value="並び替える">
+                    <input class="info_button" type="submit" name="sort_button" value="並び替える">
 
                     </div>
 
