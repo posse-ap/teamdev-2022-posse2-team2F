@@ -18,7 +18,7 @@ $email = $stmt->fetch();
 $agent_name = $agent['agent_name'];
 $to = $email['notify_email'];
 
-// 複数申し込みした場合のテーブル追加処理
+
 if(isset($_POST['reply']))
 {
     $message_info = $_POST['reply'];
@@ -152,12 +152,9 @@ if(isset($_POST['reply']))
 
               echo "</th>";
 
-          ?>
-
-          <?php
+          
 
               echo "</tr>";
-          };
               echo "</table>";
 
               echo "</div>";
@@ -177,7 +174,7 @@ if(isset($_POST['reply']))
                             <textarea class="replymodal_textarea" name="reply"></textarea>
                             <div class="replymodal_buttons">
                                 <button onclick="modalClose()" type="button" class="replymodal_buttons--back">戻る</button>
-                                <button onclick="modalDelete()" type="submit" name="send_response" id="confirm_button" class="replymodal_buttons--confirm">メール送信</button>
+                                <button onclick="modalDelete()" type="submit" name="send_response[<?= $result['id'] ?>]" id="confirm_button" class="replymodal_buttons--confirm">メール送信</button>
                             </div>
                         </div>
                     </form>
@@ -189,6 +186,10 @@ if(isset($_POST['reply']))
                     </div>
                 </div>
             </div>
+            <?php
+
+          };
+        ?>
   </div>
 
   <script>
