@@ -12,7 +12,7 @@ $agent = $_GET['agent'];
 $id = $_GET['id'];
   
 // $sql = "SELECT notify_email FROM agent_users JOIN students_agent ON agent_users.agent_name = students_agent.agent WHERE students_agent.agent = ?";
-$sql = "SELECT notify_email FROM agent_users JOIN students_agent ON agent_users.id = students_agent.agent_id WHERE students_agent.agent.agent_id = ?";
+$sql = "SELECT notify_email FROM agent_users JOIN students_agent ON agent_users.id = students_agent.agent_id WHERE students_agent.agent_id = ?";
 $sql_prepare = $db->prepare($sql);
 $sql_prepare->execute(array($agent));
 $agent_email = $sql_prepare->fetch();

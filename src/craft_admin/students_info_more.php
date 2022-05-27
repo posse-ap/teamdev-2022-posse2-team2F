@@ -20,7 +20,7 @@ $sql_prepare->execute(array($application_id));
 $student_info = $sql_prepare->fetch();
 
 // $agent = $student_info['agent'];
-$agent = $student_info['agent_id'];
+$agent = $student_info['agent'];
 
 // if (isset($_POST['delete_more'])) {
 
@@ -127,7 +127,7 @@ $agent = $student_info['agent_id'];
   <!-- ============================ここからモーダル============================ -->
   <div id="moreinfo_modal_bg" class="util_deletemodal_bg">
     <div id="moreinfo_modal" class="util_deletemodal_container">
-        <form action="delete_student_application.php?id=<?= $application_id ?>&agent=<?= $student_info['agent'] ?>" method="POST">
+        <form action="delete_student_application.php?id=<?= $application_id ?>&agent=<?= $student_info['agent_id'] ?>" method="POST">
             <div class="util_deletemodal">
                 <?php
                         // foreach ($split_ids as $index => $tag_id) {

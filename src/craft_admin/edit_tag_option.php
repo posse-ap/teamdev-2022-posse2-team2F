@@ -167,7 +167,6 @@ if (isset($_GET['option']) && isset($_GET['id'])) {
       </div>
       <!-- 編集 -->
       <div class="changetag">
-        <h1 class="changetag_title">タグのオプションを編集</h1>
         <form action="" method="post" enctype="multipart/form-data">
           <div class="changetag_item">
             <label class="change_item--label" for="tag_category">カテゴリー名</label>
@@ -193,7 +192,6 @@ if (isset($_GET['option']) && isset($_GET['id'])) {
       </div>
       <!-- タグのオプションを追加 -->
       <div class="changetag">
-        <h1 class="changetag_title">タグのオプションを追加</h1>
         <form action="" method="post" enctype="multipart/form-data">
           <div class="changetag_item">
             <label class="change_item--label" for="tag_category">カテゴリー名</label>

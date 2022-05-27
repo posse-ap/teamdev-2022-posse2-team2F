@@ -2,6 +2,8 @@
 session_start();
 include('../_header.php');
 require('../dbconnect.php');
+
+
 ?>
 
 <!DOCTYPE html>
@@ -114,19 +116,19 @@ require('../dbconnect.php');
                         $_SESSION['sort'] = $sort_sql;
                         // $sql = "SELECT * FROM students_contact WHERE agent = ? " . $_SESSION['sort'];
                         // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ?" . $_SESSION['sort'];
-                        // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ?" . $_SESSION['sort'];
-                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ?" . $_SESSION['sort'];
+                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ?" . $_SESSION['sort'];
+                        // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.agent_id, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ?" . $_SESSION['sort'];
                     } else {
                         // $sql = "SELECT * FROM students_contact WHERE agent = ? ORDER BY phone ASC";
                         // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ? ORDER BY phone ASC";
-                        // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? ORDER BY phone ASC";
-                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ? ORDER BY phone ASC";
+                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? ORDER BY phone ASC";
+                        // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.agent_id, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ? ORDER BY phone ASC";
                     }
 
                     // print_r($sql);
                     $sql_prepare = $db->prepare($sql);
-                    // $sql_prepare->execute(array($_SESSION['agent_name']));
-                    $sql_prepare->execute(array($_SESSION['agent_id']));
+                    $sql_prepare->execute(array($_SESSION['agent_name']));
+                    // $sql_prepare->execute(array($_SESSION['id']));
                     $all_students_info = $sql_prepare->fetchAll();
 
                     if (!$all_students_info) {

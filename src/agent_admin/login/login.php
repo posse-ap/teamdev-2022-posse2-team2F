@@ -13,7 +13,7 @@ if (isset($_POST['login'])) {
   $stmt->execute(array($email, $password));
   $result = $stmt->fetch();
   $stmt = null;
-  $sql_for_session = 'SELECT * FROM agent_users JOIN agent_users_info ON agent_users.id = agent_users_info.user_id WHERE login_email = ? AND password = ?';
+  $sql_for_session = 'SELECT agent_users.id, agent_users.login_email, agent_users.contract_email, agent_users.login_email, agent_users.password, agent_users.password_conf, agent_users.agent_name, agent_users_info.name, agent_users_info.dept, agent_users_info.image, agent_users_info.message FROM agent_users JOIN agent_users_info ON agent_users.id = agent_users_info.user_id WHERE login_email = ? AND password = ?';
   $stmt_for_session = $db->prepare($sql_for_session);
   $stmt_for_session->execute(array($email, $password));
   $login_info = $stmt_for_session->fetch();
@@ -26,7 +26,6 @@ if (isset($_POST['login'])) {
     //DBのユーザー情報をセッションに保存
     $_SESSION['id'] = $login_info['id'];
     $_SESSION['agent_name'] = $login_info['agent_name'];
-    $_SESSION['agent_id'] = $login_info['agent_id'];
     $_SESSION['name'] = $login_info['name'];
     $_SESSION['dept'] = $login_info['dept'];
     $_SESSION['image'] = $login_info['image'];

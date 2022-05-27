@@ -6,11 +6,15 @@ require('../dbconnect.php');
 $id = $_SESSION['id'];
 
 
+
+// var_dump(($id));
+
 // データがそもそもあるか検証
 $stmt = $db->query("SELECT COUNT(*) FROM agent_users_info WHERE user_id = '$id'");
 $count = $stmt->fetch();
 
 // 既存データの表示
+// $stmt = $db->query("SELECT * FROM agent_users_info WHERE id = '$id'");
 $stmt = $db->query("SELECT * FROM agent_users_info WHERE user_id = '$id'");
 $result = $stmt->fetch();
 
@@ -39,7 +43,7 @@ if ($count[0] != 0) {
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
       // echo "The file ". htmlspecialchars( basename( $_FILES["agent_pic"]["name"])). " has been uploaded.";
       // 既存データの表示
-      $sql = "UPDATE agent_users_info SET image = '" . $_FILES['image']['name'] . "' WHERE user_id = '$id'";
+      $sql = "UPDATE agent_users_info SET image = '" . $_FILES['image']['name'] . "' WHERE id = '$id'";
       $stmt = $db->query($sql);
     }
 
@@ -65,10 +69,10 @@ if ($count[0] != 0) {
     // 画像をアップロードして、さらに登録ボタンが押されたら SQL文を書く仕組みにした！ （どうせ画像の登録は必要になるから）
 
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-      $sql = "INSERT INTO agent_users_info(user_id, name, dept, image, message) 
-            VALUES (?, ?, ?, ?, ?)";
+      $sql = "INSERT INTO agent_users_info(user_id, name, dept, image, message, agent_name) 
+            VALUES (?, ?, ?, ?, ?, ?)";
       $stmt = $db->prepare($sql);
-      $stmt->execute(array($id, $name, $dept, $_FILES['image']['name'], $message));
+      $stmt->execute(array($id, $name, $dept, $_FILES['image']['name'], $message, $_SESSION['agent_name']));
     } else {
       // echo "Sorry, there was an error uploading your file.";
     }
@@ -88,7 +92,13 @@ if ($count[0] != 0) {
 <html>
 
 <body>
-  <?php require('../_header.php'); ?>
+  <?php require('../_header.php'); 
+  
+  // var_dump($mode);
+  
+  ?>
+
+  
 
   <div class="util_container">
     <div class="util_logout">
