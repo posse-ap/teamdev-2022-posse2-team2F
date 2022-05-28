@@ -431,6 +431,22 @@ VALUES
     ('オンライン面談', '遠方に住んでいるなどの理由で対面での面談ができない場合はオンライン面談に対応しているエージェントを選ぶのがおすすめです。', 0),
     ('強い分野', 'エージェントによって強い分野があるので、興味のある分野を選択してください。', 0);
 
+DROP TABLE IF EXISTS sort_categories;
+
+CREATE TABLE sort_categories (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    sort_category VARCHAR(255) NOT NULL
+    -- hide INT NOT NULL
+);
+
+-- 並び替え用数値
+INSERT INTO
+    sort_categories(sort_category)
+VALUES
+    ('公開求人数'),
+    ('非公開求人数'),
+    ('利用者数');
+
 -- タグ一覧
 
 DROP TABLE IF EXISTS tag_options;
@@ -468,6 +484,47 @@ VALUES
     (6, '総合型', '#00ced1', 0),
     (6, 'IT・Web業界', '#00ced1', 0),
     (6, '広告業界', '#00ced1', 0);
+
+DROP TABLE IF EXISTS sort_options;
+
+CREATE TABLE sort_options (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    category_id INT NOT NULL,
+    sort_option VARCHAR(255) NOT NULL
+);
+
+INSERT INTO
+    sort_options(category_id, sort_option)
+VALUES
+    (1, '500'),
+    (1, '200'),
+    (1, '2000'),
+    (1, '1000'),
+    (1, '2000'),
+    (1, '70'),
+    (1, '1000'),
+    (1, '10000'),
+    (1, '300'),
+
+    (2, '-'),
+    (2, '-'),
+    (2, '-'),
+    (2, '1000'),
+    (2, '-'),
+    (2, '-'),
+    (2, '-'),
+    (2, '2000'),
+    (2, '-'),
+
+    (3, '900000'),
+    (3, '300000'),
+    (3, '80000'),
+    (3, '40000'),
+    (3, '100000'),
+    (3, '20000'),
+    (3, '60000'),
+    (3, '150000'),
+    (3, '10000');
 
 DROP TABLE IF EXISTS agent_tag_options;
 
@@ -565,6 +622,46 @@ VALUES
     (11, 7),
     (11, 8),
     (11, 9);
+
+DROP TABLE IF EXISTS agent_sort_options;
+
+CREATE TABLE agent_sort_options (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    sort_option_id INT NOT NULL,
+    agent_id INT NOT NULL
+);
+
+INSERT INTO
+    agent_sort_options(sort_option_id, agent_id)
+VALUES
+    -- 運営会社・登録会社の規模
+    (1, 1),
+    (10, 1),
+    (19, 1),
+    (2, 2),
+    (11, 2),
+    (20, 2),
+    (3, 3),
+    (12, 3),
+    (21, 3),
+    (4, 4),
+    (13, 4),
+    (22, 4),
+    (5, 5),
+    (14, 5),
+    (23, 5),
+    (6, 6),
+    (15, 6),
+    (24, 6),
+    (7, 7),
+    (16, 7),
+    (25, 7),
+    (8, 8),
+    (17, 8),
+    (26, 8),
+    (9, 9),
+    (18, 9),
+    (27, 9);
 
 
 DROP TABLE IF EXISTS user_contact_form;
