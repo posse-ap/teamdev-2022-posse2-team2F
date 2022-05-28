@@ -19,7 +19,7 @@ $results = $stmt->fetchAll();
 //   $button_delete = key($_POST['delete']); //$button_deleteには押された番号が入る
 
 //   $sql = "START TRANSACTION;
-          
+
 //           UPDATE students_agent
 //           SET 
 //           deleted_at = CURRENT_TIMESTAMP,
@@ -43,7 +43,7 @@ $results = $stmt->fetchAll();
 //   $button_keep = key($_POST['keep']); //$buttonには押された番号が入る
 
 //   $sql = "START TRANSACTION;
-          
+
 //           UPDATE students_agent
 //           SET 
 //           status = '有効' 
@@ -69,7 +69,7 @@ $results = $stmt->fetchAll();
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>お問い合わせ管理</title>
   <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 </head>
 
@@ -94,7 +94,7 @@ $results = $stmt->fetchAll();
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button  util_sidebar_button--selected">
-        <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/inquiries.php">お問合せ管理</a>
+        <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/contact_management.php">お問合せ管理</a>
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
@@ -111,91 +111,106 @@ $results = $stmt->fetchAll();
         <h2 class="util_title--text">
           お問合せ管理
         </h2>
+        <div class="tab_container">
+          <div class="tab-area">
+            <div class="tab">
+              <a class="tab__link" href="contact_management.php">学生から</a>
+            </div>
+            <div class="tab">
+              <a class="tab__link" href="inquiries_agent.php">
+                エージェントから
+              </a>
+            </div>
+            <div class="tab  active">
+              <a class="tab__link__active" href="inquiries_delete.php">
+                削除依頼
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- 並び替え結果 -->
       <div class="manageinquiries">
         <div class="cont_for_scroll">
-        <table class="manageinquiries_table" border=1; style=border-collapse:collapse;>
-          <tr>
-            <th>申請ID</th>
-            <th>対応状況</th>
-            <th>申請日時</th>
-            <th>氏名</th>
-            <th>メールアドレス</th>
-            <th>申込エージェント名</th>
-            <th>操作</th>
-          </tr>
+          <table class="manageinquiries_table" border=1; style=border-collapse:collapse;>
+            <tr>
+              <th>申請ID</th>
+              <th>対応状況</th>
+              <th>申請日時</th>
+              <th>氏名</th>
+              <th>メールアドレス</th>
+              <th>申込エージェント名</th>
+              <th>操作</th>
+            </tr>
 
-          <form action="delete_student_application.php?id=" method="POST">
-          <?php
-            foreach ($results as $result) { ?>
+            <form action="delete_student_application.php?id=" method="POST">
+              <?php
+              foreach ($results as $result) { ?>
 
-            
+                <?php
 
-          <?php
-
-              echo "<tr>";
+                echo "<tr>";
 
 
-              echo "<th>";
-              echo $result['id'];
-              echo "</th>";
+                echo "<th>";
+                echo $result['id'];
+                echo "</th>";
 
-              echo "<th>";
-              echo $result['response'];
-              echo "</th>";
+                echo "<th>";
+                echo $result['response'];
+                echo "</th>";
 
-              echo "<th>";
-              echo $result['time'];
-              echo "</th>";
+                echo "<th>";
+                echo $result['time'];
+                echo "</th>";
 
-              echo "<th>";
-              echo $result['name'];
-              echo "</th>";
+                echo "<th>";
+                echo $result['name'];
+                echo "</th>";
 
-              echo "<th>";
-              echo $result['email'];
-              echo "</th>";
+                echo "<th>";
+                echo $result['email'];
+                echo "</th>";
 
-              echo "<th>";
-              echo $result['agent_name'];
-              echo "</th>";
+                echo "<th>";
+                echo $result['agent_name'];
+                echo "</th>";
 
-              echo "<th>"
+                ?>
 
-          ?>
-            <div class="manageinquiries_table--control">
-              <input type="submit" class='util_action_button util_action_button--delete space_for_inquiries' name="delete[<?= $result['id']; ?>]" value="削除">
-              <input type="hidden" name="agentid[<?= $result['agent_id']; ?>]">
-              <input type="submit" class='util_action_button util_action_button--list' name="keep[<?= $result['id']; ?>]" value="削除しない">
-            </div>
-            
-          
-          <?php
+                <th>
+                <div class="manageinquiries_table--control">
+                  <!-- <input type="hidden" name="hidden[<?= $result['id']; ?>]" value="削除"> -->
+                  <input type="submit" class='util_action_button util_action_button--delete space_for_inquiries' name="delete[<?= $result['id']; ?>]" value="削除">
+                  <!-- <input type="hidden" name="hidden_keep[<?= $result['id']; ?>]" value="キープ"> -->
+                  <input type="submit" class='util_action_button util_action_button--list' name="keep[<?= $result['id']; ?>]" value="削除しない">
+                </div>
 
-              echo "</th>";
 
-          ?>
+                <?php
 
-          <?php
+                echo "</th>";
 
-              echo "</tr>";
-          };
+                ?>
+
+              <?php
+
+                echo "</tr>";
+              };
               echo "</table>";
 
               echo "</div>";
-
               echo "</div>";
 
-          ?>
-                </form>
+              ?>
+            </form>
 
-            </div>
+        </div>
+      </div>
   </div>
 
-  
 
-  <?php require('../_footer.php'); ?>
+      <?php require('../_footer.php'); ?>
 
 </body>
 

@@ -137,7 +137,7 @@ $categories = $stmt->fetchAll();
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
-        <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+        <a class="util_sidebar_link" href="/craft_admin/contact_management.php">お問合せ管理</a>
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">

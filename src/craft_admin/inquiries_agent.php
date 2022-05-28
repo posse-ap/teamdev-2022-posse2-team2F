@@ -38,9 +38,9 @@ if(isset($_POST['send_response']))
 
     $message_info = $_POST['reply'];
 
-    // $to      = "craft@boozer.com";
-    $subject = "お問合せの新規返信がございます";
-    $message = "
+  // $to      = "craft@boozer.com";
+  $subject = "お問合せの新規返信がございます";
+  $message = "
 
     ${agent_name}様
 
@@ -49,13 +49,13 @@ if(isset($_POST['send_response']))
     以下でご確認ください
     http://localhost/agent_admin/login/login.php
     ";
-    // 文字列の中で変数を展開
-    // $moji = "apple"
-    // echo "${moji}"
-    // ${変数名}で展開されます
-    $headers = "From: craft@boozer.com";
+  // 文字列の中で変数を展開
+  // $moji = "apple"
+  // echo "${moji}"
+  // ${変数名}で展開されます
+  $headers = "From: craft@boozer.com";
 
-    mb_send_mail($to, $subject, $message, $headers);
+  mb_send_mail($to, $subject, $message, $headers);
 }
 
 ?>
@@ -67,8 +67,8 @@ if(isset($_POST['send_response']))
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
   <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
+  <title>お問い合わせ管理</title>
 </head>
 
 <body>
@@ -109,6 +109,23 @@ if(isset($_POST['send_response']))
         <h2 class="util_title--text">
           お問合せ管理
         </h2>
+        <div class="tab_container">
+          <div class="tab-area">
+            <div class="tab">
+              <a class="tab__link" href="contact_management.php">学生から</a>
+            </div>
+            <div class="tab  active">
+              <a class="tab__link__active" href="inquiries_agent.php">
+                エージェントから
+              </a>
+            </div>
+            <div class="tab">
+              <a class="tab__link" href="inquiries_delete.php">
+                削除依頼
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- 並び替え結果 -->
       <div class="manageinquiries">
@@ -165,7 +182,9 @@ if(isset($_POST['send_response']))
           
           <?php
 
-              echo "</th>";
+                echo "<th>";
+                echo $result['id'];
+                echo "</th>";
 
           
 
@@ -246,21 +265,21 @@ if(isset($_POST['send_response']))
         // }
 
         function modalDelete() {
-            modal.style.display = 'none';
-            modaldone.style.display = 'block';
+          modal.style.display = 'none';
+          modaldone.style.display = 'block';
         }
 
         window.onclick = function(event) {
-            if (event.target == bg) {
-                modal.style.display = "none";
-                bg.style.display = 'none';
-            }
+          if (event.target == bg) {
+            modal.style.display = "none";
+            bg.style.display = 'none';
+          }
         }
-    </script>
+      </script>
 
-  
 
-  <?php require('../_footer.php'); ?>
+
+      <?php require('../_footer.php'); ?>
 
 </body>
 

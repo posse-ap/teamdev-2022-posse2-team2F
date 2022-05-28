@@ -3921,6 +3921,62 @@ main {
   font-size: 18px;
 }
 
+.tab_container {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+  margin-left: auto;
+}
+
+.tab_container .tab-area {
+  height: 3em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: pointer;
+}
+
+.tab_container .tab-area .tab {
+  height: 100%;
+  padding-top: 1em;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-right: 2em;
+  color: black;
+}
+
+.tab_container .tab-area .tab.active {
+  border-bottom: 4px #c4c4c4 solid;
+  background-color: white;
+  color: black;
+}
+
+.tab_container .tab__link {
+  color: black;
+}
+
+.tab_container .tab__link__active {
+  color: #52a49a;
+}
+
+.lists_container .content-area .management__content {
+  display: none;
+}
+
+.lists_container .content-area .management__content.show {
+  display: block;
+}
+
 .favorite_container {
   background-color: #EBEDF1;
   min-height: 82vh;
