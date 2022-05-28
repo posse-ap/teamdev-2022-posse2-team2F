@@ -99,22 +99,17 @@ require('../dbconnect.php');
 
                     <!-- ここから並び替えの分岐 -->
                     <?php
-                    if (isset($_POST['sort_button'])) {
-                        if ($_POST['sort'] == "申込日時（古い順）") {
-                            $_SESSION['sort_select'] = $_POST['sort'];
+                        if ($sort == "申込日時（古い順）") {
                             $sort_sql = " ORDER BY students_contact.created_at ASC";
-                        } elseif ($_POST['sort'] == "申込日時（新しい順）") {
-                            $_SESSION['sort_select'] = $_POST['sort'];
+                            $_SESSION['sort_select'] = "申込日時（古い順）";
+                        } elseif ($sort == "申込日時（新しい順）") {
                             $sort_sql = " ORDER BY students_contact.created_at DESC";
+                            $_SESSION['sort_select'] = "申込日時（新しい順）";
                         } else {
                             $sort_sql = " ";
                         }
                         $_SESSION['sort'] = $sort_sql;
-                        //以下直す必要あるかも
                         $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $_SESSION['sort'];
-                    } else {
-                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id ORDER BY phone ASC";
-                    }
 
                     // print_r($sql);
                     $sql_prepare = $db->prepare($sql);
