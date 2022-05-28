@@ -323,7 +323,7 @@ $mb: 520px;
         }
         &--checkbox{
           width: 2vw;
-          height: 250px;
+          height: 270px;
           background-color: #CFD1D3;
           @include tb {
             width: 3vw;
@@ -402,7 +402,7 @@ $mb: 520px;
         }
         &--container{
           width: 53vw;
-          height: 250px;
+          height: 270px;
           position: relative;
           @include tb {
             width: 77vw;
@@ -413,7 +413,7 @@ $mb: 520px;
             }
           }
           &--name{
-            height: 24px;
+            height: 30px;
             width: 100%;
             background-color: #52A49A;
             display: flex;
@@ -436,7 +436,7 @@ $mb: 520px;
           
           &--info{
             width: 53vw;
-            height: 190px;
+            height: 200px;
             background-color: white;
             display: flex;
             justify-content: space-between;
@@ -487,7 +487,7 @@ $mb: 520px;
                 flex-wrap: wrap;
                 align-items: center;
                 margin-top: 5px;
-                margin-bottom: 5px;
+                margin-bottom: 15px;
                 p{
                   font-size: 13px;
                   margin: 3px 3px 3px 3px;
@@ -504,15 +504,65 @@ $mb: 520px;
 
               &--title {
                 color: #52A49A;
+                font-size: 16px;
+                font-weight: bold;
+                width: 80%;
+                margin: 0 auto;
+                text-align: center;
+                position: absolute;
+                bottom: 95px;
+                left: 50%;
+                transform: translateX(-50%);
+
+                &::before {
+                  content:"";
+                  display:inline-block;
+                  width:3px;
+                  height:30px;
+                  background-color:#52A49A;
+                  position:absolute;
+                  // bottom: 95px;
+                  top: 0;
+                  left: 0;
+                  transform: rotate(-30deg);
+                  @include mb {
+                    height: 40px;
+                  }
+                }
+
+                &::after{
+                  content:"";
+                  display:inline-block;
+                  width:3px;
+                  height:30px;
+                  background-color:#52A49A;
+                  position:absolute;
+                  // bottom: 95px;
+                  top: 0;
+                  right: 0;
+                  transform: rotate(30deg);
+                  @include mb {
+                    height: 40px;
+                  }
+                }
               }
+
 
               &--points {
                 color: #000;
-                margin-top: 10px;
-                font-size: 14px;
-                p {
-                  margin: 0;
+                font-size: 15px;
+                font-weight: bold;
+                position: absolute;
+                bottom: 5px;
+                margin: 0;
+                ul {
+                  margin: 20px 0 0 0;
+                  li {
+                    list-style-type: disc !important;
+                    margin-bottom: 5px;
+                  }
                 }
+                
               }
 
               .student_numbers{
@@ -537,7 +587,7 @@ $mb: 520px;
           }
           &--buttons{
             width: 53vw;
-            height: 36px;
+            height: 40px;
             background-color: white;
             display: flex;
             justify-content: space-between;
@@ -551,7 +601,7 @@ $mb: 520px;
             }
             .favorite_button{
               width: 18vw;
-              height: 36px;
+              height: 40px;
               display: flex;
               justify-content: center;
               @include tb {

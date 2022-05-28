@@ -371,9 +371,11 @@ $categories = $stmt->fetchAll();
                         <?= $result['agent_title'] ?>
                       </div>
                       <div class="top_container_results--agents__agent--container--info__right--points">
-                        <p><?= $result['agent_point1'] ?></p>
-                        <p><?= $result['agent_point2'] ?></p>
-                        <p><?= $result['agent_point3'] ?></p>
+                        <ul>
+                          <li><?= $result['agent_point1'] ?></li>
+                          <li><?= $result['agent_point2'] ?></li>
+                          <li><?= $result['agent_point3'] ?></li>
+                        </ul>
                       </div>
                       
                       <!-- 申し込んだ人数 -->

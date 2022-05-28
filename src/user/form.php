@@ -162,8 +162,8 @@ if (isset($_POST["back"]) && $_POST["back"]) {
           </div>
           <span class="err-msg-faculty"></span>
           <div class="userform_text">
-            <label class="userform_text--label" for="student_faculty">学科<span class="required">必須</span></label>
-            <input class="userform_text--box" type="text" name="student_faculty" id="faculty" placeholder="例）〇〇学科" value="<?= $_SESSION["student_faculty"] ?>" >
+            <label class="userform_text--label" for="student_faculty">学部・学科<span class="required">必須</span></label>
+            <input class="userform_text--box" type="text" name="student_faculty" id="faculty" placeholder="例）〇〇学部〇〇学科" value="<?= $_SESSION["student_faculty"] ?>" >
           </div>
           <span class="err-msg-address"></span>
           <div class="userform_text">
@@ -285,14 +285,14 @@ if (isset($_POST["back"]) && $_POST["back"]) {
               university.classList.remove('input-invalid');
           }
 
-          // 学科名のバリデーション
+          // 学部学科名のバリデーション
           if(!faculty.value){
 
               // デフォルトアクションをキャンセル
               e.preventDefault(); 
 
               errMsgFaculty.classList.add('form-invalid');
-              errMsgFaculty.textContent = '学科名が入力されていません';
+              errMsgFaculty.textContent = '学部・学科名が入力されていません';
               // クラスを追加(フォームの枠線を赤くする)
               faculty.classList.add('input-invalid');
               return;

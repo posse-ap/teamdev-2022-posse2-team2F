@@ -6,11 +6,15 @@ require('../dbconnect.php');
 $id = $_SESSION['id'];
 
 
+
+// var_dump(($id));
+
 // データがそもそもあるか検証
 $stmt = $db->query("SELECT COUNT(*) FROM agent_users_info WHERE user_id = '$id'");
 $count = $stmt->fetch();
 
 // 既存データの表示
+// $stmt = $db->query("SELECT * FROM agent_users_info WHERE id = '$id'");
 $stmt = $db->query("SELECT * FROM agent_users_info WHERE user_id = '$id'");
 $result = $stmt->fetch();
 
@@ -39,7 +43,7 @@ if ($count[0] != 0) {
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
       // echo "The file ". htmlspecialchars( basename( $_FILES["agent_pic"]["name"])). " has been uploaded.";
       // 既存データの表示
-      $sql = "UPDATE agent_users_info SET image = '" . $_FILES['image']['name'] . "' WHERE user_id = '$id'";
+      $sql = "UPDATE agent_users_info SET image = '" . $_FILES['image']['name'] . "' WHERE id = '$id'";
       $stmt = $db->query($sql);
     }
 
@@ -65,10 +69,10 @@ if ($count[0] != 0) {
     // 画像をアップロードして、さらに登録ボタンが押されたら SQL文を書く仕組みにした！ （どうせ画像の登録は必要になるから）
 
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-      $sql = "INSERT INTO agent_users_info(user_id, name, dept, image, message) 
-            VALUES (?, ?, ?, ?, ?)";
+      $sql = "INSERT INTO agent_users_info(user_id, name, dept, image, message, agent_name) 
+            VALUES (?, ?, ?, ?, ?, ?)";
       $stmt = $db->prepare($sql);
-      $stmt->execute(array($id, $name, $dept, $_FILES['image']['name'], $message));
+      $stmt->execute(array($id, $name, $dept, $_FILES['image']['name'], $message, $_SESSION['agent_name']));
     } else {
       // echo "Sorry, there was an error uploading your file.";
     }
@@ -88,9 +92,21 @@ if ($count[0] != 0) {
 <html>
 
 <body>
-  <?php require('../_header.php'); ?>
+  <?php require('../_header.php'); 
+  
+  // var_dump($mode);
+  
+  ?>
+
+  
 
   <div class="util_container">
+    <div class="util_logout">
+        <a href="./login/logout.php">
+            ログアウト
+            <i class="fas fa-sign-out-alt"></i> 
+        </a>   
+    </div>
     <div class="util_sidebar">
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/agent_admin/students_info.php">学生申し込み一覧</a>
@@ -130,11 +146,11 @@ if ($count[0] != 0) {
               <input class="change_item--input" type="text" name="name" required>
             </div>
             <div class="change_item">
-              <label class="change_item--label" for="dept">エージェント部署</label>
+              <label class="change_item--label" for="dept">担当者所属部署</label>
               <input class="change_item--input" type="text" name="dept" required>
             </div>
             <div class="change_item preview">
-              <label class="change_item--label" for="image">エージェント画像</label>
+              <label class="change_item--label" for="image">担当者画像</label>
               <img class="preview_img" src="images/grey.png" id="add_image" style="height: 15vh;"></img>
               <img class="preview_img preview_img--hide" id="add_preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
               <label class="change_item--button" for="image" onclick="upload_file()">+ ファイルをアップロード</label>
@@ -159,7 +175,7 @@ if ($count[0] != 0) {
               </script>
             </div>
             <div class="change_item">
-              <label class="change_item--label" for="message">エージェント説明</label>
+              <label class="change_item--label" for="message">担当者からの一言</label>
               <textarea class="change_item--textarea" name="message"></textarea>
             </div>
             <input class="change_button" type="submit" value="変更を保存" name="submit">
@@ -175,11 +191,11 @@ if ($count[0] != 0) {
               <input class="change_item--input" type="text" name="name" value="<?= $result['name'] ?>" required>
             </div>
             <div class="change_item">
-              <label class="change_item--label" for="dept">エージェント部署</label>
+              <label class="change_item--label" for="dept">担当者所属部署</label>
               <input class="change_item--input" type="text" name="dept" value="<?= $result['dept'] ?>" required>
             </div>
             <div class="change_item preview">
-              <label class="change_item--label" for="image">エージェント画像</label>
+              <label class="change_item--label" for="image">担当者画像</label>
               <img class="preview_img" src="images/<?= $result['image'] ?>" alt="" style="height: 15vh" id="manager_image">
               <img class="preview_img preview_img--hide" id="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
               <label class="change_item--button" for="image" onclick="upload_file()">+ ファイルをアップロード</label>
@@ -204,7 +220,7 @@ if ($count[0] != 0) {
               </script>
             </div>
             <div class="change_item">
-              <label class="change_item--label" for="message">エージェント説明</label>
+              <label class="change_item--label" for="message">担当者からの一言</label>
               <textarea class="change_item--textarea" name="message"><?= $result['dept'] ?></textarea>
             </div>
             <input class="change_button" type="submit" value="変更を保存" name="submit">

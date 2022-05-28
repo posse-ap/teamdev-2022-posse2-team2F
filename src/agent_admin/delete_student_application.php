@@ -12,7 +12,7 @@ if (isset($_POST['delete_request'])) {
 
   $sql = "START TRANSACTION;
 
-          INSERT INTO delete_student_application(application_id, agent_name) VALUES (?, ?);
+          INSERT INTO delete_student_application(application_id, agent_id) VALUES (?, ?);
 
           UPDATE students_agent SET status = ? WHERE id = ?;
 
