@@ -1993,7 +1993,7 @@ main {
   font-size: 12px;
   font-weight: bold;
   position: absolute;
-  bottom: 15px;
+  top: 60px;
   margin: 0;
 }
 
@@ -3830,11 +3830,13 @@ main {
 .util_fullscreen .userform_button--left {
   background-color: #F3AF56;
   margin-right: 50px;
+  cursor: pointer;
 }
 
 .util_fullscreen .userform_button--right {
   background-color: #52A49A;
   margin-left: 50px;
+  cursor: pointer;
 }
 
 .util_fullscreen .userform_link {
@@ -4227,6 +4229,81 @@ main {
           align-items: center;
 }
 
+.favorite_container .favorite_list .favorite_ind_info .agent_info_cover {
+  position: relative;
+}
+
+.favorite_container .favorite_list .favorite_ind_info .agent_info_cover .agent_info {
+  color: #52A49A;
+  font-size: 15px;
+  font-weight: bold;
+  width: 80%;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.favorite_container .favorite_list .favorite_ind_info .agent_info_cover .agent_info::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 33px;
+  background-color: #52A49A;
+  position: absolute;
+  top: 4px;
+  left: 10px;
+  -webkit-transform: rotate(-30deg);
+          transform: rotate(-30deg);
+}
+
+@media screen and (max-width: 520px) {
+  .favorite_container .favorite_list .favorite_ind_info .agent_info_cover .agent_info::before {
+    height: 40px;
+  }
+}
+
+.favorite_container .favorite_list .favorite_ind_info .agent_info_cover .agent_info::after {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 33px;
+  background-color: #52A49A;
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  -webkit-transform: rotate(30deg);
+          transform: rotate(30deg);
+}
+
+@media screen and (max-width: 520px) {
+  .favorite_container .favorite_list .favorite_ind_info .agent_info_cover .agent_info::after {
+    height: 40px;
+  }
+}
+
+.favorite_container .favorite_list .favorite_ind_info .agent_points_cover {
+  position: relative;
+}
+
+.favorite_container .favorite_list .favorite_ind_info .agent_points_cover .agent_points {
+  color: #000;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  top: -15px;
+  margin: 0;
+}
+
+.favorite_container .favorite_list .favorite_ind_info .agent_points_cover .agent_points ul {
+  margin: 20px 0 0 0;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+}
+
+.favorite_container .favorite_list .favorite_ind_info .agent_points_cover .agent_points ul li {
+  list-style-type: disc !important;
+  margin-bottom: 5px;
+}
+
 .favorite_container .favorite_list .favorite_ind_buttons {
   height: 200px;
   width: 140px;
@@ -4242,6 +4319,14 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.favorite_container .favorite_list .favorite_ind_buttons .last_time {
+  width: 140px;
+  height: 40px;
+  color: orange;
+  font-weight: bold;
+  text-align: center;
 }
 
 .favorite_container .favorite_list .favorite_ind_buttons .student_numbers {
@@ -4313,6 +4398,8 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding-top: 20px;
+  padding-bottom: 40px;
 }
 
 .favorite_container .favorite_list .cart-btn a {
@@ -4332,6 +4419,55 @@ main {
   cursor: pointer;
   border-radius: 20px;
   font-weight: bold;
+}
+
+.cart-btn {
+  width: 100vw;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.cart-btn a {
+  color: #fff;
+  width: 180px;
+  height: 30px;
+  background-color: #52A49A;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.error {
+  width: 100vw;
+  height: 50vh;
+  font-size: 20px;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .info {

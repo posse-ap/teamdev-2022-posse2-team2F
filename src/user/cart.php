@@ -5,7 +5,8 @@ require('../dbconnect.php');
 // $stmt = $db->query("SELECT * FROM agents");
 // $results = $stmt->fetchAll();
 
-
+//現在時刻の取得
+$now = time();
 
 session_start();
 
@@ -66,6 +67,12 @@ if (isset($_POST['cart_delete'])) {
     <h3>お気に入り一覧</h3>
     <p><?= 'お気に入り：' . $count . '件' ?></p>
   </div>
+  <?php if($count == 0) :?>
+    <div class="error">お気に入りにエージェントが登録されていません</div>
+    <div class="cart-btn">
+        <a href="/userpage/result.php">一覧に戻る</a>
+    </div>
+  <?php else : ?>
   <form action="/user/form.php" method="POST">
     <div class="apply_modal_cover">
 
@@ -128,12 +135,51 @@ if (isset($_POST['cart_delete'])) {
 
                 <?php endforeach; ?>
               </div>
-              <div class="agent_info">
+              <div class="agent_info_cover">
 
-                <?= $product['agent_info'] ?>
+                <div class="agent_info">
+  
+                  <?php $agent_title = nl2br($product['agent_title2']);
+                  echo $agent_title; ?>
+                </div>
+              </div>
+              <div class="agent_points_cover">
+              <div class="agent_points">
+                <ul>
+                  <li>
+                  <?= $product['agent_point1'] ?>
+                  </li>
+                  <li>
+                  <?= $product['agent_point2'] ?>
+                  </li>
+                  <li>
+                  <?= $product['agent_point3'] ?>
+                  </li>
+                </ul>
+              </div>
+
               </div>
             </div>
             <div class="favorite_ind_buttons">
+              <!-- 残り掲載期間 -->
+              <?php
+              $end_time = $end_time = strtotime($result['end_display']);
+              $start_time = strtotime($result['start_display']);
+              $last_time = floor(($end_time - $now) / (60 * 60 * 24));
+
+              ?>
+              <?php
+                      if ($last_time <= 30) { ?>
+                        <div class="last_time">
+                          掲載終了まで
+                          <br>
+                          <?= "あと" . $last_time . "日!!" ?>
+                        </div>
+
+                      <?php } else { ?>
+                      <?php } 
+              ?>
+
               <!-- 申し込んだ人数 -->
               <?php
               $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
@@ -144,7 +190,7 @@ if (isset($_POST['cart_delete'])) {
                 <div class="student_numbers">申込者<br>🔥多数🔥</div>
 
               <?php } elseif ($student_num >= 10) { ?>
-                <div class="student_numbers">🔥申込者急増！</div>
+                <div class="student_numbers">⬆︎申込者急増！</div>
 
               <?php } else { ?>
               <?php } ?>
@@ -164,6 +210,7 @@ if (isset($_POST['cart_delete'])) {
       </div>
     </div>
   </form>
+  <?php endif; ?>
 </div>
 
 <?php require('../_footer.php'); ?>

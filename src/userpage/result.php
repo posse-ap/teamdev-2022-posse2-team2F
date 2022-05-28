@@ -305,10 +305,11 @@ $categories = $stmt->fetchAll();
           チェックしたエージェント
         </p>
 
-        <p class="check_count"></p>
+        <p id="check_count" class="check_count"></p>
         <p>件をまとめて</p>
 
-        <input type="submit" name="apply_id" value="申し込む">
+        <input type="submit" name="apply_id" value="申し込む" 
+        >
       </div>
       <!-- ここからまとめて申し込むmodal -->
       <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
@@ -385,7 +386,7 @@ $categories = $stmt->fetchAll();
                       
                       $student_num =
                       $stmt->rowCount();
-                      echo $student_num;
+                      // echo $student_num;
                       ?>
                       <?php
                       if ($student_num >= 30) { ?>
