@@ -64,10 +64,3 @@ if (isset($_POST['delete_request'])) {
 
 
 $stmt->execute(array($application_id, $student_info['agent'], '削除申請中', $application_id));
-
-
-
-
-
-
-?>

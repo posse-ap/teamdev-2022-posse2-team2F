@@ -21,8 +21,8 @@ require('../dbconnect.php');
     <div class="util_logout">
         <a href="./login/logout.php">
             ログアウト
-            <i class="fas fa-sign-out-alt"></i> 
-        </a>   
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
     </div>
     <div class="util_container">
         <div class="util_sidebar">
@@ -61,84 +61,84 @@ require('../dbconnect.php');
                     <!-- 並び替え方法選択 -->
                     <div class="table_cont">
 
-                    <div class="info_control">
+                        <div class="info_control">
 
-                    <select name="sort">
+                            <select name="sort">
+                                <?php
+                                // POST を受け取る変数を初期化
+                                $sort = '';
+
+                                // セレクトボックスの値を格納する配列
+                                $orders_list = array(
+                                    "電話番号の小さい順",
+                                    "電話番号の大きい順",
+                                    "名前順",
+                                    "申込順"
+                                );
+
+                                // 戻ってきた場合
+                                if (isset($_POST['sort'])) {
+                                    $sort = $_POST['sort'];
+                                }
+
+                                foreach ($orders_list as $value) {
+                                    if ($value === $sort) {
+                                        // ① POST データが存在する場合はこちらの分岐に入る
+                                        echo "<option value='$value' selected>" . $value . "</option>";
+                                    } else {
+                                        // ② POST データが存在しない場合はこちらの分岐に入る
+                                        echo "<option value='$value'>" . $value . "</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+
+                            <!-- 並び替えボタン -->
+                            <input class="info_button" type="submit" name="sort_button" value="並び替える">
+
+                        </div>
+
+
+                        <!-- ここから並び替えの分岐 -->
                         <?php
-                        // POST を受け取る変数を初期化
-                        $sort = '';
-
-                        // セレクトボックスの値を格納する配列
-                        $orders_list = array(
-                            "電話番号の小さい順",
-                            "電話番号の大きい順",
-                            "名前順",
-                            "申込順"
-                        );
-
-                        // 戻ってきた場合
-                        if (isset($_POST['sort'])) {
-                            $sort = $_POST['sort'];
+                        if (isset($_POST['sort_button'])) {
+                            if ($_POST['sort'] == '電話番号の小さい順') {
+                                $sort_sql = " ORDER BY phone ASC";
+                            } elseif ($_POST['sort'] == '電話番号の大きい順') {
+                                $sort_sql = " ORDER BY phone DESC";
+                            } elseif ($_POST['sort'] == '名前順') {
+                                $sort_sql = " ORDER BY name ASC";
+                            } elseif ($_POST['sort'] == '申込順') {
+                                $sort_sql = " ORDER BY created_at ASC";
+                            } else {
+                                $sort_sql = " ORDER BY phone ASC";
+                            }
+                            $_SESSION['sort'] = $sort_sql;
+                            // $sql = "SELECT * FROM students_contact WHERE agent = ? " . $_SESSION['sort'];
+                            // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ?" . $_SESSION['sort'];
+                            $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ?" . $_SESSION['sort'];
+                            // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.agent_id, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ?" . $_SESSION['sort'];
+                        } else {
+                            // $sql = "SELECT * FROM students_contact WHERE agent = ? ORDER BY phone ASC";
+                            // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ? ORDER BY phone ASC";
+                            $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? ORDER BY phone ASC";
+                            // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.agent_id, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ? ORDER BY phone ASC";
                         }
 
-                        foreach ($orders_list as $value) {
-                            if ($value === $sort) {
-                                // ① POST データが存在する場合はこちらの分岐に入る
-                                echo "<option value='$value' selected>" . $value . "</option>";
-                            } else {
-                                // ② POST データが存在しない場合はこちらの分岐に入る
-                                echo "<option value='$value'>" . $value . "</option>";
-                            }
+                        // print_r($sql);
+                        $sql_prepare = $db->prepare($sql);
+                        $sql_prepare->execute(array($_SESSION['agent_name']));
+                        // $sql_prepare->execute(array($_SESSION['id']));
+                        $all_students_info = $sql_prepare->fetchAll();
+
+                        if (!$all_students_info) {
+                            // echo $all_students_info->error;
+                            exit();
                         }
                         ?>
-                    </select>
 
-                    <!-- 並び替えボタン -->
-                    <input class="info_button" type="submit" name="sort_button" value="並び替える">
-
-                    </div>
-
-
-                    <!-- ここから並び替えの分岐 -->
-                    <?php
-                    if (isset($_POST['sort_button'])) {
-                        if ($_POST['sort'] == '電話番号の小さい順') {
-                            $sort_sql = " ORDER BY phone ASC";
-                        } elseif ($_POST['sort'] == '電話番号の大きい順') {
-                            $sort_sql = " ORDER BY phone DESC";
-                        } elseif ($_POST['sort'] == '名前順') {
-                            $sort_sql = " ORDER BY name ASC";
-                        } elseif ($_POST['sort'] == '申込順') {
-                            $sort_sql = " ORDER BY created_at ASC";
-                        } else {
-                            $sort_sql = " ORDER BY phone ASC";
-                        }
-                        $_SESSION['sort'] = $sort_sql;
-                        // $sql = "SELECT * FROM students_contact WHERE agent = ? " . $_SESSION['sort'];
-                        // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ?" . $_SESSION['sort'];
-                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ?" . $_SESSION['sort'];
-                        // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.agent_id, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ?" . $_SESSION['sort'];
-                    } else {
-                        // $sql = "SELECT * FROM students_contact WHERE agent = ? ORDER BY phone ASC";
-                        // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.deleted_at IS NULL AND students_agent.agent = ? ORDER BY phone ASC";
-                        $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? ORDER BY phone ASC";
-                        // $sql = "SELECT students_agent.id AS application_id, students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.agent_id, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ? ORDER BY phone ASC";
-                    }
-
-                    // print_r($sql);
-                    $sql_prepare = $db->prepare($sql);
-                    $sql_prepare->execute(array($_SESSION['agent_name']));
-                    // $sql_prepare->execute(array($_SESSION['id']));
-                    $all_students_info = $sql_prepare->fetchAll();
-
-                    if (!$all_students_info) {
-                        // echo $all_students_info->error;
-                        exit();
-                    }
-                    ?>
-
-                    <!-- ここからmodal -->
-                    <!-- <div id="util_delete_application<?= $category['id'] ?>" class="util_modalcont">
+                        <!-- ここからmodal -->
+                        <!-- <div id="util_delete_application<?= $category['id'] ?>" class="util_modalcont">
                         <div class="util_delete_application util_deletemodal">
 
                             <p class="util_delete_application_alert util_deletemodal">学生情報削除申請</p>
@@ -156,77 +156,77 @@ require('../dbconnect.php');
                     </div> -->
 
 
-                    <!-- 並び替え結果 -->
-                    <div class="cont_for_scroll">
-                        <table class="table" border=1; style=border-collapse:collapse;>
-                            <tr>
-                                <th>申込ID</th>
-                                <th>名前</th>
-                                <th>メールアドレス</th>
-                                <!-- <th>電話番号</th> -->
-                                <th>大学</th>
-                                <th>学部・学科</th>
-                                <!-- <th>住所</th> -->
-                                <th>卒業年</th>
-                                <th>状態</th>
-                                <th>詳細</th>
-                            </tr>
+                        <!-- 並び替え結果 -->
+                        <div class="cont_for_scroll">
+                            <table class="table" border=1; style=border-collapse:collapse;>
+                                <tr>
+                                    <th>申込ID</th>
+                                    <th>名前</th>
+                                    <th>メールアドレス</th>
+                                    <!-- <th>電話番号</th> -->
+                                    <th>大学</th>
+                                    <th>学部・学科</th>
+                                    <!-- <th>住所</th> -->
+                                    <th>卒業年</th>
+                                    <th>状態</th>
+                                    <th>詳細</th>
+                                </tr>
 
-                            <?php
-                            foreach ($all_students_info as $student_info) {
-                                echo "<tr>";
+                                <?php
+                                foreach ($all_students_info as $student_info) {
+                                    echo "<tr>";
 
-                                echo "<th>";
-                                echo $student_info['id'];
-                                echo "</th>";
+                                    echo "<th>";
+                                    echo $student_info['id'];
+                                    echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['name'];
-                                echo "</th>";
+                                    echo "<th>";
+                                    echo $student_info['name'];
+                                    echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['email'];
-                                echo "</th>";
+                                    echo "<th>";
+                                    echo $student_info['email'];
+                                    echo "</th>";
 
-                                // echo "<th>";
-                                // echo $student_info['phone'];
-                                // echo "</th>";
+                                    // echo "<th>";
+                                    // echo $student_info['phone'];
+                                    // echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['university'];
-                                echo "</th>";
+                                    echo "<th>";
+                                    echo $student_info['university'];
+                                    echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['faculty'];
-                                echo "</th>";
+                                    echo "<th>";
+                                    echo $student_info['faculty'];
+                                    echo "</th>";
 
-                                // echo "<th>";
-                                // echo $student_info['address'];
-                                // echo "</th>";
+                                    // echo "<th>";
+                                    // echo $student_info['address'];
+                                    // echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['grad_year'];
-                                echo "</th>";
+                                    echo "<th>";
+                                    echo $student_info['grad_year'];
+                                    echo "</th>";
 
-                                echo "<th>";
-                                echo $student_info['status'];
-                                echo "</th>";
+                                    echo "<th>";
+                                    echo $student_info['status'];
+                                    echo "</th>";
 
-                                echo "<th><a class='util_action_button util_action_button--list center_list' href='students_info_more.php?id=";
-                                echo $student_info['application_id'];
-                                echo "'> 詳細";
-                                echo "</a></th>";
+                                    echo "<th><a class='util_action_button util_action_button--list center_list' href='students_info_more.php?id=";
+                                    echo $student_info['application_id'];
+                                    echo "'> 詳細";
+                                    echo "</a></th>";
 
-                                echo "</tr>";
-                            };
-                            echo "</table>";
+                                    echo "</tr>";
+                                };
+                                echo "</table>";
 
-                            echo "</div>";
+                                echo "</div>";
 
-                            echo "</div>";
+                                echo "</div>";
 
-                            ?>
-                </div>
+                                ?>
+                        </div>
                 </form>
             </div>
         </div>

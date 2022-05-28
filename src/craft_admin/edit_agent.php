@@ -221,8 +221,7 @@ $categories = $stmt->fetchAll();
               <p class="end_display _error"></p>
               <input type="text" id="start_display" name="agent_display_start" value="<?= $result['start_display'] ?>">
               <p class="between"> 〜 </p>
-              <input type="text" name="agent_display_end" id="end_display"
-              value="<?= $result['end_display'] ?>">
+              <input type="text" name="agent_display_end" id="end_display" value="<?= $result['end_display'] ?>">
             </div>
 
             <script>
@@ -307,7 +306,7 @@ $categories = $stmt->fetchAll();
 
   </div>
 
-  
+
 
 
   <?php require('../_footer.php'); ?>
@@ -326,7 +325,7 @@ $categories = $stmt->fetchAll();
     }
   </script>
 
-  
+
 </body>
 
 </html>

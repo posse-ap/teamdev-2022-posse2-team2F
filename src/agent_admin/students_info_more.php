@@ -33,8 +33,8 @@ $student_info = $sql_prepare->fetch();
 <div class="util_logout">
     <a href="./login/logout.php">
         ログアウト
-        <i class="fas fa-sign-out-alt"></i> 
-    </a>   
+        <i class="fas fa-sign-out-alt"></i>
+    </a>
 </div>
 
 <div class="util_container">
@@ -100,7 +100,7 @@ $student_info = $sql_prepare->fetch();
                     <th>申し込みエージェント</th>
                     <td><?= $student_info['agent'] ?></td>
                 </tr>
-                    <tr>
+                <tr>
                     <th>状態</th>
                     <td><?= $student_info['status'] ?></td>
                 </tr>

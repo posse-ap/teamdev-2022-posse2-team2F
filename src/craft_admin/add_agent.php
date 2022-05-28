@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
   // 画像更新
   $target_dir = "images/";
   $target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
-  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+  $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
   if (move_uploaded_file($_FILES["agent_pic"]["tmp_name"], $target_file)) {
     // 画像更新
@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
 
   /* ここからタグ系の処理イメージ記述します */
   $tag_ids = $_POST['tag_id'];
-  
+
   $split_ids = explode(',', $tag_ids);
 
   $id_stmt = $db->query('SELECT id FROM agents ORDER BY id DESC LIMIT 1');
@@ -49,15 +49,15 @@ if (isset($_POST['submit'])) {
 
   foreach ($split_ids as $index => $id) {
 
-      $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) 
+    $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) 
           VALUES (?, ?)";
-      $stmt = $db->prepare($sql);
-      $stmt->execute(array($id, $agent_id['id']));
-      // $stmt->execute(array($id, $agent_id));
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id, $agent_id['id']));
+    // $stmt->execute(array($id, $agent_id));
   }
 
-  
-  
+
+
   header('Location: home.php');
   exit;
 }
@@ -181,12 +181,11 @@ $categories = $stmt->fetchAll();
           <div class="change_item dropdown">
             <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
             <div class="dropdown_container">
-            <p class="start_display_error"></p>
-            <p class="end_display _error"></p>
+              <p class="start_display_error"></p>
+              <p class="end_display _error"></p>
               <input type="text" id="start_display" name="agent_display_start" value="">
               <p class="between"> 〜 </p>
-              <input type="text" name="agent_display_end" id="end_display"
-              value="">
+              <input type="text" name="agent_display_end" id="end_display" value="">
             </div>
 
             <script>
@@ -217,15 +216,15 @@ $categories = $stmt->fetchAll();
     // 「送信」ボタンの要素にクリックイベントを設定する
     submit.addEventListener('click', (e) => {
 
-    // 「お名前」入力欄の空欄チェック
-    //要素取得
-    const start_display = document.querySelector('#start_display');
-    const end_display = document.querySelector('#end_display');
-    // エラーメッセージを表示させる要素を取得
-    const errMsgName1 = document.querySelector('.start_display_error');
-    const errMsgName2 = document.querySelector('.end_display_error');
+      // 「お名前」入力欄の空欄チェック
+      //要素取得
+      const start_display = document.querySelector('#start_display');
+      const end_display = document.querySelector('#end_display');
+      // エラーメッセージを表示させる要素を取得
+      const errMsgName1 = document.querySelector('.start_display_error');
+      const errMsgName2 = document.querySelector('.end_display_error');
 
-    if(!start_display.value){
+      if (!start_display.value) {
 
         // デフォルトアクションをキャンセル
         e.preventDefault();
@@ -237,14 +236,14 @@ $categories = $stmt->fetchAll();
         start_display.classList.add('input-invalid');
         // 後続の処理を止める
         return;
-    }else{
+      } else {
         // エラーメッセージのテキストに空文字を代入
-        errMsgName1.textContent ='';
+        errMsgName1.textContent = '';
         // クラスを削除
         start_display.classList.remove('input-invalid');
-    }
+      }
 
-    if(!end_display.value){
+      if (!end_display.value) {
         // デフォルトアクションをキャンセル
         e.preventDefault();
         // クラスを追加(エラーメッセージを表示する)
@@ -255,15 +254,15 @@ $categories = $stmt->fetchAll();
         end_display.classList.add('input-invalid');
         // 後続の処理を止める
         return;
-    }else{
+      } else {
         // エラーメッセージのテキストに空文字を代入
-        errMsgName2.textContent ='';
+        errMsgName2.textContent = '';
         // クラスを削除
         end_display.classList.remove('input-invalid');
-    }
+      }
 
-  }, false);
-// }, false);
+    }, false);
+    // }, false);
   </script>
 
   <!-- ここからtag_modal -->
