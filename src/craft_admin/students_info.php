@@ -67,16 +67,16 @@ require('../dbconnect.php');
 
                         // セレクトボックスの値を格納する配列
                         $orders_list = array(
-                            "申込日時（昇順）",
-                            "申込日時（降順）"
+                            "申込日時（古い順）",
+                            "申込日時（新しい順）"
                         );
 
-                        // 戻ってきた場合
-                        if (isset($_SESSION['sort_select'])) {
-                            $sort = $_SESSION['sort_select'];
-                        }else if (isset($_POST['sort'])) {
-                            $sort = $_POST['sort'];
-                        }
+                                // 戻ってきた場合
+                                if (isset($_POST['sort'])) {
+                                    $sort = $_POST['sort'];
+                                } else if (isset($_SESSION['sort_select'])) {
+                                    $sort = $_SESSION['sort_select'];
+                                }
 
                         foreach ($orders_list as $value) {
                             if ($value === $sort) {
@@ -100,10 +100,10 @@ require('../dbconnect.php');
                     <!-- ここから並び替えの分岐 -->
                     <?php
                     if (isset($_POST['sort_button'])) {
-                        if ($_POST['sort'] == "申込日時（昇順）") {
+                        if ($_POST['sort'] == "申込日時（古い順）") {
                             $_SESSION['sort_select'] = $_POST['sort'];
                             $sort_sql = " ORDER BY students_contact.created_at ASC";
-                        } elseif ($_POST['sort'] == "申込日時（降順）") {
+                        } elseif ($_POST['sort'] == "申込日時（新しい順）") {
                             $_SESSION['sort_select'] = $_POST['sort'];
                             $sort_sql = " ORDER BY students_contact.created_at DESC";
                         } else {
