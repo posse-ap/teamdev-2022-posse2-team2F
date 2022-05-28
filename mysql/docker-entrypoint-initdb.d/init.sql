@@ -625,6 +625,7 @@ DROP TABLE IF EXISTS agent_inquiries;
 CREATE TABLE agent_inquiries (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     agent_name VARCHAR(255) NOT NULL,
+    agent_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     content VARCHAR(255) NOT NULL,
@@ -632,7 +633,7 @@ CREATE TABLE agent_inquiries (
 );
 
 INSERT INTO
-    agent_inquiries(agent_name, name, email, content, details)
+    agent_inquiries(agent_name, agent_id, name, email, content, details)
 VALUES
-    ("test", "test", "asd@asdasd", "エージェントの情報変更依頼", "エージェント名が変わりました。");
+    ("まいなび新卒紹介", 1, "太郎", "asd@asdasd", "エージェントの情報変更依頼", "エージェント名が変わりました。");
 

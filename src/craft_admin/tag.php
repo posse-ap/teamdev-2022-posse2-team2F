@@ -310,7 +310,7 @@ let deleteModal_option = function (id) {
           modalOpen();
 }
 
-let deleteFunction_option = function (id) {
+    let deleteFunction_option = function (id) {
           let modal = document.getElementById(`option_modal${id}`);
           let modalComplete = document.getElementById(`option_modal_complete${id}`);
           function deleteAgent() {
