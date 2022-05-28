@@ -10,10 +10,10 @@ if (isset($_POST['submit'])) {
   $login_email = $_SESSION['login_email'];
 
 
-  $sql = 'INSERT INTO agent_inquiries(agent_name, name, email, content, details) 
-          VALUES (?, ?, ?, ?, ?)';
+  $sql = 'INSERT INTO agent_inquiries(agent_name, agent_id, name, email, content, details) 
+          VALUES (?, ?, ?, ?, ?, ?)';
   $stmt = $db->prepare($sql);
-  $stmt->execute(array($_SESSION['agent_name'], $_SESSION['name'], $_SESSION['login_email'], $content, $details));
+  $stmt->execute(array($_SESSION['agent_name'], $_SESSION['id'], $_SESSION['name'],  $_SESSION['login_email'], $content, $details));
 
   // メール送信 
   $to      = "craft@boozer.com";
@@ -37,7 +37,12 @@ include('../_header.php');
 
 ?>
 
-
+<div class="util_logout">
+    <a href="./login/logout.php">
+        ログアウト
+        <i class="fas fa-sign-out-alt"></i> 
+    </a>   
+</div>
 
 
 <div class="util_container">

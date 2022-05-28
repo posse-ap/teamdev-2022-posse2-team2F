@@ -21,90 +21,77 @@
       font-size: 18px;
     }
   }
-  .apply_modal{
-    margin-top: 30px;
-    width: 42vw;
+  .apply_modal_cover{
+    width: 800px;
     height: 40px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: baseline;
-    background-color: white;
-    margin-left: 10vw;
-    border-radius: 8px;
-    position: relative;
-    @include tb{
-      margin-top: 30px;
-      margin-left: 5vw;
-      flex-wrap: wrap;
-      width: 35vw;
-    }
-    &::before{
-      content: "";
-  position: absolute;
-  top: 100%;
-  left: 6%;
-  margin-left: -15px;
-  border: 15px solid transparent;
-  border-top: 15px solid white;
-  @include tb{
+    margin: 30px auto 0 auto;
 
-    border: 10px solid transparent;
-    border-top: 20px solid white;
-  }
-    }
-
-    p{
-      font-size: 14px;
-      font-weight: bold;
-      margin-top: 6px;
-      position: relative;
-      left: 2vw;
-      margin-right: 0.3vw;
-      @include tb{
-        font-size: 16px;
-        margin: 0 0 0 0 ;
-        left: 2vw;
-        top: -12px;
-      }
-    }
-    .check_count{
-      font-size: 30px;
-      color: #52A49A;
-      @include tb{
-        font-size: 20px;
-      }
-    }
-    input{
-      border-style: none;
-      color: white;
-      width: 7vw;
-      height: 25px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 600;
-      background-color: #F3AF56;
+    .apply_modal{
+      width: 460px;
+      height: 40px;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      margin-top: 5px;
+      justify-content: flex-start;
+      align-items: baseline;
+      background-color: white;
+      border-radius: 8px;
       position: relative;
-      left: 2.5vw;
-      top: -5px;
+      @include tb{
+        margin-top: 30px;
+      }
+      &::before{
+        content: "";
+    position: absolute;
+    top: 100%;
+    left: 6%;
+    margin-left: -15px;
+    border: 15px solid transparent;
+    border-top: 15px solid white;
+      }
+  
+      p{
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 6px;
+        position: relative;
+        left: 26px;
+        margin-right: 4px;
+      }
+      .check_count{
+        font-size: 30px;
+        color: #52A49A;
+      }
+      input{
+        border-style: none;
+        color: white;
+        width: 100px;
+        height: 25px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+        background-color: #F3AF56;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin-top: 5px;
+        position: relative;
+        left: 40px;
+        top: -5px;
+      }
     }
   }
   .favorite_list{
-    width: 80vw;
     margin: 30px auto 0 auto;
+    width: 800px;
     .favorite_ind{
-      width: 80vw;
+      width: 800px;
       height: 200px;
       margin-bottom: 20px;
       display: flex;
       background-color: #fff;
       .checkbox{
         height: 200px;
-        width: 2.5vw;
+        width: 36px;
         background-color: #CFD1D3;
         input{
           display: none;
@@ -114,7 +101,7 @@
       }
         label{
           position: relative;
-          width: 2.5vw;
+          width: 22px;
           height: 200px;
           display: flex;
             justify-content: center;
@@ -129,55 +116,61 @@
           &::before{
             background-color: #fff;
   border-radius: 0%;
-  width: 1.6vw;
-  height: 1.6vw;
+  width: 24px;
+  height: 24px;
+  left: 6px;
   
           }
           &::after{
-            border-bottom: 0.3vw solid #52A49A;
-  border-left: 0.3vw solid #52A49A;
+            border-bottom: 3.5px solid #52A49A;
+  border-left: 3.5px solid #52A49A;
   opacity: 0;
-  height: 0.6vw;
-  width: 1.2vw;
+  height: 12px;
+  width: 24px;
   transform: rotate(-45deg);
   position: relative;
   top: -3px;
+  left: 8px;
           }
         }
       }
       &_title{
-        width: 22vw;
         height: 200px;
+        width: 300px;
         h2{
-          width: 22vw;
+          width: 300px;
           text-align: center;
           margin: 5px auto;
           font-size: 16px;
         }
         img{
-          width: 18vw;
+          width: 244px;
           height: 146px;
           object-fit: contain;
-          margin: 0px 2vw 5px 2vw;
+          margin: 0px 28px 5px 28px;
         }
         a{
+          width: 200px;
           border-style: none;
           color: #fff;
           background-color: #CF7C7C;
-          width: 14vw;
           border-radius: 10px;
           cursor: pointer;
-          margin: 0px 4vw;
+          margin: 0px auto;
+          height: 14px;
           padding: 2px 5px;
           position: relative;
-          top: -6px;
+          top: -4px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         
 
       }
       &_info{
-        width: 45.5vw;
         height: 200px;
+        width: 325px;
         .tags{
           display: flex;
           flex-wrap: wrap;
@@ -185,9 +178,9 @@
           margin-bottom: 5px;
 
           p{
-            font-size: 14px;
+            font-size: 13px;
                     margin: 3px 3px 3px 3px;
-                    padding: 3px 8px;
+                    padding: 2px 6px;
                     border: 1px solid;
                     border-radius: 15px;
                     height: 16px;
@@ -198,14 +191,14 @@
         }
       }
       &_buttons{
-        width: 10vw;
         height: 200px;
+        width: 140px;
         display: flex;
           flex-direction: column;
           justify-content: space-around;
           align-items: center;
         .student_numbers{
-          width: 10vw;
+          width: 140px;
           height: 50px;
           font-size: 18px;
           font-weight: bold;
@@ -218,7 +211,7 @@
 
           a{
             color: #fff;
-            width: 9vw;
+            width: 126px;
             height: 40px;
             background-color: #52A49A;
             display: flex;
@@ -228,7 +221,7 @@
             font-weight: bold;
         }
         input{
-          width: 9vw;
+          width: 126px;
           height: 40px;
           background-color: #F3AF56;
           display: flex;
@@ -244,7 +237,7 @@
       }
     }
     .cart-btn{
-      width: 80vw;
+      width: 800px;
       height: 30px;
       display: flex;
       justify-content: center;

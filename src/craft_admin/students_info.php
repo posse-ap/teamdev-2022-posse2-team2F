@@ -4,23 +4,6 @@ include('../_header.php');
 require('../dbconnect.php');
 ?>
 
-<?php
-
-// 削除関連
-if (isset($_POST['delete'])) {
-    $button = key($_POST['delete']); //$buttonには押された番号が入る
-
-    $sql = "UPDATE students_agent
-            SET deleted_at = CURRENT_TIMESTAMP 
-            WHERE id = ?";
-    $stmt = $db->prepare($sql);
-    $stmt->execute(array($button));
-}
-
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 

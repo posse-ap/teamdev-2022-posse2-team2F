@@ -113,7 +113,6 @@ if (isset($_GET['id'])) {
 
       <!-- 編集 -->
       <div class="changetag">
-        <h1 class="changetag_title">タグのカテゴリーを編集</h1>
         <form action="" method="post" enctype="multipart/form-data">
           <div class="change_item">
             <label class="change_item--label" for="tag_category">カテゴリー名</label>
@@ -136,7 +135,6 @@ if (isset($_GET['id'])) {
       </div>
         <!-- タグのカテゴリーを追加 -->
       <div class="changetag">
-        <h1 class="changetag_title">タグのカテゴリーを追加</h1>
         <form action="" method="post" enctype="multipart/form-data">
           <div class="change_item">
             <label class="change_item--label" for="tag_category">カテゴリー名</label>
