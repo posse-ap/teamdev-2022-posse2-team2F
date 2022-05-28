@@ -8,7 +8,11 @@ if (isset($_POST['submit'])) {
   // これはただタグを表示させるだけのもの
   $agent_tagname = $_POST['agent_tag'];
   $agent_tag = $_POST['tag_id'];
+  $agent_title = $_POST['agent_title'];
   $agent_info = $_POST['agent_info'];
+  $agent_point1 = $_POST['agent_point1'];
+  $agent_point2 = $_POST['agent_point2'];
+  $agent_point3 = $_POST['agent_point3'];
   $start_display = $_POST['agent_display_start'];
   $end_display = $_POST['agent_display_end'];
 
@@ -30,10 +34,10 @@ if (isset($_POST['submit'])) {
   // INSERT INTO文 は一回で書かないとだから、編集画面みたいに分けて書けない
   // 画像をアップロードして、さらに登録ボタンが押されたら SQL文を書く仕組みにした！ （どうせ画像の登録は必要になるから）
 
-  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_tagname, agent_info, start_display, end_display, hide) 
-          VALUES (?, ?, ?, ?, ?, ?, ?, 0)';
+  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_tagname, agent_title, agent_info, agent_point1, agent_point2, agent_point3, start_display, end_display, hide) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)';
   $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_tagname, $agent_info, $start_display, $end_display));
+  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_tagname, $agent_title, $agent_info, $agent_point1, $agent_point2, $agent_point3, $start_display, $end_display));
 
   /* ここからタグ系の処理イメージ記述します */
   $tag_ids = $_POST['tag_id'];
@@ -155,8 +159,24 @@ $categories = $stmt->fetchAll();
             </script>
           </div>
           <div class="change_item">
+            <label class="change_item--label" for="agent_title">エージェントスローガン</label>
+            <input class="change_item--input" type="text" name="agent_title" required>
+          </div>
+          <div class="change_item">
             <label class="change_item--label" for="agent_info">エージェント説明</label>
             <textarea class="change_item--textarea" name="agent_info"></textarea>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_point1">エージェント特徴１</label>
+            <input class="change_item--input" type="text" name="agent_point1" required>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_point2">エージェント特徴２</label>
+            <input class="change_item--input" type="text" name="agent_point2" required>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_point3">エージェント特徴３</label>
+            <input class="change_item--input" type="text" name="agent_point3" required>
           </div>
           <div class="change_item dropdown">
             <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
