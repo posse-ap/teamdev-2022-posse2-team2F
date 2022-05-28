@@ -14,12 +14,21 @@ if (isset($_POST['login'])) {
   $stmt = $db->prepare($sql);
   $stmt->execute(array($email, $password));
   $result = $stmt->fetch();
+
+  $sql_session = "SELECT * FROM agent_users WHERE login_email = ? AND password = ?";
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($email, $password));
+  $login_info = $stmt->fetch();
+
   $stmt = null;
   $db = null;
 
   // result に一つでも値が入っているなら、ログイン情報が存在するということ
   if ($result[0] != 0) {
     // 成功した場合管理画面に遷移
+
+    $_SESSION['id'] = $login_info['id'];
+    
     header('Location: http://localhost/craft_admin/home.php');
     exit;
   } else {
