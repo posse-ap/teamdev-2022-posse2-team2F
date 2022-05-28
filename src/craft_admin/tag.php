@@ -74,6 +74,7 @@ if (isset($_POST['hide_option'])) {
 
 <form action="" method="POST">
   <?php require('../_header.php'); ?>
+  <div id="modal_bg" class="deletemodal_overlay"></div>
   <div class="util_container">
     <div class="util_sidebar">
       <div class="util_sidebar_button">
@@ -156,24 +157,21 @@ if (isset($_POST['hide_option'])) {
             <button type="button" name="more" class="util_action_button util_action_button--list" id="<?= $category['id'] ?>" onclick="clickfunction(<?= $category['id'] ?>)">詳細</button>
           </div>
           <!-- ここからmodal -->
-          <div id="util_deletemodal<?= $category['id'] ?>" class="util_modalcont">
+          <div id="util_deletemodal<?= $category['id'] ?>" class="util_deletemodal_container fixmodaltomiddle">
             <div class="util_deletemodal">
-
-              <p class="util_deletemodal_alert">本当に削除しますか？</p>
-              <div class="util_deletebuttons">
-                <button type="button" class="util_deletebuttons_item util_deletebuttons_item--no" onclick="closeFunction(<?= $category['id'] ?>)">いいえ</button>
+              <p class="util_deletemodal_text">本当に削除しますか？</p>
+              <div class="util_deletemodal_buttons">
+                <button type="button" class="util_deletemodal_back" onclick="closeFunction(<?= $category['id'] ?>)">いいえ</button>
                 <a href="./delete_tag_category.php?id=<?= $category['id'] ?>" style="text-decoration: none">
                   <!-- <button class="yes" onclick="deleteAgent()">はい -->
-                  <button type="button" class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction(<?= $category['id'] ?>)">はい
-                  
-                  </button>
+                  <button type="button" class="util_deletemodal_confirm" onclick="deleteFunction(<?= $category['id'] ?>)">はい</button>
                 </a>
               </div>
             </div>
           </div>
           <!-- ここから削除完了画面 -->
-          <div id="util_modalcont<?= $category['id'] ?>" class="util_modalcont">
-            <p class="util_modalcont_text">削除されました。</p>
+          <div id="util_modalcont<?= $category['id'] ?>" class="util_deletemodal_container fixmodaltomiddle">
+            <p class="util_deletemodal_message">削除されました。</p>
           </div>
         </div>
         <div id="no<?= $category['id'] ?>" class="tag-more none">
@@ -222,21 +220,21 @@ if (isset($_POST['hide_option'])) {
                   </div>
                 </div>
               <!-- ここからオプション用の削除modal -->
-              <div id="option_modal<?= $tag['id'] ?>" class="util_modalcont">
+              <div id="option_modal<?= $tag['id'] ?>" class="util_deletemodal_container fixmodaltomiddle">
                 <div class="util_deletemodal">
 
-                  <p class="util_deletemodal_alert">本当に削除しますか？</p>
-                  <div class="util_deletebuttons">
-                    <button type="button" class="util_deletebuttons_item util_deletebuttons_item--no" onclick="closeFunction_option(<?= $tag['id'] ?>)">いいえ</button>
+                  <p class="util_deletemodal_text">本当に削除しますか？</p>
+                  <div class="util_deletemodal_buttons">
+                    <button type="button" class="util_deletemodal_back" onclick="closeFunction_option(<?= $tag['id'] ?>)">いいえ</button>
                     <a href="./delete_tag_option.php?id=<?= $tag['id'] ?>" style="text-decoration: none">
-                      <button type="button" class="util_deletebuttons_item util_deletebuttons_item--yes" onclick="deleteFunction_option(<?= $tag['id'] ?>)">はい</button>
+                      <button type="button" class="util_deletemodal_confirm" onclick="deleteFunction_option(<?= $tag['id'] ?>)">はい</button>
                     </a>
                   </div>
                 </div>
               </div>
               <!-- ここから削除完了画面 -->
-              <div id="option_modal_complete<?= $tag['id'] ?>" class="util_modalcont">
-                <p class="util_modalcont_text">削除されました。</p>
+              <div id="option_modal_complete<?= $tag['id'] ?>" class="util_deletemodal_container fixmodaltomiddle">
+                <p class="util_deletemodal_message">削除されました。</p>
               </div>
               <?php endforeach; ?>
             </div>
@@ -256,6 +254,8 @@ if (isset($_POST['hide_option'])) {
 
 <script>
 
+const bg = document.getElementById('modal_bg');
+
 //詳細ボタンをクリックした時の処理
 let clickfunction = function (id) {
       let more = document.getElementById(`no${id}`);
@@ -274,6 +274,7 @@ let deleteModal = function (id) {
           let modalComplete = document.getElementById(`util_modalcont${id}`);
           function modalOpen() {
             modal.style.display = 'block';
+            bg.style.display = 'block';
           };
           modalOpen();
 }
@@ -294,6 +295,7 @@ let deleteFunction = function (id) {
           
           function modalClose() {
             modal.style.display = 'none';
+            bg.style.display = 'none';
           };
           modalClose();
     }
@@ -303,11 +305,12 @@ let deleteModal_option = function (id) {
           let modal = document.getElementById(`option_modal${id}`);
           function modalOpen() {
             modal.style.display = 'block';
+            bg.style.display = 'block';
           };
           modalOpen();
 }
 
-let deleteFunction_option = function (id) {
+    let deleteFunction_option = function (id) {
           let modal = document.getElementById(`option_modal${id}`);
           let modalComplete = document.getElementById(`option_modal_complete${id}`);
           function deleteAgent() {
@@ -322,6 +325,7 @@ let deleteFunction_option = function (id) {
           
           function modalClose() {
             modal.style.display = 'none';
+            bg.style.display = 'none';
           };
           modalClose();
     }

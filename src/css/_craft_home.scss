@@ -165,7 +165,7 @@
       font-size: 20px;
       width: 17vw;
       display: flex;
-      justify-content: center;
+      justify-content: end;
     }
   }
 
@@ -247,55 +247,72 @@
   transform: translateY(-50%) translateX(-50%);
   -webkit-transform: translateY(-50%) translateX(-50%);
 
-  .util_deletemodal {
-    width: 900px;
-    height: 500px;
-    position: relative;
+  // .util_deletemodal {
+  //   width: 900px;
+  //   height: 500px;
+  //   position: relative;
 
-    &_alert {
-      position: relative;
-      font-size: 46px;
-      text-align: center;
-      margin-top: 100px;
-    }
+  //   &_alert {
+  //     position: relative;
+  //     font-size: 46px;
+  //     text-align: center;
+  //     margin-top: 100px;
+  //   }
 
-    .util_deletebuttons {
-      position: relative;
-      width: 600px;
-      margin: 120px auto;
-      display: flex;
-      justify-content: space-between;
+  //   .util_deletebuttons {
+  //     position: relative;
+  //     width: 600px;
+  //     margin: 120px auto;
+  //     display: flex;
+  //     justify-content: space-between;
 
-      // a {
-      //   text-decoration: none;
-      // }
+  //     // a {
+  //     //   text-decoration: none;
+  //     // }
 
-      &_item {
-        width: 220px;
-        height: 80px;
-        border-style: none;
-        font-size: 24px;
-        color: white;
-        box-shadow: 0px 6px 6px #c4c4c4;
-        cursor: pointer;
+  //     &_item {
+  //       width: 220px;
+  //       height: 80px;
+  //       border-style: none;
+  //       font-size: 24px;
+  //       color: white;
+  //       box-shadow: 0px 6px 6px #c4c4c4;
+  //       cursor: pointer;
 
-        &--no {
-          background-color: #91c9c4;
-        }
-        &--yes {
-          background-color: #cf7c7c;
-        }
-      }
-    }
-  }
-  &_text {
-    font-size: 46px;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translateY(-50%) translateX(-50%);
-    -webkit-transform: translateY(-50%) translateX(-50%);
-  }
+  //       &--no {
+  //         background-color: #91c9c4;
+  //       }
+  //       &--yes {
+  //         background-color: #cf7c7c;
+  //       }
+  //     }
+  //   }
+  // }
+  // &_text {
+  //   font-size: 46px;
+  //   position: absolute;
+  //   top: 40%;
+  //   left: 50%;
+  //   transform: translateY(-50%) translateX(-50%);
+  //   -webkit-transform: translateY(-50%) translateX(-50%);
+  // }
 
+}
+
+.deletemodal_overlay {
+  position: absolute;
+  left: 0; 
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+  position: fixed;
+  display: none;
+}
+
+.fixmodaltomiddle {
+  top: 40% !important;
+  left: 40% !important;
 }
 

@@ -181,7 +181,7 @@
   height: 130px;
   width: 500px;
   background-color: white;
-  z-index: 1;
+  z-index: 100;
   border: 1px solid #91c8c4;
   position: absolute;
   top: 50%;
@@ -258,4 +258,16 @@
 
 .center_list {
   margin: 0 auto;
+}
+
+// ログアウト
+
+.util_logout {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  a {
+    color: #fff;
+    font-size: 18px;
+  }
 }

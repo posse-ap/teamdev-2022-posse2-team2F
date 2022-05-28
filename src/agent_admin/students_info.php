@@ -2,6 +2,8 @@
 session_start();
 include('../_header.php');
 require('../dbconnect.php');
+
+
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +18,12 @@ require('../dbconnect.php');
 
 
 <body>
+    <div class="util_logout">
+        <a href="./login/logout.php">
+            ログアウト
+            <i class="fas fa-sign-out-alt"></i> 
+        </a>   
+    </div>
     <div class="util_container">
         <div class="util_sidebar">
             <div class="util_sidebar_button util_sidebar_button--selected">
@@ -62,8 +70,8 @@ require('../dbconnect.php');
 
                                 // セレクトボックスの値を格納する配列
                                 $orders_list = array(
-                                    "申込日時（昇順）",
-                                    "申込日時（降順）"
+                                    "申込日時（古い順）",
+                                    "申込日時（新しい順）"
                                 );
 
                                 // 戻ってきた場合
@@ -94,12 +102,12 @@ require('../dbconnect.php');
                         <!-- ここから並び替えの分岐 -->
                         <?php
                         // if (isset($_POST['sort_button'])) {
-                        if ($sort == "申込日時（昇順）") {
+                        if ($sort == "申込日時（古い順）") {
                             $sort_sql = " ORDER BY students_contact.created_at ASC";
-                            $_SESSION['sort_select'] = "申込日時（昇順）";
-                        } elseif ($sort == "申込日時（降順）") {
+                            $_SESSION['sort_select'] = "申込日時（古い順）";
+                        } elseif ($sort == "申込日時（新しい順）") {
                             $sort_sql = " ORDER BY students_contact.created_at DESC";
-                            $_SESSION['sort_select'] = "申込日時（降順）";
+                            $_SESSION['sort_select'] = "申込日時（新しい順）";
                         } else {
                             $sort_sql = " ";
                         }

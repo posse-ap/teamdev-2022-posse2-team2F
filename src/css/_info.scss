@@ -1,0 +1,286 @@
+// ブレイクポイント
+$tb: 960px;
+
+@mixin tb {
+  @media screen and (max-width: $tb) {
+    @content;
+  }
+}
+
+//ブレイクポイント
+$mb: 520px;
+
+@mixin mb {
+  @media screen and (max-width: $mb) {
+    @content;
+  }
+}
+
+.container{
+  background-color: #EBEDF1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.heading_wrapper{
+  color: #52A49A;
+  background-color: #FFFFFF;
+  width: 80vw;
+  height: 5vh;
+  font-size: 20px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  padding-bottom: 30px;
+  padding-left: 20px;
+  box-shadow: 2px 2px 4px gray;
+  @include mb{
+    font-size: 16px;
+    height: 4vh;
+    width: 90vw;
+  }
+  }
+
+
+.info_wrapper{
+  line-height: 25px;
+  background-color:#FFFFFF;
+  width: 80%;
+  margin-bottom: 30px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+
+    &-name{
+      color: #FFFFFF;
+      background-color: #52A49A;
+      height: 60px;
+      box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+
+      @include mb{
+        height: 45px;
+      }
+  }
+  @include mb{
+    width: 95%;
+  }
+}
+
+
+.info-name{
+  margin-top: 0px;
+  padding-top: 15px;
+  padding-left: 18px;
+  @include mb{
+    font-size: 22px;
+    padding-top: 10px;
+  }
+}
+
+.img_agent{
+  width: 96%;
+  margin-top: 10px;
+  margin-left: 10px
+}
+
+.table_heading{
+  text-align: center;
+  color: #52A49A;
+  font-weight: bold;
+  margin: 0px;
+  font-size: 20px;
+  margin-top: 20px;
+  @include mb{
+    font-size: 15px;
+  }
+}
+
+.table{
+  width: 96%;
+  height: 35%;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 11px;
+  border-collapse: collapse;
+  border: solid 1px #888;
+  &_title,&_content{
+    border: solid 1px #CCCCCC;
+    padding: 3px 10px;
+    }
+  &_title{
+    width: 160px;
+    @include mb{
+      width: 70px;
+    }
+  }
+}
+
+.table_title{
+  background-color: #EBEDF1;
+}
+
+.info_inner-box{
+  display: flex;
+  flex-direction: row;
+  @include tb{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.info_inner-leftbox{
+  width: 50%;
+  height: 30%;
+  padding-top: 30px;
+  padding-left: 30px;
+  @include tb{
+    width: 80%;
+    padding-top: 30px;
+    padding-left: 30px;
+  }
+  @include mb{
+    padding-top: 20px;
+    padding-left: 0px;
+  }
+}
+.info_inner-rightbox{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  padding-top: 30px;
+  padding-right: 30px;
+  @include tb{
+    width: 80%;
+    padding-top: 20px;
+    padding-right: 0px;
+  }
+  @include mb{
+    padding-top: 20px;
+    padding-right: 0px;
+  }
+  &_catchcopy{
+    color: #52A49A;
+    position: relative;
+    @include mb{
+      font-size: 16px;
+    }
+    &::before{
+      content: "";
+      display: inline-block;
+      width: 2px;
+      height: 55px;
+      background-color: #52A49A;
+      position: absolute;
+      left: -30px;
+      top: -2px;
+      -webkit-transform: rotate(-20deg);
+      transform: rotate(-20deg);
+      @include mb{
+        left: -3px;
+      }
+    }
+    &::after{
+      content: "";
+      display: inline-block;
+      width: 2px;
+      height: 55px;
+      background-color: #52A49A;
+      position: absolute;
+      top: -6px;
+      right: -28px;
+      -webkit-transform: rotate(20deg);
+      transform: rotate(20deg);
+      @include mb{
+        right: -3px;
+      }
+    }
+  }
+  &_context{
+    padding-left: 30px;
+    padding-right: 30px;
+    @include mb{
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  }
+}
+
+.info_inner-point{
+  width:60%;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+  &_title{
+    height: 35px;
+    background-color: #52A49A;
+    color: #FFFFFF;
+    padding-top: 5px;
+    margin: 0px;
+    }
+    &_list{
+      padding-left: 0px;
+    }
+  @include mb{
+    width: 80%;
+  }
+  @include tb{
+    width: 80%;
+  }
+}
+
+
+.btn{
+  display: flex;
+  justify-content: space-between;
+  color: #FFFFFF;
+  height: 40px;
+  margin-right: 100px;
+  margin-left: 100px;
+  text-align: center;
+  font-size: 18px;
+  padding-bottom: 30px;
+  padding-top: 30px;
+  @include tb{
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  &-fav{
+    background-color: #db7093;
+    border-radius: 20px;
+    width: 200px;
+    padding-top: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    @include mb{
+      width: 50%;
+      margin-left: 10px;
+      margin-right: 25px;
+    }
+    @include tb{
+      margin-left: 20px;
+      font-size: 13px;
+    }
+  }
+  &-register{
+    background-color: #F3AF56;
+    border-radius: 20px;
+    width: 160px;
+    padding-top: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    @include tb{
+      font-size: 13px;
+      margin-right: 10px;
+    }
+  }
+  @include mb{
+    font-size: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+  }
+}
+
+
