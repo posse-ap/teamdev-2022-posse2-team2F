@@ -323,7 +323,6 @@ SET
     end_display = '2022-12-24 00:00:00',
     hide = 0;
 
-
 DROP TABLE IF EXISTS students_contact;
 
 CREATE TABLE students_contact (
