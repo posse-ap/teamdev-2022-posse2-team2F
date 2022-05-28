@@ -103,7 +103,7 @@ $categories = $stmt->fetchAll();
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
-        <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+        <a class="util_sidebar_link" href="/craft_admin/contact_management.php">お問合せ管理</a>
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
@@ -123,10 +123,10 @@ $categories = $stmt->fetchAll();
       </div>
 
       <div class="change">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data" id="postForm">
           <div class="change_item">
-            <label class="change_item--label" for="agent_name">エージェント名</label>
-            <input class="change_item--input" type="text" name="agent_name" required>
+            <label class="change_item--label" for="agent_name" id="agent_name">エージェント名</label>
+            <input class="change_item--input" type="text" name="agent_name">
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_tag">エージェントタグ</label>
@@ -200,7 +200,7 @@ $categories = $stmt->fetchAll();
               var fd = flatpickr(end_calender, config);
             </script>
           </div>
-          <input class="change_button" class="submit" type="submit" value="追加" name="submit">
+          <input class="change_button" class="add" type="submit" value="追加" name="submit">
         </form>
       </div>
     </div>

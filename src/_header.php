@@ -15,7 +15,7 @@
 <body>
     <header class="header no-print-area">
         <h1 class="header_logo no-print-area">
-            <a class="header_logo" href="top.php">
+            <a class="header_logo" href="/userpage/top.php">
                 <p>CRAFT by</p>
                 <img src="/img/syukatudotcom_logo_white.png" alt="就活.comのロゴ">
             </a>

@@ -215,6 +215,8 @@ main{
             text-align: center;
             background-color: #e0e0e0;
             display: none;
+            position: relative;
+            left: -2vw;
             @include tb {
               width: 55vw;
               margin: 0 auto;

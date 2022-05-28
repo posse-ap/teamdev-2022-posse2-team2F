@@ -35,7 +35,20 @@ foreach ($agent_results as $rlt) {
 $stmt = $db->query("SELECT * FROM agents WHERE hide = 0");
 $results = $stmt->fetchAll();
 $count = $stmt->rowCount();
+//ここから申し込んだ人数出す
+$search_ids = array();
+foreach ($results as $result){
+  $agent_id = $result['id'];
+          $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$agent_id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
+          
+          $student_num =
+          $stmt->rowCount();
+          $student_nums = array($agent_id => $student_num);
+          $search_ids += $student_nums;
 
+}
+arsort($search_ids);
+$search_id = array_keys($search_ids);
 
 ?>
 <?php
@@ -56,7 +69,7 @@ $now = time();
 // $agent_tags = $stmt->fetchAll();
 ?>
 <?php require('../_header.php'); ?>
-<div id="fullOverlay"></div>
+<div id="fullOverlay" onclick="OverlayOpen()"></div>
 <div class="top_container">
   <h2>あなたにぴったりの<br>エージェントを見つけよう</h2>
   <button class="search-button" onclick="search_modalOpen()">絞りこむ</button>
@@ -117,7 +130,7 @@ $now = time();
               <?php foreach ($tags as $tag) : ?>
 
                 <input type="checkbox" name="tag[]" value="<?= $tag['tag_option'] ?>">
-                <input type="checkbox" value="<?= $tag['id'] ?>" name="<?= 'tag_' . $category['id'] . '[]' ?>" id="<?= $tag['id'] ?>">
+                <input type="checkbox" value=<?= $tag['id'] ?> name="<?= 'tag_' . $category['id'] . '[]' ?>" id="<?= $tag['id'] ?>">
                 <label for="<?= $tag['id'] ?>">
 
                   <?= $tag['tag_option'] ?>
@@ -142,8 +155,14 @@ $now = time();
   </div>
   <div class="top_container_agents">
 
-    <?php foreach ($results as $result) : ?>
+    <?php foreach ($search_id as $id) : ?>
+      <?php 
+      $stmt = $db->query("SELECT * FROM agents WHERE id = $id");
+      $res = $stmt->fetchAll();
+      foreach($res as $result):
+      ?>
       <!-- 始まりと終わりの時間確認 -->
+      <a href="info.php?id=<?= $result['id'] ?>" target="_blank">
       <div class="top_container_agents--all">
         <div class="top_container_agents--all__text">
           <h4><?= $result['agent_name'] ?></h4>
@@ -186,6 +205,8 @@ $now = time();
         </div>
 
       </div>
+      </a>
+      <?php endforeach; ?>
     <?php endforeach; ?>
   </div>
 </div>
@@ -202,6 +223,11 @@ $now = time();
     search_modal.style.display = "block";
     overlay.style.display = "block";
   }
+
+  function OverlayOpen() {
+      search_modal.style.display = "none";
+      overlay.style.display = "none";
+    }
 </script>
 
 

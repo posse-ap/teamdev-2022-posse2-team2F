@@ -1,0 +1,31 @@
+.contact-form__table {
+    width: 80%;
+    // border-collapse: collapse;
+    margin: 3% auto;
+    text-align: left;
+    background: #EBEDF1;
+    font-size: 1em;
+
+& th,td {
+    border: solid 1px #91C9C4;
+    /*実線 1px 黒*/
+    padding: 0.5em;
+    }
+
+&__title{
+    text-align: center;
+    font-size: 1.5em;
+}
+
+&__small-item{
+    background: white;
+}
+&__big-item{
+    background: #91C9C4;/*背景色*/
+    padding: 1.5em;
+    font-size: 1.2em;
+    & th{
+        color: white;
+    }
+}
+}

@@ -34,7 +34,7 @@ require('../dbconnect.php');
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
-                <a class="util_sidebar_link" href="/craft_admin/inquiries.php">お問合せ管理</a>
+                <a class="util_sidebar_link" href="/craft_admin/contact_management.php">お問合せ管理</a>
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
@@ -67,14 +67,14 @@ require('../dbconnect.php');
 
                         // セレクトボックスの値を格納する配列
                         $orders_list = array(
-                            "電話番号の小さい順",
-                            "電話番号の大きい順",
-                            "名前順",
-                            "申込順",
+                            "申込日時（昇順）",
+                            "申込日時（降順）"
                         );
 
                         // 戻ってきた場合
-                        if (isset($_POST['sort'])) {
+                        if (isset($_SESSION['sort_select'])) {
+                            $sort = $_SESSION['sort_select'];
+                        }else if (isset($_POST['sort'])) {
                             $sort = $_POST['sort'];
                         }
 
@@ -87,9 +87,6 @@ require('../dbconnect.php');
                                 echo "<option value='$value'>" . $value . "</option>";
                             }
                         }
-
-
-
                         ?>
                     </select>
 
@@ -103,18 +100,17 @@ require('../dbconnect.php');
                     <!-- ここから並び替えの分岐 -->
                     <?php
                     if (isset($_POST['sort_button'])) {
-                        if ($_POST['sort'] == '電話番号の小さい順') {
-                            $sort_sql = " ORDER BY phone ASC";
-                        } elseif ($_POST['sort'] == '電話番号の大きい順') {
-                            $sort_sql = " ORDER BY phone DESC";
-                        } elseif ($_POST['sort'] == '名前順') {
-                            $sort_sql = " ORDER BY name ASC";
-                        } elseif ($_POST['sort'] == '申込順') {
-                            $sort_sql = " ORDER BY created_at ASC";
+                        if ($_POST['sort'] == "申込日時（昇順）") {
+                            $_SESSION['sort_select'] = $_POST['sort'];
+                            $sort_sql = " ORDER BY students_contact.created_at ASC";
+                        } elseif ($_POST['sort'] == "申込日時（降順）") {
+                            $_SESSION['sort_select'] = $_POST['sort'];
+                            $sort_sql = " ORDER BY students_contact.created_at DESC";
                         } else {
-                            $sort_sql = " ORDER BY phone ASC";
+                            $sort_sql = " ";
                         }
                         $_SESSION['sort'] = $sort_sql;
+                        //以下直す必要あるかも
                         $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $_SESSION['sort'];
                     } else {
                         $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id ORDER BY phone ASC";

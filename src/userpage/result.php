@@ -49,6 +49,9 @@ $favorite_count = count($products);
 $now = time();
 ?>
 <?php
+error_reporting(E_ALL & ~ E_WARNING);
+?>
+<?php
 //並び替え
 if (isset($_POST['sort_button'])){
   //人気順
@@ -99,7 +102,7 @@ $_SESSION['search_id'] = $search_id;
   }
 }
 //曖昧検索
-// error_reporting(0);
+
 // if (isset($_POST['search'])) {
 
 //   if (isset($_POST['tag_id']) && is_array($_POST['tag_id'])) {
@@ -246,7 +249,7 @@ $categories = $stmt->fetchAll();
       window.addEventListener("scroll", checkOffset, false);
     });
   </script>
-  <div id="fullOverlay"></div>
+  <div id="fullOverlay" onclick="OverlayOpen()"></div>
   <div class="top_container">
     <div class="top_container_title">
       <h5>絞り込み結果</h5>
@@ -266,11 +269,6 @@ $categories = $stmt->fetchAll();
 
       <select name="sort" class="sort_select">
       <?php
-                        if($_SESSION['sort_name'] == ""){
-
-                          //$sortの初期値
-                          $_SESSION['sort_name'] = "人気順";
-                        }
                         // セレクトボックスの値を格納する配列
                         $orders_list = array(
                             "人気順",
@@ -444,7 +442,7 @@ $categories = $stmt->fetchAll();
                     </div>
                     <div class="otherbuttons">
 
-                      <a href="">詳細を見る</a>
+                      <a href="info.php?id=<?= $result['id'] ?>" target="_blank">詳細を見る</a>
                       <input type="submit" name="apply_id_single[<?= $result['id'] ?>]" value="申し込む">
                     </div>
                     <!-- <input type="hidden" name="agent_name" value="<?= $result['agent_name'] ?>">
@@ -534,7 +532,7 @@ $categories = $stmt->fetchAll();
                 <?php foreach ($tags as $tag) : ?>
 
                   <input type="checkbox" name="tag[]" value="<?= $tag['tag_option'] ?>">
-                  <input type="checkbox" value="<?= $tag['id'] ?>" name="<?= 'tag_' . $category['id'] . '[]' ?>" id="<?= $tag['id'] . "1" ?>">
+                  <input type="checkbox" value=<?= $tag['id'] ?> name="<?= 'tag_' . $category['id'] . '[]' ?>" id="<?= $tag['id'] . "1" ?>">
                   <label for="<?= $tag['id'] . "1" ?>">
 
                     <?= $tag['tag_option'] ?>
@@ -563,6 +561,11 @@ $categories = $stmt->fetchAll();
     function researchmodalOpen() {
       research_modal.style.display = "block";
       overlay.style.display = "block";
+    }
+
+    function OverlayOpen() {
+      research_modal.style.display = "none";
+      overlay.style.display = "none";
     }
   </script>
 
