@@ -162,6 +162,7 @@ $now = time();
       foreach($res as $result):
       ?>
       <!-- 始まりと終わりの時間確認 -->
+      <a href="info.php?id=<?= $result['id'] ?>" target="_blank">
       <div class="top_container_agents--all">
         <div class="top_container_agents--all__text">
 
@@ -196,6 +197,7 @@ $now = time();
         </div>
 
       </div>
+      </a>
       <?php endforeach; ?>
     <?php endforeach; ?>
   </div>

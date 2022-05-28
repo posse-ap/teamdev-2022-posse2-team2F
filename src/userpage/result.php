@@ -49,6 +49,9 @@ $favorite_count = count($products);
 $now = time();
 ?>
 <?php
+error_reporting(E_ALL & ~ E_WARNING);
+?>
+<?php
 //並び替え
 if (isset($_POST['sort_button'])){
   //人気順
@@ -99,7 +102,7 @@ $_SESSION['search_id'] = $search_id;
   }
 }
 //曖昧検索
-// error_reporting(0);
+
 // if (isset($_POST['search'])) {
 
 //   if (isset($_POST['tag_id']) && is_array($_POST['tag_id'])) {
@@ -437,7 +440,7 @@ $categories = $stmt->fetchAll();
                     </div>
                     <div class="otherbuttons">
 
-                      <a href="">詳細を見る</a>
+                      <a href="info.php?id=<?= $result['id'] ?>" target="_blank">詳細を見る</a>
                       <input type="submit" name="apply_id_single[<?= $result['id'] ?>]" value="申し込む">
                     </div>
                     <!-- <input type="hidden" name="agent_name" value="<?= $result['agent_name'] ?>">

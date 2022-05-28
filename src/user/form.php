@@ -93,6 +93,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
               <?php 
               // ここからまとめて申し込み
               if(isset($_POST['apply_id'])){
+                var_dump($_POST['apply_id']);
                 if(isset($_POST['apply_tag']) && is_array($_POST['apply_tag'])){
                   $_SESSION['tag_id'] = $_POST['apply_tag'];
 
@@ -131,6 +132,8 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                   </tr>
 
             <?php 
+              }else{
+                header("Location: /userpage/result.php");
               }
                 ?>
             </table>

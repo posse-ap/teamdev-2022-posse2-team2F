@@ -151,7 +151,7 @@ if (isset($_POST['cart_delete'])) {
               <!-- ここまで -->
 
 
-              <a href="">詳細を見る</a>
+              <a href="/userpage/info.php?id=<?= $id ?>" target="_blank">詳細を見る</a>
               <input type="submit" value="申し込む" name="apply_id_single[<?= $result['id'] ?>]">
 
             </div>

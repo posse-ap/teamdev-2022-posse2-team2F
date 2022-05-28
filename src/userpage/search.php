@@ -31,7 +31,7 @@ foreach ($categories as $category) {
     $cnt = count($selected);
     //タグの数が配列の数と同じかどうか
     if ($num == 1 && $cnt == 1){
-      $stmt = $db->query("SELECT id FROM agents WHERE hide = 0 AND agent_tag LIKE '%$selected[0]%'");
+      $stmt = $db->query("SELECT agent_id FROM agent_tag_options INNER JOIN agents ON agent_tag_options.agent_id = agents.id WHERE tag_option_id = $selected[0] AND hide = 0");
       $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
       $counter++;
     }
@@ -52,7 +52,7 @@ foreach ($categories as $category) {
       $counter++;
     }
     elseif ($cnt == 1){
-      $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$selected[0]%' AND hide = 0");
+      $stmt = $db->query("SELECT agent_id FROM agent_tag_options INNER JOIN agents ON agent_tag_options.agent_id = agents.id WHERE tag_option_id = $selected[0] AND hide = 0");
       $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
       $counter++;
     }
