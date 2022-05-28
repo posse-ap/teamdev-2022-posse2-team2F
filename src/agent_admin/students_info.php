@@ -21,8 +21,8 @@ require('../dbconnect.php');
     <div class="util_logout">
         <a href="./login/logout.php">
             ログアウト
-            <i class="fas fa-sign-out-alt"></i> 
-        </a>   
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
     </div>
     <div class="util_container">
         <div class="util_sidebar">

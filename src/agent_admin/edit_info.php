@@ -221,7 +221,7 @@ if ($count[0] != 0) {
             </div>
             <div class="change_item">
               <label class="change_item--label" for="message">担当者からの一言</label>
-              <textarea class="change_item--textarea" name="message"><?= $result['dept'] ?></textarea>
+              <textarea class="change_item--textarea" name="message"><?= $result['message'] ?></textarea>
             </div>
             <input class="change_button" type="submit" value="変更を保存" name="submit">
           </form>

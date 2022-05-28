@@ -20,17 +20,19 @@ if (isset($_GET['id'])) {
     $agent_name = $_POST['agent_name'];
     $agent_tagname = $_POST['agent_tag'];
     $agent_tag = $_POST['tag_id'];
-    // $agent_pic = $_POST['agent_pic'];
+    $agent_title = $_POST['agent_title'];
     $agent_info = $_POST['agent_info'];
-    // $agent_display = $_POST['agent_display'];
+    $agent_point1 = $_POST['agent_point1'];
+    $agent_point2 = $_POST['agent_point2'];
+    $agent_point3 = $_POST['agent_point3'];
     $start_display = $_POST['agent_display_start'];
     $end_display = $_POST['agent_display_end'];
 
     $sql = 'UPDATE agents
-          SET agent_name = ?, agent_tag = ?,agent_tagname = ?, agent_info = ?, start_display = ?, end_display = ?
+          SET agent_name = ?, agent_tag = ?, agent_tagname = ?, agent_title = ?, agent_info = ?, agent_point1 = ?, agent_point2 = ?, agent_point3 = ?, start_display = ?, end_display = ?
           WHERE id = ?';
     $stmt = $db->prepare($sql);
-    $stmt->execute(array($agent_name, $agent_tag, $agent_tagname, $agent_info, $start_display, $end_display, $id));
+    $stmt->execute(array($agent_name, $agent_tag, $agent_tagname, $agent_title, $agent_info, $agent_point1, $agent_point2, $agent_point3, $start_display, $end_display, $id));
 
     // 画像更新
     $target_dir = "images/";
@@ -192,8 +194,24 @@ $categories = $stmt->fetchAll();
             </script>
           </div>
           <div class="change_item">
+            <label class="change_item--label" for="agent_title">エージェントスローガン</label>
+            <input class="change_item--input" type="text" name="agent_title" value="<?= $result['agent_title'] ?>" required>
+          </div>
+          <div class="change_item">
             <label class="change_item--label" for="agent_info">エージェント説明</label>
             <textarea class="change_item--textarea" name="agent_info"><?= $result['agent_info'] ?></textarea>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_point1">エージェント特徴１</label>
+            <input class="change_item--input" type="text" name="agent_point1" value="<?= $result['agent_point1'] ?>" required>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_point2">エージェント特徴２</label>
+            <input class="change_item--input" type="text" name="agent_point2" value="<?= $result['agent_point2'] ?>" required>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_point3">エージェント特徴３</label>
+            <input class="change_item--input" type="text" name="agent_point3" value="<?= $result['agent_point3'] ?>" required>
           </div>
           <div class="change_item dropdown">
             <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
@@ -203,8 +221,7 @@ $categories = $stmt->fetchAll();
               <p class="end_display _error"></p>
               <input type="text" id="start_display" name="agent_display_start" value="<?= $result['start_display'] ?>">
               <p class="between"> 〜 </p>
-              <input type="text" name="agent_display_end" id="end_display"
-              value="<?= $result['end_display'] ?>">
+              <input type="text" name="agent_display_end" id="end_display" value="<?= $result['end_display'] ?>">
             </div>
 
             <script>
@@ -289,7 +306,7 @@ $categories = $stmt->fetchAll();
 
   </div>
 
-  
+
 
 
   <?php require('../_footer.php'); ?>
@@ -308,7 +325,7 @@ $categories = $stmt->fetchAll();
     }
   </script>
 
-  
+
 </body>
 
 </html>

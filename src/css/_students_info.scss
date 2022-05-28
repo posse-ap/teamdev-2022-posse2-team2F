@@ -51,6 +51,10 @@
       background-repeat: no-repeat;
       background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
       background-attachment: local, local, scroll, scroll;
+
+      table {
+        margin: 10px 0 0 0;
+      }
     }
 
     .table {
