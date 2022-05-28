@@ -407,7 +407,7 @@ $categories = $stmt->fetchAll();
                       <?php
                       if ($last_time <= 30) { ?>
                         <div class="last_time">
-                          <?= "掲載終了まであと" . $last_time . "日!!" ?>
+                          <?= "⌛️掲載終了まであと" . $last_time . "日!!" ?>
                         </div>
 
                       <?php } else { ?>

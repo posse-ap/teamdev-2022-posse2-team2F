@@ -5009,23 +5009,89 @@ main {
 .heading_wrapper {
   color: #52A49A;
   background-color: #FFFFFF;
-  width: 80vw;
-  height: 5vh;
+  width: 80%;
+  height: 56px;
   font-size: 20px;
   margin-bottom: 30px;
   margin-top: 10px;
-  padding-bottom: 30px;
   padding-left: 20px;
   -webkit-box-shadow: 2px 2px 4px gray;
           box-shadow: 2px 2px 4px gray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 @media screen and (max-width: 520px) {
   .heading_wrapper {
     font-size: 16px;
-    height: 4vh;
-    width: 90vw;
+    height: 40px;
+    width: 90%;
   }
+}
+
+.heading_wrapper h2 {
+  margin: 0;
+}
+
+.heading_wrapper .favorites {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  right: 12vw;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 5px 20px;
+  border: 1px solid #cf7c7c;
+  border-radius: 20px;
+}
+
+.heading_wrapper .favorites p {
+  margin: 5px;
+  color: #cf7c7c;
+}
+
+.heading_wrapper .favorites .favorite_count {
+  margin: 5px 10px;
+}
+
+.heading_wrapper .favorites .favorite {
+  display: inline-block;
+  color: #fff;
+  -webkit-box-shadow: 0 3px 0 #cf7c7c;
+          box-shadow: 0 3px 0 #cf7c7c;
+  /* 影の太さ・色 */
+  padding: 5px 8px;
+  margin-left: 10px;
+  border-radius: 10px;
+  background-color: #cf7c7c;
+  cursor: pointer;
+}
+
+.heading_wrapper .favorites .favorite:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-transform: translateY(3px);
+          transform: translateY(3px);
+}
+
+.heading_wrapper .favorites .favorite:active {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-transform: translateY(3px);
+          transform: translateY(3px);
 }
 
 .info_wrapper {
@@ -5150,6 +5216,7 @@ main {
   height: 30%;
   padding-top: 30px;
   padding-left: 30px;
+  position: relative;
 }
 
 @media screen and (max-width: 960px) {
@@ -5165,6 +5232,26 @@ main {
     padding-top: 20px;
     padding-left: 0px;
   }
+}
+
+.info_inner-leftbox_alerts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.info_inner-leftbox_alerts .student_numbers {
+  font-weight: bold;
+  color: red;
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.info_inner-leftbox_alerts .last_time {
+  font-weight: bold;
+  font-size: 20px;
+  color: orange;
+  margin-left: 10px;
 }
 
 .info_inner-rightbox {
@@ -5213,12 +5300,12 @@ main {
 .info_inner-rightbox_catchcopy::before {
   content: "";
   display: inline-block;
-  width: 2px;
-  height: 55px;
+  width: 2.5px;
+  height: 50px;
   background-color: #52A49A;
   position: absolute;
-  left: -30px;
-  top: -2px;
+  left: -20px;
+  top: -10px;
   -webkit-transform: rotate(-20deg);
   transform: rotate(-20deg);
 }
@@ -5232,12 +5319,12 @@ main {
 .info_inner-rightbox_catchcopy::after {
   content: "";
   display: inline-block;
-  width: 2px;
+  width: 2.5px;
   height: 55px;
   background-color: #52A49A;
   position: absolute;
-  top: -6px;
-  right: -28px;
+  top: -10px;
+  right: -20px;
   -webkit-transform: rotate(20deg);
   transform: rotate(20deg);
 }
@@ -5261,7 +5348,7 @@ main {
 }
 
 .info_inner-point {
-  width: 60%;
+  width: 90%;
   -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
           box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
 }
@@ -5275,7 +5362,16 @@ main {
 }
 
 .info_inner-point_list {
+  width: 90%;
   padding-left: 0px;
+}
+
+.info_inner-point_list li {
+  list-style-type: disc !important;
+  font-weight: bold;
+  position: relative;
+  left: 2vw;
+  text-align: left;
 }
 
 @media screen and (max-width: 520px) {
@@ -5294,13 +5390,10 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   color: #FFFFFF;
   height: 40px;
-  margin-right: 100px;
-  margin-left: 100px;
   text-align: center;
   font-size: 18px;
   padding-bottom: 30px;
@@ -5317,10 +5410,20 @@ main {
 .btn-fav {
   background-color: #db7093;
   border-radius: 20px;
-  width: 200px;
-  padding-top: 12px;
+  width: 160px;
   font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   cursor: pointer;
+  position: relative;
+  left: 20px;
 }
 
 @media screen and (max-width: 520px) {
@@ -5341,10 +5444,14 @@ main {
 .btn-register {
   background-color: #F3AF56;
   border-radius: 20px;
+  height: 40px;
   width: 160px;
-  padding-top: 12px;
   font-weight: bold;
+  border-style: none;
+  color: #FFFFFF;
   cursor: pointer;
+  position: relative;
+  right: 20px;
 }
 
 @media screen and (max-width: 960px) {

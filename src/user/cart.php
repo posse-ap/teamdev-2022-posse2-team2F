@@ -171,7 +171,7 @@ if (isset($_POST['cart_delete'])) {
               <?php
                       if ($last_time <= 30) { ?>
                         <div class="last_time">
-                          掲載終了まで
+                          ⌛️掲載終了まで
                           <br>
                           <?= "あと" . $last_time . "日!!" ?>
                         </div>
