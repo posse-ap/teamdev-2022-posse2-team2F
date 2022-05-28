@@ -132,8 +132,6 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                   </tr>
 
             <?php 
-              }else{
-                header("Location: /userpage/result.php");
               }
                 ?>
             </table>
@@ -414,31 +412,31 @@ if (isset($_POST["back"]) && $_POST["back"]) {
           <p class="userform_heading">個人情報</p>
           <div class="userform_text">
             <label class="userform_text--label">氏名<span class="required">必須</span></label>
-            <input class="userform_text--box box-white" type="text" value="<?= $_SESSION["student_name"] ?>"  />
+            <input class="userform_text--box box-white" type="text" value="<?= $_SESSION["student_name"] ?>" readonly/>
           </div>
           <div class="userform_text">
             <label class="userform_text--label">メールアドレス<span class="required">必須</span></label>
-            <input class="userform_text--box box-white" type="email" value="<?= $_SESSION["student_email"] ?>" >
+            <input class="userform_text--box box-white" type="email" value="<?= $_SESSION["student_email"] ?>" readonly/>
           </div>
           <div class="userform_text">
             <label class="userform_text--label">電話番号<span class="required">必須</span></label>
-            <input class="userform_text--box box-white" type="tel" value="<?= $_SESSION["student_phone"] ?>" >
+            <input class="userform_text--box box-white" type="tel" value="<?= $_SESSION["student_phone"] ?>" readonly />
           </div>
           <div class="userform_text">
             <label class="userform_text--label">大学<span class="required">必須</span></label>
-            <input class="userform_text--box box-white" type="text" value="<?= $_SESSION["student_university"] ?>" >
+            <input class="userform_text--box box-white" type="text" value="<?= $_SESSION["student_university"] ?>" readonly/>
           </div>
           <div class="userform_text">
             <label class="userform_text--label">学科<span class="required">必須</span></label>
-            <input class="userform_text--box box-white" type="text" value="<?= $_SESSION["student_faculty"] ?>" >
+            <input class="userform_text--box box-white" type="text" value="<?= $_SESSION["student_faculty"] ?>" readonly/>
           </div>
           <div class="userform_text">
             <label class="userform_text--label">住所<span class="required">必須</span></label>
-            <input class="userform_text--box box-white" type="text" value="<?= $_SESSION["student_address"] ?>" >
+            <input class="userform_text--box box-white" type="text" value="<?= $_SESSION["student_address"] ?>" readonly/>
           </div>
           <div class="userform_text">
             <label class="userform_text--label">卒業年<span class="required">必須</span></label>
-            <input class="userform_text--box box-white" type="text" value="<?= $_SESSION["student_graduation"] ?>" >
+            <input class="userform_text--box box-white" type="text" value="<?= $_SESSION["student_graduation"] ?>" readonly/>
           </div>
           <p class="userform_heading">利用規約</p>
           <div class="userform_agreement">
