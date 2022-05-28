@@ -5,13 +5,7 @@ require('../dbconnect.php');
 $stmt = $db->query("SELECT * FROM agent_inquiries");
 $results = $stmt->fetchAll();
 
-// $sql = "SELECT * FROM agents WHERE id = ?";
-// $stmt = $db->prepare($sql);
-// $stmt->execute(array($_SESSION['id']));
-// $agent = $stmt->fetch();
 
-
-// $agent_name = $agent['agent_name'];
 
 
 if(isset($_POST['send_response']))
@@ -19,11 +13,19 @@ if(isset($_POST['send_response']))
 
   $agent_id = key($_POST['send_response']); 
 
-  var_dump($agent_id);
+$sql = "SELECT * FROM agents WHERE id = ?";
+$stmt = $db->prepare($sql);
+$stmt->execute(array($agent_id));
+$agent = $stmt->fetch();
+
+
+$agent_name = $agent['agent_name'];
+
+  // var_dump($agent_id);
 
   $sql_email = "SELECT * FROM agent_users WHERE id = ?";
   $stmt = $db->prepare($sql_email);
-  $stmt->execute(array($_SESSION['id']));
+  $stmt->execute(array($agent_id));
   $email = $stmt->fetch();
 
   $to = $email['notify_email'];
@@ -184,7 +186,7 @@ if(isset($_POST['send_response']))
                 </form>
 
             </div>
-  </div>
+        </div>
             <!-- ============================ここからモーダル============================ -->
             <div id="modal_bg" class="replymodal_bg">
 
@@ -212,9 +214,8 @@ if(isset($_POST['send_response']))
                 };
               ?>
             </div>
-            
-  </div>
-  </div>
+      </div>
+    </div>
   </div>
   
 
@@ -233,12 +234,6 @@ if(isset($_POST['send_response']))
           open();
         }
 
-        // modalOpen = function(id) {
-        //   let modal = document.getElementById(`modal${id}`);
-        //   modal.style.display = 'block';
-        //   bg.style.display = 'block';
-        // }
-
         modalClose = function(id) {
           let modal = document.getElementById(`modal${id}`);
           function close() {
@@ -248,16 +243,6 @@ if(isset($_POST['send_response']))
           close();
         }
 
-        // modalClose = function(id) {
-        //   let modal = document.getElementById(`modaldone${id}`);
-        //   modal.style.display = 'none';
-        //   bg.style.display = 'none';
-        // }
-
-        // function modalClose() {
-        //     modal.style.display = 'none';
-        //     bg.style.display = 'none';
-        // }
 
         function modalDelete() {
             modal.style.display = 'none';
@@ -266,7 +251,8 @@ if(isset($_POST['send_response']))
 
         window.onclick = function(event) {
             if (event.target == bg) {
-                modal.style.display = "none";
+                // let modal = document.getElementById(`modal${id}`);
+                // modal.style.display = "none";
                 bg.style.display = 'none';
             }
         }

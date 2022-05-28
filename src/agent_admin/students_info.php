@@ -94,7 +94,7 @@ require('../dbconnect.php');
                     </select>
 
                     <!-- 並び替えボタン -->
-                    <input type="submit" name="sort_button" value="並び替える">
+                    <input class="info_button" type="submit" name="sort_button" value="並び替える">
 
                     </div>
 
