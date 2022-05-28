@@ -195,8 +195,8 @@ if(isset($_POST['send_response']))
                             <p class="replymodal_text" for="message">返信内容</p>
                             <textarea class="replymodal_textarea" name="reply"></textarea>
                             <div class="replymodal_buttons">
-                                <button onclick="modalClose()" type="button" class="replymodal_buttons--back">戻る</button>
-                                <button onclick="modalDelete()" type="submit" name="send_response[<?= $result['agent_id'] ?>]" id="confirm_button" class="replymodal_buttons--confirm">メール送信</button>
+                                <button onclick="modalClose(<?= $result['id'] ?>)" type="button" class="replymodal_buttons--back">戻る</button>
+                                <button onclick="close()" type="submit" name="send_response[<?= $result['agent_id'] ?>]" id="confirm_button" class="replymodal_buttons--confirm">メール送信</button>
                             </div>
                         </div>
                     </form>
@@ -223,22 +223,36 @@ if(isset($_POST['send_response']))
         // const modaldone = document.getElementById('modal_done')
         const bg = document.getElementById('modal_bg');
 
-        // function modalOpen() {
-        //     modal.style.display = 'block';
-        //     bg.style.display = 'block';
-        // }
-
+        //削除ボタンをクリックした時の処理
         modalOpen = function(id) {
           let modal = document.getElementById(`modal${id}`);
-          modal.style.display = 'block';
-          bg.style.display = 'block';
+          function open() {
+            modal.style.display = 'block';
+            bg.style.display = 'block';
+          };
+          open();
         }
 
+        // modalOpen = function(id) {
+        //   let modal = document.getElementById(`modal${id}`);
+        //   modal.style.display = 'block';
+        //   bg.style.display = 'block';
+        // }
+
         modalClose = function(id) {
-          let modal = document.getElementById(`modaldone${id}`);
-          modal.style.display = 'none';
-          bg.style.display = 'none';
+          let modal = document.getElementById(`modal${id}`);
+          function close() {
+            modal.style.display = 'none';
+            bg.style.display = 'none';
+          };
+          close();
         }
+
+        // modalClose = function(id) {
+        //   let modal = document.getElementById(`modaldone${id}`);
+        //   modal.style.display = 'none';
+        //   bg.style.display = 'none';
+        // }
 
         // function modalClose() {
         //     modal.style.display = 'none';
