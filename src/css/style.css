@@ -689,6 +689,7 @@ a {
   border-radius: 1vh;
   font-size: 1.2vw;
   color: black;
+  resize: none;
 }
 
 .change_item--image {
@@ -1169,6 +1170,7 @@ a {
   border-radius: 1vh;
   font-size: 1.4vw;
   color: black;
+  resize: none;
 }
 
 .changetag_item--input {
@@ -4685,6 +4687,7 @@ main {
   border-radius: 1vh;
   font-size: 1.4vw;
   color: black;
+  resize: none;
 }
 
 .inquiries_item--select {
