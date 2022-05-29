@@ -359,6 +359,7 @@ a {
 .util_sidebar_button i {
   position: absolute;
   right: 20px;
+  cursor: pointer;
 }
 
 .util_sidebar_button--selected {
@@ -553,12 +554,14 @@ a {
   border-right: 1px solid #91c9c4;
   -webkit-box-shadow: 1px 3px 3px #c4c4c4;
           box-shadow: 1px 3px 3px #c4c4c4;
+  cursor: pointer;
 }
 
 .home-agents_display--eye {
   -webkit-appearance: none;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
 .home-agents_buttons {
@@ -1052,6 +1055,7 @@ a {
   -webkit-appearance: none;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
 .tag-categories_buttons {
@@ -1139,6 +1143,7 @@ a {
 .tag-more .tag-items i {
   margin-left: 5px;
   font-size: 0.8em;
+  cursor: pointer;
 }
 
 .tag-more_add {
@@ -1154,8 +1159,8 @@ a {
 }
 
 .changetag {
-  width: 50vw;
-  margin: 15px 100px 15px 30px;
+  width: 64vw;
+  margin: 15px auto;
 }
 
 .changetag_title {
@@ -1163,7 +1168,7 @@ a {
 }
 
 .changetag_item {
-  width: 50vw;
+  width: 60vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1173,35 +1178,35 @@ a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 50px;
 }
 
 .changetag_item--label {
-  font-size: 1.3vw;
+  font-size: 18px;
   font-weight: 500;
 }
 
 .changetag_item--textarea {
-  padding-left: 10px;
+  padding: 10px;
   width: 40vw;
-  height: 7vh;
+  height: 10vh;
   border-style: none;
   background-color: #ebedf1;
   border-radius: 1vh;
-  font-size: 1.4vw;
+  font-size: 18px;
   color: black;
   resize: none;
 }
 
 .changetag_item--input {
-  padding-left: 10px;
-  width: 25vw;
+  padding: 6px 10px;
+  width: 20vw;
   height: 3.5vh;
   border-style: none;
   background-color: #ebedf1;
   border-radius: 1vh;
   font-size: 1.4vw;
-  margin-right: 40px;
+  margin-right: 286px;
 }
 
 .changetag_item--color {
@@ -1212,10 +1217,25 @@ a {
   background-color: #ebedf1;
   border-radius: 1vh;
   font-size: 1.4vw;
-  margin-right: 40px;
+  margin-right: 286px;
 }
 
-.changetag_button {
+.changetag_buttons {
+  width: 30%;
+  height: 7vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.changetag_buttons--submit {
   width: 8vw;
   height: 5vh;
   border-style: none;
@@ -1224,6 +1244,30 @@ a {
   margin-left: 40%;
   -webkit-box-shadow: 0px 3px 3px #9b9b9b;
           box-shadow: 0px 3px 3px #9b9b9b;
+}
+
+.changetag_buttons--back {
+  width: 8vw;
+  height: 5vh;
+  font-size: 1vw;
+  cursor: pointer;
+  background-color: #c4c4c4;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-shadow: 0px 3px 3px #9b9b9b;
+          box-shadow: 0px 3px 3px #9b9b9b;
+}
+
+.changetag .editoption {
+  margin-left: 150px !important;
 }
 
 main {
@@ -2059,7 +2103,7 @@ main {
   height: 40px;
   color: white;
   background-color: #52a49a;
-  margin: 10px auto 20px auto;
+  margin: 0 auto 20px auto;
   font-size: 24px;
   border-style: none;
   -webkit-box-shadow: 6px 2px 3px #c0c1c5;
@@ -4873,6 +4917,7 @@ main {
   background-color: #ebedf1;
   border-radius: 1vh;
   font-size: 1.4vw;
+  resize: none;
 }
 
 .replymodal_container .replymodal_buttons {

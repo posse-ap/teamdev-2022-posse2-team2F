@@ -781,8 +781,8 @@ CREATE TABLE delete_student_application (
 
 INSERT INTO delete_student_application(application_id, agent_name)
 VALUES
-    (1,'agent1'),
-    (2,'agent1');
+    (1,'まいなび新卒紹介'),
+    (2,'まいなび新卒紹介');
 
 
 

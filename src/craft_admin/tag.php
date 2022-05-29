@@ -249,7 +249,7 @@ if (isset($_POST['hide_option'])) {
               </div>
               <?php endforeach; ?>
             </div>
-            <a href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>" class="tag-more_add">+ タグのオプションを追加</a>            
+            <a href="./edit_tag_option.php?id=<?= $category['id'] ?>" class="tag-more_add">+ タグのオプションを追加</a>            
           </div>
         <?php endforeach; ?>
         <a href="./edit_tag_category.php?act=add" class="tag_category_add">+ カテゴリーを追加</a>
@@ -311,6 +311,7 @@ let deleteFunction = function (id) {
           modalClose();
     }
 
+
 //削除ボタンをクリックした時の処理
 let deleteModal_option = function (id) {
           let modal = document.getElementById(`option_modal${id}`);
@@ -339,6 +340,19 @@ let deleteModal_option = function (id) {
             bg.style.display = 'none';
           };
           modalClose();
+    }
+
+
+    window.onclick = function(event) {
+      if (event.target == bg) {
+        for (i = 1; i <= 20; i++) {
+            let modal1 = document.getElementById(`util_deletemodal${i}`);
+            let modal2 = document.getElementById(`option_modal${i}`);
+            modal1.style.display = "none";
+            modal2.style.display = "none";
+            bg.style.display = 'none';
+        }
+      }
     }
 
     // リロードした時詳細ページを押したままにする
