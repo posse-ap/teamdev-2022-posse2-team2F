@@ -43,10 +43,15 @@
   }
 
   &_link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10% 5%;
     text-decoration: none;
     text-align: left;
-    margin-right: 15px;
-    margin-left: 20px;
+    // margin-right: 15px;
+    // margin-left: 20px;
     color: #000;
     &--selected {
       color: #52a49a !important;

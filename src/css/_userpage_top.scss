@@ -40,6 +40,83 @@ main{
   background-color: #EBEDF1;
   height: 100%;
   min-height: 82vh;
+  &--bigbox{
+    min-height: 400px;
+    background-color: #91C9C4;
+    margin-bottom: 50px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  &--minibox{
+    min-height: 380px;
+    background-color: #FFFFFF;
+    margin: 0px 60px 0px 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 50px 20px 50px;
+    @include mb{
+      flex-wrap: wrap;
+      padding: 15px 20px 15px 20px;
+      margin: 0px 30px 0px 30px;
+    }
+    @include tb{
+      flex-wrap: wrap;
+    }
+  }
+  
+  .toppage_img1{
+    width: 18%;
+    height: 10%;
+    z-index: 1;
+    @include tb{
+      width: 30%;
+      height: 30%;
+      // order: 1;
+    }
+    @include mb{
+      width: 30%;
+      height: 30%;
+      order: 1;
+      padding-left: 20px;
+    }
+
+  }
+  .toppage_img2{
+    width: 21%;
+    height: 21%;
+    z-index: 1;
+    @include tb{
+      width: 20%;
+      height: 20%;
+      // order: 2;
+      display: none;
+    }
+    @include mb {
+      width: 40%;
+      height: 40%;
+      order:2;
+      display: block;
+    }
+
+  }
+
+  .toppage_content{
+    width: 30%;
+    height: 30%;
+    @include tb{
+      // order: 3;
+      width: 60%;
+    }
+      @include mb{
+      order: 3;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+}
+
   h2{
     width: 400px;
     margin: 0 auto;
@@ -51,6 +128,11 @@ main{
     @include mb {
       width: 250px;
       font-size: 18px;
+      line-height: 24px;
+    }
+    @include tb {
+      width: 260px;
+      font-size: 20px;
       line-height: 24px;
     }
     &::before{
@@ -82,6 +164,7 @@ main{
       }
     }
   }
+
   .search-button{
     width: 288px;
     height: 40px;
@@ -96,9 +179,32 @@ main{
     cursor: pointer;
     @include tb {
       display: none;
-
+      }
+      &:hover {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
+      &:active {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
       }
   }
+  p{
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 20px 0px 20px 0px;
+    cursor: pointer;
+
+  }
+
     .search-button_res{
       display: none;
       @include tb {
@@ -141,7 +247,7 @@ main{
     padding: 5px 5px;
     min-width: 50vw;
     max-width: 50vw;
-    background: #fff;
+    background: #EBEDF1;
     margin: 5px auto;
     display: flex;
     justify-content: space-around;
@@ -149,6 +255,31 @@ main{
     align-items: center;
     box-shadow: 0px 8px 8px rgb(203, 202, 202);
     border-radius: 10px;
+    z-index: 2;
+    left: -45%;
+
+    /* 上から */
+
+    &-fadeDown{
+      animation-name:fadeDownAnime;
+      animation-duration:0.5s;
+      animation-fill-mode:forwards;
+      opacity:0;
+      }
+      
+      @keyframes fadeDownAnime{
+        from {
+          opacity: 0;
+        transform: translateY(-10px);
+        }
+      
+        to {
+          opacity: 1;
+        transform: translateY(0);
+        }
+      }
+
+
     @include tb {
       max-width: 65vw;
       z-index: 2;
@@ -175,7 +306,7 @@ main{
       left: 50%;
       margin-left: -15px;
       border: 15px solid transparent;
-      border-bottom: 15px solid #fff;
+      border-bottom: 15px solid #EBEDF1;
       @include tb{
         display: none;
       }
@@ -430,6 +561,20 @@ main{
       @include tb {
         display: none;
       }
+      &:hover {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
+      &:active {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
     }
 
     .search_modal_container--button{
@@ -461,6 +606,22 @@ main{
     flex-wrap: wrap;
     @include tb {
       width: 94vw;
+    }
+    & a{
+      &:hover {
+        box-shadow: none;
+        transform: translateY(-4px);
+        @include tb {
+          transform: translateY(-3px);
+        }
+      }
+      &:active {
+        box-shadow: none;
+        transform: translateY(-4px);
+        @include tb {
+          transform: translateY(-3px);
+        }
+      }
     }
     &--all{
       width: 29vw;
@@ -669,4 +830,65 @@ main{
       }
     }
   }
+}
+
+.guide_modal{
+  background-color: #FFFFFF;
+  width: 800px;
+  height:600px;
+  z-index: 3;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  margin-top: 0px;
+  display: none;
+  &_inner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  @include tb{
+    width: 600px;
+    height: 500px;
+  }
+  @include mb{
+    width: 340px;
+    height: 300px;
+  }
+&_closebtn {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+&_closebtn::before,
+&_closebtn::after {
+  content: "";
+  position: absolute;
+  width: 2px; /* 棒の幅（太さ） */
+  height: 25px; /* 棒の高さ */
+  background: #666666; /* バツ印の色 */
+  top: 25px;
+  right: 25px;
+}
+&_closebtn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+&_closebtn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+&_img{
+  width: 750px;
+  height: 500px;
+  @include tb{
+    width: 500px;
+    height: 400px;
+  }
+  @include mb{
+    width: 300px;
+    height: 250px;
+  }
+}
 }
