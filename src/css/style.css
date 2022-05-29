@@ -6303,6 +6303,7 @@ main {
 }
 
 .heading_wrapper .favorites {
+  background-color: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -6395,6 +6396,7 @@ main {
 }
 
 .info_wrapper {
+  max-width: 2000px;
   line-height: 25px;
   background-color: #FFFFFF;
   width: 80%;

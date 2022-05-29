@@ -35,16 +35,17 @@ foreach ($categories as $category) {
       $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
       $counter++;
     }
-    elseif ($num == $cnt){
-      $stmt = $db->query("SELECT id FROM agents WHERE hide = 0");
-      $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
-      $counter++;
-    }
+    // elseif ($num == $cnt){
+    //   $stmt = $db->query("SELECT id FROM agents WHERE hide = 0");
+    //   $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
+    //   $counter++;
+    // }
     elseif ($cnt >= 2) {
       $tags = implode(',', $selected);
       $split_tags = explode(',', $tags);
       foreach($split_tags as $split_tag){
-        $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$split_tag%' AND hide = 0");
+        // $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$split_tag%' AND hide = 0");
+        $stmt = $db ->query("SELECT agent_id FROM agent_tag_options WHERE tag_option_id = $split_tag ");
         $pre_result = $stmt->fetchALL(PDO::FETCH_COLUMN);
         $count = $stmt->rowCount();
         $result_ids = array_merge($result_ids, $pre_result);
