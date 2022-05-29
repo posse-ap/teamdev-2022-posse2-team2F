@@ -1,9 +1,4 @@
 @charset "UTF-8";
-a {
-  text-decoration: none;
-  color: #ffffff;
-}
-
 .header {
   background: #52a49a;
   width: 100vw;
@@ -55,6 +50,14 @@ a {
   color: #ffffff;
   font-weight: bold;
   padding: 5px 3px 3px 3px;
+  text-decoration: none;
+  color: #ffffff;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.header_bottom--contact:hover {
+  color: black;
 }
 
 .header_logo {
