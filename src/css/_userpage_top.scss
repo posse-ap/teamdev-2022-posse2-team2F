@@ -96,7 +96,20 @@ main{
     cursor: pointer;
     @include tb {
       display: none;
-
+      }
+      &:hover {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
+      &:active {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
       }
   }
     .search-button_res{
@@ -453,6 +466,20 @@ main{
       @include tb {
         display: none;
       }
+      &:hover {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
+      &:active {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
     }
 
     .search_modal_container--button{
@@ -484,6 +511,22 @@ main{
     flex-wrap: wrap;
     @include tb {
       width: 94vw;
+    }
+    & a{
+      &:hover {
+        box-shadow: none;
+        transform: translateY(-4px);
+        @include tb {
+          transform: translateY(-3px);
+        }
+      }
+      &:active {
+        box-shadow: none;
+        transform: translateY(-4px);
+        @include tb {
+          transform: translateY(-3px);
+        }
+      }
     }
     &--all{
       width: 29vw;
