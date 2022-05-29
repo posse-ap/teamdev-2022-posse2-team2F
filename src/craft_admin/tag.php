@@ -311,6 +311,16 @@ let deleteFunction = function (id) {
           modalClose();
     }
 
+    window.onclick = function(event) {
+      if (event.target == bg) {
+        for (i = 1; i <= 20; i++) {
+            let modal = document.getElementById(`util_deletemodal${i}`);
+            modal.style.display = "none";
+          bg.style.display = 'none';
+        }
+      }
+    }
+
 //削除ボタンをクリックした時の処理
 let deleteModal_option = function (id) {
           let modal = document.getElementById(`option_modal${id}`);
@@ -339,6 +349,16 @@ let deleteModal_option = function (id) {
             bg.style.display = 'none';
           };
           modalClose();
+    }
+
+    window.onclick = function(event) {
+      if (event.target == bg) {
+        for (i = 1; i <= 20; i++) {
+            let modal = document.getElementById(`option_modal${i}`);
+            modal.style.display = "none";
+            bg.style.display = 'none';
+        }
+      }
     }
 
     // リロードした時詳細ページを押したままにする
