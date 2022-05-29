@@ -2,6 +2,11 @@
 session_start();
 require('../dbconnect.php');
 
+// ログインしていないままアクセスしようとしている場合エラーページに飛ばす
+if (!isset($_SESSION['id'])) {
+  header('Location: ./login/login_error.php');
+}
+
 
 if (isset($_POST['submit'])) {
 
@@ -38,10 +43,11 @@ include('../_header.php');
 ?>
 
 <div class="util_logout">
+    <p class="util_logout_email"><?= $_SESSION['login_email'] ?></p>
     <a href="./login/logout.php">
-        ログアウト
-        <i class="fas fa-sign-out-alt"></i> 
-    </a>   
+    ログアウト
+    <i class="fas fa-sign-out-alt"></i>
+    </a>
 </div>
 
 
@@ -64,7 +70,7 @@ include('../_header.php');
             <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
-            <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+            <a class="util_sidebar_link" href="/agent_admin/inquiries.php">ユーザー用サイトへ</a>
             <i class="fas fa-angle-right"></i>
         </div>
     </div>

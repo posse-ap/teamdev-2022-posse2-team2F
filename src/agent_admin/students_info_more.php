@@ -1,7 +1,15 @@
 <?php
 session_start();
+
+
+// ログインしていないままアクセスしようとしている場合エラーページに飛ばす
+if (!isset($_SESSION['id'])) {
+    header('Location: ./login/login_error.php');
+}
+
 include('../_header.php');
 require('../dbconnect.php');
+
 
 // ============================どの学生の情報を表示するか？id取得============================
 $application_id = filter_input(INPUT_GET, 'id');
@@ -31,10 +39,11 @@ $student_info = $sql_prepare->fetch();
 // }
 ?>
 <div class="util_logout">
+    <p class="util_logout_email"><?= $_SESSION['login_email'] ?></p>
     <a href="./login/logout.php">
-        ログアウト
-        <i class="fas fa-sign-out-alt"></i> 
-    </a>   
+    ログアウト
+    <i class="fas fa-sign-out-alt"></i>
+    </a>
 </div>
 
 <div class="util_container">
@@ -46,7 +55,7 @@ $student_info = $sql_prepare->fetch();
             <a class="util_sidebar_link" href="/agent_admin/edit_info.php">担当者情報管理</a>
         </div>
         <div class="util_sidebar_button">
-            <a class="util_sidebar_link" href="">お問合せ</a>
+            <a class="util_sidebar_link" href="/agent_admin/inquiries.php">お問合せ</a>
         </div>
         <div class="util_sidebar_button">
             <a class="util_sidebar_link" href="/agent_admin/invoice.php">請求金額確認</a>
@@ -100,7 +109,7 @@ $student_info = $sql_prepare->fetch();
                     <th>申し込みエージェント</th>
                     <td><?= $student_info['agent'] ?></td>
                 </tr>
-                    <tr>
+                <tr>
                     <th>状態</th>
                     <td><?= $student_info['status'] ?></td>
                 </tr>

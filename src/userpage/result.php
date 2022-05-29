@@ -364,8 +364,9 @@ $categories = $stmt->fetchAll();
 
                         <?php
                         $id = $result['id'];
-                        $stmt = $db->query("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE agent_id = '$id'");
+                        $stmt = $db->prepare("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE tag_options.hide = 0 AND agent_id = ?");
 
+                        $stmt ->execute(array($id));
                         $agent_tags = $stmt->fetchAll();
                         ?>
                         <?php foreach ($agent_tags as $agent_tag) : ?>

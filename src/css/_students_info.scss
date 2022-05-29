@@ -51,6 +51,10 @@
       background-repeat: no-repeat;
       background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
       background-attachment: local, local, scroll, scroll;
+
+      table {
+        margin: 10px 0 0 0;
+      }
     }
 
     .table {
@@ -264,10 +268,17 @@
 
 .util_logout {
   position: absolute;
-  top: 20px;
+  text-align: right;
+  top: 10px;
   right: 20px;
+  color: #fff;
+  
+  &_email {
+    margin: 0 auto 5px auto;
+  }
+
   a {
-    color: #fff;
-    font-size: 18px;
+    // color: #fff;
+    font-size: 16px;
   }
 }

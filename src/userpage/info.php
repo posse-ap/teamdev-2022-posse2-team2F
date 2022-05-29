@@ -23,7 +23,10 @@ if (isset($_GET['id'])) {
 }
 ?>
 <?php
-$stmt = $db->query('SELECT * FROM tag_categories WHERE hide = 0');
+// $stmt = $db->query('SELECT * FROM tag_categories');
+$stmt = $db->query('SELECT tag_categories.id, tag_categories.tag_category FROM tag_categories INNER JOIN tag_options ON tag_categories.id = tag_options.category_id
+                    UNION
+                    SELECT sort_categories.tag_category_id, sort_categories.sort_category FROM sort_categories INNER JOIN sort_options ON sort_categories.tag_category_id = sort_options.category_id');
 
 $categories = $stmt->fetchAll();
 ?>
@@ -92,8 +95,15 @@ $categories = $stmt->fetchAll();
               <tr>
                 <td class="table_title"><?= $category['tag_category'] ?></td>
                 <?php
-                $stmt = $db->prepare("SELECT * FROM agent_tag_options INNER JOIN tag_options ON agent_tag_options.tag_option_id = tag_options.id WHERE category_id = ? AND agent_id = ?AND hide = 0");
-                $stmt->execute(array($category['id'], $id));
+
+                // $stmt = $db->prepare("SELECT * FROM tag_options INNER JOIN agent_tag_options on tag_options.id = agent_tag_options.tag_option_id WHERE category_id = ? AND agent_id = ?");
+                $stmt = $db->prepare("SELECT tag_options.tag_option FROM tag_options INNER JOIN agent_tag_options on tag_options.id = agent_tag_options.tag_option_id 
+                                      WHERE category_id = ? AND agent_id = ?
+                                      UNION 
+                                      SELECT sort_options.sort_option FROM sort_options INNER JOIN agent_sort_options on sort_options.id = agent_sort_options.sort_option_id 
+                                      WHERE category_id = ? AND agent_id = ?");
+
+                $stmt->execute(array($category['id'], $result['id'], $category['id'], $result['id']));
                 $tags = $stmt->fetchAll();
 
                 $tag_num = $stmt->rowCount();

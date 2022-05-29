@@ -1,6 +1,11 @@
 <?php
-
+session_start();
 require('../dbconnect.php');
+
+// ログインしていないままアクセスしようとしている場合エラーページに飛ばす
+if (!isset($_SESSION['id'])) {
+  header('Location: ./login/login_error.php');
+}
 
 // 画像以外の更新
 if (isset($_POST['submit'])) {
@@ -8,14 +13,18 @@ if (isset($_POST['submit'])) {
   // これはただタグを表示させるだけのもの
   $agent_tagname = $_POST['agent_tag'];
   $agent_tag = $_POST['tag_id'];
+  $agent_title = $_POST['agent_title'];
   $agent_info = $_POST['agent_info'];
+  $agent_point1 = $_POST['agent_point1'];
+  $agent_point2 = $_POST['agent_point2'];
+  $agent_point3 = $_POST['agent_point3'];
   $start_display = $_POST['agent_display_start'];
   $end_display = $_POST['agent_display_end'];
 
   // 画像更新
   $target_dir = "images/";
   $target_file = $target_dir . basename($_FILES["agent_pic"]["name"]);
-  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+  $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
   if (move_uploaded_file($_FILES["agent_pic"]["tmp_name"], $target_file)) {
     // 画像更新
@@ -30,14 +39,14 @@ if (isset($_POST['submit'])) {
   // INSERT INTO文 は一回で書かないとだから、編集画面みたいに分けて書けない
   // 画像をアップロードして、さらに登録ボタンが押されたら SQL文を書く仕組みにした！ （どうせ画像の登録は必要になるから）
 
-  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_tagname, agent_info, start_display, end_display, hide) 
-          VALUES (?, ?, ?, ?, ?, ?, ?, 0)';
+  $sql = 'INSERT INTO agents(agent_name, agent_pic, agent_tag, agent_tagname, agent_title, agent_info, agent_point1, agent_point2, agent_point3, start_display, end_display, hide) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)';
   $stmt = $db->prepare($sql);
-  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_tagname, $agent_info, $start_display, $end_display));
+  $stmt->execute(array($agent_name, $_FILES['agent_pic']['name'], $agent_tag, $agent_tagname, $agent_title, $agent_info, $agent_point1, $agent_point2, $agent_point3, $start_display, $end_display));
 
   /* ここからタグ系の処理イメージ記述します */
   $tag_ids = $_POST['tag_id'];
-  
+
   $split_ids = explode(',', $tag_ids);
 
   $id_stmt = $db->query('SELECT id FROM agents ORDER BY id DESC LIMIT 1');
@@ -45,15 +54,15 @@ if (isset($_POST['submit'])) {
 
   foreach ($split_ids as $index => $id) {
 
-      $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) 
+    $sql = "INSERT INTO agent_tag_options(tag_option_id, agent_id) 
           VALUES (?, ?)";
-      $stmt = $db->prepare($sql);
-      $stmt->execute(array($id, $agent_id['id']));
-      // $stmt->execute(array($id, $agent_id));
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array($id, $agent_id['id']));
+    // $stmt->execute(array($id, $agent_id));
   }
 
-  
-  
+
+
   header('Location: home.php');
   exit;
 }
@@ -79,7 +88,13 @@ $categories = $stmt->fetchAll();
   <!-- ここでカレンダー読み込み -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+  <div class="util_logout">
+    <p class="util_logout_email"><?= $_SESSION['email'] ?></p>
+    <a href="./login/logout.php">
+      ログアウト
+      <i class="fas fa-sign-out-alt"></i>
+    </a>
+  </div>
   <div class="util_container">
     <div class="util_sidebar">
       <div class="util_sidebar_button">
@@ -155,17 +170,33 @@ $categories = $stmt->fetchAll();
             </script>
           </div>
           <div class="change_item">
+            <label class="change_item--label" for="agent_title">エージェントスローガン</label>
+            <input class="change_item--input" type="text" name="agent_title" required>
+          </div>
+          <div class="change_item">
             <label class="change_item--label" for="agent_info">エージェント説明</label>
             <textarea class="change_item--textarea" name="agent_info"></textarea>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_point1">エージェント特徴１</label>
+            <input class="change_item--input" type="text" name="agent_point1" required>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_point2">エージェント特徴２</label>
+            <input class="change_item--input" type="text" name="agent_point2" required>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_point3">エージェント特徴３</label>
+            <input class="change_item--input" type="text" name="agent_point3" required>
           </div>
           <div class="change_item dropdown">
             <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
             <div class="dropdown_container">
-              <p class="err-msg-name"></p>
-              <input type="text" id="start_display" name="agent_display_start" value="" >
+              <p class="start_display_error"></p>
+              <p class="end_display _error"></p>
+              <input type="text" id="start_display" name="agent_display_start" value="">
               <p class="between"> 〜 </p>
-              <input type="text" name="agent_display_end" id="end_display"
-              value="" >
+              <input type="text" name="agent_display_end" id="end_display" value="">
             </div>
 
             <script>
@@ -185,6 +216,66 @@ $categories = $stmt->fetchAll();
       </div>
     </div>
   </div>
+
+  <!-- ここからバリデーション -->
+  <script>
+    // window.addEventListener('DOMContentLoaded', () => {
+
+    // 「送信」ボタンの要素を取得
+    const submit = document.querySelector('.submit');
+
+    // 「送信」ボタンの要素にクリックイベントを設定する
+    submit.addEventListener('click', (e) => {
+
+      // 「お名前」入力欄の空欄チェック
+      //要素取得
+      const start_display = document.querySelector('#start_display');
+      const end_display = document.querySelector('#end_display');
+      // エラーメッセージを表示させる要素を取得
+      const errMsgName1 = document.querySelector('.start_display_error');
+      const errMsgName2 = document.querySelector('.end_display_error');
+
+      if (!start_display.value) {
+
+        // デフォルトアクションをキャンセル
+        e.preventDefault();
+        // クラスを追加(エラーメッセージを表示する)
+        errMsgName1.classList.add('form-invalid');
+        // エラーメッセージのテキスト
+        errMsgName1.textContent = '掲載期間が選択されていません';
+        // クラスを追加(フォームの枠線を赤くする)
+        start_display.classList.add('input-invalid');
+        // 後続の処理を止める
+        return;
+      } else {
+        // エラーメッセージのテキストに空文字を代入
+        errMsgName1.textContent = '';
+        // クラスを削除
+        start_display.classList.remove('input-invalid');
+      }
+
+      if (!end_display.value) {
+        // デフォルトアクションをキャンセル
+        e.preventDefault();
+        // クラスを追加(エラーメッセージを表示する)
+        errMsgName2.classList.add('form-invalid');
+        // エラーメッセージのテキスト
+        errMsgName2.textContent = '掲載期間が表示されていません';
+        // クラスを追加(フォームの枠線を赤くする)
+        end_display.classList.add('input-invalid');
+        // 後続の処理を止める
+        return;
+      } else {
+        // エラーメッセージのテキストに空文字を代入
+        errMsgName2.textContent = '';
+        // クラスを削除
+        end_display.classList.remove('input-invalid');
+      }
+
+    }, false);
+    // }, false);
+  </script>
+
   <!-- ここからtag_modal -->
 
   <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
@@ -260,7 +351,5 @@ $categories = $stmt->fetchAll();
     }
   </script>
 </body>
-
-
 
 </html>

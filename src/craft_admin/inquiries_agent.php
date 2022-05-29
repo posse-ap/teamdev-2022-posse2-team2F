@@ -2,28 +2,34 @@
 session_start();
 require('../dbconnect.php');
 
+// ログインしていないままアクセスしようとしている場合エラーページに飛ばす
+if (!isset($_SESSION['id'])) {
+  header('Location: ./login/login_error.php');
+}
+
 $stmt = $db->query("SELECT * FROM agent_inquiries");
 $results = $stmt->fetchAll();
 
-// $sql = "SELECT * FROM agents WHERE id = ?";
-// $stmt = $db->prepare($sql);
-// $stmt->execute(array($_SESSION['id']));
-// $agent = $stmt->fetch();
 
 
-// $agent_name = $agent['agent_name'];
+
+if (isset($_POST['send_response'])) {
+
+  $agent_id = key($_POST['send_response']);
+
+  $sql = "SELECT * FROM agents WHERE id = ?";
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($agent_id));
+  $agent = $stmt->fetch();
 
 
-if(isset($_POST['send_response']))
-{
+  $agent_name = $agent['agent_name'];
 
-  $agent_id = key($_POST['send_response']); 
-
-  var_dump($agent_id);
+  // var_dump($agent_id);
 
   $sql_email = "SELECT * FROM agent_users WHERE id = ?";
   $stmt = $db->prepare($sql_email);
-  $stmt->execute(array($_SESSION['id']));
+  $stmt->execute(array($agent_id));
   $email = $stmt->fetch();
 
   $to = $email['notify_email'];
@@ -36,7 +42,7 @@ if(isset($_POST['send_response']))
 
   $email = $mail_stmt->fetch();
 
-    $message_info = $_POST['reply'];
+  $message_info = $_POST['reply'];
 
   // $to      = "craft@boozer.com";
   $subject = "お問合せの新規返信がございます";
@@ -73,6 +79,13 @@ if(isset($_POST['send_response']))
 
 <body>
   <?php require('../_header.php'); ?>
+  <div class="util_logout">
+    <p class="util_logout_email"><?= $_SESSION['email'] ?></p>
+    <a href="./login/logout.php">
+      ログアウト
+      <i class="fas fa-sign-out-alt"></i>
+    </a>
+  </div>
   <div class="util_container">
     <div class="util_sidebar">
       <div class="util_sidebar_button">
@@ -130,152 +143,144 @@ if(isset($_POST['send_response']))
       <!-- 並び替え結果 -->
       <div class="manageinquiries">
         <div class="cont_for_scroll">
-        <table class="manageinquiries_table" border=1; style=border-collapse:collapse;>
-          <tr>
-            <th class="dontwrap">ID</th>
-            <th class="dontwrap">エージェント</th>
-            <th>氏名</th>
-            <th>メールアドレス</th>
-            <th>項目</th>
-            <th>詳細</th>
-            <th>操作</th>
-          </tr>
+          <table class="manageinquiries_table" border=1; style=border-collapse:collapse;>
+            <tr>
+              <th class="dontwrap">ID</th>
+              <th class="dontwrap">エージェント</th>
+              <th>氏名</th>
+              <th>メールアドレス</th>
+              <th>項目</th>
+              <th>詳細</th>
+              <th>操作</th>
+            </tr>
 
-          <form action="delete_student_application.php?id=" method="POST">
-          <?php
-          
-            foreach ($results as $result) { 
+            <form action="delete_student_application.php?id=" method="POST">
+              <?php
 
-              echo "<tr>";
+              foreach ($results as $result) {
 
-              echo "<th>";
-              echo $result['id'];
-              echo "</th>";
-
-              echo "<th>";
-              echo $result['agent_name'];
-              echo "</th>";
-
-              echo "<th class='dontwrap'>";
-              echo $result['name'];
-              echo "</th>";
-
-              echo "<th>";
-              echo $result['email'];
-              echo "</th>";
-
-              echo "<th style='width: 80px'>";
-              echo $result['content'];
-              echo "</th>";
-
-              echo "<th>";
-              echo $result['details'];
-              echo "</th>";
-
-              echo "<th>"
-
-          ?>
-            <div class="moreinfo_buttons">
-                <button onclick="modalOpen(<?= $result['id'] ?>)" type="button" class="moreinfo_buttons--reply">返信</button>
-            </div>
-            
-          
-          <?php
+                echo "<tr>";
 
                 echo "<th>";
                 echo $result['id'];
                 echo "</th>";
 
-          
+                echo "<th>";
+                echo $result['agent_name'];
+                echo "</th>";
 
-              echo "</tr>";
+                echo "<th class='dontwrap'>";
+                echo $result['name'];
+                echo "</th>";
 
-              
+                echo "<th>";
+                echo $result['email'];
+                echo "</th>";
 
-            };
-          ?>
-        </table>
+                echo "<th style='width: 80px'>";
+                echo $result['content'];
+                echo "</th>";
 
-              </div>
+                echo "<th>";
+                echo $result['details'];
+                echo "</th>";
 
-              </div>
+                echo "<th>"
 
-                </form>
-
-            </div>
-  </div>
-            <!-- ============================ここからモーダル============================ -->
-            <div id="modal_bg" class="replymodal_bg">
-
-              <?php foreach ($results as $result) {  ?>
-                <div id="modal<?= $result['id'] ?>" class="replymodal_container">
-                    <form action="" method="POST">
-                        <div class="replymodal">
-                            <p class="replymodal_text" for="message">返信内容</p>
-                            <textarea class="replymodal_textarea" name="reply"></textarea>
-                            <div class="replymodal_buttons">
-                                <button onclick="modalClose()" type="button" class="replymodal_buttons--back">戻る</button>
-                                <button onclick="modalDelete()" type="submit" name="send_response[<?= $result['agent_id'] ?>]" id="confirm_button" class="replymodal_buttons--confirm">メール送信</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!-- ここから削除完了画面 -->
-                <div id="modal_done<?= $result['id'] ?>" class="replymodal_container">
-                    <div class="replymodal">
-                        <p class="util_deletemodal_message">返信メールの送信が完了しました。</p>
-                    </div>
-                </div>
-                <?php
-
-                };
               ?>
+                <div class="manageinquiries_buttons">
+                  <button onclick="modalOpen(<?= $result['id'] ?>)" type="button" class="manageinquiries_buttons--reply">返信</button>
+                </div>
+
+
+              <?php
+
+                echo "</th>";
+
+
+
+                echo "</tr>";
+              };
+              ?>
+          </table>
+
+        </div>
+
+      </div>
+
+      </form>
+
+    </div>
+  </div>
+  <!-- ============================ここからモーダル============================ -->
+  <div id="modal_bg" class="replymodal_bg">
+
+    <?php foreach ($results as $result) {  ?>
+      <div id="modal<?= $result['id'] ?>" class="replymodal_container">
+        <form action="" method="POST">
+          <div class="replymodal">
+            <p class="replymodal_text" for="message">返信内容</p>
+            <textarea class="replymodal_textarea" name="reply"></textarea>
+            <div class="replymodal_buttons">
+              <button onclick="modalClose(<?= $result['id'] ?>)" type="button" class="replymodal_buttons--back">戻る</button>
+              <button onclick="close()" type="submit" name="send_response[<?= $result['agent_id'] ?>]" id="confirm_button" class="replymodal_buttons--confirm">メール送信</button>
             </div>
-            
+          </div>
+        </form>
+      </div>
+      <!-- ここから削除完了画面 -->
+      <div id="modal_done<?= $result['id'] ?>" class="replymodal_container">
+        <div class="replymodal">
+          <p class="util_deletemodal_message">返信メールの送信が完了しました。</p>
+        </div>
+      </div>
+    <?php
+
+    };
+    ?>
   </div>
-  </div>
-  </div>
-  
+
 
   <script>
-        // const modal = document.getElementById('modal');
-        // const modaldone = document.getElementById('modal_done')
-        const bg = document.getElementById('modal_bg');
+    // const modal = document.getElementById('modal');
+    // const modaldone = document.getElementById('modal_done')
+    const bg = document.getElementById('modal_bg');
 
-        // function modalOpen() {
-        //     modal.style.display = 'block';
-        //     bg.style.display = 'block';
-        // }
+    //削除ボタンをクリックした時の処理
+    modalOpen = function(id) {
+      let modal = document.getElementById(`modal${id}`);
 
-        modalOpen = function(id) {
-          let modal = document.getElementById(`modal${id}`);
-          modal.style.display = 'block';
-          bg.style.display = 'block';
-        }
+      function open() {
+        modal.style.display = 'block';
+        bg.style.display = 'block';
+      };
+      open();
+    }
 
-        modalClose = function(id) {
-          let modal = document.getElementById(`modaldone${id}`);
-          modal.style.display = 'none';
-          bg.style.display = 'none';
-        }
+    modalClose = function(id) {
+      let modal = document.getElementById(`modal${id}`);
 
-        // function modalClose() {
-        //     modal.style.display = 'none';
-        //     bg.style.display = 'none';
-        // }
+      function close() {
+        modal.style.display = 'none';
+        bg.style.display = 'none';
+      };
+      close();
+    }
 
-        function modalDelete() {
-          modal.style.display = 'none';
-          modaldone.style.display = 'block';
-        }
 
-        window.onclick = function(event) {
-          if (event.target == bg) {
-            modal.style.display = "none";
-            bg.style.display = 'none';
-          }
-        }
-      </script>
+    function modalDelete() {
+      modal.style.display = 'none';
+      modaldone.style.display = 'block';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == bg) {
+        // let modal = document.getElementById(`modal${id}`);
+        // modal.style.display = "none";
+        bg.style.display = 'none';
+      }
+    }
+  </script>
 
 
 

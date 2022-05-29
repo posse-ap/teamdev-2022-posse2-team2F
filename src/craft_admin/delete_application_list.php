@@ -1,7 +1,15 @@
 <?php
 session_start();
+
+// ログインしていないままアクセスしようとしている場合エラーページに飛ばす
+if (!isset($_SESSION['id'])) {
+    header('Location: ./login/login_error.php');
+}
+
+
 include('../_header.php');
 require('../dbconnect.php');
+
 
 $sql = "SELECT * FROM delete_student_application;";
 $sql_prepare = $db->prepare($sql);
@@ -10,6 +18,13 @@ $delete_application = $sql_prepare->fetchAll();
 ?>
 
 <body>
+    <div class="util_logout">
+        <p class="util_logout_email"><?= $_SESSION['email'] ?></p>
+        <a href="./login/logout.php">
+            ログアウト
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </div>
     <div class="util_container">
         <div class="util_sidebar">
             <div class="util_sidebar_button">
@@ -32,7 +47,7 @@ $delete_application = $sql_prepare->fetchAll();
         <div class="util_content">
             <div class="util_title">
                 <h2 class="util_title--text">
-                削除申請一覧
+                    削除申請一覧
                 </h2>
             </div>
             <div class="info">
@@ -93,11 +108,11 @@ $delete_application = $sql_prepare->fetchAll();
                         */
                         ?>
                 </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>
 
 
-<?php require('../_footer.php'); ?>
+    <?php require('../_footer.php'); ?>
 </body>

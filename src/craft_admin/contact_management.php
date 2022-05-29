@@ -1,7 +1,15 @@
 <?php
 session_start();
+
+// ログインしていないままアクセスしようとしている場合エラーページに飛ばす
+if (!isset($_SESSION['id'])) {
+    header('Location: ./login/login_error.php');
+}
+
 include('../_header.php');
 require('../dbconnect.php');
+
+
 
 // お問合せ：user_contact_formテーブルから取得
 $sql = "SELECT * FROM user_contact_form";
@@ -21,6 +29,13 @@ $contact_form_lists = $sql_prepare->fetchAll();
 </head>
 
 <body>
+    <div class="util_logout">
+        <p class="util_logout_email"><?= $_SESSION['email'] ?></p>
+        <a href="./login/logout.php">
+            ログアウト
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </div>
     <div class="util_container">
         <div class="util_sidebar">
             <div class="util_sidebar_button">
@@ -80,7 +95,7 @@ $contact_form_lists = $sql_prepare->fetchAll();
             <div class="manageinquiries">
                 <div class="content-area">
                     <div class="management__content show">
-                        <div class="info">
+                        <div>
                             <table class="manageinquiries_table" border=1; style=border-collapse:collapse;>
                                 <tr class="invoice__table__big-item">
                                     <th>
