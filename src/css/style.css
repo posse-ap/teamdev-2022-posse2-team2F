@@ -359,6 +359,7 @@ a {
 .util_sidebar_button i {
   position: absolute;
   right: 20px;
+  cursor: pointer;
 }
 
 .util_sidebar_button--selected {
@@ -553,12 +554,14 @@ a {
   border-right: 1px solid #91c9c4;
   -webkit-box-shadow: 1px 3px 3px #c4c4c4;
           box-shadow: 1px 3px 3px #c4c4c4;
+  cursor: pointer;
 }
 
 .home-agents_display--eye {
   -webkit-appearance: none;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
 .home-agents_buttons {
@@ -1052,6 +1055,7 @@ a {
   -webkit-appearance: none;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
 .tag-categories_buttons {
@@ -1139,6 +1143,7 @@ a {
 .tag-more .tag-items i {
   margin-left: 5px;
   font-size: 0.8em;
+  cursor: pointer;
 }
 
 .tag-more_add {
@@ -4912,6 +4917,7 @@ main {
   background-color: #ebedf1;
   border-radius: 1vh;
   font-size: 1.4vw;
+  resize: none;
 }
 
 .replymodal_container .replymodal_buttons {

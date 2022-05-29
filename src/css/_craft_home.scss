@@ -30,6 +30,7 @@
     i {
       position: absolute;
       right: 20px;
+      cursor: pointer;
     }
   }
 
@@ -179,11 +180,13 @@
     border-bottom: 1px solid #91c9c4;
     border-right: 1px solid #91c9c4;
     box-shadow: 1px 3px 3px #c4c4c4;
+    cursor: pointer;
 
     &--eye {
       -webkit-appearance: none;
       background-color: transparent;
       border: none;
+      cursor: pointer;
     }
   }
   
