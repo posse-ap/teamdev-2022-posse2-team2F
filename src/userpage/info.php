@@ -6,7 +6,7 @@ session_start();
 $products = isset($_SESSION['products']) ? $_SESSION['products'] : [];
 ?>
 <?php
-error_reporting(E_ALL & ~ E_WARNING);
+error_reporting(E_ALL & ~E_WARNING);
 if (isset($_GET['id'])) {
 
 
