@@ -158,6 +158,69 @@ SET
     image = "ento2.png",
     message = "就活頑張りましょう！",
     agent_name = "irodasSALON";
+INSERT INTO
+    agent_users_info
+SET
+    user_id = 3,
+    name = "栄次苑都",
+    dept = "〇〇部署",
+    image = "ento2.png",
+    message = "就活頑張りましょう！",
+    agent_name = "キャリアチケット";
+INSERT INTO
+    agent_users_info
+SET
+    user_id = 4,
+    name = "栄次苑都",
+    dept = "〇〇部署",
+    image = "ento2.png",
+    message = "就活頑張りましょう！",
+    agent_name = "JobSpring";
+INSERT INTO
+    agent_users_info
+SET
+    user_id = 5,
+    name = "栄次苑都",
+    dept = "〇〇部署",
+    image = "ento2.png",
+    message = "就活頑張りましょう！",
+    agent_name = "Meets Company";
+INSERT INTO
+    agent_users_info
+SET
+    user_id = 6,
+    name = "栄次苑都",
+    dept = "〇〇部署",
+    image = "ento2.png",
+    message = "就活頑張りましょう！",
+    agent_name = "シンアド就活";
+INSERT INTO
+    agent_users_info
+SET
+    user_id = 7,
+    name = "栄次苑都",
+    dept = "〇〇部署",
+    image = "ento2.png",
+    message = "就活頑張りましょう！",
+    agent_name = "キャリセン";
+INSERT INTO
+    agent_users_info
+SET
+    user_id = 8,
+    name = "栄次苑都",
+    dept = "〇〇部署",
+    image = "ento2.png",
+    message = "就活頑張りましょう！",
+    agent_name = "就職エージェントneo";
+INSERT INTO
+    agent_users_info
+SET
+    user_id = 9,
+    name = "栄次苑都",
+    dept = "〇〇部署",
+    image = "ento2.png",
+    message = "就活頑張りましょう！",
+    agent_name = "キャリアスタート";
 
 -- エージェント情報
 

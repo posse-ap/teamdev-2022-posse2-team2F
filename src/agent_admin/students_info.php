@@ -128,7 +128,7 @@ require('../dbconnect.php');
 
                         // print_r($sql);
                         $sql_prepare = $db->prepare($sql);
-                        $sql_prepare->execute(array($_SESSION['agent_name']));
+                        $sql_prepare->execute(array($_SESSION['check_agent_name']));
                         $all_students_info = $sql_prepare->fetchAll();
 
                         if (!$all_students_info) {

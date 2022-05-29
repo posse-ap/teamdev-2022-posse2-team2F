@@ -20,7 +20,7 @@ if (isset($_POST['login'])) {
   $login_info = $stmt_for_session->fetch();
 
   // $sql_for_session = 'SELECT agent_users.id, agent_users.login_email, agent_users.contract_email, agent_users.login_email, agent_users.password, agent_users.password_conf, agent_users.agent_name, agent_users_info.name, agent_users_info.dept, agent_users_info.image, agent_users_info.message FROM agent_users JOIN agent_users_info ON agent_users.id = agent_users_info.user_id WHERE login_email = ? AND password = ?';
-  $sql_for_validation = 'SELECT id, login_email FROM agent_users WHERE login_email = ? AND password = ?';
+  $sql_for_validation = 'SELECT id, login_email, agent_name FROM agent_users WHERE login_email = ? AND password = ?';
   $stmt_for_validation = $db->prepare($sql_for_validation);
   $stmt_for_validation->execute(array($email, $password));
   $login_check = $stmt_for_validation->fetch();
@@ -29,9 +29,12 @@ if (isset($_POST['login'])) {
   if ($result[0] != 0) {
     // 成功した場合管理画面に遷移
     header('Location: http://localhost/agent_admin/students_info.php');
+
     //ログインのバリデーション用にだけidとメール保存
     $_SESSION['check'] = $login_check['id'];
     $_SESSION['check_email'] = $login_check['login_email'];
+    $_SESSION['check_agent_name'] = $login_check['agent_name'];
+
     
     //DBのユーザー情報をセッションに保存
     $_SESSION['id'] = $login_info['id'];
