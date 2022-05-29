@@ -28,7 +28,7 @@ require('../dbconnect.php');
 
 <body>
     <div class="util_logout">
-        <p class="util_logout_email"><?= $_SESSION['login_email'] ?></p>
+        <p class="util_logout_email"><?= $_SESSION['check_email'] ?></p>
         <a href="./login/logout.php">
             ログアウト
             <i class="fas fa-sign-out-alt"></i>

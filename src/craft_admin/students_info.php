@@ -3,7 +3,7 @@ session_start();
 
 
 // ログインしていないままアクセスしようとしている場合エラーページに飛ばす
-if (!isset($_SESSION['check'])) {
+if (!isset($_SESSION['id'])) {
     header('Location: ./login/login_error.php');
 }
 
