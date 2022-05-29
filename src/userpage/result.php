@@ -60,7 +60,7 @@ if (isset($_POST['sort_button'])){
     //ここから人気順（申込人数多い順）
 $search_ids = array();
 foreach($_SESSION['default_id'] as $search_id){
-  $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+  $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id AND hide = 0");
             $results = $stmt->fetchAll();
             foreach ($results as $result){
               $agent_id = $result['id'];
@@ -86,7 +86,7 @@ $_SESSION['search_id'] = $search_id;
   unset($_SESSION['search_id']);
   $search_ids = array();
   foreach ($_SESSION['default_id'] as $search_id){
-    $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+    $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id AND hide =0");
     $results = $stmt->fetchAll();
     foreach($results as $result){
       $agent_id = $result['id'];
@@ -99,7 +99,58 @@ $_SESSION['search_id'] = $search_id;
   $search_id = array_keys($search_ids);
 
   $_SESSION['search_id'] = $search_id;
+  }elseif($_POST['sort'] == "公開求人数が多い順"){
+  //公開求人数が多い順
+  unset($_SESSION['search_id']);
+  $search_ids = array();
+  foreach ($_SESSION['default_id'] as $search_id){
+    $stmt =  $db->prepare("SELECT sort_options.sort_option, agent_sort_options.agent_id FROM sort_options INNER JOIN agent_sort_options on sort_options.id = agent_sort_options.sort_option_id 
+    WHERE category_id = 100 AND agent_id = ? AND hide = 0");
+    $stmt ->execute(array($search_id));
+    $results = $stmt->fetchAll();
+    foreach($results as $result){
+      $agent_id = $result['agent_id'];
+      if(is_numeric($result['sort_option'])){
+
+        $want_num = $result['sort_option'];
+      }else{
+        $want_num = 0;
+      }
+      $want_nums = array($agent_id => $want_num);
+      $search_ids += $want_nums;
+
+    }
   }
+  arsort($search_ids);
+  $search_id = array_keys($search_ids);
+
+  $_SESSION['search_id'] = $search_id;
+  }elseif($_POST['sort'] == "利用者数が多い順"){
+    unset($_SESSION['search_id']);
+    $search_ids = array();
+    foreach ($_SESSION['default_id'] as $search_id){
+      $stmt =  $db->prepare("SELECT sort_options.sort_option, agent_sort_options.agent_id FROM sort_options INNER JOIN agent_sort_options on sort_options.id = agent_sort_options.sort_option_id 
+    WHERE category_id = 102 AND agent_id = ? AND hide = 0");
+    $stmt ->execute(array($search_id));
+    $results = $stmt->fetchAll();
+    foreach($results as $result){
+      $agent_id = $result['agent_id'];
+      if(is_numeric($result['sort_option'])){
+
+        $user_num = $result['sort_option'];
+      }else{
+        $user_num = 0;
+      }
+      $user_nums = array($agent_id => $user_num);
+      $search_ids += $user_nums;
+    }
+  }
+  arsort($search_ids);
+  $search_id = array_keys($search_ids);
+
+  $_SESSION['search_id'] = $search_id;
+
+}
 }
 //曖昧検索
 
@@ -200,13 +251,19 @@ $count = count($_SESSION['search_id']);
 // タグ表示
 
 //既存データの表示
-$stmt = $db->query('SELECT * FROM tag_categories');
+$stmt = $db->query('SELECT * FROM tag_categories WHERE hide = 0');
 
 $categories = $stmt->fetchAll();
 
 ?>
 
 <?php require('../_header.php'); ?>
+
+<!-- 自動リロード -->
+<head>
+<!-- <meta http-equiv="refresh" content="2; URL=result.php"> -->
+</head>
+
 <?php if ($count == 0) { ?>
   <div class="no_match">
     <div class="top_container_title">
@@ -266,13 +323,14 @@ $categories = $stmt->fetchAll();
 
     </div>
     <form action="result.php" method="POST">
-
       <select name="sort" class="sort_select">
       <?php
                         // セレクトボックスの値を格納する配列
                         $orders_list = array(
                             "人気順",
                             "掲載期間の短い順",
+                            "公開求人数が多い順",
+                            "利用者数が多い順",
                         );
 
                         // 戻ってきた場合
@@ -305,10 +363,11 @@ $categories = $stmt->fetchAll();
           チェックしたエージェント
         </p>
 
-        <p class="check_count"></p>
+        <p id="check_count" class="check_count"></p>
         <p>件をまとめて</p>
 
-        <input type="submit" name="apply_id" value="申し込む">
+        <input type="submit" name="apply_id" value="申し込む" 
+        >
       </div>
       <!-- ここからまとめて申し込むmodal -->
       <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
@@ -357,8 +416,9 @@ $categories = $stmt->fetchAll();
 
                         <?php
                         $id = $result['id'];
-                        $stmt = $db->query("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE agent_id = '$id'");
+                        $stmt = $db->prepare("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE tag_options.hide = 0 AND agent_id = ?");
 
+                        $stmt ->execute(array($id));
                         $agent_tags = $stmt->fetchAll();
                         ?>
                         <?php foreach ($agent_tags as $agent_tag) : ?>
@@ -385,18 +445,43 @@ $categories = $stmt->fetchAll();
                       
                       $student_num =
                       $stmt->rowCount();
-                      echo $student_num;
+                      // echo $student_num;
                       ?>
                       <?php
                       if ($student_num >= 30) { ?>
-                        <div class="student_numbers">🔥</div>
+                        <div class="student_numbers" id="<?= "student" . $result['id'] ?>">
+                        🔥
+                      </div>
+                      <div class="student_info" id="<?= "info" . $result['id'] ?>">1ヶ月以内の申込者多数の人気エージェントです！</div>
+                      <script>
+                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseover", function() {
+                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "block";
+                        })
+                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseleave", function() {
+                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "none";
+                        })
+
+                      </script>
 
                       <?php } elseif ($student_num >= 10) { ?>
-                        <div class="student_numbers">⬆︎</div>
+                        <div class="student_numbers" id="<?= "student" . $result['id'] ?>">
+                        ⬆︎
+                      </div>
+                      <div class="student_info" id="<?= "info" . $result['id'] ?>">1ヶ月以内の申込者急増の人気エージェントです！</div>
+                      <script>
+                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseover", function() {
+                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "block";
+                        })
+                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseleave", function() {
+                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "none";
+                        })
+
+                      </script>
 
                       <?php } else { ?>
                         <div class="student_numbers"></div>
                       <?php } ?>
+                      <!-- ここからホバー -->
                       <!-- ここまで -->
                       <!-- ここから掲載日数 -->
 
@@ -406,8 +491,23 @@ $categories = $stmt->fetchAll();
                       <?php
                       if ($last_time <= 30) { ?>
                         <div class="last_time">
+                          <?= "⌛️掲載終了まであと" . $last_time . "日!!" ?>
+                        </div>
+                        <div class="last_time2" id="<?= "last" . $result['id'] ?>">
+                          ⌛️
+                        </div>
+                        <div class="last_time_info" id="<?= "last_info" . $result['id'] ?>">
                           <?= "掲載終了まであと" . $last_time . "日!!" ?>
                         </div>
+                        <script>
+                        document.getElementById('<?= 'last' . $result['id'] ?>').addEventListener("mouseover", function() {
+                    document.getElementById('<?= 'last_info' . $result['id'] ?>').style.display = "block";
+                        })
+                        document.getElementById('<?= 'last' . $result['id'] ?>').addEventListener("mouseleave", function() {
+                    document.getElementById('<?= 'last_info' . $result['id'] ?>').style.display = "none";
+                        })
+
+                      </script>
 
                       <?php } else { ?>
                       <?php } ?>
@@ -421,7 +521,7 @@ $categories = $stmt->fetchAll();
                       <?php if (empty($products)) { ?>
                         <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>" ; class="on">
                           <p class="heart">♡</p>
-                          <p>追加</p>
+                          <p class="add">追加</p>
                         </a>
                       <?php
                       } elseif ($products[$result['id']]['agent_id'] == $result['id']) {
@@ -429,14 +529,14 @@ $categories = $stmt->fetchAll();
 
                         <a href="/user/delete_result.php?id=<?= $result['id'] ?>" class="off">
                           <p class="heart">♥</p>
-                          <p>解除</p>
+                          <p class="delete">解除</p>
                         </a>
                       <?php
                       } else {
                       ?>
                         <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>" class="on">
                           <p class="heart">♡</p>
-                          <p>追加</p>
+                          <p class="add">追加</p>
                         </a>
                       <?php } ?>
                     </div>
@@ -503,26 +603,26 @@ $categories = $stmt->fetchAll();
                   <?= $category['tag_category'] ?>
                 </h3>
                 <p class="question" id="<?= 'button' . $category['id'] ?>">?</p>
-                <p class="question_delete" id="<?= 'button_delete' . $category['id'] ?>">?</p>
+                <!-- <p class="question_delete" id="<?= 'button_delete' . $category['id'] ?>">?</p> -->
                 <!-- ここからはてなボタン（hover） -->
                 <script>
                   // var elem = document.getElementById('<?= 'button' . $category['id'] ?>');
                   // var elem_delete = document.getElementById('<?= 'button_delete' . $category['id'] ?>');
-                  document.getElementById('<?= 'button' . $category['id'] ?>').addEventListener("click", function() {
+                  document.getElementById('<?= 'button' . $category['id'] ?>').addEventListener("mouseover", function() {
                     document.getElementById('<?= 'div' . $category['id'] ?>').style.display = "block";
-                    document.getElementById('<?= 'button' . $category['id'] ?>').style.display = "none";
-                    document.getElementById('<?= 'button_delete' . $category['id'] ?>').style.display = "block";
+                    // document.getElementById('<?= 'button' . $category['id'] ?>').style.display = "none";
+                    // document.getElementById('<?= 'button_delete' . $category['id'] ?>').style.display = "block";
                   });
 
-                  document.getElementById('<?= 'button_delete' . $category['id'] ?>').addEventListener("click", function() {
+                  document.getElementById('<?= 'button' . $category['id'] ?>').addEventListener("mouseleave", function() {
                     document.getElementById('<?= 'div' . $category['id'] ?>').style.display = "none";
-                    document.getElementById('<?= 'button' . $category['id'] ?>').style.display = "block";
-                    document.getElementById('<?= 'button_delete' . $category['id'] ?>').style.display = "none";
+                    // document.getElementById('<?= 'button' . $category['id'] ?>').style.display = "block";
+                    // document.getElementById('<?= 'button_delete' . $category['id'] ?>').style.display = "none";
                   });
                 </script>
               </div>
               <?php
-              $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
+              $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ? AND hide = 0");
 
               $stmt->execute(array($category['id']));
               $tags = $stmt->fetchAll();

@@ -5,25 +5,13 @@ use LDAP\Result;
 require('../dbconnect.php');
 session_start();
 
-
 // //ここからまとめて申し込み
-// if(isset($_POST['apply_id'])){
-//   if(isset($_POST['apply_tag']) && is_array($_POST['apply_tag'])){
-//     $tag_ids = $_POST['apply_tag'];
-//     // $split_ids = explode(',', $tag_ids);
-
-//     foreach ($tag_ids as $tag_id) {
-//       $stmt = $db->query("SELECT * FROM agents WHERE id = '$tag_id'");
-//       $results = $stmt->fetchAll();
-//       foreach($results as $result){
-//         echo $result['agent_name'];
-//         echo $result['agent_info'];
-//       }
-//     }
-//   }else{
-//     header("Location: /userpage/result.php");
-//   }
-// }
+if(isset($_POST['apply_id'])){
+  if(isset($_POST['apply_tag']) && is_array($_POST['apply_tag'])){
+  }else{
+    header("Location: /userpage/result.php");
+  }
+}
 // //ここまで
 
 $mode = "input";
@@ -58,7 +46,6 @@ if (isset($_POST["back"]) && $_POST["back"]) {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -93,7 +80,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
               <?php 
               // ここからまとめて申し込み
               if(isset($_POST['apply_id'])){
-                var_dump($_POST['apply_id']);
+                
                 if(isset($_POST['apply_tag']) && is_array($_POST['apply_tag'])){
                   $_SESSION['tag_id'] = $_POST['apply_tag'];
 
@@ -106,7 +93,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                     
                   <tr>
                   <th><?= $result['agent_name'] ?></th>
-                  <th><?= $result['agent_info'] ?></th>
+                  <th><?= $result['agent_title'] ?></th>
                   </tr>
                   <?php } ?>
 
@@ -128,7 +115,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                   
                   <tr>
                     <th><?= $result_single['agent_name'] ?></th>
-                    <th><?= $result_single['agent_info'] ?></th>
+                    <th><?= $result_single['agent_title'] ?></th>
                   </tr>
 
             <?php 
@@ -180,8 +167,9 @@ if (isset($_POST["back"]) && $_POST["back"]) {
               <option value="28">28</option>
             </select>
           </div>
-
+          <a href="/userpage/result.php">
           <input type="button" name="back" value="一覧に戻る" class="userform_button userform_button--left">
+          </a>
           <input type="submit" name="confirm" value="確認画面へ" class="userform_button userform_button--right confirm">
         </form>
 
@@ -377,7 +365,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                     
                   <tr>
                   <th><?= $result['agent_name'] ?></th>
-                  <th><?= $result['agent_info'] ?></th>
+                  <th><?= $result['agent_title'] ?></th>
                   </tr>
                   <?php } ?>
 
@@ -398,7 +386,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                   
                   <tr>
                     <th><?= $result['agent_name'] ?></th>
-                    <th><?= $result['agent_info'] ?></th>
+                    <th><?= $result['agent_title'] ?></th>
                   </tr>
 
             <?php  
