@@ -2,9 +2,10 @@
 session_start();
 
 // ログインしていないままアクセスしようとしている場合エラーページに飛ばす
-if (!isset($_SESSION['id'])) {
+if (!isset($_SESSION['check'])) {
     header('Location: ./login/login_error.php');
 }
+
 
 
 include('../_header.php');
@@ -40,7 +41,7 @@ $delete_application = $sql_prepare->fetchAll();
                 <a class="util_sidebar_link util_sidebar_link--selected" href="/craft_admin/students_info.php">学生申し込み一覧</a>
             </div>
             <div class="util_sidebar_button">
-                <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+                <a class="util_sidebar_link" href="/userpage/top.php" target="_blank">ユーザー用サイトへ</a>
             </div>
         </div>
 

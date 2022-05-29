@@ -19,7 +19,11 @@ $result = $stmt->fetch();
 $agent_id = isset($result['id'])? htmlspecialchars($result['id'], ENT_QUOTES, 'utf-8') : '';
   $agent_name = isset($result['agent_name'])? htmlspecialchars($result['agent_name'], ENT_QUOTES, 'utf-8') : '';
   $agent_tag = isset($result['agent_tag'])? htmlspecialchars($result['agent_tag'], ENT_QUOTES, 'utf-8') : '';
-  $agent_info = isset($result['agent_info'])? htmlspecialchars($result['agent_info'], ENT_QUOTES, 'utf-8') : '';
+  $agent_title = isset($result['agent_title'])? htmlspecialchars($result['agent_title'], ENT_QUOTES, 'utf-8') : '';
+  $agent_title2 = isset($result['agent_title2'])? htmlspecialchars($result['agent_title2'], ENT_QUOTES, 'utf-8') : '';
+  $agent_point1 = isset($result['agent_point1'])? htmlspecialchars($result['agent_point1'], ENT_QUOTES, 'utf-8') : '';
+  $agent_point2 = isset($result['agent_point2'])? htmlspecialchars($result['agent_point2'], ENT_QUOTES, 'utf-8') : '';
+  $agent_point3 = isset($result['agent_point3'])? htmlspecialchars($result['agent_point3'], ENT_QUOTES, 'utf-8') : '';
   
   // 削除用
   $delete_name = isset($result['delete_name'])? htmlspecialchars($result['delete_name'], ENT_QUOTES, 'utf-8') : '';
@@ -30,11 +34,14 @@ $agent_id = isset($result['id'])? htmlspecialchars($result['id'], ENT_QUOTES, 'u
     unset($_SESSION['products'][$delete_name]);
   }
   
-  if($agent_name!=''&&$agent_tag!=''&&$agent_info!=''){
+  if($agent_name!=''&&$agent_tag!=''&&$agent_title!=''){
     $_SESSION['products'][$agent_id]=[
               'agent_tag' => $agent_tag,
-              'agent_info' => $agent_info,
-              'agent_name' => $agent_name,
+              'agent_title' => $agent_title,
+              'agent_title2' => $agent_title2,
+              'agent_point1' => $agent_point1,
+              'agent_point2' => $agent_point2,
+              'agent_point3' => $agent_point3,'agent_name' => $agent_name,
               'agent_id' => $agent_id,
     ];
     //お気に入りボタン用

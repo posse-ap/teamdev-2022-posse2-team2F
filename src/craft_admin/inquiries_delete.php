@@ -34,6 +34,7 @@ $results = $stmt->fetchAll();
 
 <body>
   <?php require('../_header.php'); ?>
+  <div id="modal_bg" class="deletemodal_overlay"></div>
   <div class="util_logout">
     <p class="util_logout_email"><?= $_SESSION['email'] ?></p>
     <a href="./login/logout.php">
@@ -68,7 +69,7 @@ $results = $stmt->fetchAll();
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
-        <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <a class="util_sidebar_link" href="/userpage/top.php" target="_blank">ユーザー用サイトへ</a>
         <i class="fas fa-angle-right"></i>
       </div>
     </div>
@@ -145,21 +146,55 @@ $results = $stmt->fetchAll();
                 ?>
 
                 <th>
-                <div class="manageinquiries_table--control">
-                  <!-- <input type="hidden" name="hidden[<?= $result['id']; ?>]" value="削除"> -->
-                  <input type="submit" class='util_action_button util_action_button--delete space_for_inquiries' name="delete[<?= $result['id']; ?>]" value="削除">
-                  <!-- <input type="hidden" name="hidden_keep[<?= $result['id']; ?>]" value="キープ"> -->
-                  <input type="submit" class='util_action_button util_action_button--list' name="keep[<?= $result['id']; ?>]" value="削除しない">
-                </div>
+                  <div class="manageinquiries_table--control">
+                    <button type="button" class="util_action_button util_action_button--delete space_for_inquiries" onclick="deleteModal(<?= $result['id'] ?>)">削除</button>
+                    <button type="button" class="util_action_button util_action_button--list" onclick="keepModal(<?= $result['id'] ?>)">保留</button>
+                  </div>
 
+                  <!-- ここから削除用modal -->
+                  <div id="util_deletemodal<?= $result['id'] ?>" class="util_deletemodal_container fixmodaltomiddle">
+                    <div class="util_deletemodal">
+                      <p class="util_deletemodal_text">本当に削除しますか？</p>
+                      <div class="util_deletemodal_buttons">
+                        <button type="button" class="util_deletemodal_back" onclick="closeFunction(<?= $result['id'] ?>)">いいえ</button>
+                        <a href="./delete_student_application2.php?id=<?= $result['id'] ?>&agent=<?= $result['agent_name'] ?>" style="text-decoration: none">
+                          <!-- <button class="yes" onclick="deleteAgent()">はい -->
+                          <button type="button" class="util_deletemodal_confirm" onclick="deleteFunction(<?= $result['id'] ?>)">はい</button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- ここから削除完了画面 -->
+                  <div id="util_modalcont<?= $result['id'] ?>" class="util_deletemodal_container fixmodaltomiddle">
+                    <p class="util_deletemodal_message">削除されました。</p>
+                  </div>
+
+                  <!-- ここからキープ用modal -->
+                  <div id="util_keepmodal<?= $result['id'] ?>" class="util_deletemodal_container fixmodaltomiddle">
+                    <div class="util_deletemodal">
+                      <p class="util_deletemodal_text">削除せずにキープしますか？</p>
+                      <div class="util_deletemodal_buttons">
+                        <button type="button" class="util_deletemodal_back" onclick="closeFunction(<?= $result['id'] ?>)">いいえ</button>
+                        <a href="./keep_student_application.php?id=<?= $result['id'] ?>&agent=<?= $result['agent_name'] ?>" style="text-decoration: none">
+                          <!-- <button class="yes" onclick="deleteAgent()">はい -->
+                          <button type="button" class="util_deletemodal_confirm" onclick="keepFunction(<?= $result['id'] ?>)">はい</button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- ここからキープ完了画面 -->
+                  <div id="util_modalkeep<?= $result['id'] ?>" class="util_deletemodal_container fixmodaltomiddle">
+                    <p class="util_deletemodal_message">削除されました。</p>
+                  </div>
+
+
+                  <?php
+
+                  echo "</th>";
+
+                  ?>
 
                 <?php
-
-                echo "</th>";
-
-                ?>
-
-              <?php
 
                 echo "</tr>";
               };
@@ -168,16 +203,73 @@ $results = $stmt->fetchAll();
               echo "</div>";
               echo "</div>";
 
-              ?>
+                ?>
             </form>
 
         </div>
       </div>
-  </div>
+    </div>
 
 
-      <?php require('../_footer.php'); ?>
+    <?php require('../_footer.php'); ?>
 
 </body>
+
+<script>
+  let bg = document.getElementById('modal_bg');
+  //削除ボタンをクリックした時の処理
+  let deleteModal = function(id) {
+    let modal = document.getElementById(`util_deletemodal${id}`);
+    function modalOpen() {
+      modal.style.display = 'block';
+      bg.style.display = 'block';
+    };
+    modalOpen();
+  }
+
+  let keepModal = function(id) {
+    let modal = document.getElementById(`util_keepmodal${id}`);
+    function modalOpen() {
+      modal.style.display = 'block';
+      bg.style.display = 'block';
+    };
+    modalOpen();
+  }
+
+
+  let deleteFunction = function(id) {
+    let modal = document.getElementById(`util_deletemodal${id}`);
+    let modalComplete = document.getElementById(`util_modalcont${id}`);
+
+    function deleteAgent() {
+      modal.style.display = 'none';
+      modalComplete.style.display = 'block';
+    };
+    deleteAgent();
+  }
+
+  let keepFunction = function(id) {
+    let modal = document.getElementById(`util_keepmodal${id}`);
+    let modalComplete = document.getElementById(`util_modalkeep${id}`);
+
+    function keepAgent() {
+      modal.style.display = 'none';
+      modalComplete.style.display = 'block';
+    };
+    keepAgent();
+  }
+
+  let closeFunction = function(id) {
+    let modal = document.getElementById(`util_deletemodal${id}`);
+    let modal2 = document.getElementById(`util_keepmodal${id}`);
+
+    function modalClose() {
+      modal.style.display = 'none';
+      modal2.style.display = 'none';
+      bg.style.display = 'none';
+    };
+    modalClose();
+  }
+</script>
 
 </html>

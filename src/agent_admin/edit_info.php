@@ -3,7 +3,7 @@ session_start();
 require('../dbconnect.php');
 
 // ログインしていないままアクセスしようとしている場合エラーページに飛ばす
-if (!isset($_SESSION['id'])) {
+if (!isset($_SESSION['check'])) {
   header('Location: ./login/login_error.php');
 }
 
@@ -105,7 +105,7 @@ if ($count[0] != 0) {
 
   
   <div class="util_logout">
-      <p class="util_logout_email"><?= $_SESSION['login_email'] ?></p>
+      <p class="util_logout_email"><?= $_SESSION['check_email'] ?></p>
       <a href="./login/logout.php">
       ログアウト
       <i class="fas fa-sign-out-alt"></i>
@@ -130,7 +130,7 @@ if ($count[0] != 0) {
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
-        <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <a class="util_sidebar_link" href="/userpage/top.php" target="_blank">ユーザー用サイトへ</a>
         <i class="fas fa-angle-right"></i>
       </div>
     </div>

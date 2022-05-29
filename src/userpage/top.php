@@ -82,33 +82,33 @@ $now = time();
       <div id="search_modal">
         <form action="/userpage/search.php" method="POST">
 
-        <div class="search_modal_container">
-          <h4>詳細条件で比較</h4>
-          <?php foreach ($categories as $category) : ?>
-            <div class="search_modal_container--tag">
-              <div class="tag_category">
+      <div class="search_modal_container search_modal_container-fadeDown">
+        <h4>詳細条件で比較</h4>
+        <?php foreach ($categories as $category) : ?>
+          <div class="search_modal_container--tag">
+            <div class="tag_category">
 
-                <div class="category_info" id="<?= 'div' . $category['id'] ?>">
-                  <?= $category['tag_category_desc'] ?>
-                </div>
-                <h3>
-                  <?= $category['tag_category'] ?>
-                </h3>
-                <p class="question" id="<?= 'button' . $category['id'] ?>">?</p>
-                <p class="question_delete" id="<?= 'button_delete' . $category['id'] ?>">?</p>
+              <div class="category_info" id="<?= 'div' . $category['id'] ?>">
+                <?= $category['tag_category_desc'] ?>
+              </div>
+              <h3>
+                <?= $category['tag_category'] ?>
+              </h3>
+              <p class="question" id="<?= 'button' . $category['id'] ?>">?</p>
+              <!-- <p class="question_delete" id="<?= 'button_delete' . $category['id'] ?>">?</p> -->
               <script>
                   // var elem = document.getElementById('<?= 'button' . $category['id']?>');
                   // var elem_delete = document.getElementById('<?= 'button_delete' . $category['id']?>');
-                document.getElementById('<?= 'button' . $category['id']?>').addEventListener("click", function(){
+                document.getElementById('<?= 'button' . $category['id']?>').addEventListener("mouseover", function(){
                   document.getElementById('<?= 'div' . $category['id']?>').style.display = "block";
-                  document.getElementById('<?= 'button' . $category['id']?>').style.display = "none";
-                  document.getElementById('<?= 'button_delete' . $category['id']?>').style.display = "block";
+                  // document.getElementById('<?= 'button' . $category['id']?>').style.display = "none";
+                  // document.getElementById('<?= 'button_delete' . $category['id']?>').style.display = "block";
                 });
 
-                document.getElementById('<?= 'button_delete' . $category['id']?>').addEventListener("click", function(){
+                document.getElementById('<?= 'button' . $category['id']?>').addEventListener("mouseleave", function(){
                   document.getElementById('<?= 'div' . $category['id']?>').style.display = "none";
-                  document.getElementById('<?= 'button' . $category['id']?>').style.display = "block";
-                  document.getElementById('<?= 'button_delete' . $category['id']?>').style.display = "none";
+                  // document.getElementById('<?= 'button' . $category['id']?>').style.display = "block";
+                  // document.getElementById('<?= 'button_delete' . $category['id']?>').style.display = "none";
                 });
               </script>
             </div>
@@ -168,7 +168,7 @@ $now = time();
 
     <?php foreach ($search_id as $id) : ?>
       <?php 
-      $stmt = $db->query("SELECT * FROM agents WHERE id = $id");
+      $stmt = $db->query("SELECT * FROM agents WHERE id = $id AND hide = 0");
       $res = $stmt->fetchAll();
       foreach($res as $result):
       ?>
@@ -181,8 +181,9 @@ $now = time();
         <div class="tag_container">
           <?php
             $id = $result['id'];
-            $stmt = $db->query("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE agent_id = '$id'");
+            $stmt = $db->prepare("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE tag_options.hide = 0 AND agent_id = ?");
 
+            $stmt ->execute(array($id));
             $agent_tags = $stmt->fetchAll();
 
             foreach ($agent_tags as $agent_tag) : ?>
@@ -197,7 +198,9 @@ $now = time();
           </div>
           <div class="top_container_agents--all__flex--right">
             <div class="top_container_agents--all__flex--right__title">
-              <p><?= $result['agent_title'] ?></p>
+              <p><?php $agent_title = $result['agent_title'];
+              $agent_title = nl2br($agent_title);
+              echo $agent_title;?></p>
             </div>
             <div class="top_container_agents--all__flex--right__points">
               <ul>

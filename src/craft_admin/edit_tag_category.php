@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require('../dbconnect.php');
 
 // ログインしていないままアクセスしようとしている場合エラーページに飛ばす
@@ -108,7 +110,7 @@ if (isset($_GET['id'])) {
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
-        <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <a class="util_sidebar_link" href="/userpage/top.php" target="_blank">ユーザー用サイトへ</a>
         <i class="fas fa-angle-right"></i>
       </div>
     </div>
@@ -125,15 +127,19 @@ if (isset($_GET['id'])) {
       <!-- 編集 -->
       <div class="changetag">
         <form action="" method="post" enctype="multipart/form-data">
-          <div class="change_item">
-            <label class="change_item--label" for="tag_category">カテゴリー名</label>
-            <input class="change_item--input" type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required>
+          <div class="changetag_item">
+            <label class="changetag_item--label" for="tag_category">カテゴリー名</label>
+            <input class="changetag_item--input" type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required>
           </div>
-          <div class="change_item">
-            <label class="change_item--label" for="tag_category_desc">カテゴリーの説明</label>
+          <div class="changetag_item">
+            <label class="changetag_item--label" for="tag_category_desc">カテゴリーの説明</label>
             <textarea class="changetag_item--textarea" name="tag_category_desc"><?= $result['tag_category_desc'] ?></textarea>
           </div>
-          <input type="submit" value="変更を保存" name="submit" class="changetag_button">
+          <a href="./tag.php" class="changetag_button--back">戻る</a>
+          <div class="changetag_buttons">
+            <a href="./tag.php" class="changetag_buttons--edit">編集</a>
+            <input type="submit" value="変更を保存" name="submit" class="changetag_buttons--submit">
+          </div>
         </form>
       </div>
 
@@ -155,7 +161,10 @@ if (isset($_GET['id'])) {
             <label class="change_item--label" for="tag_category_desc">カテゴリーの説明</label>
             <textarea class="change_item--textarea" name="tag_category_desc"></textarea>
           </div>
-          <input type="submit" value="変更を保存" name="submit" class="changetag_button">
+          <div class="changetag_buttons">
+            <a href="./tag.php" class="changetag_buttons--edit">編集</a>
+            <input type="submit" value="変更を保存" name="submit" class="changetag_buttons--submit">
+          </div>
         </form>
       </div>
       <?php } ?>

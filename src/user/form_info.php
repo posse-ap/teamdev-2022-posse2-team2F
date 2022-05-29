@@ -5,15 +5,6 @@ use LDAP\Result;
 require('../dbconnect.php');
 session_start();
 
-// //ここからまとめて申し込み
-if(isset($_POST['apply_id'])){
-  if(isset($_POST['apply_tag']) && is_array($_POST['apply_tag'])){
-  }else{
-    header("Location: /userpage/result.php");
-  }
-}
-// //ここまで
-
 $mode = "input";
 
 if (isset($_POST["back"]) && $_POST["back"]) {
@@ -167,8 +158,8 @@ if (isset($_POST["back"]) && $_POST["back"]) {
               <option value="28">28</option>
             </select>
           </div>
-          <a href="/userpage/result.php">
-          <input type="button" name="back" value="一覧に戻る" class="userform_button userform_button--left">
+          <a href="/userpage/info.php?id=<?= $single_id ?>">
+          <input type="button" name="back" value="詳細に戻る" class="userform_button userform_button--left">
           </a>
           <input type="submit" name="confirm" value="確認画面へ" class="userform_button userform_button--right confirm">
         </form>

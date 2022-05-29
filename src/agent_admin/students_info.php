@@ -3,9 +3,10 @@ session_start();
 
 
 // ログインしていないままアクセスしようとしている場合エラーページに飛ばす
-if (!isset($_SESSION['id'])) {
+if (!isset($_SESSION['check'])) {
     header('Location: ./login/login_error.php');
 }
+
 
 require('../_header.php');
 require('../dbconnect.php');
@@ -27,10 +28,10 @@ require('../dbconnect.php');
 
 <body>
     <div class="util_logout">
-        <p class="util_logout_email"><?= $_SESSION['login_email'] ?></p>
+        <p class="util_logout_email"><?= $_SESSION['check_email'] ?></p>
         <a href="./login/logout.php">
-        ログアウト
-        <i class="fas fa-sign-out-alt"></i>
+            ログアウト
+            <i class="fas fa-sign-out-alt"></i>
         </a>
     </div>
     <div class="util_container">
@@ -52,7 +53,7 @@ require('../dbconnect.php');
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
-                <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+                <a class="util_sidebar_link" href="/userpage/top.php" target="_blank">ユーザー用サイトへ</a>
                 <i class="fas fa-angle-right"></i>
             </div>
         </div>
@@ -127,7 +128,7 @@ require('../dbconnect.php');
 
                         // print_r($sql);
                         $sql_prepare = $db->prepare($sql);
-                        $sql_prepare->execute(array($_SESSION['agent_name']));
+                        $sql_prepare->execute(array($_SESSION['check_agent_name']));
                         $all_students_info = $sql_prepare->fetchAll();
 
                         if (!$all_students_info) {

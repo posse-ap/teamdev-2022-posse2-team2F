@@ -38,9 +38,9 @@ if (isset($_POST['submit_email'])) {
     パスワードの再設定をご希望の場合は、以下URLをクリックし
     新しいパスワードをご登録ください。
 
-    ※パスワードリセットの申請に心当たりがない場合は、以降の対応は不要となります。
+    パスワードリセットの申請に心当たりがない場合は、以降の対応は不要となります。
 
-    ▼パスワードの再設定URL
+    パスワードの再設定URL：
     http://localhost/craft_admin/login/verify_time.php?pass_reset=$passResetToken
 
     ";
@@ -86,14 +86,13 @@ if (isset($_POST['submit_email'])) {
         <p class="forget_text">恐れ入りますが、登録されたメールアドレスをご入力いただき、受信されたメールの案内に従ってパスワード再設定をお願いします。</p>
         <br><br><br>
         <p class="forget_text">登録しているメールアドレス</p>
+        <?php if ($err_msg !== null && $err_msg !== '') {
+          echo "<p class='util_login_error'>" . $err_msg .  "</p>";
+        } ?>
       </div>
       <form action="/craft_admin/login/forget.php" method="POST">
-        <input class="util_login_text--box" type="text" name="email">
-        <br>
-        <?php if ($err_msg !== null && $err_msg !== '') {
-          echo $err_msg .  "<br>";
-        } ?>
-        <br>
+        <input class="util_login_text--box" type="email" name="email" required>
+        <br><br>
         <input type="submit" name="submit_email" class="util_login_button">
       </form>
     </div>

@@ -29,18 +29,85 @@ $mb: 520px;
 .heading_wrapper{
   color: #52A49A;
   background-color: #FFFFFF;
-  width: 80vw;
-  height: 5vh;
+  width: 80%;
+  height: 56px;
   font-size: 20px;
   margin-bottom: 30px;
   margin-top: 10px;
-  padding-bottom: 30px;
+  // padding-bottom: 30px;
   padding-left: 20px;
   box-shadow: 2px 2px 4px gray;
-  @include mb{
-    font-size: 16px;
-    height: 4vh;
-    width: 90vw;
+  display: flex;
+  align-items: center;
+  @include tb {
+    margin-bottom: 60px;
+    @include mb{
+      font-size: 16px;
+      height: 40px;
+      width: 90%;
+    }
+  }
+  h2{
+    margin: 0;
+  }
+  .favorites{
+    display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: center;
+      position: absolute;
+      right: 12vw;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 5px 20px;
+      border: 1px solid #cf7c7c;
+      border-radius: 20px;
+      @include tb {
+        width: 300px;
+        top: 140px;
+        background-color: #fff;
+        @include mb {
+          width: 250px;
+          top: 125px;
+        }
+      }
+      p{
+        margin: 5px;
+        color: #cf7c7c;
+        @include mb {
+          font-size: 14px;
+        }
+      }
+      .favorite_count{
+        margin: 5px 10px;
+        @include mb {
+          font-size: 14px;
+        }
+      }
+      .favorite{
+        display: inline-block;
+        color: #fff;
+        box-shadow: 0 3px 0 #cf7c7c; /* 影の太さ・色 */
+        // margin: 5px;
+        padding: 5px 8px;
+        margin-left: 10px;
+        border-radius: 10px;
+        background-color: #cf7c7c;
+        cursor: pointer;
+        @include mb {
+          padding: 4px 6px;
+          margin-left: 5px;
+          font-size: 14px;
+        }
+        &:hover{
+          box-shadow: none;
+  transform: translateY(3px);
+        }
+        &:active{
+          box-shadow: none;
+  transform: translateY(3px);
+        }
+      }
   }
   }
 
@@ -135,14 +202,44 @@ $mb: 520px;
   height: 30%;
   padding-top: 30px;
   padding-left: 30px;
+  position: relative;
   @include tb{
     width: 80%;
-    padding-top: 30px;
+    padding-top: 20px;
     padding-left: 30px;
   }
   @include mb{
-    padding-top: 20px;
+    padding-top: 10px;
     padding-left: 0px;
+  }
+  &_alerts{
+    display: flex;
+    flex-wrap: wrap;
+    .student_numbers{
+      font-weight: bold;
+      color: red;
+      font-size: 20px;
+      margin-left: 10px;
+      @include tb{
+        font-size: 18px;
+      @include mb {
+        font-size: 16px;
+      }
+    }
+    }
+    .last_time{
+      font-weight: bold;
+      font-size: 20px;
+      color: orange;
+      margin-left: 10px;
+      @include tb {
+        font-size: 18px;
+      @include mb {
+        font-size: 16px;
+      }
+    }
+    }
+
   }
 }
 .info_inner-rightbox{
@@ -171,12 +268,12 @@ $mb: 520px;
     &::before{
       content: "";
       display: inline-block;
-      width: 2px;
-      height: 55px;
+      width: 2.5px;
+      height: 50px;
       background-color: #52A49A;
       position: absolute;
-      left: -30px;
-      top: -2px;
+      left: -20px;
+      top: -10px;
       -webkit-transform: rotate(-20deg);
       transform: rotate(-20deg);
       @include mb{
@@ -186,12 +283,12 @@ $mb: 520px;
     &::after{
       content: "";
       display: inline-block;
-      width: 2px;
+      width: 2.5px;
       height: 55px;
       background-color: #52A49A;
       position: absolute;
-      top: -6px;
-      right: -28px;
+      top: -10px;
+      right: -20px;
       -webkit-transform: rotate(20deg);
       transform: rotate(20deg);
       @include mb{
@@ -210,8 +307,11 @@ $mb: 520px;
 }
 
 .info_inner-point{
-  width:60%;
+  width:90%;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+  @include mb {
+    width: 95%;
+  }
   &_title{
     height: 35px;
     background-color: #52A49A;
@@ -220,24 +320,29 @@ $mb: 520px;
     margin: 0px;
     }
     &_list{
-      padding-left: 0px;
+      width: 90%;
+      padding-left: 10px;
+      @include mb {
+        padding-left: 10px;
+      }
+      li{
+        list-style-type: disc !important;
+        font-weight: bold;
+        position: relative;
+        left: 2vw;
+        text-align: left;
+      }
+
     }
-  @include mb{
-    width: 80%;
-  }
-  @include tb{
-    width: 80%;
-  }
 }
 
 
 .btn{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   color: #FFFFFF;
   height: 40px;
-  margin-right: 100px;
-  margin-left: 100px;
   text-align: center;
   font-size: 18px;
   padding-bottom: 30px;
@@ -249,38 +354,78 @@ $mb: 520px;
   &-fav{
     background-color: #db7093;
     border-radius: 20px;
-    width: 200px;
-    padding-top: 12px;
+    height: 40px;
+    width: 160px;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    @include mb{
-      width: 50%;
-      margin-left: 10px;
-      margin-right: 25px;
-    }
+    position: relative;
+    left: 20px;
+    
     @include tb{
-      margin-left: 20px;
+      width: 130px;
+        height: 30px;
       font-size: 13px;
+      @include mb{
+        width: 120px;
+        height: 25px;
+
     }
+  }
+  &:hover {
+    box-shadow: none;
+    transform: translateY(3px);
+    @include tb {
+      transform: translateY(2px);
+    }
+  }
+  &:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    @include tb {
+      transform: translateY(2px);
+    }
+  }
   }
   &-register{
     background-color: #F3AF56;
     border-radius: 20px;
+    height: 40px;
     width: 160px;
-    padding-top: 12px;
     font-weight: bold;
+    border-style: none;
+    color: #FFFFFF;
     cursor: pointer;
+    position: relative;
+    padding: 0;
     @include tb{
       font-size: 13px;
-      margin-right: 10px;
+      width: 130px;
+      height: 30px;
+      @include mb{
+        font-size: 13px;
+        width: 120px;
+        height: 25px;
+        top: -1.14px;
     }
   }
-  @include mb{
-    font-size: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-
+  &:hover {
+    box-shadow: none;
+    transform: translateY(3px);
+    @include tb {
+      transform: translateY(2px);
+    }
   }
+  &:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    @include tb {
+      transform: translateY(2px);
+    }
+  }
+}
 }
 
 

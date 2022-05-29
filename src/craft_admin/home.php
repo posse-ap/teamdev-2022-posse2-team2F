@@ -133,7 +133,7 @@ if (isset($_POST['hide'])) {
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
-        <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <a class="util_sidebar_link" href="/userpage/top.php" target="_blank">ユーザー用サイトへ</a>
         <i class="fas fa-angle-right"></i>
       </div>
     </div>
@@ -268,10 +268,13 @@ if (isset($_POST['hide'])) {
     }
 
     window.onclick = function(event) {
-            if (event.target == bg) {
-                modal.style.display = "none";
-                bg.style.display = 'none';
-            }
+      if (event.target == bg) {
+        for (i = 1; i <= 20; i++) {
+            let modal = document.getElementById(`util_deletemodal${i}`);
+            modal.style.display = "none";
+          bg.style.display = 'none';
+        }
+      }
     }
   </script>
 

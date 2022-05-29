@@ -180,6 +180,20 @@ main{
     @include tb {
       display: none;
       }
+      &:hover {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
+      &:active {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
   }
   p{
     position: relative;
@@ -243,6 +257,29 @@ main{
     border-radius: 10px;
     z-index: 2;
     left: -45%;
+
+    /* 上から */
+
+    &-fadeDown{
+      animation-name:fadeDownAnime;
+      animation-duration:0.5s;
+      animation-fill-mode:forwards;
+      opacity:0;
+      }
+      
+      @keyframes fadeDownAnime{
+        from {
+          opacity: 0;
+        transform: translateY(-10px);
+        }
+      
+        to {
+          opacity: 1;
+        transform: translateY(0);
+        }
+      }
+
+
     @include tb {
       max-width: 65vw;
       z-index: 2;
@@ -256,7 +293,6 @@ main{
       border-radius: 25px;
       background-color: white;
       opacity: 1;
-      position: fixed;
       @include mb{
         width: 85vw;
         max-width: 85vw;
@@ -304,12 +340,19 @@ main{
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-          .category_info{
-            width: 20vw;
-            text-align: center;
-            background-color: #e0e0e0;
-            display: none;
             position: relative;
+          .category_info{
+            width: 32vw;
+            text-align: center;
+            padding: 5px;
+            border-radius: 10px;
+            color: white;
+            z-index: 2;
+            background-color: #42a79b;
+            border: 1px solid #52A49A;
+            display: none;
+            position: absolute;
+            top: -65px;
             left: -2vw;
             @include tb {
               width: 55vw;
@@ -518,6 +561,20 @@ main{
       @include tb {
         display: none;
       }
+      &:hover {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
+      &:active {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
     }
 
     .search_modal_container--button{
@@ -549,6 +606,22 @@ main{
     flex-wrap: wrap;
     @include tb {
       width: 94vw;
+    }
+    & a{
+      &:hover {
+        box-shadow: none;
+        transform: translateY(-4px);
+        @include tb {
+          transform: translateY(-3px);
+        }
+      }
+      &:active {
+        box-shadow: none;
+        transform: translateY(-4px);
+        @include tb {
+          transform: translateY(-3px);
+        }
+      }
     }
     &--all{
       width: 29vw;
@@ -637,6 +710,7 @@ main{
           width: 16vw;
           position: relative;
           margin-right: 10px;
+          height: 190px;
           @include tb{
             width: 21.5vw;
             @include mb {
@@ -648,13 +722,17 @@ main{
             color: #52A49A;
             font-size: 14px;
             font-weight: bold;
-            width: 90%;
+            width: 95%;
             margin: 0 auto;
             text-align: center;
             position: absolute;
             bottom: 120px;
             left: 50%;
             transform: translateX(-50%);
+            @include tb{
+              font-size: 12px;
+              bottom: 135px;
+            }
 
             &::before {
               content:"";
@@ -665,10 +743,12 @@ main{
               position:absolute;
               // bottom: 95px;
               top: 10px;
-              left: -10px;
+              left: -7px;
               transform: rotate(-30deg);
-              @include mb {
-                height: 40px;
+              @include tb {
+                height: 30px;
+                width: 2px;
+                transform: rotate(-25deg);
               }
             }
 
@@ -681,10 +761,12 @@ main{
               position:absolute;
               // bottom: 95px;
               top: 10px;
-              right: -10px;
+              right: -7px;
               transform: rotate(30deg);
-              @include mb {
-                height: 40px;
+              @include tb {
+                height: 30px;
+                width: 2px;
+                transform: rotate(25deg);
               }
             }
           }
@@ -694,11 +776,23 @@ main{
             font-size: 12px;
             font-weight: bold;
             position: absolute;
-            bottom: 15px;
+            top: 60px;
             margin: 0;
+            @include tb {
+              bottom: 0;
+              font-size: 10px;
+              font-weight: 600;
+              @include mb {
+                font-size: 12px;
+                margin-left: 5px;
+              }
+            }
             ul {
               margin: 20px 0 0 0;
               padding-inline-start: 10px;
+              @include tb{
+                margin: 0;
+              }
               li {
                 list-style-type: disc !important;
                 margin-bottom: 5px;

@@ -8,6 +8,7 @@ if (!isset($_SESSION['id'])) {
 }
 
 
+
 include('../_header.php');
 require('../dbconnect.php');
 
@@ -64,7 +65,7 @@ require('../dbconnect.php');
                 <i class="fas fa-angle-right"></i>
             </div>
             <div class="util_sidebar_button">
-                <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+                <a class="util_sidebar_link" href="/userpage/top.php" target="_blank">ユーザー用サイトへ</a>
                 <i class="fas fa-angle-right"></i>
             </div>
         </div>
@@ -128,10 +129,9 @@ require('../dbconnect.php');
                             $sort_sql = " ORDER BY students_contact.created_at DESC";
                             $_SESSION['sort_select'] = "申込日時（新しい順）";
                         } else {
-                            $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id ORDER BY phone ASC";
+                            $sort_sql = " ";
                         }
-                        $_SESSION['sort'] = $sort_sql;
-                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $_SESSION['sort'];
+                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $sort_sql;
 
                         // print_r($sql);
                         $sql_prepare = $db->prepare($sql);
