@@ -12,34 +12,47 @@ $mb: 520px;
   }
 }
 
-li {
-  list-style: none;
-}
-a {
-  text-decoration: none;
-  color: #ffffff;
-}
+
 
 .header {
   background: #52a49a;
   width: 100vw;
   height: 15vh;
   min-height: 65px;
-  // display: flex;
-  justify-content: center;
-
+  display: flex;
+  flex-direction: column;
   @include tb {
-    // margin: 0;
-    // text-align: center;
   }
 
   &_top{
-    display: block;
-    width: 100%;
+    height:5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
   &_bottom{
-    display: block;
-    width: 100%;
+    height: 2vh;
+    justify-content: end;
+    display: flex;
+    padding-right: 30px;
+    @include mb{
+      font-size: 12px;
+      padding-right: 20px;
+    }
+    &--contact{
+      height: 3vh;
+      color: #ffffff;
+      font-weight: bold;
+      padding: 5px 3px 3px 3px;
+
+      text-decoration: none;
+      color: #ffffff;
+      transition:.3s;
+      &:hover{
+          color: black ;
+  }
+    }
   }
 }
 

@@ -20,9 +20,9 @@
                 <img src="/img/syukatudotcom_logo_white.png" alt="就活.comのロゴ">
             </a>
         </h1>
-        <ul class="header_bottom">
-            <li><a href="/user/contact_form.php">比較ページ？？？</a></li>
-            <li><a href="">比較</a></li>
-        </ul>
+        <div class="header_bottom">
+            <a href="/user/contact_form.php" class="header_bottom--contact">▶▶お問い合わせはこちら
+            </a>
+        </div>
     </header>
     <main>
