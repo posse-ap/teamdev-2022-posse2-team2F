@@ -268,10 +268,13 @@ if (isset($_POST['hide'])) {
     }
 
     window.onclick = function(event) {
-            if (event.target == bg) {
-                modal.style.display = "none";
-                bg.style.display = 'none';
-            }
+      if (event.target == bg) {
+        for (i = 1; i <= 20; i++) {
+            let modal = document.getElementById(`util_deletemodal${i}`);
+            modal.style.display = "none";
+          bg.style.display = 'none';
+        }
+      }
     }
   </script>
 
