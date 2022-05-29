@@ -16,6 +16,7 @@ require('../dbconnect.php');
 $month_id = filter_input(INPUT_GET, 'id');
 if (!isset($month_id)) {
     $month_id = date('Ym'); //202205
+    // $_SESSION['month'] = $month_id;
 }
 
 $year = substr($month_id, 0, 4);
@@ -47,13 +48,11 @@ $first_day = $dt->modify('first day of this month')->format('Y-m-d');
 // その月の月末を取得
 $last_day = $dt->modify('first day of this month')->modify('last day of')->format('Y-m-d');
 
-/*
-//エージェントごとの場合WHERE以下追記する
-$sql = "SELECT COUNT(*) FROM students WHERE agent = ?";
-$sql_prepare = $db->prepare($sql);
-$sql_prepare->execute(array($_SESSION['name']));
-$all_students_info = $sql_prepare->fetchAll();
-*/
+// ============================表示しているページのagentを取得============================
+// $agent_id = filter_input(INPUT_GET, 'agent_id');
+// if (!isset($agent_id)) {
+//     $agent_id = 1;
+// }
 
 // ============================SELECT文============================
 
@@ -131,6 +130,20 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             <h2 class="util_title--text no-print-area">
                 合計請求金額確認
             </h2>
+            <div class="tab_container">
+                <div class="tab-area">
+                    <div class="tab  active">
+                        <a class="tab__link__active">
+                            合計
+                        </a>
+                    </div>
+                    <div class="tab">
+                        <a class="tab__link" href=<?= "invoice_agent.php?id=${month_id}"; ?>>
+                            エージェントごと
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- <h2 class="no-print-area">合計請求金額確認</h2> -->
         <h3 class="no-print-area invoice_title">
@@ -139,37 +152,6 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             echo $year . '年' . $month . '月';
             echo '<a href="invoice.php?id=' . $next_month_id . '">＞ </a>'; ?>
         </h3>
-        <!-- ＝＝＝＝＝＝＝＝＝ここから印刷用＝＝＝＝＝＝＝＝＝ -->
-        <div class="print-only-area">
-            <section class="print-only-area__head">
-                <h1>請求書</h1>
-                <div>
-                    <img class="print-only-area__logo" src="/img/boozer_logo.png" alt="boozerのロゴ">
-                    <p>
-                        <?= date('Y年m月d日'); ?>
-                    </p>
-                </div>
-            </section>
-            <p>
-                <!-- 期限 15日締めにしとく-->
-                <?= '期限：   ' . $year . '年' . $month + 1 . '月15日' ?>
-            </p>
-            <section class="print-only-area__information">
-                <div>
-                    <p>boozerです！ <br> 住所！電話番号！メールアドレス！！</p>
-                </div>
-                <div>
-                    <p>請求先 <br> agentです！メールアドレス！</p>
-                </div>
-            </section>
-            <section class="print-only-area__deadline">
-                <p>
-                    <?php print_r($all_valid_students[0][0] * 5000); ?>円 の支払い期日は
-                    <?= $year . '年' . $month + 1 . '月15日' ?>です
-                </p>
-            </section>
-        </div>
-        <!-- ＝＝＝＝＝＝＝＝＝ここまで印刷用＝＝＝＝＝＝＝＝＝ -->
         <table class="invoice__table">
             <tr>
                 <th colspan="2" class="invoice__table__title no-print-area">
@@ -221,9 +203,9 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
                 </th>
             </tr>
         </table>
-        <div class="invoice__buttons__section no-print-area">
+        <!-- <div class="invoice__buttons__section no-print-area">
             <input class="invoice_button" type="button" value="請求書発行" onclick="window.print();" />
-        </div>
+        </div> -->
     </div>
 </div>
 
