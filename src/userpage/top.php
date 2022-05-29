@@ -74,28 +74,28 @@ $now = time();
   <div class="top_container--bigbox">
   <div class="top_container--minibox">
     <img src="..\craft_admin\images\toppage_calendar.png" class="toppage_img1" alt="">
-    <div>
-    <h2>あなたにぴったりの<br>エージェントを見つけよう</h2>
-    <p>▶▶サイトの使い方ガイド</p>
-    <button class="search-button" onclick="search_modalOpen()">絞りこむ</button>
-    <button class="search-button_res" onclick="responsive_modalOpen()">絞り込む</button>
-    <div id="search_modal">
-      <form action="/userpage/search.php" method="POST">
+    <div class="toppage_content">
+      <h2>あなたにぴったりの<br>エージェントを見つけよう</h2>
+      <p onclick="guideOpen()">▶▶サイトの使い方ガイド</p>
+      <button class="search-button" onclick="search_modalOpen()">絞りこむ</button>
+      <button class="search-button_res" onclick="responsive_modalOpen()">絞り込む</button>
+      <div id="search_modal">
+        <form action="/userpage/search.php" method="POST">
 
-      <div class="search_modal_container">
-        <h4>詳細条件で比較</h4>
-        <?php foreach ($categories as $category) : ?>
-          <div class="search_modal_container--tag">
-            <div class="tag_category">
+        <div class="search_modal_container">
+          <h4>詳細条件で比較</h4>
+          <?php foreach ($categories as $category) : ?>
+            <div class="search_modal_container--tag">
+              <div class="tag_category">
 
-              <div class="category_info" id="<?= 'div' . $category['id'] ?>">
-                <?= $category['tag_category_desc'] ?>
-              </div>
-              <h3>
-                <?= $category['tag_category'] ?>
-              </h3>
-              <p class="question" id="<?= 'button' . $category['id'] ?>">?</p>
-              <p class="question_delete" id="<?= 'button_delete' . $category['id'] ?>">?</p>
+                <div class="category_info" id="<?= 'div' . $category['id'] ?>">
+                  <?= $category['tag_category_desc'] ?>
+                </div>
+                <h3>
+                  <?= $category['tag_category'] ?>
+                </h3>
+                <p class="question" id="<?= 'button' . $category['id'] ?>">?</p>
+                <p class="question_delete" id="<?= 'button_delete' . $category['id'] ?>">?</p>
               <script>
                   // var elem = document.getElementById('<?= 'button' . $category['id']?>');
                   // var elem_delete = document.getElementById('<?= 'button_delete' . $category['id']?>');
@@ -222,10 +222,13 @@ $now = time();
   </div>
 </div>
 
-<div class="guidemodal">
-  <div class="guidemodal_inner">
-    <div class="guidemodal_closebtn"></div>
-    <img src="../craft_admin/images/guide.jpeg" class="guidemodal_img" alt="">
+<div id="fullOverlay" onclick="OverlayOpen()"></div>
+<div class="guide_modal" id="guide_modal">
+  <div class="guide_modal_inner">
+    <!-- <label for="closebtn"> -->
+    <div name="closebtn" id="closebtn" class="guide_modal_closebtn" onclick="guideClose()"></div>
+    <!-- </label> -->
+    <img src="../craft_admin/images/guide.jpeg" class="guide_modal_img" alt="">
   </div>
 </div>
 
@@ -248,24 +251,18 @@ $now = time();
       overlay.style.display = "none";
     }
 
-// // 使い方モーダル
-//   const guide_modal = document.getElementById('');
+// // 使い方ガイドモーダル
+  const guide_modal = document.getElementById('guide_modal');
 
-//   const overlay = document.getElementById('fullOverlay');
+  function guideOpen(){
+    guide_modal.style.display= "block";
+    overlay.style.display = "block";
+  }
+    function guideClose(){
+    guide_modal.style.display = "none";
+    overlay.style.display = "none";
+  }
 
-//   function guide_modalOpen() {
-//     guide_modalOpen.style.display = "block";
-//   };
-
-//   // function responsive_modalOpen() {
-//   //   guide_modal.style.display = "block";
-//   //   overlay.style.display = "block";
-//   // }
-
-//   function OverlayOpen() {
-//       guide_modal.style.display = "none";
-//       overlay.style.display = "none";
-//     }
 </script>
 
 
