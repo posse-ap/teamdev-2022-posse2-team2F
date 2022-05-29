@@ -9,6 +9,8 @@ if (!isset($_SESSION['id'])) {
 
 // 画像以外の更新
 if (isset($_POST['submit'])) {
+
+
   $agent_name = $_POST['agent_name'];
   // これはただタグを表示させるだけのもの
   $agent_tagname = $_POST['agent_tag'];
@@ -250,14 +252,11 @@ $categories = $stmt->fetchAll();
           </div>
           <div class="change_item dropdown">
             <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
-            <div class="dropdown_container">
-              <p class="start_display_error"></p>
-              <p class="end_display _error"></p>
-              <input type="text" id="start_display" name="agent_display_start" value="" required>
+            <div class="dropdown_container form_section">
+              <input type="text" id="start_display" name="agent_display_start" value="" class="detepicker" pattern="^[a-zA-Z0-9]+$" required>
               <p class="between"> 〜 </p>
-              <input type="text" name="agent_display_end" id="end_display" value="" required>
+              <input type="text" name="agent_display_end" id="end_display" value="" pattern="^[a-zA-Z0-9]+$" required>
             </div>
-
             <script>
               const config = {
                 enableTime: true,
@@ -269,12 +268,15 @@ $categories = $stmt->fetchAll();
               var end_calender = document.getElementById("end_display");
               var fd = flatpickr(end_calender, config);
             </script>
+            
           </div>
-          <input class="change_button" class="add" type="submit" value="追加" name="submit">
+          <input class="change_button" class="add confirm-btn" type="submit" value="追加" name="submit">
         </form>
       </div>
     </div>
   </div>
+
+  
 
   <!-- ここからバリデーション -->
   <script>

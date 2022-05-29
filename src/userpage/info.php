@@ -10,7 +10,7 @@ $favorite_count = count($products);
 $now = time();
 ?>
 <?php
-error_reporting(E_ALL & ~ E_WARNING);
+error_reporting(E_ALL & ~E_WARNING);
 if (isset($_GET['id'])) {
 
 
