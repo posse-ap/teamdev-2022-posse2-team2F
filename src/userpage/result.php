@@ -33,8 +33,7 @@ foreach ($agent_results as $rlt) {
 }
 
 
-if (isset($_SESSION['tag_id']) || isset($_SESSION['single_id']))
-{
+if (isset($_SESSION['tag_id']) || isset($_SESSION['single_id'])) {
   unset($_SESSION['tag_id']);
   unset($_SESSION['single_id']);
 }
@@ -49,205 +48,112 @@ $favorite_count = count($products);
 $now = time();
 ?>
 <?php
-error_reporting(E_ALL & ~ E_WARNING);
+error_reporting(E_ALL & ~E_WARNING);
 ?>
 <?php
 //並び替え
-if (isset($_POST['sort_button'])){
+if (isset($_POST['sort_button'])) {
   //人気順
-  if($_POST['sort'] == "人気順") {
+  if ($_POST['sort'] == "人気順") {
     unset($_SESSION['search_id']);
     //ここから人気順（申込人数多い順）
-$search_ids = array();
-foreach($_SESSION['default_id'] as $search_id){
-  $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id AND hide = 0");
-            $results = $stmt->fetchAll();
-            foreach ($results as $result){
-              $agent_id = $result['id'];
-                      $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$agent_id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
-                      
-                      $student_num =
-                      $stmt->rowCount();
-                      $student_nums = array($agent_id => $student_num);
-                      $search_ids += $student_nums;
+    $search_ids = array();
+    foreach ($_SESSION['default_id'] as $search_id) {
+      $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id AND hide = 0");
+      $results = $stmt->fetchAll();
+      foreach ($results as $result) {
+        $agent_id = $result['id'];
+        $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$agent_id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
 
-            }
-}
-
-arsort($search_ids);
-$search_id = array_keys($search_ids);
-// var_dump($search_id);
-
-
-$_SESSION['search_id'] = $search_id;
-    
-  }elseif($_POST['sort'] == "掲載期間の短い順"){
-  //掲載期間短い順
-  unset($_SESSION['search_id']);
-  $search_ids = array();
-  foreach ($_SESSION['default_id'] as $search_id){
-    $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id AND hide =0");
-    $results = $stmt->fetchAll();
-    foreach($results as $result){
-      $agent_id = $result['id'];
-      $end_time = strtotime($result['end_display']);
-      $student_nums = array($agent_id => $end_time);
-      $search_ids += $student_nums;
-    }
-  }
-  asort($search_ids);
-  $search_id = array_keys($search_ids);
-
-  $_SESSION['search_id'] = $search_id;
-  }elseif($_POST['sort'] == "公開求人数が多い順"){
-  //公開求人数が多い順
-  unset($_SESSION['search_id']);
-  $search_ids = array();
-  foreach ($_SESSION['default_id'] as $search_id){
-    $stmt =  $db->prepare("SELECT sort_options.sort_option, agent_sort_options.agent_id FROM sort_options INNER JOIN agent_sort_options on sort_options.id = agent_sort_options.sort_option_id 
-    WHERE category_id = 100 AND agent_id = ? AND hide = 0");
-    $stmt ->execute(array($search_id));
-    $results = $stmt->fetchAll();
-    foreach($results as $result){
-      $agent_id = $result['agent_id'];
-      if(is_numeric($result['sort_option'])){
-
-        $want_num = $result['sort_option'];
-      }else{
-        $want_num = 0;
+        $student_num =
+          $stmt->rowCount();
+        $student_nums = array($agent_id => $student_num);
+        $search_ids += $student_nums;
       }
-      $want_nums = array($agent_id => $want_num);
-      $search_ids += $want_nums;
-
     }
-  }
-  arsort($search_ids);
-  $search_id = array_keys($search_ids);
 
-  $_SESSION['search_id'] = $search_id;
-  }elseif($_POST['sort'] == "利用者数が多い順"){
+    arsort($search_ids);
+    $search_id = array_keys($search_ids);
+    // var_dump($search_id);
+
+
+    $_SESSION['search_id'] = $search_id;
+  } elseif ($_POST['sort'] == "掲載期間の短い順") {
+    //掲載期間短い順
     unset($_SESSION['search_id']);
     $search_ids = array();
-    foreach ($_SESSION['default_id'] as $search_id){
+    foreach ($_SESSION['default_id'] as $search_id) {
+      $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id AND hide =0");
+      $results = $stmt->fetchAll();
+      foreach ($results as $result) {
+        $agent_id = $result['id'];
+        $end_time = strtotime($result['end_display']);
+        $student_nums = array($agent_id => $end_time);
+        $search_ids += $student_nums;
+      }
+    }
+    asort($search_ids);
+    $search_id = array_keys($search_ids);
+
+    $_SESSION['search_id'] = $search_id;
+  } elseif ($_POST['sort'] == "公開求人数が多い順") {
+    //公開求人数が多い順
+    unset($_SESSION['search_id']);
+    $search_ids = array();
+    foreach ($_SESSION['default_id'] as $search_id) {
+      $stmt =  $db->prepare("SELECT sort_options.sort_option, agent_sort_options.agent_id FROM sort_options INNER JOIN agent_sort_options on sort_options.id = agent_sort_options.sort_option_id 
+    WHERE category_id = 100 AND agent_id = ? AND hide = 0");
+      $stmt->execute(array($search_id));
+      $results = $stmt->fetchAll();
+      foreach ($results as $result) {
+        $agent_id = $result['agent_id'];
+        if (is_numeric($result['sort_option'])) {
+
+          $want_num = $result['sort_option'];
+        } else {
+          $want_num = 0;
+        }
+        $want_nums = array($agent_id => $want_num);
+        $search_ids += $want_nums;
+      }
+    }
+    arsort($search_ids);
+    $search_id = array_keys($search_ids);
+
+    $_SESSION['search_id'] = $search_id;
+  } elseif ($_POST['sort'] == "利用者数が多い順") {
+    unset($_SESSION['search_id']);
+    $search_ids = array();
+    foreach ($_SESSION['default_id'] as $search_id) {
       $stmt =  $db->prepare("SELECT sort_options.sort_option, agent_sort_options.agent_id FROM sort_options INNER JOIN agent_sort_options on sort_options.id = agent_sort_options.sort_option_id 
     WHERE category_id = 102 AND agent_id = ? AND hide = 0");
-    $stmt ->execute(array($search_id));
-    $results = $stmt->fetchAll();
-    foreach($results as $result){
-      $agent_id = $result['agent_id'];
-      if(is_numeric($result['sort_option'])){
+      $stmt->execute(array($search_id));
+      $results = $stmt->fetchAll();
+      foreach ($results as $result) {
+        $agent_id = $result['agent_id'];
+        if (is_numeric($result['sort_option'])) {
 
-        $user_num = $result['sort_option'];
-      }else{
-        $user_num = 0;
+          $user_num = $result['sort_option'];
+        } else {
+          $user_num = 0;
+        }
+        $user_nums = array($agent_id => $user_num);
+        $search_ids += $user_nums;
       }
-      $user_nums = array($agent_id => $user_num);
-      $search_ids += $user_nums;
     }
+    arsort($search_ids);
+    $search_id = array_keys($search_ids);
+
+    $_SESSION['search_id'] = $search_id;
   }
-  arsort($search_ids);
-  $search_id = array_keys($search_ids);
-
-  $_SESSION['search_id'] = $search_id;
-
 }
-}
-//曖昧検索
 
-// if (isset($_POST['search'])) {
 
-//   if (isset($_POST['tag_id']) && is_array($_POST['tag_id'])) {
-//     $search_tag = implode("%", $_POST['tag_id']);
-//   } else {
-//     header("Location: top.php");
-//   }
-// }
-
-// $stmt = $db->query("SELECT * FROM agents WHERE agent_tag LIKE '%$search_tag%'");
-// $results = $stmt->fetchAll();
-// $count = $stmt->rowCount();
-
-?>
-<?php
-// $stmt = $db->query('SELECT category_id FROM tag_options');
-
-// $tag_options = $stmt->fetchAll();
-?>
-<?php
-//タグカテゴリーの表示
-// $stmt = $db->query('SELECT * FROM tag_categories');
-
-// $categories = $stmt->fetchAll();
-?>
-<?php
-// $result_id = array();
-// $counter = 0;
-// foreach ($categories as $category) {
-//   //当てはまったエージェントのid全て格納
-//   $result_ids = array();
-//   //タグの数が配列の数と同じかどうか
-//   $select_tag = "tag_" . $category['id'];
-//   $ids = $category['id'];
-//   $stmt = $db->query("SELECT category_id FROM tag_options WHERE category_id = $ids");
-//   $tag_search = $stmt->fetchAll();
-//   $num = $stmt->rowCount();
-
-//   if (isset($_POST["$select_tag"]) && is_array($_POST["$select_tag"])){
-//     unset($_SESSION['search_id']);
-//     //配列の数カウント
-//     $selected = $_POST["$select_tag"];
-//     $tags = implode(',', $selected);
-//     $cnt = count($selected);
-//     //タグの数が配列の数と同じかどうか
-//     if ($num == $cnt){
-//       $stmt = $db->query("SELECT id FROM agents");
-//       $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
-//       $counter++;
-//   }
-//     elseif ($cnt >= 2) {
-//       $split_tags = explode(',', $tags);
-//       foreach($split_tags as $split_tag){
-//         $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$split_tag%'");
-//         $pre_result = $stmt->fetchALL(PDO::FETCH_COLUMN);
-//         $count = $stmt->rowCount();
-//         $result_ids = array_merge($result_ids, $pre_result);
-//       }
-//       $counter++;
-//     }elseif ($cnt == 1){
-//       $stmt = $db->query("SELECT id FROM agents WHERE agent_tag LIKE '%$selected[0]%'");
-//       $result_ids = $stmt->fetchALL(PDO::FETCH_COLUMN);
-//       $counter++;
-//     }
-//   }else{
-//     $id_results = $_SESSION['search_id'];
-//   }
-//   $result_id = array_merge($result_id, $result_ids);
-// }
-
-// if($counter >= 2){
-//   $id_results = array_unique(array_diff($result_id, array_keys(array_count_values($result_id), 1)));
-//   // $id_results = array_filter(array_count_values($result_id), function($v){return --$v;});
-// }elseif($counter == 1){
-//   $id_results = $result_id;
-// }else{
-//   header("Location: top.php");
-// }
-// var_dump($id_results);
-
-// if(isset($_SESSION['search_id']) && is_array($_SESSION['search_id'])){
-// $id_results = $_SESSION['search_id'];
-// }
-
-// var_dump($id_results);
 
 $count = count($_SESSION['search_id']);
-?>
-<?php
-// $stmt = $db->query('SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id');
 
-// $agent_tags = $stmt->fetchAll();
-?>
-<?php
+
+
 // タグ表示
 
 //既存データの表示
@@ -260,9 +166,12 @@ $categories = $stmt->fetchAll();
 <?php require('../_header.php'); ?>
 
 <!-- 自動リロード -->
+
 <head>
-<!-- <meta http-equiv="refresh" content="2; URL=result.php"> -->
+  <!-- <meta http-equiv="refresh" content="2; URL=result.php"> -->
 </head>
+
+<a class="btnn btn--yellow btn--circle" href="./compare.php">比較する</a>
 
 <?php if ($count == 0) { ?>
   <div class="no_match">
@@ -324,36 +233,36 @@ $categories = $stmt->fetchAll();
     </div>
     <form action="result.php" method="POST">
       <select name="sort" class="sort_select">
-      <?php
-                        // セレクトボックスの値を格納する配列
-                        $orders_list = array(
-                            "人気順",
-                            "掲載期間の短い順",
-                            "公開求人数が多い順",
-                            "利用者数が多い順",
-                        );
+        <?php
+        // セレクトボックスの値を格納する配列
+        $orders_list = array(
+          "人気順",
+          "掲載期間の短い順",
+          "公開求人数が多い順",
+          "利用者数が多い順",
+        );
 
-                        // 戻ってきた場合
-                        if (isset($_POST['sort'])) {
-                            unset($_SESSION['sort']);
-                            $sort = $_POST['sort'];
-                            //セッションに保存
-                            $_SESSION['sort_name'] = $sort;
-                        }
+        // 戻ってきた場合
+        if (isset($_POST['sort'])) {
+          unset($_SESSION['sort']);
+          $sort = $_POST['sort'];
+          //セッションに保存
+          $_SESSION['sort_name'] = $sort;
+        }
 
-                        foreach ($orders_list as $value) {
-                            if ($value === $_SESSION['sort_name']) {
-                                // ① POST データが存在する場合はこちらの分岐に入る
-                                echo "<option value='$value' selected>" . $value . "</option>";
-                            } else {
-                                // ② POST データが存在しない場合はこちらの分岐に入る
-                                echo "<option value='$value'>" . $value . "</option>";
-                            }
-                        }
+        foreach ($orders_list as $value) {
+          if ($value === $_SESSION['sort_name']) {
+            // ① POST データが存在する場合はこちらの分岐に入る
+            echo "<option value='$value' selected>" . $value . "</option>";
+          } else {
+            // ② POST データが存在しない場合はこちらの分岐に入る
+            echo "<option value='$value'>" . $value . "</option>";
+          }
+        }
 
 
 
-                        ?>
+        ?>
       </select>
       <input type="submit" value="並び替え" name="sort_button" class="sort_button">
     </form>
@@ -366,8 +275,7 @@ $categories = $stmt->fetchAll();
         <p id="check_count" class="check_count"></p>
         <p>件をまとめて</p>
 
-        <input type="submit" name="apply_id" value="申し込む" 
-        >
+        <input type="submit" name="apply_id" value="申し込む">
       </div>
       <!-- ここからまとめて申し込むmodal -->
       <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js?ver=1.12.2'></script>
@@ -380,7 +288,7 @@ $categories = $stmt->fetchAll();
         });
       </script>
 
-      
+
       <div class="top_container_results">
         <div class="top_container_results--agents" id="checkbox_count">
 
@@ -418,7 +326,7 @@ $categories = $stmt->fetchAll();
                         $id = $result['id'];
                         $stmt = $db->prepare("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE tag_options.hide = 0 AND agent_id = ?");
 
-                        $stmt ->execute(array($id));
+                        $stmt->execute(array($id));
                         $agent_tags = $stmt->fetchAll();
                         ?>
                         <?php foreach ($agent_tags as $agent_tag) : ?>
@@ -437,46 +345,44 @@ $categories = $stmt->fetchAll();
                           <li><?= $result['agent_point3'] ?></li>
                         </ul>
                       </div>
-                      
+
                       <!-- 申し込んだ人数 -->
                       <?php
                       $agent_id = $result['id'];
                       $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$agent_id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
-                      
+
                       $student_num =
-                      $stmt->rowCount();
+                        $stmt->rowCount();
                       // echo $student_num;
                       ?>
                       <?php
                       if ($student_num >= 30) { ?>
                         <div class="student_numbers" id="<?= "student" . $result['id'] ?>">
-                        🔥
-                      </div>
-                      <div class="student_info" id="<?= "info" . $result['id'] ?>">1ヶ月以内の申込者多数の人気エージェントです！</div>
-                      <script>
-                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseover", function() {
-                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "block";
-                        })
-                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseleave", function() {
-                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "none";
-                        })
-
-                      </script>
+                          🔥
+                        </div>
+                        <div class="student_info" id="<?= "info" . $result['id'] ?>">1ヶ月以内の申込者多数の人気エージェントです！</div>
+                        <script>
+                          document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseover", function() {
+                            document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "block";
+                          })
+                          document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseleave", function() {
+                            document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "none";
+                          })
+                        </script>
 
                       <?php } elseif ($student_num >= 10) { ?>
                         <div class="student_numbers" id="<?= "student" . $result['id'] ?>">
-                        ⬆︎
-                      </div>
-                      <div class="student_info" id="<?= "info" . $result['id'] ?>">1ヶ月以内の申込者急増の人気エージェントです！</div>
-                      <script>
-                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseover", function() {
-                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "block";
-                        })
-                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseleave", function() {
-                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "none";
-                        })
-
-                      </script>
+                          ⬆︎
+                        </div>
+                        <div class="student_info" id="<?= "info" . $result['id'] ?>">1ヶ月以内の申込者急増の人気エージェントです！</div>
+                        <script>
+                          document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseover", function() {
+                            document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "block";
+                          })
+                          document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseleave", function() {
+                            document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "none";
+                          })
+                        </script>
 
                       <?php } else { ?>
                         <div class="student_numbers"></div>
@@ -500,14 +406,13 @@ $categories = $stmt->fetchAll();
                           <?= "掲載終了まであと" . $last_time . "日!!" ?>
                         </div>
                         <script>
-                        document.getElementById('<?= 'last' . $result['id'] ?>').addEventListener("mouseover", function() {
-                    document.getElementById('<?= 'last_info' . $result['id'] ?>').style.display = "block";
-                        })
-                        document.getElementById('<?= 'last' . $result['id'] ?>').addEventListener("mouseleave", function() {
-                    document.getElementById('<?= 'last_info' . $result['id'] ?>').style.display = "none";
-                        })
-
-                      </script>
+                          document.getElementById('<?= 'last' . $result['id'] ?>').addEventListener("mouseover", function() {
+                            document.getElementById('<?= 'last_info' . $result['id'] ?>').style.display = "block";
+                          })
+                          document.getElementById('<?= 'last' . $result['id'] ?>').addEventListener("mouseleave", function() {
+                            document.getElementById('<?= 'last_info' . $result['id'] ?>').style.display = "none";
+                          })
+                        </script>
 
                       <?php } else { ?>
                       <?php } ?>
@@ -549,7 +454,7 @@ $categories = $stmt->fetchAll();
                       <input type="hidden" name="agent_info" value="<?= $result['agent_info'] ?>">
                       <input type="hidden" name="agent_tag" value="<?= $result['agent_tagname'] ?>">
                       <input type="submit" name="favorite" class="btn-sm btn-blue" value="お気に入り追加"> -->
-                </div>
+                  </div>
                 </div>
               </div>
             <?php endforeach; ?>
@@ -560,7 +465,7 @@ $categories = $stmt->fetchAll();
         <a href="#" class="gotop">トップへ</a>
         <!-- 条件変更ボタン -->
         <div class="research_button" onclick="researchmodalOpen()">
-        <p>条件<br>変更</p>
+          <p>条件<br>変更</p>
         </div>
         <!-- ここからまとめて申し込み（下） -->
         <div class="under_apply_modal" id="under_apply_modal">

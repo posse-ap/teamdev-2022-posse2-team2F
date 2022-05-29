@@ -28,7 +28,7 @@ if (isset($_POST['sort_button'])) {
     //ここから人気順（申込人数多い順）
     $search_ids = array();
     foreach ($_SESSION['default_id'] as $search_id) {
-      $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+      $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id AND hide = 0");
       $results = $stmt->fetchAll();
       foreach ($results as $result) {
         $agent_id = $result['id'];
@@ -52,7 +52,7 @@ if (isset($_POST['sort_button'])) {
     unset($_SESSION['search_id']);
     $search_ids = array();
     foreach ($_SESSION['default_id'] as $search_id) {
-      $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+      $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id AND hide =0");
       $results = $stmt->fetchAll();
       foreach ($results as $result) {
         $agent_id = $result['id'];
@@ -62,6 +62,55 @@ if (isset($_POST['sort_button'])) {
       }
     }
     asort($search_ids);
+    $search_id = array_keys($search_ids);
+
+    $_SESSION['search_id'] = $search_id;
+  } elseif ($_POST['sort'] == "公開求人数が多い順") {
+    //公開求人数が多い順
+    unset($_SESSION['search_id']);
+    $search_ids = array();
+    foreach ($_SESSION['default_id'] as $search_id) {
+      $stmt =  $db->prepare("SELECT sort_options.sort_option, agent_sort_options.agent_id FROM sort_options INNER JOIN agent_sort_options on sort_options.id = agent_sort_options.sort_option_id 
+    WHERE category_id = 100 AND agent_id = ? AND hide = 0");
+      $stmt->execute(array($search_id));
+      $results = $stmt->fetchAll();
+      foreach ($results as $result) {
+        $agent_id = $result['agent_id'];
+        if (is_numeric($result['sort_option'])) {
+
+          $want_num = $result['sort_option'];
+        } else {
+          $want_num = 0;
+        }
+        $want_nums = array($agent_id => $want_num);
+        $search_ids += $want_nums;
+      }
+    }
+    arsort($search_ids);
+    $search_id = array_keys($search_ids);
+
+    $_SESSION['search_id'] = $search_id;
+  } elseif ($_POST['sort'] == "利用者数が多い順") {
+    unset($_SESSION['search_id']);
+    $search_ids = array();
+    foreach ($_SESSION['default_id'] as $search_id) {
+      $stmt =  $db->prepare("SELECT sort_options.sort_option, agent_sort_options.agent_id FROM sort_options INNER JOIN agent_sort_options on sort_options.id = agent_sort_options.sort_option_id 
+    WHERE category_id = 102 AND agent_id = ? AND hide = 0");
+      $stmt->execute(array($search_id));
+      $results = $stmt->fetchAll();
+      foreach ($results as $result) {
+        $agent_id = $result['agent_id'];
+        if (is_numeric($result['sort_option'])) {
+
+          $user_num = $result['sort_option'];
+        } else {
+          $user_num = 0;
+        }
+        $user_nums = array($agent_id => $user_num);
+        $search_ids += $user_nums;
+      }
+    }
+    arsort($search_ids);
     $search_id = array_keys($search_ids);
 
     $_SESSION['search_id'] = $search_id;
@@ -130,13 +179,14 @@ $categories = $stmt->fetchAll();
   </div>
 
   <form action="compare.php" method="POST">
-
     <select name="sort" class="compare_sort_select">
       <?php
       // セレクトボックスの値を格納する配列
       $orders_list = array(
         "人気順",
         "掲載期間の短い順",
+        "公開求人数が多い順",
+        "利用者数が多い順",
       );
 
       // 戻ってきた場合
@@ -156,6 +206,8 @@ $categories = $stmt->fetchAll();
           echo "<option value='$value'>" . $value . "</option>";
         }
       }
+
+
 
       ?>
     </select>
@@ -181,120 +233,122 @@ $categories = $stmt->fetchAll();
             </div>
           </div>
         </div>
-        <?php
-        foreach ($_SESSION['search_id'] as $search_id) :
-          $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
-          $results = $stmt->fetchAll();
-          foreach ($results as $result) :
-        ?>
-            <?php
-            $end_time = strtotime($result['end_display']);
-            $start_time = strtotime($result['start_display']);
-            ?>
-            <div class="compare__agent">
-              <div class="compare__agent--container">
+        <div class="compare_scroll">
+          <?php
+          foreach ($_SESSION['search_id'] as $search_id) :
+            $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+            $results = $stmt->fetchAll();
+            foreach ($results as $result) :
+          ?>
+              <?php
+              $end_time = strtotime($result['end_display']);
+              $start_time = strtotime($result['start_display']);
+              ?>
+              <div class="compare__agent">
+                <div class="compare__agent--container">
 
-                <div class="compare__agent--container--name">
-                  <h4><?= $result['agent_name'] ?></h4>
-                </div>
-
-
-                <div class="compare__agent--container--info">
-                  <div class="compare__agent--container--info__img">
-
-                    <img src="../craft_admin/images/<?= $result['agent_pic'] ?>" alt="" />
+                  <div class="compare__agent--container--name">
+                    <h4><?= $result['agent_name'] ?></h4>
                   </div>
-                  <div class="compare__agent--container--info__right--points">
-                    <ul>
-                      <li><?= $result['agent_point1'] ?></li>
-                      <li><?= $result['agent_point2'] ?></li>
-                    </ul>
-                  </div>
-                  <table class="compare_table">
-                    <?php foreach ($categories as $category) : ?>
-                      <tr>
-                        <?php
 
-                        // 申し込んだ人数
-                        $agent_id = $result['id'];
-                        $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$agent_id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
 
-                        $student_num =
-                          $stmt->rowCount();
-                        // echo $student_num;
-                        // ここまで 
+                  <div class="compare__agent--container--info">
+                    <div class="compare__agent--container--info__img">
 
-                        // $stmt = $db->prepare("SELECT * FROM tag_options INNER JOIN agent_tag_options on tag_options.id = agent_tag_options.tag_option_id WHERE category_id = ? AND agent_id = ?");
-                        $stmt = $db->prepare("SELECT tag_options.tag_option FROM tag_options INNER JOIN agent_tag_options on tag_options.id = agent_tag_options.tag_option_id 
+                      <img src="../craft_admin/images/<?= $result['agent_pic'] ?>" alt="" />
+                    </div>
+                    <div class="compare__agent--container--info__right--points">
+                      <ul>
+                        <li><?= $result['agent_point1'] ?></li>
+                        <li><?= $result['agent_point2'] ?></li>
+                      </ul>
+                    </div>
+                    <table class="compare_table">
+                      <?php foreach ($categories as $category) : ?>
+                        <tr>
+                          <?php
+
+                          // 申し込んだ人数
+                          $agent_id = $result['id'];
+                          $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$agent_id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
+
+                          $student_num =
+                            $stmt->rowCount();
+                          // echo $student_num;
+                          // ここまで 
+
+                          // $stmt = $db->prepare("SELECT * FROM tag_options INNER JOIN agent_tag_options on tag_options.id = agent_tag_options.tag_option_id WHERE category_id = ? AND agent_id = ?");
+                          $stmt = $db->prepare("SELECT tag_options.tag_option FROM tag_options INNER JOIN agent_tag_options on tag_options.id = agent_tag_options.tag_option_id 
                                       WHERE category_id = ? AND agent_id = ?
                                       UNION 
                                       SELECT sort_options.sort_option FROM sort_options INNER JOIN agent_sort_options on sort_options.id = agent_sort_options.sort_option_id 
                                       WHERE category_id = ? AND agent_id = ?");
 
-                        $stmt->execute(array($category['id'], $result['id'], $category['id'], $result['id']));
-                        $tags = $stmt->fetchAll();
+                          $stmt->execute(array($category['id'], $result['id'], $category['id'], $result['id']));
+                          $tags = $stmt->fetchAll();
 
-                        $tag_num = $stmt->rowCount();
+                          $tag_num = $stmt->rowCount();
 
-                        if ($tag_num >= 2) :
-                        ?>
-                          <?php
-                          $get_tag = array();
-                          foreach ($tags as $tag) {
-                            $tag_option = $tag['tag_option'];
-                            array_push($get_tag, "$tag_option");
-                          }
-                          $tag_container = implode('、 ', $get_tag);
+                          if ($tag_num >= 2) :
                           ?>
+                            <?php
+                            $get_tag = array();
+                            foreach ($tags as $tag) {
+                              $tag_option = $tag['tag_option'];
+                              array_push($get_tag, "$tag_option");
+                            }
+                            $tag_container = implode('、 ', $get_tag);
+                            ?>
 
-                          <td class="table_content"><?= $tag_container ?></td>
-                        <?php elseif ($tag_num == 1) : ?>
-                          <?php foreach ($tags as $tag) : ?>
-                            <td class="table_content"><?= $tag['tag_option'] ?></td>
-                            <!-- <td><?= $student_num ?></td> -->
-                          <?php endforeach; ?>
-                        <?php endif; ?>
-                      </tr>
-                    <?php endforeach; ?>
-                  </table>
-                </div>
-                <div class="compare__agent--container--buttons">
-                  <div class="favorite_button">
-                    <?php if (empty($products)) { ?>
-                      <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>" ; class="on">
-                        <p class="heart">♡</p>
-                      </a>
-                    <?php
-                    } elseif ($products[$result['id']]['agent_id'] == $result['id']) {
-                    ?>
-
-                      <a href="/user/delete_result.php?id=<?= $result['id'] ?>" class="off">
-                        <p class="heart">♥</p>
-                      </a>
-                    <?php
-                    } else {
-                    ?>
-                      <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>" class="on">
-                        <p class="heart">♡</p>
-                      </a>
-                    <?php } ?>
+                            <td class="table_content"><?= $tag_container ?></td>
+                          <?php elseif ($tag_num == 1) : ?>
+                            <?php foreach ($tags as $tag) : ?>
+                              <td class="table_content"><?= $tag['tag_option'] ?></td>
+                              <!-- <td><?= $student_num ?></td> -->
+                            <?php endforeach; ?>
+                          <?php elseif ($tag_num == 0) : ?>
+                            <td class="table_content">-</td>
+                          <?php endif; ?>
+                        </tr>
+                      <?php endforeach; ?>
+                    </table>
                   </div>
-                  <div class="otherbuttons">
+                  <div class="compare__agent--container--buttons">
+                    <div class="favorite_button">
+                      <?php if (empty($products)) { ?>
+                        <a href="/user/home_compare.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>" ; class="on">
+                          <p class="heart">♡</p>
+                        </a>
+                      <?php
+                      } elseif ($products[$result['id']]['agent_id'] == $result['id']) {
+                      ?>
 
-                    <a href="info.php?id=<?= $result['id'] ?>" target="_blank">詳細</a>
-                    <input type="submit" name="apply_id_single[<?= $result['id'] ?>]" value="申し込む">
+                        <a href="/user/delete_result_compare.php?id=<?= $result['id'] ?>" class="off">
+                          <p class="heart">♥</p>
+                        </a>
+                      <?php
+                      } else {
+                      ?>
+                        <a href="/user/home_compare.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>" class="on">
+                          <p class="heart">♡</p>
+                        </a>
+                      <?php } ?>
+                    </div>
+                    <div class="otherbuttons">
+
+                      <a href="info.php?id=<?= $result['id'] ?>" target="_blank">詳細</a>
+                      <input type="submit" name="apply_id_single[<?= $result['id'] ?>]" value="申し込む">
+                    </div>
+
                   </div>
-
                 </div>
               </div>
-            </div>
+            <?php endforeach; ?>
           <?php endforeach; ?>
-        <?php endforeach; ?>
-      </div>
 
-      <!-- トップに戻るボタン -->
-      <a href="#" class="gotop">トップへ</a>
-    </div>
+          </div>
+        </div>
+      </div>
   </form>
 
 </div>

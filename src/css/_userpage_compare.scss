@@ -24,8 +24,8 @@ $mb: 520px;
     width: 100%;
     margin-top: 5px !important;
     max-width: 87vw;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    // overflow-x: scroll;
+    // overflow-y: hidden;
     margin: 0 auto;
   }
 
@@ -168,58 +168,6 @@ $mb: 520px;
       }
     }
   }
-  .sort_select {
-    position: absolute;
-    right: 46vw;
-    top: 180px;
-  }
-  .sort_button {
-    position: absolute;
-    top: 180px;
-    right: 40vw;
-  }
-}
-
-.gotop {
-  color: #000;
-  display: block;
-  width: 4.2vw;
-  height: 4.2vw;
-  box-sizing: border-box;
-  background: #fff;
-  border: 1px solid #999;
-  padding-top: 2.1vw;
-  text-align: center;
-  letter-spacing: -1px;
-  font-size: 1vw;
-  text-decoration: none;
-  color: #333;
-  opacity: 0.5;
-  position: relative;
-  position: fixed;
-  bottom: 70px;
-  right: 20px;
-  z-index: 10000;
-  @include tb {
-    display: none;
-  }
-}
-.gotop::before {
-  content: "";
-  display: block;
-  border-top: 2px solid #333;
-  border-right: 2px solid #333;
-  width: 25%;
-  height: 25%;
-  top: 25%;
-  left: 0;
-  right: 0;
-  margin: auto;
-  position: absolute;
-  transform: rotate(-45deg);
-}
-.gotop:hover {
-  opacity: 1;
 }
 
 // ここから
@@ -246,9 +194,8 @@ $mb: 520px;
       width: 80vw;
     }
 
-
     &__label {
-      min-width: 200px;
+      min-width: 170px;
       margin-right: 5px;
       box-shadow: 0px 4px 4px rgb(149, 149, 149);
       margin-bottom: 20px;
@@ -408,6 +355,7 @@ $mb: 520px;
               ul {
                 padding-inline-start: 30px;
                 margin-right: 5px;
+                margin-top: 20px;
                 li {
                   list-style-type: disc !important;
                   margin-bottom: 5px;
@@ -593,7 +541,7 @@ $mb: 520px;
 .compare_sort_button {
   position: absolute;
   top: 250px;
-  left: 140px;
+  left: 125px;
   z-index: 1;
   width: 110px;
   height: 35px;
@@ -609,6 +557,48 @@ $mb: 520px;
 .compare_sort_select {
   position: absolute;
   top: 200px;
-  left: 120px;
+  left: 95px;
   z-index: 1;
+}
+
+.compare_scroll {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.btnn {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn--circle {
+  border-radius: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  -webkit-box-shadow: 0 5px 0 #a9a9a9;
+  box-shadow: 0 5px 0 #a9a9a9;
+  background-color: #696969;
+}
+
+.btn--circle:hover {
+  -webkit-transform: translate(0, 3px);
+  transform: translate(0, 3px);
+  -webkit-box-shadow: 0 2px 0 #a9a9a9;
+  box-shadow: 0 2px 0 #a9a9a9;
 }
