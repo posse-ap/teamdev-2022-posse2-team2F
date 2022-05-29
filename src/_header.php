@@ -14,11 +14,14 @@
 
 <body>
     <header class="header no-print-area">
-        <h1 class="header_logo no-print-area">
+        <h1 class="no-print-area header_top">
             <a class="header_logo" href="/userpage/top.php">
                 <p>CRAFT by</p>
                 <img src="/img/syukatudotcom_logo_white.png" alt="就活.comのロゴ">
             </a>
         </h1>
+        <ul class="header_bottom">
+            <li>お問合せ</li>
+        </ul>
     </header>
     <main>
