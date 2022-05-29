@@ -2104,6 +2104,10 @@ main {
   display: none;
 }
 
+.invoice__agent-select {
+  padding-left: 35%;
+}
+
 /*
 ＝＝＝＝＝＝＝＝＝＝＝＝＝ここからプリント用のCSS＝＝＝＝＝＝＝＝＝＝＝＝＝
 */
