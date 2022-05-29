@@ -71,11 +71,16 @@ $now = time();
 <?php require('../_header.php'); ?>
 <div id="fullOverlay" onclick="OverlayOpen()"></div>
 <div class="top_container">
-  <h2>あなたにぴったりの<br>エージェントを見つけよう</h2>
-  <button class="search-button" onclick="search_modalOpen()">絞りこむ</button>
-  <button class="search-button_res" onclick="responsive_modalOpen()">絞り込む</button>
-  <div id="search_modal">
-    <form action="/userpage/search.php" method="POST">
+  <div class="top_container--bigbox">
+  <div class="top_container--minibox">
+    <img src="..\craft_admin\images\toppage_calendar.png" class="toppage_img1" alt="">
+    <div>
+    <h2>あなたにぴったりの<br>エージェントを見つけよう</h2>
+    <p>▶▶サイトの使い方ガイド</p>
+    <button class="search-button" onclick="search_modalOpen()">絞りこむ</button>
+    <button class="search-button_res" onclick="responsive_modalOpen()">絞り込む</button>
+    <div id="search_modal">
+      <form action="/userpage/search.php" method="POST">
 
       <div class="search_modal_container">
         <h4>詳細条件で比較</h4>
@@ -146,13 +151,19 @@ $now = time();
 
         </div>
       </div>
-    </form>
+      </form>
 
-  </div>
+    </div>
 
-  <div class="top_container_compare">
-    <?= '全' . $count . '社を比較' ?>
+    <div class="top_container_compare">
+      <?= '全' . $count . '社を比較' ?>
+    </div>
+    </div>
+      <img src="..\craft_admin\images\toppage_analytics.png" class="toppage_img2" alt="">
+    </div>
   </div>
+  <!-- </div> -->
+
   <div class="top_container_agents">
 
     <?php foreach ($search_id as $id) : ?>
@@ -210,6 +221,14 @@ $now = time();
     <?php endforeach; ?>
   </div>
 </div>
+
+<!-- <div class="guidemodal">
+  <div class="guidemodal_inner">
+    <div class="guidemodal_closebtn"></div>
+    <img src="../craft_admin/images/guide.jpeg" class="guidemodal_img" alt="">
+  </div>
+</div> -->
+
 <script>
   const search_modal = document.getElementById('search_modal');
 
@@ -228,6 +247,25 @@ $now = time();
       search_modal.style.display = "none";
       overlay.style.display = "none";
     }
+
+// // 使い方モーダル
+//   const guide_modal = document.getElementById('');
+
+//   const overlay = document.getElementById('fullOverlay');
+
+//   function guide_modalOpen() {
+//     guide_modalOpen.style.display = "block";
+//   };
+
+//   // function responsive_modalOpen() {
+//   //   guide_modal.style.display = "block";
+//   //   overlay.style.display = "block";
+//   // }
+
+//   function OverlayOpen() {
+//       guide_modal.style.display = "none";
+//       overlay.style.display = "none";
+//     }
 </script>
 
 

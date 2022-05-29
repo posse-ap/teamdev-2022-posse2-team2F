@@ -40,6 +40,35 @@ main{
   background-color: #EBEDF1;
   height: 100%;
   min-height: 82vh;
+  &--bigbox{
+    min-height: 400px;
+    background-color: #91C9C4;
+    margin-bottom: 50px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  &--minibox{
+    min-height: 380px;
+    background-color: #FFFFFF;
+    margin: 0px 60px 0px 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px 20px 30px;
+  }
+  
+  .toppage_img1{
+    width: 290px;
+    height: 340px;
+    z-index: 1;
+  }
+  .toppage_img2{
+    width: 310px;
+    height: 340px;
+    z-index: 1;
+  }
+
   h2{
     width: 400px;
     margin: 0 auto;
@@ -82,6 +111,7 @@ main{
       }
     }
   }
+
   .search-button{
     width: 288px;
     height: 40px;
@@ -96,9 +126,18 @@ main{
     cursor: pointer;
     @include tb {
       display: none;
-
       }
   }
+  p{
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 20px 0px 20px 0px;
+    cursor: pointer;
+
+  }
+
     .search-button_res{
       display: none;
       @include tb {
@@ -141,7 +180,7 @@ main{
     padding: 5px 5px;
     min-width: 50vw;
     max-width: 50vw;
-    background: #fff;
+    background: #EBEDF1;
     margin: 5px auto;
     display: flex;
     justify-content: space-around;
@@ -149,6 +188,7 @@ main{
     align-items: center;
     box-shadow: 0px 8px 8px rgb(203, 202, 202);
     border-radius: 10px;
+    z-index: 2;
     @include tb {
       max-width: 65vw;
       z-index: 2;
@@ -176,7 +216,7 @@ main{
       left: 50%;
       margin-left: -15px;
       border: 15px solid transparent;
-      border-bottom: 15px solid #fff;
+      border-bottom: 15px solid #EBEDF1;
       @include tb{
         display: none;
       }
@@ -643,3 +683,78 @@ main{
     }
   }
 }
+
+.guidemodal{
+  background-color: #FFFFFF;
+  width: 800px;
+  height:600px;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  margin-top: 0px;
+  @include tb{
+    width: 600px;
+    height: 500px;
+  }
+  @include mb{
+    width: 340px;
+    height: 290px;
+  }
+&_closebtn {
+  display: flex;
+  justify-content: end;
+  top: 0%;
+}
+&_closebtn::before,
+&_closebtn::after {
+  content: "";
+  position: absolute;
+  width: 2px; /* 棒の幅（太さ） */
+  height: 25px; /* 棒の高さ */
+  background: #666666; /* バツ印の色 */
+}
+&_closebtn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+&_closebtn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+&_img{
+  width: 750px;
+  height: 500px;
+  @include tb{
+    width: 500px;
+    height: 400px;
+  }
+  @include mb{
+    width: 300px;
+    height: 250px;
+  }
+}
+}
+
+
+
+
+
+
+
+
+
+// // ブレイクポイント
+// $tb: 960px;
+
+// @mixin tb {
+//   @media screen and (max-width: $tb) {
+//     @content;
+//   }
+// }
+
+// //ブレイクポイント
+// $mb: 520px;
