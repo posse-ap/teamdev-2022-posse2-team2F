@@ -11,14 +11,21 @@ a {
 .header {
   background: #52a49a;
   width: 100vw;
-  height: 10vh;
+  height: 15vh;
   min-height: 65px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.header_top {
+  display: block;
+  width: 100%;
+}
+
+.header_bottom {
+  display: block;
+  width: 100%;
 }
 
 .header_logo {
