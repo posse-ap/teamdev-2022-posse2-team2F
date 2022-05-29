@@ -249,7 +249,7 @@ if (isset($_POST['hide_option'])) {
               </div>
               <?php endforeach; ?>
             </div>
-            <a href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>" class="tag-more_add">+ タグのオプションを追加</a>            
+            <a href="./edit_tag_option.php?id=<?= $category['id'] ?>" class="tag-more_add">+ タグのオプションを追加</a>            
           </div>
         <?php endforeach; ?>
         <a href="./edit_tag_category.php?act=add" class="tag_category_add">+ カテゴリーを追加</a>
