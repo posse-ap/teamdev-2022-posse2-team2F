@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require('../dbconnect.php');
 
 // ログインしていないままアクセスしようとしている場合エラーページに飛ばす

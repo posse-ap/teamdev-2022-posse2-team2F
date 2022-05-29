@@ -146,13 +146,25 @@ a {
   color: #52A49A;
   font-size: 36px;
   border-bottom: 1px solid #000;
-  margin: 10px auto 40px auto;
+  margin: 10px auto 30px auto;
   padding-bottom: 5px;
-  padding-top: 30px;
+  padding-top: 20px;
 }
 
 .util_fullscreen .util_login_title--long {
   width: 400px !important;
+}
+
+.util_fullscreen .util_login_error {
+  margin: 0;
+  font-size: 12px;
+  background-color: rgba(207, 124, 124, 0.8);
+  border: 1px solid #f75149;
+  color: #fff;
+  width: 50%;
+  margin: 0 auto;
+  padding: 4px;
+  border-radius: 5px;
 }
 
 .util_fullscreen .util_login_text {
@@ -168,6 +180,10 @@ a {
           align-items: center;
   margin: 50px auto;
   position: relative;
+}
+
+.util_fullscreen .util_login_text:first-child {
+  margin-top: 20px;
 }
 
 .util_fullscreen .util_login_text--label {
@@ -214,6 +230,10 @@ a {
 
 .craft_signup {
   margin: 40px auto !important;
+}
+
+.craft_signup:first-child {
+  margin: 20px auto !important;
 }
 
 .signup_done {
@@ -689,6 +709,7 @@ a {
   border-radius: 1vh;
   font-size: 1.2vw;
   color: black;
+  resize: none;
 }
 
 .change_item--image {
@@ -1169,6 +1190,7 @@ a {
   border-radius: 1vh;
   font-size: 1.4vw;
   color: black;
+  resize: none;
 }
 
 .changetag_item--input {
@@ -4689,6 +4711,7 @@ main {
   border-radius: 1vh;
   font-size: 1.4vw;
   color: black;
+  resize: none;
 }
 
 .inquiries_item--select {

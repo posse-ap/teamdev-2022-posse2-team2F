@@ -3,9 +3,10 @@ session_start();
 
 
 // ログインしていないままアクセスしようとしている場合エラーページに飛ばす
-if (!isset($_SESSION['id'])) {
+if (!isset($_SESSION['check'])) {
     header('Location: ./login/login_error.php');
 }
+
 
 include('../_header.php');
 require('../dbconnect.php');
@@ -41,8 +42,8 @@ $student_info = $sql_prepare->fetch();
 <div class="util_logout">
     <p class="util_logout_email"><?= $_SESSION['login_email'] ?></p>
     <a href="./login/logout.php">
-    ログアウト
-    <i class="fas fa-sign-out-alt"></i>
+        ログアウト
+        <i class="fas fa-sign-out-alt"></i>
     </a>
 </div>
 

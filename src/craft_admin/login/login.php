@@ -57,7 +57,7 @@ if (isset($_POST['login'])) {
     <div class="util_fullscreen util_login">
       <h1 class="util_login_title">管理者ログイン</h1>
       <?php if ($err_msg !== null && $err_msg !== '') {
-        echo $err_msg .  "<br>";
+          echo "<p class='util_login_error'>" . $err_msg .  "</p>";
       } ?>
       <form action="/craft_admin/login/login.php" method="POST">
         <div class="util_login_text">
