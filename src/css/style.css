@@ -1441,6 +1441,43 @@ main {
   -webkit-box-shadow: 0px 8px 8px #cbcaca;
           box-shadow: 0px 8px 8px #cbcaca;
   border-radius: 10px;
+  /* 上から */
+}
+
+.top_container .search_modal_container-fadeDown {
+  -webkit-animation-name: fadeDownAnime;
+          animation-name: fadeDownAnime;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@-webkit-keyframes fadeDownAnime {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes fadeDownAnime {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
 }
 
 @media screen and (max-width: 960px) {
