@@ -76,7 +76,7 @@ $now = time();
     <img src="..\craft_admin\images\toppage_calendar.png" class="toppage_img1" alt="">
     <div class="toppage_content">
       <h2>あなたにぴったりの<br>エージェントを見つけよう</h2>
-      <p onclick="guideOpen()">▶▶サイトの使い方ガイド</p>
+      <p onclick="guideOpen()" class="guide">▶▶サイトの使い方ガイド</p>
       <button class="search-button" onclick="search_modalOpen()">絞りこむ</button>
       <button class="search-button_res" onclick="responsive_modalOpen()">絞り込む</button>
       <div id="search_modal">

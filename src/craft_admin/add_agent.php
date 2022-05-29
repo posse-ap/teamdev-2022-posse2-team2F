@@ -183,25 +183,25 @@ $categories = $stmt->fetchAll();
       <div class="change">
         <form action="" method="post" enctype="multipart/form-data" id="postForm">
           <div class="change_item">
-            <label class="change_item--label" for="agent_name" id="agent_name">エージェント名</label>
-            <input class="change_item--input" type="text" name="agent_name">
+            <label class="change_item--label" for="agent_name" id="agent_name" >エージェント名</label>
+            <input class="change_item--input" type="text" name="agent_name" placeholder="30字以内" maxlength="30">
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_tag">エージェントタグ</label>
-            <input class="change_item--input" type="text" name="agent_tag" required readonly="readonly" onclick="tag_modalOpen()" id="input">
+            <input class="change_item--input" type="text" name="agent_tag" required readonly="readonly" placeholder="クリック" onclick="tag_modalOpen()" id="input">
             <input type="hidden" id="showid" name="tag_id">
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_sort1">公開求人数</label>
-            <input class="change_item--input" type="text" name="agent_sort1" required>
+            <input class="change_item--input" type="number" name="agent_sort1" placeholder="数字のみ" required>
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_sort2">非公開求人数</label>
-            <input class="change_item--input" type="text" name="agent_sort2" required>
+            <input class="change_item--input" type="text" name="agent_sort2" placeholder="数字 or - " required>
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_sort3">利用者数</label>
-            <input class="change_item--input" type="text" name="agent_sort3" required>
+            <input class="change_item--input" type="number" name="agent_sort3" placeholder="数字のみ" required>
           </div>
           <div class="change_item preview">
             <label class="change_item--label" for="agent_pic">エージェント画像</label>
@@ -230,7 +230,7 @@ $categories = $stmt->fetchAll();
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_title">エージェントスローガン</label>
-            <input class="change_item--input" type="text" name="agent_title" required>
+            <input class="change_item--input" type="text" name="agent_title" maxlength="30" placeholder="30字以内" required>
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_info">エージェント説明</label>
@@ -238,24 +238,24 @@ $categories = $stmt->fetchAll();
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_point1">エージェント特徴１</label>
-            <input class="change_item--input" type="text" name="agent_point1" required>
+            <input class="change_item--input" type="text" name="agent_point1" maxlength="30" placeholder="30字以内" required>
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_point2">エージェント特徴２</label>
-            <input class="change_item--input" type="text" name="agent_point2" required>
+            <input class="change_item--input" type="text" name="agent_point2" maxlength="30" placeholder="30字以内" required>
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_point3">エージェント特徴３</label>
-            <input class="change_item--input" type="text" name="agent_point3" required>
+            <input class="change_item--input" type="text" name="agent_point3" maxlength="30" placeholder="30字以内" required>
           </div>
           <div class="change_item dropdown">
             <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
             <div class="dropdown_container">
               <p class="start_display_error"></p>
               <p class="end_display _error"></p>
-              <input type="text" id="start_display" name="agent_display_start" value="">
+              <input type="text" id="start_display" name="agent_display_start" value="" required>
               <p class="between"> 〜 </p>
-              <input type="text" name="agent_display_end" id="end_display" value="">
+              <input type="text" name="agent_display_end" id="end_display" value="" required>
             </div>
 
             <script>
