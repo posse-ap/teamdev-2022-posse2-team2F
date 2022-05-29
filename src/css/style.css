@@ -6940,6 +6940,12 @@ main {
   margin: 0 auto;
 }
 
+@media screen and (max-width: 960px) {
+  .compare_container form {
+    margin: 0;
+  }
+}
+
 .compare_container_title {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -6986,23 +6992,6 @@ main {
   height: 3%;
 }
 
-@media screen and (max-width: 960px) {
-  .compare_container_title h5 {
-    display: block;
-    padding-bottom: 5px;
-    margin: 0 auto 5px auto;
-    border-bottom: 2px solid #000;
-  }
-}
-
-@media screen and (max-width: 960px) and (max-width: 520px) {
-  .compare_container_title h5 {
-    font-size: 20px;
-    height: 20px;
-    width: 150px;
-  }
-}
-
 .compare_container_title--all {
   font-size: 28px;
   font-weight: bold;
@@ -7026,6 +7015,7 @@ main {
 @media screen and (max-width: 960px) {
   .compare_container_title--info {
     margin: 0 auto;
+    margin-left: 5px !important;
     width: 250px;
   }
 }
@@ -7033,7 +7023,7 @@ main {
 @media screen and (max-width: 960px) and (max-width: 520px) {
   .compare_container_title--info {
     font-size: 15px;
-    top: 2px;
+    top: 0;
   }
 }
 
@@ -7064,15 +7054,16 @@ main {
     padding: 3px 12px;
     right: -0vw;
     top: 0px;
-    width: 100px;
+    width: 120px;
     border-radius: 14 px;
   }
 }
 
 @media screen and (max-width: 960px) and (max-width: 520px) {
   .compare_container_title .favorites {
-    width: 250px;
-    top: 60px;
+    width: 230px;
+    height: 20px;
+    top: 20px;
   }
 }
 
@@ -7083,7 +7074,7 @@ main {
 
 @media screen and (max-width: 960px) {
   .compare_container_title .favorites p {
-    font-size: 14px;
+    font-size: 10px;
     margin: 3px;
   }
 }
@@ -7115,9 +7106,9 @@ main {
   .compare_container_title .favorites .favorite {
     -webkit-box-shadow: 0 2px 0 #cf7c7c;
             box-shadow: 0 2px 0 #cf7c7c;
-    padding: 3px 6px;
+    padding: 0;
     margin-left: 2px;
-    font-size: 13px;
+    font-size: 10px;
   }
 }
 
@@ -7157,7 +7148,6 @@ main {
 
 @media screen and (max-width: 960px) {
   .compare_cont {
-    width: 80vw;
     margin: 10px 10vw 0px 10vw;
   }
 }
@@ -7193,22 +7183,24 @@ main {
   margin-bottom: 20px;
 }
 
-.compare_cont .compare__label--container {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
 @media screen and (max-width: 960px) {
-  .compare_cont .compare__label--container {
-    width: 77vw;
+  .compare_cont .compare__label {
+    width: 80vw;
+    margin-bottom: 10px;
   }
 }
 
 @media screen and (max-width: 960px) and (max-width: 520px) {
-  .compare_cont .compare__label--container {
-    width: 80vw;
+  .compare_cont .compare__label {
+    display: block;
+    min-width: 100px;
   }
+}
+
+.compare_cont .compare__label--container {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .compare_cont .compare__label--container--name {
@@ -7238,8 +7230,15 @@ main {
 
 @media screen and (max-width: 960px) {
   .compare_cont .compare__label--container--name h4 {
-    font-size: 14px;
+    font-size: 12px;
     padding: 0px 40px;
+  }
+}
+
+@media screen and (max-width: 960px) and (max-width: 520px) {
+  .compare_cont .compare__label--container--name h4 {
+    font-size: 8px;
+    padding: 0;
   }
 }
 
@@ -7252,20 +7251,6 @@ main {
           justify-content: space-between;
 }
 
-@media screen and (max-width: 960px) {
-  .compare_cont .compare__label--container--info {
-    width: 77vw;
-  }
-}
-
-@media screen and (max-width: 960px) and (max-width: 520px) {
-  .compare_cont .compare__label--container--info {
-    width: 80vw;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-  }
-}
-
 .compare_cont .compare__agent {
   width: 250px;
   margin-right: 5px;
@@ -7276,13 +7261,13 @@ main {
 
 @media screen and (max-width: 960px) {
   .compare_cont .compare__agent {
-    width: 80vw;
     margin-bottom: 10px;
   }
 }
 
 @media screen and (max-width: 960px) and (max-width: 520px) {
   .compare_cont .compare__agent {
+    width: 120px;
     display: block;
   }
 }
@@ -7291,18 +7276,6 @@ main {
   width: 100%;
   height: 100%;
   position: relative;
-}
-
-@media screen and (max-width: 960px) {
-  .compare_cont .compare__agent--container {
-    width: 77vw;
-  }
-}
-
-@media screen and (max-width: 960px) and (max-width: 520px) {
-  .compare_cont .compare__agent--container {
-    width: 80vw;
-  }
 }
 
 .compare_cont .compare__agent--container--name {
@@ -7332,8 +7305,14 @@ main {
 
 @media screen and (max-width: 960px) {
   .compare_cont .compare__agent--container--name h4 {
-    font-size: 14px;
+    font-size: 12px;
     padding: 0px 40px;
+  }
+}
+
+@media screen and (max-width: 960px) and (max-width: 520px) {
+  .compare_cont .compare__agent--container--name h4 {
+    padding: 5px;
   }
 }
 
@@ -7348,13 +7327,12 @@ main {
 
 @media screen and (max-width: 960px) {
   .compare_cont .compare__agent--container--info {
-    width: 77vw;
+    height: 85%;
   }
 }
 
 @media screen and (max-width: 960px) and (max-width: 520px) {
   .compare_cont .compare__agent--container--info {
-    width: 80vw;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
   }
@@ -7368,7 +7346,8 @@ main {
 
 @media screen and (max-width: 520px) {
   .compare_cont .compare__agent--container--info__img {
-    width: 40vw;
+    margin: 0;
+    width: 60px;
   }
 }
 
@@ -7381,8 +7360,7 @@ main {
 
 @media screen and (max-width: 520px) {
   .compare_cont .compare__agent--container--info__img img {
-    margin: 25px 1vw 25px 1vw;
-    width: 38vw;
+    width: 100px;
   }
 }
 
@@ -7394,11 +7372,40 @@ main {
   font-weight: normal;
 }
 
+@media screen and (max-width: 960px) {
+  .compare_cont .compare__agent--container--info__right--points {
+    margin: 0;
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 960px) and (max-width: 520px) {
+  .compare_cont .compare__agent--container--info__right--points {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+}
+
 .compare_cont .compare__agent--container--info__right--points ul {
   -webkit-padding-start: 30px;
           padding-inline-start: 30px;
   margin-right: 5px;
   margin-top: 20px;
+}
+
+@media screen and (max-width: 960px) {
+  .compare_cont .compare__agent--container--info__right--points ul {
+    margin: 5px 0;
+  }
+}
+
+@media screen and (max-width: 960px) and (max-width: 960px) {
+  .compare_cont .compare__agent--container--info__right--points ul {
+    -webkit-padding-start: 20px;
+            padding-inline-start: 20px;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
 }
 
 .compare_cont .compare__agent--container--info__right--points ul li {
@@ -7420,14 +7427,7 @@ main {
 
 @media screen and (max-width: 960px) {
   .compare_cont .compare__agent--container--buttons {
-    width: 77vw;
     height: 20px;
-  }
-}
-
-@media screen and (max-width: 960px) and (max-width: 520px) {
-  .compare_cont .compare__agent--container--buttons {
-    width: 80vw;
   }
 }
 
@@ -7455,8 +7455,8 @@ main {
 @media screen and (max-width: 960px) and (max-width: 520px) {
   .compare_cont .compare__agent--container--buttons .favorite_button {
     position: absolute;
-    top: 194px;
-    left: 25%;
+    bottom: 0;
+    left: 50%;
     -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
   }
@@ -7486,7 +7486,7 @@ main {
 
 @media screen and (max-width: 960px) {
   .compare_cont .compare__agent--container--buttons .favorite_button .on {
-    width: 100px;
+    width: 120px;
     height: 18px;
     top: -5px;
   }
@@ -7526,7 +7526,7 @@ main {
 
 @media screen and (max-width: 960px) {
   .compare_cont .compare__agent--container--buttons .favorite_button .off {
-    width: 100px;
+    width: 120px;
     height: 18px;
     top: -5px;
   }
@@ -7562,7 +7562,7 @@ main {
 
 @media screen and (max-width: 960px) and (max-width: 520px) {
   .compare_cont .compare__agent--container--buttons .otherbuttons {
-    width: 80vw;
+    bottom: 0;
   }
 }
 
@@ -7590,7 +7590,8 @@ main {
 
 @media screen and (max-width: 960px) {
   .compare_cont .compare__agent--container--buttons .otherbuttons a {
-    width: 80px;
+    font-size: 8px;
+    width: 40px;
     height: 24px;
     top: -7px;
   }
@@ -7622,7 +7623,8 @@ main {
 
 @media screen and (max-width: 960px) {
   .compare_cont .compare__agent--container--buttons .otherbuttons input {
-    width: 80px;
+    width: 40px;
+    font-size: 8px;
     height: 24px;
     top: -7px;
   }
@@ -7635,6 +7637,13 @@ main {
   font-size: 14px;
   border-collapse: collapse;
   border: solid 1px #888;
+}
+
+@media screen and (max-width: 960px) {
+  .compare_table {
+    top: 40%;
+    font-size: 11px;
+  }
 }
 
 .compare_table_title, .compare_table_content {
@@ -7672,11 +7681,44 @@ main {
   color: white;
 }
 
+@media screen and (max-width: 960px) {
+  .compare_sort_button {
+    top: 280px;
+    left: 100px;
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 960px) and (max-width: 520px) {
+  .compare_sort_button {
+    top: 250px;
+    left: 50px;
+    width: 70px;
+    height: 30px;
+  }
+}
+
 .compare_sort_select {
   position: absolute;
   top: 200px;
   left: 95px;
   z-index: 1;
+}
+
+@media screen and (max-width: 960px) {
+  .compare_sort_select {
+    top: 250px;
+    left: 70px;
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 960px) and (max-width: 520px) {
+  .compare_sort_select {
+    top: 200px;
+    left: 50px;
+    width: 60px;
+  }
 }
 
 .compare_scroll {
