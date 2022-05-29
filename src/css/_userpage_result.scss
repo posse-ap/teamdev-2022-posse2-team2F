@@ -317,6 +317,20 @@ $mb: 520px;
           width: 80px;
         }
       }
+      &:hover {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
+      &:active {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
     }
   }
   &_results{
@@ -849,6 +863,20 @@ $mb: 520px;
                   top: -2px;
                   font-size: 14px;
                 }
+                &:hover {
+                  box-shadow: none;
+                  transform: translateY(3px);
+                  @include tb {
+                    transform: translateY(2px);
+                  }
+                }
+                &:active {
+                  box-shadow: none;
+                  transform: translateY(3px);
+                  @include tb {
+                    transform: translateY(2px);
+                  }
+                }
   
               }
               input{
@@ -872,6 +900,20 @@ $mb: 520px;
                   height: 20px;
                   top: -2px;
                   font-size: 14px;
+                }
+                &:hover {
+                  box-shadow: none;
+                  transform: translateY(3px);
+                  @include tb {
+                    transform: translateY(2px);
+                  }
+                }
+                &:active {
+                  box-shadow: none;
+                  transform: translateY(3px);
+                  @include tb {
+                    transform: translateY(2px);
+                  }
                 }
               }
             }
@@ -1196,6 +1238,20 @@ $mb: 520px;
         @include tb {
           width: 180px;
           font-size: 14px;
+        }
+        &:hover {
+          box-shadow: none;
+          transform: translateY(3px);
+          @include tb {
+            transform: translateY(2px);
+          }
+        }
+        &:active {
+          box-shadow: none;
+          transform: translateY(3px);
+          @include tb {
+            transform: translateY(2px);
+          }
         }
       }
     }

@@ -374,6 +374,20 @@ $mb: 520px;
 
     }
   }
+  &:hover {
+    box-shadow: none;
+    transform: translateY(3px);
+    @include tb {
+      transform: translateY(2px);
+    }
+  }
+  &:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    @include tb {
+      transform: translateY(2px);
+    }
+  }
   }
   &-register{
     background-color: #F3AF56;
@@ -395,6 +409,20 @@ $mb: 520px;
         width: 120px;
         height: 25px;
         top: -1.14px;
+    }
+  }
+  &:hover {
+    box-shadow: none;
+    transform: translateY(3px);
+    @include tb {
+      transform: translateY(2px);
+    }
+  }
+  &:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    @include tb {
+      transform: translateY(2px);
     }
   }
 }

@@ -288,6 +288,20 @@ $mb: 520px;
           font-size: 12px;
         }
       }
+      &:hover {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
+      &:active {
+        box-shadow: none;
+        transform: translateY(3px);
+        @include tb {
+          transform: translateY(2px);
+        }
+      }
 
       &--left {
         background-color: #F3AF56;
@@ -392,6 +406,13 @@ $mb: 520px;
         width: 120px;
         height: 25px;
         font-size: 18px;
+      }
+    }
+    &:hover {
+      box-shadow: none;
+      transform: translateY(3px);
+      @include tb {
+        transform: translateY(2px);
       }
     }
   }

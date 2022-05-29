@@ -77,7 +77,7 @@ $now = time();
   <div id="search_modal">
     <form action="/userpage/search.php" method="POST">
 
-      <div class="search_modal_container">
+      <div class="search_modal_container search_modal_container-fadeDown">
         <h4>詳細条件で比較</h4>
         <?php foreach ($categories as $category) : ?>
           <div class="search_modal_container--tag">
