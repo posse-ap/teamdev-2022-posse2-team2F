@@ -1,5 +1,13 @@
 @mixin tb {
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 960px) {
+    @content;
+  }
+}
+
+$mb: 520px;
+
+@mixin mb {
+  @media screen and (max-width: $mb) {
     @content;
   }
 }
@@ -15,13 +23,23 @@ a {
 .header {
   background: #52a49a;
   width: 100vw;
-  height: 10vh;
-  display: flex;
+  height: 15vh;
+  min-height: 65px;
+  // display: flex;
   justify-content: center;
 
   @include tb {
     // margin: 0;
     // text-align: center;
+  }
+
+  &_top{
+    display: block;
+    width: 100%;
+  }
+  &_bottom{
+    display: block;
+    width: 100%;
   }
 }
 
@@ -32,16 +50,21 @@ a {
   color: #ffffff;
 
   & p {
-    font-size: 2em;
+    font-size: 1.6em;
     color: #ffffff;
     font-weight: 700;
+    margin: 0;
 
     @include tb {
       font-size: 1em;
+      @include mb {
+        font-size: 26px;
+      }
     }
   }
 
   & img {
+    width: 200px;
     @include tb {
         width: 100px;
       }

@@ -2,17 +2,41 @@
 @import 'footer';
 @import 'login';
 @import 'craft_home';
-@import 'craft_edit';
+@import 'craft_change';
 @import 'craft_tag';
 @import 'craft_edit_tag';
+@import 'userpage_top';
+@import 'invoice';
+@import 'craft_students';
+@import 'userpage_result';
+@import 'user_form';
+@import 'warning';
+@import 'contact_management';
+@import 'user_cart';
+@import 'students_info';
+@import 'inquiries';
+
+@import 'info';
 
 /*
-1440~768 pc~tablet
-768~     tablet~smartphone
+1440~960 pc~tablet
+960~520     tablet~smartphone
 */
 
+// ブレイクポイント
+$tb: 960px;
+
 @mixin tb {
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: $tb) {
+    @content;
+  }
+}
+
+//ブレイクポイント
+$mb: 520px;
+
+@mixin mb {
+  @media screen and (max-width: $mb) {
     @content;
   }
 }
@@ -20,3 +44,18 @@
 li {
   list-style: none;
 }
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/*
+=====================TABLE admin_student_info.php=====================
+*/
+
+.table_container{
+  padding: 5% 5%;
+  //適当に変えて〜
+}
+

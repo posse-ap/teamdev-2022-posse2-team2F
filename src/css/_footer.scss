@@ -1,5 +1,13 @@
 @mixin tb {
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 960px) {
+    @content;
+  }
+}
+
+$mb: 520px;
+
+@mixin mb {
+  @media screen and (max-width: $mb) {
     @content;
   }
 }
@@ -16,6 +24,7 @@ a {
   background: #52a49a;
   width: 100vw;
   height: 8vh;
+  min-height: 47px;
   display: flex;
   justify-content: center;
 
@@ -24,8 +33,12 @@ a {
     justify-content: center;
     align-items: center;
     & img{
+      width: 250px;
       @include tb {
-        width: 100px;
+        width: 180px;
+        @include mb{
+          width: 150px;
+        }
       }
     }
   }
