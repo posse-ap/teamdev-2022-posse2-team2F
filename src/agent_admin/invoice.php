@@ -157,10 +157,17 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             </p>
             <section class="print-only-area__information">
                 <div>
-                    <p>boozerです！ <br> 住所！電話番号！メールアドレス！！</p>
+                    <p>boozer</p>
+                    <p>東京都港区南青山3丁目15-9<br>+81 3-6885-6140</p>
+                    <p>contact@harbors.sh</p>
                 </div>
                 <div>
-                    <p>請求先 <br> <?= $_SESSION['check_agent_name']?>です！メールアドレス！</p>
+                    <p>請求先</p>
+                    <p><?= $_SESSION['check_agent_name']?>
+                    </p>
+                    <p>
+                    <?=  $_SESSION['login_email']?>
+                    </p>
                 </div>
             </section>
             <section class="print-only-area__deadline">

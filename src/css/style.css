@@ -2170,8 +2170,10 @@ main {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    gap: 20%;
     margin-bottom: 20%;
+  }
+  .print-only-area__information div {
+    margin-right: 15%;
   }
   .print-only-area__deadline {
     font-size: 1.5em;
