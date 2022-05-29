@@ -3,7 +3,7 @@ session_start();
 
 
 // ログインしていないままアクセスしようとしている場合エラーページに飛ばす
-if (!isset($_SESSION['check'])) {
+if (!isset($_SESSION['id'])) {
     header('Location: ./login/login_error.php');
 }
 
@@ -129,9 +129,8 @@ require('../dbconnect.php');
                             $sort_sql = " ORDER BY students_contact.created_at DESC";
                             $_SESSION['sort_select'] = "申込日時（新しい順）";
                         } else {
-                            $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id ORDER BY phone ASC";
+                            $sort_sql = " ";
                         }
-                        $_SESSION['sort'] = $sort_sql;
                         $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $_SESSION['sort'];
 
                         // print_r($sql);
