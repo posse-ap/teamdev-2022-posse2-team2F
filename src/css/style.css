@@ -1943,6 +1943,7 @@ main {
   width: 16vw;
   position: relative;
   margin-right: 10px;
+  height: 190px;
 }
 
 @media screen and (max-width: 960px) {
@@ -1961,7 +1962,7 @@ main {
   color: #52A49A;
   font-size: 14px;
   font-weight: bold;
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
   text-align: center;
   position: absolute;
@@ -1969,6 +1970,13 @@ main {
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
+}
+
+@media screen and (max-width: 960px) {
+  .top_container_agents--all__flex--right__title {
+    font-size: 12px;
+    bottom: 135px;
+  }
 }
 
 .top_container_agents--all__flex--right__title::before {
@@ -1979,14 +1987,17 @@ main {
   background-color: #52A49A;
   position: absolute;
   top: 10px;
-  left: -10px;
+  left: -7px;
   -webkit-transform: rotate(-30deg);
           transform: rotate(-30deg);
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 960px) {
   .top_container_agents--all__flex--right__title::before {
-    height: 40px;
+    height: 30px;
+    width: 2px;
+    -webkit-transform: rotate(-25deg);
+            transform: rotate(-25deg);
   }
 }
 
@@ -1998,14 +2009,17 @@ main {
   background-color: #52A49A;
   position: absolute;
   top: 10px;
-  right: -10px;
+  right: -7px;
   -webkit-transform: rotate(30deg);
           transform: rotate(30deg);
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 960px) {
   .top_container_agents--all__flex--right__title::after {
-    height: 40px;
+    height: 30px;
+    width: 2px;
+    -webkit-transform: rotate(25deg);
+            transform: rotate(25deg);
   }
 }
 
@@ -2018,10 +2032,31 @@ main {
   margin: 0;
 }
 
+@media screen and (max-width: 960px) {
+  .top_container_agents--all__flex--right__points {
+    bottom: 0;
+    font-size: 10px;
+    font-weight: 600;
+  }
+}
+
+@media screen and (max-width: 960px) and (max-width: 520px) {
+  .top_container_agents--all__flex--right__points {
+    font-size: 12px;
+    margin-left: 5px;
+  }
+}
+
 .top_container_agents--all__flex--right__points ul {
   margin: 20px 0 0 0;
   -webkit-padding-start: 10px;
           padding-inline-start: 10px;
+}
+
+@media screen and (max-width: 960px) {
+  .top_container_agents--all__flex--right__points ul {
+    margin: 0;
+  }
 }
 
 .top_container_agents--all__flex--right__points ul li {

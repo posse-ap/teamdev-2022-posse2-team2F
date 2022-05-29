@@ -187,7 +187,7 @@ $now = time();
           </div>
           <div class="top_container_agents--all__flex--right">
             <div class="top_container_agents--all__flex--right__title">
-              <p><?php $agent_title = $result['agent_title2'];
+              <p><?php $agent_title = $result['agent_title'];
               $agent_title = nl2br($agent_title);
               echo $agent_title;?></p>
             </div>
