@@ -2,9 +2,10 @@
 session_start();
 
 // ログインしていないままアクセスしようとしている場合エラーページに飛ばす
-if (!isset($_SESSION['id'])) {
+if (!isset($_SESSION['check'])) {
     header('Location: ./login/login_error.php');
 }
+
 
 include('../_header.php');
 require('../dbconnect.php');

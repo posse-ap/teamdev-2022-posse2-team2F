@@ -146,7 +146,7 @@ a {
   color: #52A49A;
   font-size: 36px;
   border-bottom: 1px solid #000;
-  margin: 10px auto 40px auto;
+  margin: 10px auto 30px auto;
   padding-bottom: 5px;
   padding-top: 20px;
 }
@@ -230,6 +230,10 @@ a {
 
 .craft_signup {
   margin: 40px auto !important;
+}
+
+.craft_signup:first-child {
+  margin: 20px auto !important;
 }
 
 .signup_done {
