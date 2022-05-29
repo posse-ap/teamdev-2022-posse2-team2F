@@ -18,9 +18,9 @@ if (!isset($application_id)) {
     // エラーページ？
 }
 
-$sql = "SELECT students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent_id, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND students_agent.id = ?";
+$sql = "SELECT students_contact.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent_id,students_agent.agent, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ? AND students_agent.id = ?";
 $sql_prepare = $db->prepare($sql);
-$sql_prepare->execute(array($_SESSION['agent_name'], $application_id));
+$sql_prepare->execute(array($_SESSION['id'], $application_id));
 // $all_students_info = $sql_prepare->fetchAll();
 $student_info = $sql_prepare->fetch();
 
@@ -106,10 +106,7 @@ $student_info = $sql_prepare->fetch();
                     <th>卒業年</th>
                     <td><?= $student_info['grad_year'] ?></td>
                 </tr>
-                <tr>
-                    <th>申し込みエージェント</th>
-                    <td><?= $student_info['agent'] ?></td>
-                </tr>
+
                 <tr>
                     <th>状態</th>
                     <td><?= $student_info['status'] ?></td>
