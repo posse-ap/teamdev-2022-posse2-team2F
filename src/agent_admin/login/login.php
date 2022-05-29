@@ -60,7 +60,7 @@ if (isset($_POST['login'])) {
       <h1 class="util_login_title">担当者ログイン</h1>
       <form action="/agent_admin/login/login.php" method="POST">
         <?php if ($err_msg !== null && $err_msg !== '') {
-          echo $err_msg .  "<br>";
+          echo "<p>" . $err_msg .  "</p>";
         } ?>
         <div class="util_login_text">
           <label class="util_login_text--label" for="email">ログイン用メールアドレス</label>
