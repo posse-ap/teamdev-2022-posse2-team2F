@@ -209,7 +209,7 @@ $sort3 = $stmt ->fetch();
         <form action="" method="post" enctype="multipart/form-data">
           <div class="change_item">
             <label class="change_item--label" for="agent_name">エージェント名</label>
-            <input class="change_item--input" type="text" name="agent_name" value="<?= $result['agent_name'] ?>" required>
+            <input class="change_item--input" type="text" name="agent_name" maxlength="30"   value="<?= $result['agent_name'] ?>" required>
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_tag">エージェントタグ</label>
@@ -218,7 +218,7 @@ $sort3 = $stmt ->fetch();
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_sort1">公開求人数</label>
-            <input class="change_item--input" type="text" name="agent_sort1" value="<?= $sort1['sort_option'] ?>" required>
+            <input class="change_item--input" type="number" name="agent_sort1" value="<?= $sort1['sort_option'] ?>" required>
             <input type="hidden" name="sort_id1" value="<?= $sort1['sort_option_id'] ?>">
           </div>
           <div class="change_item">
@@ -228,7 +228,7 @@ $sort3 = $stmt ->fetch();
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_sort3">利用者数</label>
-            <input class="change_item--input" type="text" name="agent_sort3" value="<?= $sort3['sort_option'] ?>" required>
+            <input class="change_item--input" type="number" name="agent_sort3" value="<?= $sort3['sort_option'] ?>" required>
             <input type="hidden" name="sort_id3" value="<?= $sort3['sort_option_id'] ?>">
           </div>
 
@@ -259,7 +259,7 @@ $sort3 = $stmt ->fetch();
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_title">エージェントスローガン</label>
-            <input class="change_item--input" type="text" name="agent_title" value="<?= $result['agent_title'] ?>" required>
+            <input class="change_item--input" type="text" name="agent_title" maxlength="30" value="<?= $result['agent_title'] ?>" required>
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_info">エージェント説明</label>
@@ -267,7 +267,7 @@ $sort3 = $stmt ->fetch();
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_point1">エージェント特徴１</label>
-            <input class="change_item--input" type="text" name="agent_point1" value="<?= $result['agent_point1'] ?>" required>
+            <input class="change_item--input" type="text" name="agent_point1" maxlength="30" value="<?= $result['agent_point1'] ?>" required>
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_point2">エージェント特徴２</label>
@@ -275,7 +275,7 @@ $sort3 = $stmt ->fetch();
           </div>
           <div class="change_item">
             <label class="change_item--label" for="agent_point3">エージェント特徴３</label>
-            <input class="change_item--input" type="text" name="agent_point3" value="<?= $result['agent_point3'] ?>" required>
+            <input class="change_item--input" type="text" name="agent_point3" maxlength="30" value="<?= $result['agent_point3'] ?>" required>
           </div>
           <div class="change_item dropdown">
             <label class="change_item--label" for="agent_display">エージェント掲載期間</label>
@@ -283,9 +283,9 @@ $sort3 = $stmt ->fetch();
             <div class="dropdown_container">
               <p class="start_display_error"></p>
               <p class="end_display _error"></p>
-              <input type="text" id="start_display" name="agent_display_start" value="<?= $result['start_display'] ?>">
+              <input type="text" id="start_display" name="agent_display_start" value="<?= $result['start_display'] ?>" required>
               <p class="between"> 〜 </p>
-              <input type="text" name="agent_display_end" id="end_display" value="<?= $result['end_display'] ?>">
+              <input type="text" name="agent_display_end" id="end_display" value="<?= $result['end_display'] ?>" required>
             </div>
 
             <script>
