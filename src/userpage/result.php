@@ -60,7 +60,7 @@ if (isset($_POST['sort_button'])){
     //ここから人気順（申込人数多い順）
 $search_ids = array();
 foreach($_SESSION['default_id'] as $search_id){
-  $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+  $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id AND hide = 0");
             $results = $stmt->fetchAll();
             foreach ($results as $result){
               $agent_id = $result['id'];
@@ -200,13 +200,19 @@ $count = count($_SESSION['search_id']);
 // タグ表示
 
 //既存データの表示
-$stmt = $db->query('SELECT * FROM tag_categories');
+$stmt = $db->query('SELECT * FROM tag_categories WHERE hide = 0');
 
 $categories = $stmt->fetchAll();
 
 ?>
 
 <?php require('../_header.php'); ?>
+
+<!-- 自動リロード -->
+<head>
+<!-- <meta http-equiv="refresh" content="2; URL=result.php"> -->
+</head>
+
 <?php if ($count == 0) { ?>
   <div class="no_match">
     <div class="top_container_title">
@@ -523,7 +529,7 @@ $categories = $stmt->fetchAll();
                 </script>
               </div>
               <?php
-              $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
+              $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ? AND hide = 0");
 
               $stmt->execute(array($category['id']));
               $tags = $stmt->fetchAll();

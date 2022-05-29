@@ -157,7 +157,7 @@ $now = time();
 
     <?php foreach ($search_id as $id) : ?>
       <?php 
-      $stmt = $db->query("SELECT * FROM agents WHERE id = $id");
+      $stmt = $db->query("SELECT * FROM agents WHERE id = $id AND hide = 0");
       $res = $stmt->fetchAll();
       foreach($res as $result):
       ?>
@@ -170,7 +170,7 @@ $now = time();
         <div class="tag_container">
           <?php
             $id = $result['id'];
-            $stmt = $db->query("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE agent_id = '$id'");
+            $stmt = $db->prepare("SELECT agent_tag_options.id, agent_tag_options.agent_id, agents.agent_name, agent_tag_options.tag_option_id, tag_options.tag_option, tag_options.tag_color from agent_tag_options inner join tag_options on agent_tag_options.tag_option_id = tag_options.id inner join agents on agent_tag_options.agent_id = agents.id WHERE agent_id = '$id' ");
 
             $agent_tags = $stmt->fetchAll();
 

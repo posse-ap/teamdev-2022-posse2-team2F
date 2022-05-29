@@ -10,7 +10,7 @@ $favorite_count = count($products);
 $now = time();
 ?>
 <?php
-// error_reporting(E_ALL & ~ E_WARNING);
+error_reporting(E_ALL & ~ E_WARNING);
 if (isset($_GET['id'])) {
 
 
@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
 }
 ?>
 <?php
-$stmt = $db->query('SELECT * FROM tag_categories');
+$stmt = $db->query('SELECT * FROM tag_categories WHERE hide = 0');
 
 $categories = $stmt->fetchAll();
 ?>
@@ -38,7 +38,7 @@ $categories = $stmt->fetchAll();
 
         <p>♥お気に入り:</p>
         <p class="favorite_count"><?= $favorite_count ?>件</p>
-        <a href="/user/cart.php" class="favorite">一覧を見る</a>
+        <a href="/user/cart_info.php?id=<?=$id?>" class="favorite">一覧を見る</a>
       </div>
   </div>
   <div class="info_wrapper">
@@ -53,7 +53,7 @@ $categories = $stmt->fetchAll();
           <?php
               $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
               $student_num = $stmt->rowCount();
-              $student_num = 30;
+              
               ?>
               <?php
               if ($student_num >= 30) { ?>
@@ -92,8 +92,8 @@ $categories = $stmt->fetchAll();
               <tr>
                 <td class="table_title"><?= $category['tag_category'] ?></td>
                 <?php
-                $stmt = $db->prepare("SELECT * FROM tag_options WHERE category_id = ?");
-                $stmt->execute(array($category['id']));
+                $stmt = $db->prepare("SELECT * FROM agent_tag_options INNER JOIN tag_options ON agent_tag_options.tag_option_id = tag_options.id WHERE category_id = ? AND agent_id = ?AND hide = 0");
+                $stmt->execute(array($category['id'], $id));
                 $tags = $stmt->fetchAll();
 
                 $tag_num = $stmt->rowCount();
@@ -192,7 +192,7 @@ $categories = $stmt->fetchAll();
               お気に入り追加
             </a>
           <?php } ?>
-        <form action="/user/form.php" method="POST">
+        <form action="/user/form_info.php" method="POST">
           <input type="submit" name="apply_id_single[<?= $result['id'] ?>]" value="申し込む" class="btn-register">
         </form>
       </div>

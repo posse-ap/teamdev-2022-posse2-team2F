@@ -73,7 +73,7 @@ if (isset($_POST['cart_delete'])) {
         <a href="/userpage/result.php">一覧に戻る</a>
     </div>
   <?php else : ?>
-  <form action="/user/form.php" method="POST">
+  <form action="/user/form_cart.php" method="POST">
     <div class="apply_modal_cover">
 
       <div class="apply_modal">
@@ -101,7 +101,7 @@ if (isset($_POST['cart_delete'])) {
     <div class="favorite_list" id="checked_count">
       <?php foreach ($products as $id => $product) : ?>
         <?php
-        $stmt = $db->query("SELECT * FROM agents WHERE id = $id");
+        $stmt = $db->query("SELECT * FROM agents WHERE id = $id AND hide = 0");
         $results = $stmt->fetchAll();
         foreach ($results as $result) :
         ?>
