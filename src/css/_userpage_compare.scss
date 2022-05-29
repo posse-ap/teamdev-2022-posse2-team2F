@@ -27,6 +27,12 @@ $mb: 520px;
     // overflow-x: scroll;
     // overflow-y: hidden;
     margin: 0 auto;
+    @include tb {
+      margin: 0;
+      @include mb {
+        
+      }
+    }
   }
 
   &_title {
@@ -60,17 +66,6 @@ $mb: 520px;
       text-align: center;
       width: 200px;
       height: 3%;
-      @include tb {
-        display: block;
-        padding-bottom: 5px;
-        margin: 0 auto 5px auto;
-        border-bottom: 2px solid #000;
-        @include mb {
-          font-size: 20px;
-          height: 20px;
-          width: 150px;
-        }
-      }
     }
     &--all {
       font-size: 28px;
@@ -88,10 +83,11 @@ $mb: 520px;
       top: 4px;
       @include tb {
         margin: 0 auto;
+        margin-left: 5px !important;
         width: 250px;
         @include mb {
           font-size: 15px;
-          top: 2px;
+          top: 0;
         }
       }
     }
@@ -113,11 +109,12 @@ $mb: 520px;
         padding: 3px 12px;
         right: -0vw;
         top: 0px;
-        width: 100px;
+        width: 120px;
         border-radius: 14 px;
         @include mb {
-          width: 250px;
-          top: 60px;
+          width: 230px;
+          height: 20px;
+          top: 20px;
         }
       }
 
@@ -125,7 +122,7 @@ $mb: 520px;
         margin: 5px;
         color: #cf7c7c;
         @include tb {
-          font-size: 14px;
+          font-size: 10px;
           margin: 3px;
         }
       }
@@ -147,9 +144,9 @@ $mb: 520px;
         cursor: pointer;
         @include tb {
           box-shadow: 0 2px 0 #cf7c7c;
-          padding: 3px 6px;
+          padding: 0;
           margin-left: 2px;
-          font-size: 13px;
+          font-size: 10px;
         }
         &:hover {
           box-shadow: none;
@@ -179,7 +176,7 @@ $mb: 520px;
   // display: flex;
   // justify-content: space-between;
   @include tb {
-    width: 80vw;
+    // width: 80vw;
     margin: 10px 10vw 0px 10vw;
     @include mb {
       margin: 10px 10vw 0px 10vw;
@@ -199,25 +196,22 @@ $mb: 520px;
       margin-right: 5px;
       box-shadow: 0px 4px 4px rgb(149, 149, 149);
       margin-bottom: 20px;
-      // @include tb {
-      //   width: 80vw;
-      //   margin-bottom: 10px;
-      //   @include mb {
-      //     display: block;
-      //   }
-      // }
+      @include tb {
+        width: 80vw;
+        margin-bottom: 10px;
+        @include mb {
+          display: block;
+      min-width: 100px;
+        }
+      }
 
       &--container {
         width: 100%;
-        // height: 270px;
         height: 100%;
         position: relative;
         @include tb {
-          width: 77vw;
-          // height: 220px;
           @include mb {
-            width: 80vw;
-            // height: 300px;
+            
           }
         }
         &--name {
@@ -235,8 +229,12 @@ $mb: 520px;
             margin: 0;
             padding: 0px 20px;
             @include tb {
-              font-size: 14px;
+              font-size: 12px;
               padding: 0px 40px;
+              @include mb {
+                font-size: 8px;
+                padding: 0;
+              }
             }
           }
         }
@@ -248,12 +246,9 @@ $mb: 520px;
           // display: flex;
           justify-content: space-between;
           @include tb {
-            width: 77vw;
             // height: 180px;
             @include mb {
-              width: 80vw;
               // height: 260px;
-              flex-wrap: wrap;
             }
           }
         }
@@ -270,10 +265,11 @@ $mb: 520px;
       box-shadow: 0px 4px 4px rgb(149, 149, 149);
       margin-bottom: 20px;
       @include tb {
-        width: 80vw;
+        // width: 80vw;
         margin-bottom: 10px;
         @include mb {
-          display: block;
+      width: 120px;
+      display: block;
         }
       }
 
@@ -283,10 +279,10 @@ $mb: 520px;
         height: 100%;
         position: relative;
         @include tb {
-          width: 77vw;
+          // width: 77vw;
           // height: 220px;
           @include mb {
-            width: 80vw;
+            // width: 80vw;
             // height: 300px;
           }
         }
@@ -305,8 +301,11 @@ $mb: 520px;
             margin: 0;
             padding: 0px 20px;
             @include tb {
-              font-size: 14px;
+              font-size: 12px;
               padding: 0px 40px;
+              @include mb {
+                padding: 5px;
+              }
             }
           }
         }
@@ -318,10 +317,9 @@ $mb: 520px;
           // display: flex;
           justify-content: space-between;
           @include tb {
-            width: 77vw;
-            // height: 180px;
+            height: 85%;
             @include mb {
-              width: 80vw;
+              // width: 80vw;
               // height: 260px;
               flex-wrap: wrap;
             }
@@ -332,7 +330,8 @@ $mb: 520px;
             width: 250px;
             @include mb {
               // height: 200px;
-              width: 40vw;
+              margin: 0;
+              width: 60px;
             }
             img {
               height: 100%;
@@ -340,8 +339,9 @@ $mb: 520px;
               object-fit: contain;
               // margin: 25px 1vw 15px 1vw;
               @include mb {
-                margin: 25px 1vw 25px 1vw;
-                width: 38vw;
+                // margin: 25px 1vw 25px 1vw;
+              width: 100px;
+
               }
             }
           }
@@ -352,10 +352,27 @@ $mb: 520px;
               margin: 10px 0;
               font-size: 12px;
               font-weight: normal;
+              @include tb {
+                margin: 0;
+                font-size: 10px;
+                @include mb {
+                  // width: 80vw;
+                  // height: 260px;
+                  flex-wrap: wrap;
+                }
+              }
               ul {
                 padding-inline-start: 30px;
                 margin-right: 5px;
                 margin-top: 20px;
+                @include tb {
+                  margin: 5px 0;
+                  @include tb {
+                    padding-inline-start: 20px;
+                    // height: 260px;
+                    flex-wrap: wrap;
+                  }
+                }
                 li {
                   list-style-type: disc !important;
                   margin-bottom: 5px;
@@ -371,10 +388,10 @@ $mb: 520px;
           display: flex;
           align-items: center;
           @include tb {
-            width: 77vw;
+            // width: 77vw;
             height: 20px;
             @include mb {
-              width: 80vw;
+              // width: 80vw;
             }
           }
           .favorite_button {
@@ -389,8 +406,8 @@ $mb: 520px;
               height: 20px;
               @include mb {
                 position: absolute;
-                top: 194px;
-                left: 25%;
+                bottom: 0;
+                left: 50%;
                 transform: translateX(-50%);
               }
             }
@@ -409,7 +426,7 @@ $mb: 520px;
               justify-content: center;
               align-items: center;
               @include tb {
-                width: 100px;
+                width: 120px;
                 height: 18px;
                 top: -5px;
               }
@@ -437,7 +454,7 @@ $mb: 520px;
               justify-content: center;
               align-items: center;
               @include tb {
-                width: 100px;
+                width: 120px;
                 height: 18px;
                 top: -5px;
               }
@@ -461,7 +478,8 @@ $mb: 520px;
               width: 59vw;
               height: 20px;
               @include mb {
-                width: 80vw;
+                // width: 80vw;
+                bottom: 0;
               }
             }
             a {
@@ -479,7 +497,8 @@ $mb: 520px;
               top: 0px;
               left: 2vw;
               @include tb {
-                width: 80px;
+              font-size: 8px;
+              width: 40px;
                 height: 24px;
                 top: -7px;
               }
@@ -501,7 +520,8 @@ $mb: 520px;
               left: -2vw;
               cursor: pointer;
               @include tb {
-                width: 80px;
+                width: 40px;
+              font-size: 8px;
                 height: 24px;
                 top: -7px;
               }
@@ -521,6 +541,11 @@ $mb: 520px;
   font-size: 14px;
   border-collapse: collapse;
   border: solid 1px #888;
+
+  @include tb {
+    top: 40%;
+    font-size: 11px;
+  }
   &_title,
   &_content {
     border: solid 1px #cccccc;
@@ -552,6 +577,17 @@ $mb: 520px;
   cursor: pointer;
   background-color: #91c9c4;
   color: white;
+  @include tb {
+    top: 280px;
+    left: 100px;
+    width: 100px;
+    @include mb {
+      top: 250px;
+      left: 50px;
+      width: 70px;
+      height: 30px;
+    }
+  }
 }
 
 .compare_sort_select {
@@ -559,6 +595,16 @@ $mb: 520px;
   top: 200px;
   left: 95px;
   z-index: 1;
+  @include tb {
+    top: 250px;
+    left: 70px;
+    width: 100px;
+    @include mb {
+      top: 200px;
+      left: 50px;
+      width: 60px;
+    }
+  }
 }
 
 .compare_scroll {
