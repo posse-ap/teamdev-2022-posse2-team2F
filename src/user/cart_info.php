@@ -165,6 +165,8 @@ if (isset($_POST['cart_delete'])) {
 
               </div>
             </div>
+            <div class="under_checkbox">
+            </div>
             <div class="favorite_ind_buttons">
               <!-- 残り掲載期間 -->
               <?php

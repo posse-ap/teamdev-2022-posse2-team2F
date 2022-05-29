@@ -140,7 +140,7 @@ if (isset($_POST['cart_delete'])) {
 
                 <div class="agent_info">
   
-                  <?php $agent_title = nl2br($product['agent_title2']);
+                  <?php $agent_title = nl2br($product['agent_title']);
                   echo $agent_title; ?>
                 </div>
               </div>
@@ -161,6 +161,8 @@ if (isset($_POST['cart_delete'])) {
 
               </div>
             </div>
+            <div class="under_checkbox">
+            </div>
             <div class="favorite_ind_buttons">
               <!-- 残り掲載期間 -->
               <?php
@@ -176,6 +178,21 @@ if (isset($_POST['cart_delete'])) {
                           <br>
                           <?= "あと" . $last_time . "日!!" ?>
                         </div>
+                        <div class="last_time2" id="<?= "last" . $result['id'] ?>">
+                          ⌛️
+                        </div>
+                        <div class="last_time_info" id="<?= "last_info" . $result['id'] ?>">
+                          <?= "掲載終了まであと" . $last_time . "日!!" ?>
+                        </div>
+                        <script>
+                        document.getElementById('<?= 'last' . $result['id'] ?>').addEventListener("mouseover", function() {
+                    document.getElementById('<?= 'last_info' . $result['id'] ?>').style.display = "block";
+                        })
+                        document.getElementById('<?= 'last' . $result['id'] ?>').addEventListener("mouseleave", function() {
+                    document.getElementById('<?= 'last_info' . $result['id'] ?>').style.display = "none";
+                        })
+
+                      </script>
 
                       <?php } else { ?>
                       <?php } 
@@ -185,13 +202,40 @@ if (isset($_POST['cart_delete'])) {
               <?php
               $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
               $student_num = $stmt->rowCount();
+              $student_num = 30;
               ?>
               <?php
               if ($student_num >= 30) { ?>
                 <div class="student_numbers">申込者<br>🔥多数🔥</div>
+                <div class="student_numbers2" id="<?= "student" . $result['id'] ?>">
+                        🔥
+                      </div>
+                      <div class="student_info" id="<?= "info" . $result['id'] ?>">1ヶ月以内の申込者多数の人気エージェントです！</div>
+                      <script>
+                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseover", function() {
+                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "block";
+                        })
+                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseleave", function() {
+                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "none";
+                        })
+
+                      </script>
 
               <?php } elseif ($student_num >= 10) { ?>
                 <div class="student_numbers">⬆︎申込者急増！</div>
+                <div class="student_numbers2" id="<?= "student" . $result['id'] ?>">
+                        ⬆︎
+                      </div>
+                      <div class="student_info" id="<?= "info" . $result['id'] ?>">1ヶ月以内の申込者急増の人気エージェントです！</div>
+                      <script>
+                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseover", function() {
+                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "block";
+                        })
+                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseleave", function() {
+                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "none";
+                        })
+
+                      </script>
 
               <?php } else { ?>
               <?php } ?>

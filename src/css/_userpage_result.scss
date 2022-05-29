@@ -33,6 +33,12 @@ $mb: 520px;
       margin: 5vh auto;
       font-size: 24px;
       text-align: center;
+      @include tb {
+        font-size: 20px;
+        @include mb {
+          font-size: 16px;
+        }
+      }
     }
     a{
       color: #000;
@@ -42,6 +48,9 @@ $mb: 520px;
       left: 50%;
       transform: translateX(-50%);
       text-decoration: underline;
+      @include mb {
+        font-size: 12px;
+      }
     }
   }
 }

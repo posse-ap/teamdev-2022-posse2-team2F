@@ -1,3 +1,21 @@
+// ブレイクポイント
+$tb: 960px;
+
+@mixin tb {
+  @media screen and (max-width: $tb) {
+    @content;
+  }
+}
+
+//ブレイクポイント
+$mb: 520px;
+
+@mixin mb {
+  @media screen and (max-width: $mb) {
+    @content;
+  }
+}
+
 .util_fullscreen {
   // height: 500px;
   height: 75vh;
@@ -7,6 +25,13 @@
   background-color: white;
   vertical-align: middle;
   overflow-y: scroll;
+
+  @include tb {
+    width: 500px;
+    @include mb {
+      width: 350px;
+    }
+  }
 
 
   &--small {
@@ -23,6 +48,13 @@
       border-bottom: 1px solid #000;
       margin: 10px auto 15px auto;
       padding: 5px 0;
+      @include tb {
+        font-size: 20px;
+        @include mb {
+          width: 120px;
+          font-size: 18px;
+        }
+      }
   
       // &--long {
       //   width: 400px !important;
@@ -37,6 +69,14 @@
       text-decoration: underline;
       color: #91c8c4;
       font-weight: bold;
+      @include tb {
+        margin: 10px 0 8px 50px;
+        @include mb {
+          margin: 5px 0 6px 30px;
+          font-size: 14px;
+
+        }
+      }
     }
 
     &_applied {
@@ -46,11 +86,20 @@
         width: 550px;
         margin: 0 auto;
         border: 1px solid #91C9C4;
+        @include tb {
+          width: 400px;
+          @include mb {
+            width: 300px;
+          }
+        }
 
         th {
           padding: 5px;
           font-weight: normal;
           font-size: 13px;
+          @include mb {
+            font-size: 10px;
+          }
         }
 
         tr:first-child {
@@ -68,9 +117,30 @@
       border: 1px solid #000;
       margin: 0 auto;
       padding: 0 20px;
+      @include tb{
+      width: 400px;
+      @include mb {
+        width: 300px;
+      }
+      }
+
+      h1, h2{
+        @include tb {
+          font-size: 18px;
+          @include mb {
+            font-size: 15px;
+          }
+        }
+      }
 
       p {
         text-align: left;
+        @include tb {
+          font-size: 14px;
+          @include mb {
+            font-size: 12px;
+          }
+        }
       }
     }
 
@@ -81,6 +151,9 @@
 
       p {
         margin-left: 10px;
+        @include mb {
+          font-size: 12px;
+        }
       }
     }
   
@@ -91,6 +164,13 @@
       align-items: center;
       margin: 13px auto;
       position: relative;
+      @include tb {
+        width: 400px;
+        @include mb {
+          width: 330px;
+          margin: 10px;
+        }
+      }
 
 
 
@@ -102,6 +182,16 @@
         font-size: 10px;
         position: absolute;
         left: 35%;
+        @include tb {
+          padding: 1px 3px;
+          font-size: 8px;
+          left: 23%;
+          @include mb {
+            font-size: 7px;
+            padding: 1px 2px;
+            left: 22%;
+          }
+        }
       }
 
     
@@ -109,6 +199,12 @@
       
       &--label{
         font-size: 15px;
+        @include tb {
+          font-size: 13px;
+          @include mb {
+            font-size: 10px;
+          }
+        }
 
         
       }
@@ -119,6 +215,16 @@
         padding-left: 8px;
         background-color: #EBEDF1;
         border: transparent;
+        @include tb {
+          width: 250px;
+          height: 28px;
+          font-size: 14px;
+          @include mb {
+            width: 200px;
+            height: 20px;
+            font-size: 12px;
+          }
+        }
       }
 
       .box-white {
@@ -137,6 +243,17 @@
         margin-right: 110px;
         background-color: #EBEDF1;
         border-style: none;
+        @include tb {
+          height: 28px;
+          margin-right: 60px;
+          font-size: 14px;
+        }
+        @include mb {
+          height: 20px;
+          margin-right: 60px;
+          font-size: 12px;
+          width: 150px;
+        }
       }
 
 
@@ -162,6 +279,15 @@
       font-size: 15px;
       margin-top: 17px;
       margin-bottom: 20px;
+      @include tb {
+        width: 120px;
+        height: 30px;
+        @include mb {
+          width: 90px;
+          height: 20px;
+          font-size: 12px;
+        }
+      }
 
       &--left {
         background-color: #F3AF56;
@@ -213,6 +339,12 @@
 
   height: 50vh;
   margin: 70px 50px;
+  @include tb {
+    margin: 20px 30px;
+    @include mb {
+      margin: 10px 20px;
+    }
+  }
 
   &_title {
     width: 600px;
@@ -222,10 +354,24 @@
     margin: 10px auto 40px auto;
     padding-bottom: 5px;
     padding-top: 30px;
+    @include tb {
+      width: 440px;
+      font-size: 28px;
+      text-align: center;
+      padding-top: 10px;
+      @include mb {
+        font-size: 20px;
+        width: 300px;
+        margin-bottom: 40px;
+      }
+    }
   }
 
   &_body {
     margin-bottom: 50px;
+    @include mb {
+      font-size: 14px;
+    }
   }
 
   &_button{
@@ -238,6 +384,16 @@
     font-size: 24px;
     border-style: none;
     box-shadow: 6px 2px 3px #c0c1c5;
+    @include tb {
+      width: 150px;
+      height: 30px;
+      font-size: 20px;
+      @include mb {
+        width: 120px;
+        height: 25px;
+        font-size: 18px;
+      }
+    }
   }
 
   &_link{

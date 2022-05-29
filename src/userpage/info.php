@@ -56,7 +56,7 @@ $categories = $stmt->fetchAll();
           <?php
               $stmt = $db->query("SELECT student_id FROM students_agent INNER JOIN students_contact ON students_agent.student_id = students_contact.id WHERE agent_id = '$id' AND deleted_at IS NULL AND created_at >=(NOW()-INTERVAL 1 MONTH)");
               $student_num = $stmt->rowCount();
-              
+              $student_num = 30;
               ?>
               <?php
               if ($student_num >= 30) { ?>

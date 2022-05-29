@@ -39,10 +39,13 @@ $mb: 520px;
   box-shadow: 2px 2px 4px gray;
   display: flex;
   align-items: center;
-  @include mb{
-    font-size: 16px;
-    height: 40px;
-    width: 90%;
+  @include tb {
+    margin-bottom: 60px;
+    @include mb{
+      font-size: 16px;
+      height: 40px;
+      width: 90%;
+    }
   }
   h2{
     margin: 0;
@@ -59,12 +62,27 @@ $mb: 520px;
       padding: 5px 20px;
       border: 1px solid #cf7c7c;
       border-radius: 20px;
+      @include tb {
+        width: 300px;
+        top: 140px;
+        background-color: #fff;
+        @include mb {
+          width: 250px;
+          top: 125px;
+        }
+      }
       p{
         margin: 5px;
         color: #cf7c7c;
+        @include mb {
+          font-size: 14px;
+        }
       }
       .favorite_count{
         margin: 5px 10px;
+        @include mb {
+          font-size: 14px;
+        }
       }
       .favorite{
         display: inline-block;
@@ -76,6 +94,11 @@ $mb: 520px;
         border-radius: 10px;
         background-color: #cf7c7c;
         cursor: pointer;
+        @include mb {
+          padding: 4px 6px;
+          margin-left: 5px;
+          font-size: 14px;
+        }
         &:hover{
           box-shadow: none;
   transform: translateY(3px);
@@ -182,26 +205,39 @@ $mb: 520px;
   position: relative;
   @include tb{
     width: 80%;
-    padding-top: 30px;
+    padding-top: 20px;
     padding-left: 30px;
   }
   @include mb{
-    padding-top: 20px;
+    padding-top: 10px;
     padding-left: 0px;
   }
   &_alerts{
     display: flex;
+    flex-wrap: wrap;
     .student_numbers{
       font-weight: bold;
       color: red;
       font-size: 20px;
       margin-left: 10px;
+      @include tb{
+        font-size: 18px;
+      @include mb {
+        font-size: 16px;
+      }
+    }
     }
     .last_time{
       font-weight: bold;
       font-size: 20px;
       color: orange;
       margin-left: 10px;
+      @include tb {
+        font-size: 18px;
+      @include mb {
+        font-size: 16px;
+      }
+    }
     }
 
   }
@@ -273,6 +309,9 @@ $mb: 520px;
 .info_inner-point{
   width:90%;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+  @include mb {
+    width: 95%;
+  }
   &_title{
     height: 35px;
     background-color: #52A49A;
@@ -282,7 +321,10 @@ $mb: 520px;
     }
     &_list{
       width: 90%;
-      padding-left: 0px;
+      padding-left: 10px;
+      @include mb {
+        padding-left: 10px;
+      }
       li{
         list-style-type: disc !important;
         font-weight: bold;
@@ -290,19 +332,15 @@ $mb: 520px;
         left: 2vw;
         text-align: left;
       }
+
     }
-  @include mb{
-    width: 80%;
-  }
-  @include tb{
-    width: 80%;
-  }
 }
 
 
 .btn{
   display: flex;
   justify-content: space-around;
+  align-items: center;
   color: #FFFFFF;
   height: 40px;
   text-align: center;
@@ -316,6 +354,7 @@ $mb: 520px;
   &-fav{
     background-color: #db7093;
     border-radius: 20px;
+    height: 40px;
     width: 160px;
     font-weight: bold;
     display: flex;
@@ -324,15 +363,17 @@ $mb: 520px;
     cursor: pointer;
     position: relative;
     left: 20px;
-    @include mb{
-      width: 50%;
-      margin-left: 10px;
-      margin-right: 25px;
-    }
+    
     @include tb{
-      margin-left: 20px;
+      width: 130px;
+        height: 30px;
       font-size: 13px;
+      @include mb{
+        width: 120px;
+        height: 25px;
+
     }
+  }
   }
   &-register{
     background-color: #F3AF56;
@@ -344,18 +385,19 @@ $mb: 520px;
     color: #FFFFFF;
     cursor: pointer;
     position: relative;
-    right: 20px;
+    padding: 0;
     @include tb{
       font-size: 13px;
-      margin-right: 10px;
+      width: 130px;
+      height: 30px;
+      @include mb{
+        font-size: 13px;
+        width: 120px;
+        height: 25px;
+        top: -1.14px;
     }
   }
-  @include mb{
-    font-size: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-
-  }
+}
 }
 
 

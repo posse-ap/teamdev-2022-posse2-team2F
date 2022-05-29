@@ -445,7 +445,6 @@ $categories = $stmt->fetchAll();
                       
                       $student_num =
                       $stmt->rowCount();
-                      $student_num = 30;
                       // echo $student_num;
                       ?>
                       <?php
