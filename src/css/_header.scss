@@ -23,14 +23,23 @@ a {
 .header {
   background: #52a49a;
   width: 100vw;
-  height: 10vh;
+  height: 15vh;
   min-height: 65px;
-  display: flex;
+  // display: flex;
   justify-content: center;
 
   @include tb {
     // margin: 0;
     // text-align: center;
+  }
+
+  &_top{
+    display: block;
+    width: 100%;
+  }
+  &_bottom{
+    display: block;
+    width: 100%;
   }
 }
 

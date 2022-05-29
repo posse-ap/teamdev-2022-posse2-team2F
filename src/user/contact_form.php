@@ -85,8 +85,8 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                         <input class="userform_text--box" type="text" name="student_detail" id="detail" placeholder="詳しく教えてください" value="<?= $_SESSION["student_detail"] ?>">
                     </div>
 
-                    <input type="button" name="back" value="一覧に戻る" class="userform_button userform_button--left">
-                    <input type="submit" name="confirm" value="確認画面へ" class="userform_button userform_button--right confirm">
+                    <a href="../userpage/top.php" class="userform_button userform_button--left">TOPに戻る</a>
+                    <input type="submit" name="confirm" value="確認画面へ" class="userform_button userform_button--right">
                 </form>
 
             <?php } else if ($mode == "confirm") { ?>
@@ -116,8 +116,8 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                         <label>詳細</label>
                         <p><?= $_SESSION['student_detail'] ?></p>
                     </div>
-                    <input type="submit" name="back" value="戻る" />
-                    <input type="submit" name="send" value="送信" />
+                    <input type="submit" name="back" value="戻る" class=" confirm" />
+                    <input type="submit" name="send" value="送信" class="inquiries_button"/>
                 </form>
 
             <?php } else if ($mode == "send") { ?>
@@ -128,11 +128,20 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                 $sql = 'INSERT INTO user_contact_form(title, name, email, phone, detail) 
                 VALUES (?, ?, ?, ?, ?)';
                 $stmt = $db->prepare($sql);
-                $stmt->execute(array( $_SESSION["title_select"], $_SESSION['student_name'], $_SESSION['student_email'], $_SESSION['student_phone'], $_SESSION['student_detail']));
+                $stmt->execute(array($_SESSION["title_select"], $_SESSION['student_name'], $_SESSION['student_email'], $_SESSION['student_phone'], $_SESSION['student_detail'])); ?>
+                <div class="done">
+                    <h1 class="done_title">お問合せありがとうございます。</h1>
+                    <div class="done_body">
+                        <p class="done_body--text">お問合せ内容については、順次対応させていただきます。</p>
+                        <p class="done_body--text">システムによる自動返信にて、受付完了メールを送信しております。</p>
+                        <p class="done_body--text">メールが届かない場合は、お手数ですが再度お問い合わせいただく</p>
+                        <p class="done_body--text">か、下記のメールアドレスまでご連絡ください。</p>
+                        <p class="done_body--text">craft@boozer.com</p>
+                    </div>
+                    <a href="../userpage/top.php" class="done_button">ホームに戻る</a>
+                </div>
 
-                echo '<p>お問合せが完了しました</p>';
-
-
+                <?php
                 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝　ここからメール送信  ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
                 // - 学生用
                 $to      = $_SESSION['student_email'];
@@ -154,12 +163,12 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                 $message .= 'email：' . $_SESSION["student_email"]  . '
                 
                 ';
-                $message .= '電話番号：'.  $_SESSION["student_phone"] . '
+                $message .= '電話番号：' .  $_SESSION["student_phone"] . '
                 
-                ' ;
+                ';
                 $message .= '詳細：' . $_SESSION["student_detail"] . '
                 
-                ' ;
+                ';
 
                 $headers = "From: craft@boozer.com";
 

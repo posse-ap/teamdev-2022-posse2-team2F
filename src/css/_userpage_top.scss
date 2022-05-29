@@ -195,7 +195,7 @@ main{
         }
       }
   }
-  p{
+  .guide{
     position: relative;
     text-align: center;
     font-weight: bold;
@@ -730,8 +730,14 @@ main{
             left: 50%;
             transform: translateX(-50%);
             @include tb{
-              font-size: 12px;
               bottom: 135px;
+              font-size: 10px;
+              bottom: 125px;
+            }
+            p{
+              font-size: 12px;
+              margin: 10px 6px;
+
             }
 
             &::before {
@@ -749,6 +755,11 @@ main{
                 height: 30px;
                 width: 2px;
                 transform: rotate(-25deg);
+                @include mb {
+                  height: 30px;
+                  left: 0px;
+                  transform: rotate(-18deg);
+                }
               }
             }
 
@@ -767,6 +778,11 @@ main{
                 height: 30px;
                 width: 2px;
                 transform: rotate(25deg);
+                @include mb {
+                  height: 30px;
+                  right: 0px;
+                  transform: rotate(18deg);
+                }
               }
             }
           }
