@@ -67,18 +67,8 @@ if (isset($_GET['option']) && isset($_GET['id'])) {
   $option['tag_color'] = '';
   
 
-  // 既存データの表示
-  // $stmt = $db->query("SELECT * FROM tag_options WHERE category_id = '$id'");
-  $stmt = $db->query(
-    "SELECT 
-      tag_options.id, tag_options.category_id, tag_categories.tag_category, tag_options.tag_option
-    FROM 
-      tag_options
-    JOIN 
-      tag_categories ON tag_options.category_id = tag_categories.id
-    AND 
-      tag_options.category_id = '$id'");
-    $result = $stmt->fetch();
+  $stmt = $db->query("SELECT * FROM tag_categories WHERE id = '$id'");
+  $result = $stmt->fetch();
 
     // タグのオプション追加
 
@@ -165,7 +155,7 @@ if (isset($_GET['option']) && isset($_GET['id'])) {
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
-        <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <a class="util_sidebar_link" href="/userpage/top.php">ユーザー用サイトへ</a>
         <i class="fas fa-angle-right"></i>
       </div>
     </div>
@@ -186,14 +176,17 @@ if (isset($_GET['option']) && isset($_GET['id'])) {
             <input class="changetag_item--input" type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required readonly="readonly">
           </div>
           <div class="changetag_item">
-            <label class="change_item--label" for="tag_name">タグ名</label>
+            <label class="change_item--label" for="tag_name">オプション名</label>
             <input class="changetag_item--input" type="text" name="tag_name" value="<?= $option['tag_option'] ?>" required>
           </div>
           <div class="changetag_item">
-            <label class="change_item--label" for="tag_color">タグ色</label>
+            <label class="change_item--label" for="tag_color">オプション色</label>
             <input class="changetag_item--color" type="color" name="tag_color" value="<?= $option['tag_color'] ?>" required>
           </div>
-          <input type="submit" value="変更を保存" name="save" class="changetag_button">
+          <div class="changetag_buttons editoption">
+            <a href="./tag.php" class="changetag_buttons--back">戻る</a>
+            <input type="submit" value="変更を保存" name="save" class="changetag_buttons--submit">
+          </div>
         </form>
       </div>
 
@@ -211,14 +204,17 @@ if (isset($_GET['option']) && isset($_GET['id'])) {
             <input class="changetag_item--input" type="text" name="tag_category" value="<?= $result['tag_category'] ?>" required readonly="readonly" >
           </div>
           <div class="changetag_item">
-            <label class="change_item--label" for="tag_name_new">タグ名</label>
+            <label class="change_item--label" for="tag_name_new">オプション名</label>
             <input class="changetag_item--input" type="text" name="tag_name_new" required>
           </div>
           <div class="changetag_item">
-            <label class="change_item--label" for="tag_color_new">タグ色</label>
+            <label class="change_item--label" for="tag_color_new">オプション色</label>
             <input class="changetag_item--color" type="color" name="tag_color_new" required>
           </div>
-          <input type="submit" value="追加" name="add" class="changetag_button">
+          <div class="changetag_buttons editoption">
+            <a href="./tag.php" class="changetag_buttons--back">戻る</a>
+            <input type="submit" value="変更を保存" name="add" class="changetag_buttons--submit">
+          </div>
         </form>
       </div>
 

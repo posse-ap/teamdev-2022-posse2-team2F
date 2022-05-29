@@ -64,7 +64,7 @@ $sql_valid = "SELECT count(*) FROM students_contact JOIN students_agent ON stude
 // $sql_valid = "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ? AND deleted_at IS NULL AND created_at BETWEEN ? AND ?";
 // $sql_valid = "SELECT count(name) FROM students_contact WHERE created_at BETWEEN ? AND ?";
 $sql_valid_prepare = $db->prepare($sql_valid);
-$sql_valid_prepare->execute(array($_SESSION['agent_name'], $first_day, $last_day));
+$sql_valid_prepare->execute(array($_SESSION['check_agent_name'], $first_day, $last_day));
 $all_valid_students = $sql_valid_prepare->fetchAll();
 
 // 請求件数 idの最大値とってます（idは間の何件かが削除されてもそのまま変わらないイメージ）
@@ -72,7 +72,7 @@ $sql_all = "SELECT count(*) FROM students_contact JOIN students_agent ON student
 // $sql_all = "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ? AND created_at BETWEEN ? AND ?";
 // $sql_all = "SELECT max(id) FROM students_contact WHERE created_at BETWEEN ? AND ?";
 $sql_all_prepare = $db->prepare($sql_all);
-$sql_all_prepare->execute(array($_SESSION['agent_name'], $first_day, $last_day));
+$sql_all_prepare->execute(array($_SESSION['check_agent_name'], $first_day, $last_day));
 // $sql_all_prepare->execute(array($_SESSION['agent_id'], $first_day, $last_day));
 $all_students_number = $sql_all_prepare->fetchAll();
 
@@ -80,7 +80,7 @@ $all_students_number = $sql_all_prepare->fetchAll();
 // $sql_applydelete = "SELECT count(*) FROM students_agent JOIN delete_student_application ON delete_student_application.application_id = students_agent.id JOIN students_contact ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND created_at BETWEEN ? AND ?";
 $sql_applydelete = "SELECT count(*) FROM students_agent JOIN delete_student_application ON delete_student_application.application_id = students_agent.id JOIN students_contact ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ? AND created_at BETWEEN ? AND ?";
 $sql_applydelete_prepare = $db->prepare($sql_applydelete);
-$sql_applydelete_prepare->execute(array($_SESSION['agent_name'], $first_day, $last_day));
+$sql_applydelete_prepare->execute(array($_SESSION['check_agent_name'], $first_day, $last_day));
 // $sql_applydelete_prepare->execute(array($_SESSION['agent_id'], $first_day, $last_day));
 $all_applydelete_student = $sql_applydelete_prepare->fetch();
 
@@ -88,7 +88,7 @@ $all_applydelete_student = $sql_applydelete_prepare->fetch();
 // $sql_deleted = "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent = ? AND deleted_at IS NOT NULL AND created_at BETWEEN ? AND ?";
 $sql_deleted = "SELECT count(*) FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id WHERE students_agent.agent_id = ? AND deleted_at IS NOT NULL AND created_at BETWEEN ? AND ?";
 $sql_deleted_prepare = $db->prepare($sql_deleted);
-$sql_deleted_prepare->execute(array($_SESSION['agent_name'], $first_day, $last_day));
+$sql_deleted_prepare->execute(array($_SESSION['check_agent_name'], $first_day, $last_day));
 // $sql_deleted_prepare->execute(array($_SESSION['agent_id'], $first_day, $last_day));
 $deleted_students = $sql_deleted_prepare->fetchAll();
 ?>
@@ -121,7 +121,7 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             <i class="fas fa-angle-right"></i>
         </div>
         <div class="util_sidebar_button">
-            <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+            <a class="util_sidebar_link" href="/userpage/top.php">ユーザー用サイトへ</a>
             <i class="fas fa-angle-right"></i>
         </div>
     </div>
@@ -157,10 +157,17 @@ $deleted_students = $sql_deleted_prepare->fetchAll();
             </p>
             <section class="print-only-area__information">
                 <div>
-                    <p>boozerです！ <br> 住所！電話番号！メールアドレス！！</p>
+                    <p>boozer</p>
+                    <p>東京都港区南青山3丁目15-9<br>+81 3-6885-6140</p>
+                    <p>contact@harbors.sh</p>
                 </div>
                 <div>
-                    <p>請求先 <br> agentです！メールアドレス！</p>
+                    <p>請求先</p>
+                    <p><?= $_SESSION['check_agent_name']?>
+                    </p>
+                    <p>
+                    <?=  $_SESSION['login_email']?>
+                    </p>
                 </div>
             </section>
             <section class="print-only-area__deadline">

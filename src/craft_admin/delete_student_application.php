@@ -3,9 +3,6 @@ require('../dbconnect.php');
 
 // 詳細ページから削除したい場合
 
-
-
-
 if (isset($_POST['delete_more'])) {
 
 $agent = $_GET['agent'];
@@ -83,14 +80,14 @@ header('Location: students_info.php');
 // お問合せ管理ページから削除したい場合
 
 
-if (isset($_POST['delete']) && $_POST["delete"]) {
+if (isset($_POST['delete'])) {
   $button_delete = key($_POST['delete']); //$button_deleteには押された番号が入る
-  $agent_id = key($_POST['agentid']); 
+  // $agent = $_GET['agent']; 
 
   // $sql = "SELECT * FROM agent_users JOIN students_agent ON students_agent.agent = agent_users.agent_name WHERE students_agent.agent_id = ? LIMIT 1";
   $sql = "SELECT * FROM agent_users JOIN students_agent ON students_agent.agent_id = agent_users.id WHERE students_agent.agent_id = ? LIMIT 1";
   $mail_stmt = $db->prepare($sql);
-  $mail_stmt->execute(array($agent_id));
+  $mail_stmt->execute(array($agent));
 
   $email = $mail_stmt->fetch();
 
@@ -139,7 +136,7 @@ if (isset($_POST['delete']) && $_POST["delete"]) {
 //削除したくない場合
 if (isset($_POST['keep']) && $_POST["keep"]) {
   $button_keep = key($_POST['keep']); //$buttonには押された番号が入る
-  $agent_id = key($_POST['agentid']); 
+  // $agent_id = key($_POST['agentid']); 
 
   // $sql = "SELECT * FROM agent_users JOIN students_agent ON students_agent.agent = agent_users.agent_name WHERE students_agent.agent_id = ? LIMIT 1";
   $sql = "SELECT * FROM agent_users JOIN students_agent ON students_agent.agent_id = agent_users.id WHERE students_agent.agent_id = ? LIMIT 1";

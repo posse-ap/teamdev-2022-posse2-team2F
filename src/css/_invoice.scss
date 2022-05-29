@@ -113,8 +113,10 @@
         }
         &__information{
             display: flex;
-            gap: 20%;
             margin-bottom: 20%;
+            & div{
+                margin-right: 15%;
+            }
         }
         &__deadline{
             font-size: 1.5em;

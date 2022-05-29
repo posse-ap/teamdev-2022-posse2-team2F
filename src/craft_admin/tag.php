@@ -113,7 +113,7 @@ if (isset($_POST['hide_option'])) {
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
-        <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <a class="util_sidebar_link" href="/userpage/top.php">ユーザー用サイトへ</a>
         <i class="fas fa-angle-right"></i>
       </div>
     </div>
@@ -249,7 +249,7 @@ if (isset($_POST['hide_option'])) {
               </div>
               <?php endforeach; ?>
             </div>
-            <a href="./edit_tag_option.php?id=<?= $tag['category_id'] ?>" class="tag-more_add">+ タグのオプションを追加</a>            
+            <a href="./edit_tag_option.php?id=<?= $category['id'] ?>" class="tag-more_add">+ タグのオプションを追加</a>            
           </div>
         <?php endforeach; ?>
         <a href="./edit_tag_category.php?act=add" class="tag_category_add">+ カテゴリーを追加</a>
@@ -311,15 +311,6 @@ let deleteFunction = function (id) {
           modalClose();
     }
 
-    window.onclick = function(event) {
-      if (event.target == bg) {
-        for (i = 1; i <= 20; i++) {
-            let modal = document.getElementById(`util_deletemodal${i}`);
-            modal.style.display = "none";
-          bg.style.display = 'none';
-        }
-      }
-    }
 
 //削除ボタンをクリックした時の処理
 let deleteModal_option = function (id) {
@@ -351,11 +342,14 @@ let deleteModal_option = function (id) {
           modalClose();
     }
 
+
     window.onclick = function(event) {
       if (event.target == bg) {
         for (i = 1; i <= 20; i++) {
-            let modal = document.getElementById(`option_modal${i}`);
-            modal.style.display = "none";
+            let modal1 = document.getElementById(`util_deletemodal${i}`);
+            let modal2 = document.getElementById(`option_modal${i}`);
+            modal1.style.display = "none";
+            modal2.style.display = "none";
             bg.style.display = 'none';
         }
       }
