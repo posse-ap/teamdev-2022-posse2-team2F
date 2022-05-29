@@ -222,12 +222,12 @@ $now = time();
   </div>
 </div>
 
-<!-- <div class="guidemodal">
+<div class="guidemodal">
   <div class="guidemodal_inner">
     <div class="guidemodal_closebtn"></div>
     <img src="../craft_admin/images/guide.jpeg" class="guidemodal_img" alt="">
   </div>
-</div> -->
+</div>
 
 <script>
   const search_modal = document.getElementById('search_modal');
