@@ -85,8 +85,8 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                         <input class="userform_text--box" type="text" name="student_detail" id="detail" placeholder="詳しく教えてください" value="<?= $_SESSION["student_detail"] ?>">
                     </div>
 
-                    <input type="button" name="back" value="一覧に戻る" class="userform_button userform_button--left inquiries_button ">
-                    <input type="submit" name="confirm" value="確認画面へ" class="userform_button userform_button--right confirm">
+                    <a href="../userpage/top.php" class="userform_button userform_button--left">TOPに戻る</a>
+                    <input type="submit" name="confirm" value="確認画面へ" class="userform_button userform_button--right">
                 </form>
 
             <?php } else if ($mode == "confirm") { ?>
@@ -116,8 +116,8 @@ if (isset($_POST["back"]) && $_POST["back"]) {
                         <label>詳細</label>
                         <p><?= $_SESSION['student_detail'] ?></p>
                     </div>
-                    <input type="submit" name="back" value="戻る" />
-                    <input type="submit" name="send" value="送信" />
+                    <input type="submit" name="back" value="戻る" class=" confirm" />
+                    <input type="submit" name="send" value="送信" class="inquiries_button"/>
                 </form>
 
             <?php } else if ($mode == "send") { ?>

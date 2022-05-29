@@ -21,7 +21,8 @@
             </a>
         </h1>
         <ul class="header_bottom">
-            <li>お問合せ</li>
+            <li><a href="/user/contact_form.php">比較ページ？？？</a></li>
+            <li><a href="">比較</a></li>
         </ul>
     </header>
     <main>
