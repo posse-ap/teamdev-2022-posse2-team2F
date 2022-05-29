@@ -2,13 +2,16 @@
 session_start();
 require('../../dbconnect.php');
 
+$err_msg = "";
+
+
 if (isset($_POST['signup'])) {
   $email = $_POST['email'];
   $password = sha1($_POST['password']);
   $password_conf = sha1($_POST['password_conf']);
 
   if ($password !== $password_conf) {
-    echo 'パスワードが一致していません。';
+    $err_msg = "パスワードが一致していません。";
   } else {
     $sql = 'INSERT INTO craft_users(email, password, password_conf)
           VALUES(?, ?, ?)';
@@ -44,6 +47,9 @@ if (isset($_POST['signup'])) {
   <div class="util_fullscreen_container">
     <div class="util_fullscreen util_login">
       <h1 class="util_login_title">新規管理者登録</h1>
+      <?php if ($err_msg !== null && $err_msg !== '') {
+          echo "<p class='util_login_error'>" . $err_msg .  "</p>";
+      } ?>
       <form action="" method="POST">
         <div class="util_login_text craft_signup">
           <label class="util_login_text--label" for="email">メールアドレス：</label>

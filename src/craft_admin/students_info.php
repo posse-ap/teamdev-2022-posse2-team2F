@@ -8,6 +8,7 @@ if (!isset($_SESSION['id'])) {
 }
 
 
+
 include('../_header.php');
 require('../dbconnect.php');
 
@@ -119,8 +120,8 @@ require('../dbconnect.php');
                         </div>
 
 
-                    <!-- ここから並び替えの分岐 -->
-                    <?php
+                        <!-- ここから並び替えの分岐 -->
+                        <?php
                         if ($sort == "申込日時（古い順）") {
                             $sort_sql = " ORDER BY students_contact.created_at ASC";
                             $_SESSION['sort_select'] = "申込日時（古い順）";
@@ -128,21 +129,20 @@ require('../dbconnect.php');
                             $sort_sql = " ORDER BY students_contact.created_at DESC";
                             $_SESSION['sort_select'] = "申込日時（新しい順）";
                         } else {
-                            $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id ORDER BY phone ASC";
+                            $sort_sql = " ";
                         }
-                        $_SESSION['sort'] = $sort_sql;
-                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $_SESSION['sort'];
+                        $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $sort_sql;
 
-                    // print_r($sql);
-                    $sql_prepare = $db->prepare($sql);
-                    $sql_prepare->execute();
-                    $all_students_info = $sql_prepare->fetchAll();
+                        // print_r($sql);
+                        $sql_prepare = $db->prepare($sql);
+                        $sql_prepare->execute();
+                        $all_students_info = $sql_prepare->fetchAll();
 
-                    if (!$all_students_info) {
-                        // echo $all_students_info->error;
-                        exit();
-                    }
-                    ?>
+                        if (!$all_students_info) {
+                            // echo $all_students_info->error;
+                            exit();
+                        }
+                        ?>
 
                         <div class="cont_for_scroll">
                             <table class="table" border=1; style=border-collapse:collapse;>

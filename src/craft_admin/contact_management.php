@@ -6,6 +6,7 @@ if (!isset($_SESSION['id'])) {
     header('Location: ./login/login_error.php');
 }
 
+
 include('../_header.php');
 require('../dbconnect.php');
 

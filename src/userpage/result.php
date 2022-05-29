@@ -323,7 +323,6 @@ $categories = $stmt->fetchAll();
 
     </div>
     <form action="result.php" method="POST">
-
       <select name="sort" class="sort_select">
       <?php
                         // セレクトボックスの値を格納する配列
@@ -446,6 +445,7 @@ $categories = $stmt->fetchAll();
                       
                       $student_num =
                       $stmt->rowCount();
+                      $student_num = 30;
                       // echo $student_num;
                       ?>
                       <?php
@@ -494,6 +494,21 @@ $categories = $stmt->fetchAll();
                         <div class="last_time">
                           <?= "⌛️掲載終了まであと" . $last_time . "日!!" ?>
                         </div>
+                        <div class="last_time2" id="<?= "last" . $result['id'] ?>">
+                          ⌛️
+                        </div>
+                        <div class="last_time_info" id="<?= "last_info" . $result['id'] ?>">
+                          <?= "掲載終了まであと" . $last_time . "日!!" ?>
+                        </div>
+                        <script>
+                        document.getElementById('<?= 'last' . $result['id'] ?>').addEventListener("mouseover", function() {
+                    document.getElementById('<?= 'last_info' . $result['id'] ?>').style.display = "block";
+                        })
+                        document.getElementById('<?= 'last' . $result['id'] ?>').addEventListener("mouseleave", function() {
+                    document.getElementById('<?= 'last_info' . $result['id'] ?>').style.display = "none";
+                        })
+
+                      </script>
 
                       <?php } else { ?>
                       <?php } ?>
@@ -507,7 +522,7 @@ $categories = $stmt->fetchAll();
                       <?php if (empty($products)) { ?>
                         <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>" ; class="on">
                           <p class="heart">♡</p>
-                          <p>追加</p>
+                          <p class="add">追加</p>
                         </a>
                       <?php
                       } elseif ($products[$result['id']]['agent_id'] == $result['id']) {
@@ -515,14 +530,14 @@ $categories = $stmt->fetchAll();
 
                         <a href="/user/delete_result.php?id=<?= $result['id'] ?>" class="off">
                           <p class="heart">♥</p>
-                          <p>解除</p>
+                          <p class="delete">解除</p>
                         </a>
                       <?php
                       } else {
                       ?>
                         <a href="/user/home.php?id=<?= $result['id'] ?>" id="<?= $result['id'] ?>" class="on">
                           <p class="heart">♡</p>
-                          <p>追加</p>
+                          <p class="add">追加</p>
                         </a>
                       <?php } ?>
                     </div>

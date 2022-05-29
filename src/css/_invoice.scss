@@ -12,7 +12,7 @@
     height: 40px;
     color: white;
     background-color: #52a49a;
-    margin: 10px auto 20px auto;
+    margin: 0 auto 20px auto;
     font-size: 24px;
     border-style: none;
     box-shadow: 6px 2px 3px #c0c1c5;
@@ -67,6 +67,10 @@
 
 .print-only-area{
     display: none;
+}
+
+.invoice__agent-select{
+    padding-left: 35%;
 }
 
 /*
