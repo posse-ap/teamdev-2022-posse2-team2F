@@ -1,7 +1,16 @@
 <?php
 session_start();
+
+// ログインしていないままアクセスしようとしている場合エラーページに飛ばす
+if (!isset($_SESSION['id'])) {
+    header('Location: ./login/login_error.php');
+}
+
+
 include('../_header.php');
 require('../dbconnect.php');
+
+
 
 // ============================表示しているページの月を取得============================
 $month_id = filter_input(INPUT_GET, 'id');
@@ -77,7 +86,13 @@ $sql_deleted_prepare->execute(array($first_day, $last_day));
 $deleted_students = $sql_deleted_prepare->fetchAll();
 ?>
 
-
+<div class="util_logout">
+    <p class="util_logout_email"><?= $_SESSION['email'] ?></p>
+    <a href="./login/logout.php">
+        ログアウト
+        <i class="fas fa-sign-out-alt"></i>
+    </a>
+</div>
 <div class="util_container">
     <div class="util_sidebar no-print-area">
         <div class="util_sidebar_button">

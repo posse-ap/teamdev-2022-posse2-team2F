@@ -1,8 +1,23 @@
 <?php
 session_start();
+
+
+// ログインしていないままアクセスしようとしている場合エラーページに飛ばす
+if (!isset($_SESSION['id'])) {
+    header('Location: ./login/login_error.php');
+}
+
+
 include('../_header.php');
 require('../dbconnect.php');
+
+
+
+
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +30,13 @@ require('../dbconnect.php');
 </head>
 
 <body>
+    <div class="util_logout">
+        <p class="util_logout_email"><?= $_SESSION['email'] ?></p>
+        <a href="./login/logout.php">
+            ログアウト
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </div>
     <div class="util_container">
         <div class="util_sidebar">
             <div class="util_sidebar_button">
@@ -106,7 +128,7 @@ require('../dbconnect.php');
                             $sort_sql = " ORDER BY students_contact.created_at DESC";
                             $_SESSION['sort_select'] = "申込日時（新しい順）";
                         } else {
-                            $sort_sql = " ";
+                            $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id ORDER BY phone ASC";
                         }
                         $_SESSION['sort'] = $sort_sql;
                         $sql = "SELECT students_agent.id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, students_agent.agent, students_agent.deleted_at, students_agent.status FROM students_contact JOIN students_agent ON students_contact.id = students_agent.student_id" . $_SESSION['sort'];

@@ -14,12 +14,21 @@ if (isset($_POST['login'])) {
   $stmt = $db->prepare($sql);
   $stmt->execute(array($email, $password));
   $result = $stmt->fetch();
-  $stmt = null;
-  $db = null;
+
+  $sql_session = "SELECT * FROM craft_users WHERE email = ? AND password = ?";
+  $stmt = $db->prepare($sql_session);
+  $stmt->execute(array($email, $password));
+  $login_info = $stmt->fetch();
+
+
 
   // result に一つでも値が入っているなら、ログイン情報が存在するということ
   if ($result[0] != 0) {
     // 成功した場合管理画面に遷移
+
+    $_SESSION['id'] = $login_info['id'];
+    $_SESSION['email'] = $login_info['email'];
+
     header('Location: http://localhost/craft_admin/home.php');
     exit;
   } else {

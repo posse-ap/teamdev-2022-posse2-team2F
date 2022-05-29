@@ -1,7 +1,15 @@
 <?php
 session_start();
+
+// ログインしていないままアクセスしようとしている場合エラーページに飛ばす
+if (!isset($_SESSION['id'])) {
+  header('Location: ./login/login_error.php');
+}
+
 include('../_header.php');
 require('../dbconnect.php');
+
+
 
 
 // ============================どの学生の情報を表示するか？id取得============================
@@ -37,7 +45,13 @@ $agent = $student_info['agent'];
 //   // header('Location: students_info.php');
 // }
 ?>
-
+<div class="util_logout">
+  <p class="util_logout_email"><?= $_SESSION['email'] ?></p>
+  <a href="./login/logout.php">
+    ログアウト
+    <i class="fas fa-sign-out-alt"></i>
+  </a>
+</div>
 <div class="util_container">
   <div class="util_sidebar">
     <div class="util_sidebar_button">

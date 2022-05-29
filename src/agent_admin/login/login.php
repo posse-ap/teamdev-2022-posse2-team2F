@@ -18,7 +18,6 @@ if (isset($_POST['login'])) {
   $stmt_for_session = $db->prepare($sql_for_session);
   $stmt_for_session->execute(array($email, $password));
   $login_info = $stmt_for_session->fetch();
-  $db = null;
 
   // result に一つでも値が入っているなら、ログイン情報が存在するということ
   if ($result[0] != 0) {

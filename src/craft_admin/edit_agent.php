@@ -2,6 +2,11 @@
 
 require('../dbconnect.php');
 
+// ログインしていないままアクセスしようとしている場合エラーページに飛ばす
+if (!isset($_SESSION['id'])) {
+  header('Location: ./login/login_error.php');
+}
+
 
 
 if (isset($_GET['id'])) {
@@ -119,7 +124,13 @@ $categories = $stmt->fetchAll();
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-
+  <div class="util_logout">
+    <p class="util_logout_email"><?= $_SESSION['email'] ?></p>
+    <a href="./login/logout.php">
+      ログアウト
+      <i class="fas fa-sign-out-alt"></i>
+    </a>
+  </div>
   <div class="util_container">
     <div class="util_sidebar">
       <div class="util_sidebar_button util_sidebar_button--selected">

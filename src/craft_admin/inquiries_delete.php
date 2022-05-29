@@ -2,6 +2,11 @@
 session_start();
 require('../dbconnect.php');
 
+// ログインしていないままアクセスしようとしている場合エラーページに飛ばす
+if (!isset($_SESSION['id'])) {
+  header('Location: ./login/login_error.php');
+}
+
 $stmt = $db->query("SELECT students_agent.id, students_agent.agent_id, students_contact.name, students_contact.email, students_contact.phone, students_contact.university, students_contact.faculty, students_contact.address, students_contact.grad_year, delete_student_application.agent_name, delete_student_application.response, delete_student_application.time
                     FROM students_contact 
                     JOIN students_agent ON students_contact.id = students_agent.student_id
@@ -13,52 +18,6 @@ $stmt = $db->query("SELECT students_agent.id, students_agent.agent_id, students_
                     -- JOIN students_agent ON delete_student_application.student_id = students_agent.student_id
                     ;");
 $results = $stmt->fetchAll();
-
-// // 削除関連
-// if (isset($_POST['delete']) && $_POST["delete"]) {
-//   $button_delete = key($_POST['delete']); //$button_deleteには押された番号が入る
-
-//   $sql = "START TRANSACTION;
-
-//           UPDATE students_agent
-//           SET 
-//           deleted_at = CURRENT_TIMESTAMP,
-//           status = '削除済み' 
-//           WHERE id = ?;
-
-//           UPDATE delete_student_application
-//           SET response = '削除済み'
-//           WHERE application_id = ?;
-
-//           COMMIT;
-//           ";
-//   $stmt = $db->prepare($sql);
-//   $stmt->execute(array($button_delete, $button_delete));
-
-//   header('Location: http://localhost/craft_admin/inquiries.php');
-// }
-
-// //削除したくない場合
-// if (isset($_POST['keep']) && $_POST["keep"]) {
-//   $button_keep = key($_POST['keep']); //$buttonには押された番号が入る
-
-//   $sql = "START TRANSACTION;
-
-//           UPDATE students_agent
-//           SET 
-//           status = '有効' 
-//           WHERE id = ?;
-
-//           UPDATE delete_student_application
-//           SET response = '削除なし'
-//           WHERE application_id = ?;
-
-//           COMMIT;";
-//   $stmt = $db->prepare($sql);
-//   $stmt->execute(array($button_keep, $button_keep));
-
-//   header('Location: http://localhost/craft_admin/inquiries.php');
-// }
 
 ?>
 
@@ -75,6 +34,13 @@ $results = $stmt->fetchAll();
 
 <body>
   <?php require('../_header.php'); ?>
+  <div class="util_logout">
+    <p class="util_logout_email"><?= $_SESSION['email'] ?></p>
+    <a href="./login/logout.php">
+      ログアウト
+      <i class="fas fa-sign-out-alt"></i>
+    </a>
+  </div>
   <div class="util_container">
     <div class="util_sidebar">
       <div class="util_sidebar_button">

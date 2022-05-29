@@ -2,6 +2,11 @@
 session_start();
 require('../dbconnect.php');
 
+// ログインしていないままアクセスしようとしている場合エラーページに飛ばす
+if (!isset($_SESSION['id'])) {
+  header('Location: ./login/login_error.php');
+}
+
 // URLからIDを取得
 $id = $_SESSION['id'];
 
@@ -80,7 +85,7 @@ if ($count[0] != 0) {
 
     
 
-    header('Location: home.php');
+    header('Location: students_info.php');
     exit;
   }
 }
@@ -99,14 +104,14 @@ if ($count[0] != 0) {
   ?>
 
   
-
+  <div class="util_logout">
+      <p class="util_logout_email"><?= $_SESSION['login_email'] ?></p>
+      <a href="./login/logout.php">
+      ログアウト
+      <i class="fas fa-sign-out-alt"></i>
+      </a>
+  </div>
   <div class="util_container">
-    <div class="util_logout">
-        <a href="./login/logout.php">
-            ログアウト
-            <i class="fas fa-sign-out-alt"></i> 
-        </a>   
-    </div>
     <div class="util_sidebar">
       <div class="util_sidebar_button">
         <a class="util_sidebar_link" href="/agent_admin/students_info.php">学生申し込み一覧</a>
@@ -117,7 +122,7 @@ if ($count[0] != 0) {
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
-        <a class="util_sidebar_link" href="">お問合せ</a>
+        <a class="util_sidebar_link" href="/agent_admin/inquiries.php">お問合せ</a>
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
