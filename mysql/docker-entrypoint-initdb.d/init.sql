@@ -435,17 +435,18 @@ DROP TABLE IF EXISTS sort_categories;
 
 CREATE TABLE sort_categories (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    sort_category VARCHAR(255) NOT NULL
+    sort_category VARCHAR(255) NOT NULL,
+    tag_category_id INT NOT NULL
     -- hide INT NOT NULL
 );
 
 -- 並び替え用数値
 INSERT INTO
-    sort_categories(sort_category)
+    sort_categories(sort_category, tag_category_id)
 VALUES
-    ('公開求人数'),
-    ('非公開求人数'),
-    ('利用者数');
+    ('公開求人数', 7),
+    ('非公開求人数', 8),
+    ('利用者数', 9);
 
 -- タグ一覧
 
@@ -496,35 +497,35 @@ CREATE TABLE sort_options (
 INSERT INTO
     sort_options(category_id, sort_option)
 VALUES
-    (1, '500'),
-    (1, '200'),
-    (1, '2000'),
-    (1, '1000'),
-    (1, '2000'),
-    (1, '70'),
-    (1, '1000'),
-    (1, '10000'),
-    (1, '300'),
+    (7, '500'),
+    (7, '200'),
+    (7, '2000'),
+    (7, '1000'),
+    (7, '2000'),
+    (7, '70'),
+    (7, '1000'),
+    (7, '10000'),
+    (7, '300'),
 
-    (2, '-'),
-    (2, '-'),
-    (2, '-'),
-    (2, '1000'),
-    (2, '-'),
-    (2, '-'),
-    (2, '-'),
-    (2, '2000'),
-    (2, '-'),
+    (8, '-'),
+    (8, '-'),
+    (8, '-'),
+    (8, '1000'),
+    (8, '-'),
+    (8, '-'),
+    (8, '-'),
+    (8, '2000'),
+    (8, '-'),
 
-    (3, '900000'),
-    (3, '300000'),
-    (3, '80000'),
-    (3, '40000'),
-    (3, '100000'),
-    (3, '20000'),
-    (3, '60000'),
-    (3, '150000'),
-    (3, '10000');
+    (9, '900000'),
+    (9, '300000'),
+    (9, '80000'),
+    (9, '40000'),
+    (9, '100000'),
+    (9, '20000'),
+    (9, '60000'),
+    (9, '150000'),
+    (9, '10000');
 
 DROP TABLE IF EXISTS agent_tag_options;
 
