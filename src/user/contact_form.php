@@ -132,8 +132,9 @@ if (isset($_POST["back"]) && $_POST["back"]) {
 
                 echo '<p>お問合せが完了しました</p>';
 
-                // メール送信 - 学生用
-                // $to      = "student1@gmail.com";
+
+                // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝　ここからメール送信  ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+                // - 学生用
                 $to      = $_SESSION['student_email'];
                 $subject = "お問合せ完了通知メール";
                 $message = "
@@ -164,7 +165,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
 
                 mb_send_mail($to, $subject, $message, $headers);
 
-                // メール送信 - boozer用
+                // - boozer用
                 $to      = "admin@boozer.com";
                 $subject = "学生のお問合せがありました";
                 $message = "

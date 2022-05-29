@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
   $to      = "craft@boozer.com";
   $subject = "新規お問合せがありました";
   $message = "
-  新たなお問合せがありました。
+  エージェントから新たなお問合せがありました。
 
   以下URLをクリックしご確認ください。
   http://localhost/craft_admin/inquiries_agent.php";
@@ -87,8 +87,8 @@ include('../_header.php');
         <div class="inquiries">
           <form action="" method="post" enctype="multipart/form-data">
             <div class="inquiries_item">
-              <label class="inquiries_item--label" for="content">お問合せ内容</label>
-              <select class="inquiries_item--select" name="content">
+              <label class="inquiries_item--label" for="content">お問合せ内容<span class="required">必須</span></label>
+              <select class="inquiries_item--select" name="content" required="required">
                 <option selected value="">選択してください</option>
                 <option value="エージェントの情報変更依頼">エージェントの情報変更依頼</option>
                 <option value="サイトの使い方に関して">サイトの使い方に関して</option>
@@ -96,8 +96,8 @@ include('../_header.php');
               </select>
             </div>
             <div class="inquiries_item">
-              <label class="inquiries_item--label" for="details">詳細・理由</label>
-              <textarea class="inquiries_item--textarea" name="details"></textarea>
+              <label class="inquiries_item--label" for="details">詳細・理由<span class="required">必須</span></label>
+              <textarea class="inquiries_item--textarea required" required="required" name="details"></textarea>
             </div>
             <input class="inquiries_button" type="submit" value="送信" name="submit">
           </form>

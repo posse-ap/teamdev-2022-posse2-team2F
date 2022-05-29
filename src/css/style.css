@@ -2214,8 +2214,10 @@ main {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    gap: 20%;
     margin-bottom: 20%;
+  }
+  .print-only-area__information div {
+    margin-right: 15%;
   }
   .print-only-area__deadline {
     font-size: 1.5em;
@@ -4743,6 +4745,16 @@ main {
 .inquiries_item--label {
   font-size: 20px;
   font-weight: 500;
+}
+
+.inquiries_item--label .required {
+  color: #fff;
+  background: #fb3b6f;
+  display: inline-block;
+  padding: 2px 5px;
+  font-size: 10px;
+  position: absolute;
+  margin: .5em;
 }
 
 .inquiries_item--textarea {
