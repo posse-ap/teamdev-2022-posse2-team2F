@@ -32,6 +32,12 @@ if (isset($_GET['id'])) {
     $agent_point3 = $_POST['agent_point3'];
     $start_display = $_POST['agent_display_start'];
     $end_display = $_POST['agent_display_end'];
+    $sort11 = $_POST['agent_sort1'];
+    $sort22 = $_POST['agent_sort2'];
+    $sort33 = $_POST['agent_sort3'];
+    $sort_id1 = $_POST['sort_id1'];
+    $sort_id2 = $_POST['sort_id2'];
+    $sort_id3 = $_POST['sort_id3'];
 
     $sql = 'UPDATE agents
           SET agent_name = ?, agent_tag = ?, agent_tagname = ?, agent_title = ?, agent_info = ?, agent_point1 = ?, agent_point2 = ?, agent_point3 = ?, start_display = ?, end_display = ?
@@ -75,6 +81,28 @@ if (isset($_GET['id'])) {
       $stmt->execute(array($tag_id, $id));
     }
 
+    //sortの更新処理
+    $sql = 'UPDATE sort_options
+          SET category_id = ?, sort_option = ?
+          WHERE id = ?';
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(100, $sort11, $sort_id1));
+
+    $sql = 'UPDATE sort_options
+          SET category_id = ?, sort_option = ?
+          WHERE id = ?';
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(101, $sort22, $sort_id2));
+
+    $sql = 'UPDATE sort_options
+          SET category_id = ?, sort_option = ?
+          WHERE id = ?';
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(102, $sort33, $sort_id3));
+
+
+
+
     header('Location: home.php');
     exit;
   }
@@ -112,6 +140,15 @@ $categories = $stmt->fetchAll();
 // } else {
 //   // echo 'チェックボックスの値を受け取れていません';
 // }
+
+$stmt = $db->query("SELECT sort_option, sort_option_id FROM sort_options INNER JOIN agent_sort_options ON sort_options.id = agent_sort_options.sort_option_id WHERE agent_id = $id AND category_id = 100");
+$sort1 = $stmt ->fetch();
+
+$stmt = $db->query("SELECT sort_option, sort_option_id FROM sort_options INNER JOIN agent_sort_options ON sort_options.id = agent_sort_options.sort_option_id WHERE agent_id = $id AND category_id = 101");
+$sort2 = $stmt ->fetch();
+
+$stmt = $db->query("SELECT sort_option, sort_option_id FROM sort_options INNER JOIN agent_sort_options ON sort_options.id = agent_sort_options.sort_option_id WHERE agent_id = $id AND category_id = 102");
+$sort3 = $stmt ->fetch();
 
 ?>
 
@@ -158,7 +195,7 @@ $categories = $stmt->fetchAll();
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
-        <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <a class="util_sidebar_link" href="/userpage/top.php" target="_blank">ユーザー用サイトへ</a>
         <i class="fas fa-angle-right"></i>
       </div>
     </div>
@@ -179,6 +216,22 @@ $categories = $stmt->fetchAll();
             <input class="change_item--input" type="text" name="agent_tag" value="<?= $result['agent_tagname'] ?>" required readonly="readonly" onclick="tag_modalOpen()" id="input">
             <input type="hidden" id="showid" name="tag_id" value="<?= $result['agent_tag'] ?>">
           </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_sort1">公開求人数</label>
+            <input class="change_item--input" type="text" name="agent_sort1" value="<?= $sort1['sort_option'] ?>" required>
+            <input type="hidden" name="sort_id1" value="<?= $sort1['sort_option_id'] ?>">
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_sort2">非公開求人数</label>
+            <input class="change_item--input" type="text" name="agent_sort2" value="<?= $sort2['sort_option'] ?>" required>
+            <input type="hidden" name="sort_id2" value="<?= $sort2['sort_option_id'] ?>">
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_sort3">利用者数</label>
+            <input class="change_item--input" type="text" name="agent_sort3" value="<?= $sort3['sort_option'] ?>" required>
+            <input type="hidden" name="sort_id3" value="<?= $sort3['sort_option_id'] ?>">
+          </div>
+
           <div class="change_item preview">
             <label class="change_item--label" for="agent_pic">エージェント画像</label>
             <img class="preview_img" src="images/<?= $result['agent_pic'] ?>" alt="" style="height: 15vh" id="agent_image">

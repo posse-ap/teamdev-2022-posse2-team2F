@@ -20,6 +20,10 @@ if (isset($_POST['submit'])) {
   $agent_point3 = $_POST['agent_point3'];
   $start_display = $_POST['agent_display_start'];
   $end_display = $_POST['agent_display_end'];
+  $agent_sort1 = $_POST['agent_sort1'];
+  $agent_sort2 = $_POST['agent_sort2'];
+  $agent_sort3 = $_POST['agent_sort3'];
+
 
   // 画像更新
   $target_dir = "images/";
@@ -60,6 +64,49 @@ if (isset($_POST['submit'])) {
     $stmt->execute(array($id, $agent_id['id']));
     // $stmt->execute(array($id, $agent_id));
   }
+
+  //sortの追加処理
+
+  $sql = 'INSERT INTO sort_options(category_id, sort_option, hide) 
+          VALUES (100, ?, 0)';
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($agent_sort1));
+
+  $stmt = $db->query("SELECT id FROM sort_options ORDER BY id DESC");
+  $sort_id1 = $stmt->fetch();
+
+  $sql = 'INSERT INTO agent_sort_options(sort_option_id, agent_id)
+          VALUES (?, ?)';
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($sort_id1['id'], $agent_id['id']));
+
+
+  $sql = 'INSERT INTO sort_options(category_id, sort_option, hide) 
+          VALUES (101, ?, 0)';
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($agent_sort2));
+
+  $stmt = $db->query("SELECT id FROM sort_options ORDER BY id DESC");
+  $sort_id2 = $stmt->fetch();
+
+  $sql = 'INSERT INTO agent_sort_options(sort_option_id, agent_id)
+          VALUES (?, ?)';
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($sort_id2['id'], $agent_id['id']));
+
+
+  $sql = 'INSERT INTO sort_options(category_id, sort_option, hide) 
+          VALUES (102, ?, 0)';
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($agent_sort3));
+
+  $stmt = $db->query("SELECT id FROM sort_options ORDER BY id DESC");
+  $sort_id3 = $stmt->fetch();
+
+  $sql = 'INSERT INTO agent_sort_options(sort_option_id, agent_id)
+          VALUES (?, ?)';
+  $stmt = $db->prepare($sql);
+  $stmt->execute(array($sort_id3['id'], $agent_id['id']));
 
 
 
@@ -122,7 +169,7 @@ $categories = $stmt->fetchAll();
         <i class="fas fa-angle-right"></i>
       </div>
       <div class="util_sidebar_button">
-        <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+        <a class="util_sidebar_link" href="/userpage/top.php" target="_blank">ユーザー用サイトへ</a>
         <i class="fas fa-angle-right"></i>
       </div>
     </div>
@@ -143,6 +190,18 @@ $categories = $stmt->fetchAll();
             <label class="change_item--label" for="agent_tag">エージェントタグ</label>
             <input class="change_item--input" type="text" name="agent_tag" required readonly="readonly" onclick="tag_modalOpen()" id="input">
             <input type="hidden" id="showid" name="tag_id">
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_sort1">公開求人数</label>
+            <input class="change_item--input" type="text" name="agent_sort1" required>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_sort2">非公開求人数</label>
+            <input class="change_item--input" type="text" name="agent_sort2" required>
+          </div>
+          <div class="change_item">
+            <label class="change_item--label" for="agent_sort3">利用者数</label>
+            <input class="change_item--input" type="text" name="agent_sort3" required>
           </div>
           <div class="change_item preview">
             <label class="change_item--label" for="agent_pic">エージェント画像</label>

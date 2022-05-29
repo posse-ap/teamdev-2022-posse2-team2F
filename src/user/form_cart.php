@@ -9,7 +9,7 @@ session_start();
 if(isset($_POST['apply_id'])){
   if(isset($_POST['apply_tag']) && is_array($_POST['apply_tag'])){
   }else{
-    header("Location: /userpage/result.php");
+    header("Location: /user/cart.php");
   }
 }
 // //ここまで
@@ -167,7 +167,7 @@ if (isset($_POST["back"]) && $_POST["back"]) {
               <option value="28">28</option>
             </select>
           </div>
-          <a href="/userpage/result.php">
+          <a href="/user/cart.php">
           <input type="button" name="back" value="一覧に戻る" class="userform_button userform_button--left">
           </a>
           <input type="submit" name="confirm" value="確認画面へ" class="userform_button userform_button--right confirm">

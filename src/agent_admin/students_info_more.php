@@ -62,7 +62,7 @@ $student_info = $sql_prepare->fetch();
             <a class="util_sidebar_link" href="/agent_admin/invoice.php">請求金額確認</a>
         </div>
         <div class="util_sidebar_button">
-            <a class="util_sidebar_link" href="">ユーザー用サイトへ</a>
+            <a class="util_sidebar_link" href="/userpage/top.php" target="_blank">ユーザー用サイトへ</a>
         </div>
     </div>
 
