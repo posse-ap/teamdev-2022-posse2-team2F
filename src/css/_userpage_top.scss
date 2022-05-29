@@ -732,10 +732,11 @@ main{
             @include tb{
               bottom: 135px;
               font-size: 10px;
+              bottom: 125px;
             }
             p{
               font-size: 12px;
-              margin: 10px;
+              margin: 10px 6px;
 
             }
 
@@ -755,8 +756,9 @@ main{
                 width: 2px;
                 transform: rotate(-25deg);
                 @include mb {
-                  height: 20px;
-                  left: -7px;
+                  height: 30px;
+                  left: 0px;
+                  transform: rotate(-18deg);
                 }
               }
             }
@@ -777,8 +779,9 @@ main{
                 width: 2px;
                 transform: rotate(25deg);
                 @include mb {
-                  height: 20px;
-                  right: 20px;
+                  height: 30px;
+                  right: 0px;
+                  transform: rotate(18deg);
                 }
               }
             }
