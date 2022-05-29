@@ -3,7 +3,7 @@ session_start();
 require('../dbconnect.php');
 
 // ログインしていないままアクセスしようとしている場合エラーページに飛ばす
-if (!isset($_SESSION['id'])) {
+if (!isset($_SESSION['check'])) {
   header('Location: ./login/login_error.php');
 }
 
