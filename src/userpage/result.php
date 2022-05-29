@@ -86,7 +86,7 @@ $_SESSION['search_id'] = $search_id;
   unset($_SESSION['search_id']);
   $search_ids = array();
   foreach ($_SESSION['default_id'] as $search_id){
-    $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id");
+    $stmt = $db->query("SELECT * FROM agents WHERE id = $search_id AND hide =0");
     $results = $stmt->fetchAll();
     foreach($results as $result){
       $agent_id = $result['id'];
@@ -99,7 +99,58 @@ $_SESSION['search_id'] = $search_id;
   $search_id = array_keys($search_ids);
 
   $_SESSION['search_id'] = $search_id;
+  }elseif($_POST['sort'] == "公開求人数が多い順"){
+  //公開求人数が多い順
+  unset($_SESSION['search_id']);
+  $search_ids = array();
+  foreach ($_SESSION['default_id'] as $search_id){
+    $stmt =  $db->prepare("SELECT sort_options.sort_option, agent_sort_options.agent_id FROM sort_options INNER JOIN agent_sort_options on sort_options.id = agent_sort_options.sort_option_id 
+    WHERE category_id = 100 AND agent_id = ? AND hide = 0");
+    $stmt ->execute(array($search_id));
+    $results = $stmt->fetchAll();
+    foreach($results as $result){
+      $agent_id = $result['agent_id'];
+      if(is_numeric($result['sort_option'])){
+
+        $want_num = $result['sort_option'];
+      }else{
+        $want_num = 0;
+      }
+      $want_nums = array($agent_id => $want_num);
+      $search_ids += $want_nums;
+
+    }
   }
+  arsort($search_ids);
+  $search_id = array_keys($search_ids);
+
+  $_SESSION['search_id'] = $search_id;
+  }elseif($_POST['sort'] == "利用者数が多い順"){
+    unset($_SESSION['search_id']);
+    $search_ids = array();
+    foreach ($_SESSION['default_id'] as $search_id){
+      $stmt =  $db->prepare("SELECT sort_options.sort_option, agent_sort_options.agent_id FROM sort_options INNER JOIN agent_sort_options on sort_options.id = agent_sort_options.sort_option_id 
+    WHERE category_id = 102 AND agent_id = ? AND hide = 0");
+    $stmt ->execute(array($search_id));
+    $results = $stmt->fetchAll();
+    foreach($results as $result){
+      $agent_id = $result['agent_id'];
+      if(is_numeric($result['sort_option'])){
+
+        $user_num = $result['sort_option'];
+      }else{
+        $user_num = 0;
+      }
+      $user_nums = array($agent_id => $user_num);
+      $search_ids += $user_nums;
+    }
+  }
+  arsort($search_ids);
+  $search_id = array_keys($search_ids);
+
+  $_SESSION['search_id'] = $search_id;
+
+}
 }
 //曖昧検索
 
@@ -279,6 +330,8 @@ $categories = $stmt->fetchAll();
                         $orders_list = array(
                             "人気順",
                             "掲載期間の短い順",
+                            "公開求人数が多い順",
+                            "利用者数が多い順",
                         );
 
                         // 戻ってきた場合
@@ -393,18 +446,44 @@ $categories = $stmt->fetchAll();
                       
                       $student_num =
                       $stmt->rowCount();
+                      $student_num = 20;
                       // echo $student_num;
                       ?>
                       <?php
                       if ($student_num >= 30) { ?>
-                        <div class="student_numbers">🔥</div>
+                        <div class="student_numbers" id="<?= "student" . $result['id'] ?>">
+                        🔥
+                      </div>
+                      <div class="student_info" id="<?= "info" . $result['id'] ?>">1ヶ月以内の申込者多数の人気エージェントです！</div>
+                      <script>
+                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseover", function() {
+                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "block";
+                        })
+                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseleave", function() {
+                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "none";
+                        })
+
+                      </script>
 
                       <?php } elseif ($student_num >= 10) { ?>
-                        <div class="student_numbers">⬆︎</div>
+                        <div class="student_numbers" id="<?= "student" . $result['id'] ?>">
+                        ⬆︎
+                      </div>
+                      <div class="student_info" id="<?= "info" . $result['id'] ?>">1ヶ月以内の申込者急増の人気エージェントです！</div>
+                      <script>
+                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseover", function() {
+                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "block";
+                        })
+                        document.getElementById('<?= 'student' . $result['id'] ?>').addEventListener("mouseleave", function() {
+                    document.getElementById('<?= 'info' . $result['id'] ?>').style.display = "none";
+                        })
+
+                      </script>
 
                       <?php } else { ?>
                         <div class="student_numbers"></div>
                       <?php } ?>
+                      <!-- ここからホバー -->
                       <!-- ここまで -->
                       <!-- ここから掲載日数 -->
 
@@ -511,21 +590,21 @@ $categories = $stmt->fetchAll();
                   <?= $category['tag_category'] ?>
                 </h3>
                 <p class="question" id="<?= 'button' . $category['id'] ?>">?</p>
-                <p class="question_delete" id="<?= 'button_delete' . $category['id'] ?>">?</p>
+                <!-- <p class="question_delete" id="<?= 'button_delete' . $category['id'] ?>">?</p> -->
                 <!-- ここからはてなボタン（hover） -->
                 <script>
                   // var elem = document.getElementById('<?= 'button' . $category['id'] ?>');
                   // var elem_delete = document.getElementById('<?= 'button_delete' . $category['id'] ?>');
-                  document.getElementById('<?= 'button' . $category['id'] ?>').addEventListener("click", function() {
+                  document.getElementById('<?= 'button' . $category['id'] ?>').addEventListener("mouseover", function() {
                     document.getElementById('<?= 'div' . $category['id'] ?>').style.display = "block";
-                    document.getElementById('<?= 'button' . $category['id'] ?>').style.display = "none";
-                    document.getElementById('<?= 'button_delete' . $category['id'] ?>').style.display = "block";
+                    // document.getElementById('<?= 'button' . $category['id'] ?>').style.display = "none";
+                    // document.getElementById('<?= 'button_delete' . $category['id'] ?>').style.display = "block";
                   });
 
-                  document.getElementById('<?= 'button_delete' . $category['id'] ?>').addEventListener("click", function() {
+                  document.getElementById('<?= 'button' . $category['id'] ?>').addEventListener("mouseleave", function() {
                     document.getElementById('<?= 'div' . $category['id'] ?>').style.display = "none";
-                    document.getElementById('<?= 'button' . $category['id'] ?>').style.display = "block";
-                    document.getElementById('<?= 'button_delete' . $category['id'] ?>').style.display = "none";
+                    // document.getElementById('<?= 'button' . $category['id'] ?>').style.display = "block";
+                    // document.getElementById('<?= 'button_delete' . $category['id'] ?>').style.display = "none";
                   });
                 </script>
               </div>

@@ -90,20 +90,20 @@ $now = time();
                 <?= $category['tag_category'] ?>
               </h3>
               <p class="question" id="<?= 'button' . $category['id'] ?>">?</p>
-              <p class="question_delete" id="<?= 'button_delete' . $category['id'] ?>">?</p>
+              <!-- <p class="question_delete" id="<?= 'button_delete' . $category['id'] ?>">?</p> -->
               <script>
                   // var elem = document.getElementById('<?= 'button' . $category['id']?>');
                   // var elem_delete = document.getElementById('<?= 'button_delete' . $category['id']?>');
-                document.getElementById('<?= 'button' . $category['id']?>').addEventListener("click", function(){
+                document.getElementById('<?= 'button' . $category['id']?>').addEventListener("mouseover", function(){
                   document.getElementById('<?= 'div' . $category['id']?>').style.display = "block";
-                  document.getElementById('<?= 'button' . $category['id']?>').style.display = "none";
-                  document.getElementById('<?= 'button_delete' . $category['id']?>').style.display = "block";
+                  // document.getElementById('<?= 'button' . $category['id']?>').style.display = "none";
+                  // document.getElementById('<?= 'button_delete' . $category['id']?>').style.display = "block";
                 });
 
-                document.getElementById('<?= 'button_delete' . $category['id']?>').addEventListener("click", function(){
+                document.getElementById('<?= 'button' . $category['id']?>').addEventListener("mouseleave", function(){
                   document.getElementById('<?= 'div' . $category['id']?>').style.display = "none";
-                  document.getElementById('<?= 'button' . $category['id']?>').style.display = "block";
-                  document.getElementById('<?= 'button_delete' . $category['id']?>').style.display = "none";
+                  // document.getElementById('<?= 'button' . $category['id']?>').style.display = "block";
+                  // document.getElementById('<?= 'button_delete' . $category['id']?>').style.display = "none";
                 });
               </script>
             </div>

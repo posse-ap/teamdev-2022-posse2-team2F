@@ -446,17 +446,17 @@ DROP TABLE IF EXISTS sort_categories;
 CREATE TABLE sort_categories (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     sort_category VARCHAR(255) NOT NULL,
-    tag_category_id INT NOT NULL
-    -- hide INT NOT NULL
+    tag_category_id INT NOT NULL,
+    hide INT NOT NULL
 );
 
 -- 並び替え用数値
 INSERT INTO
-    sort_categories(sort_category, tag_category_id)
+    sort_categories(sort_category, tag_category_id, hide)
 VALUES
-    ('公開求人数', 7),
-    ('非公開求人数', 8),
-    ('利用者数', 9);
+    ('公開求人数', 100, 0),
+    ('非公開求人数', 101, 0),
+    ('利用者数', 102, 0);
 
 -- タグ一覧
 
@@ -501,41 +501,42 @@ DROP TABLE IF EXISTS sort_options;
 CREATE TABLE sort_options (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     category_id INT NOT NULL,
-    sort_option VARCHAR(255) NOT NULL
+    sort_option VARCHAR(255) NOT NULL,
+    hide INT NOT NULL
 );
 
 INSERT INTO
-    sort_options(category_id, sort_option)
+    sort_options(category_id, sort_option, hide)
 VALUES
-    (7, '500'),
-    (7, '200'),
-    (7, '2000'),
-    (7, '1000'),
-    (7, '2000'),
-    (7, '70'),
-    (7, '1000'),
-    (7, '10000'),
-    (7, '300'),
+    (100, '500', 0),
+    (100, '200', 0),
+    (100, '2000', 0),
+    (100, '1000', 0),
+    (100, '2000', 0),
+    (100, '70', 0),
+    (100, '1000', 0),
+    (100, '10000', 0),
+    (100, '300', 0),
 
-    (8, '-'),
-    (8, '-'),
-    (8, '-'),
-    (8, '1000'),
-    (8, '-'),
-    (8, '-'),
-    (8, '-'),
-    (8, '2000'),
-    (8, '-'),
+    (101, '-', 0),
+    (101, '-', 0),
+    (101, '-', 0),
+    (101, '1000', 0),
+    (101, '-', 0),
+    (101, '-', 0),
+    (101, '-', 0),
+    (101, '2000', 0),
+    (101, '-', 0),
 
-    (9, '900000'),
-    (9, '300000'),
-    (9, '80000'),
-    (9, '40000'),
-    (9, '100000'),
-    (9, '20000'),
-    (9, '60000'),
-    (9, '150000'),
-    (9, '10000');
+    (102, '900000', 0),
+    (102, '300000', 0),
+    (102, '80000', 0),
+    (102, '40000', 0),
+    (102, '100000', 0),
+    (102, '20000', 0),
+    (102, '60000', 0),
+    (102, '150000', 0),
+    (102, '10000', 0);
 
 DROP TABLE IF EXISTS agent_tag_options;
 

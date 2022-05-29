@@ -210,12 +210,19 @@ main{
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-          .category_info{
-            width: 20vw;
-            text-align: center;
-            background-color: #e0e0e0;
-            display: none;
             position: relative;
+          .category_info{
+            width: 32vw;
+            text-align: center;
+            padding: 5px;
+            border-radius: 10px;
+            color: white;
+            z-index: 2;
+            background-color: #42a79b;
+            border: 1px solid #52A49A;
+            display: none;
+            position: absolute;
+            top: -65px;
             left: -2vw;
             @include tb {
               width: 55vw;

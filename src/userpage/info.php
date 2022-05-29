@@ -101,7 +101,7 @@ $categories = $stmt->fetchAll();
                                       WHERE category_id = ? AND agent_id = ?
                                       UNION 
                                       SELECT sort_options.sort_option FROM sort_options INNER JOIN agent_sort_options on sort_options.id = agent_sort_options.sort_option_id 
-                                      WHERE category_id = ? AND agent_id = ?");
+                                      WHERE category_id = ? AND agent_id = ? AND hide = 0");
 
                 $stmt->execute(array($category['id'], $result['id'], $category['id'], $result['id']));
                 $tags = $stmt->fetchAll();

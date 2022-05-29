@@ -193,6 +193,7 @@ $mb: 520px;
     position: absolute;
     right: 46vw;
     top: 180px;
+    height: 24.4px;
   }
   .sort_button{
     position: absolute;
@@ -574,6 +575,20 @@ $mb: 520px;
                 position: absolute;
                 top: 0px;
                 left: -18.5vw;
+                cursor: pointer;
+              }
+              .student_info{
+                display: none;
+                width: 200px;
+                font-size: 16px;
+                padding: 5px;
+                border-radius: 5px;
+                border: 2px solid #e65a33;
+                position: absolute;
+                background-color: #fff;
+                top: -20px;
+                left: -16vw;
+                text-align: center;
               }
               .last_time{
                 height: 20px;
@@ -851,16 +866,26 @@ $mb: 520px;
             display: flex;
             align-items: center;
             flex-wrap: wrap;
+            position: relative;
             @include tb {
               justify-content: center;
             }
 
             .category_info{
-              width: 24vw;
-              margin: 0 0.5vw 0.5vw 0.5vw;
+              width: 27vw;
+              margin: 0;
               text-align: center;
-              background-color: #e0e0e0;
+              // background-color: #e0e0e0;
+              background-color: #42a79b;
+              border: 1px solid #52A49A;
+              color: #fff;
               display: none;
+              position: absolute;
+              top: -70px;
+              left: 1vw;
+              z-index: 2;
+              border-radius: 10px;
+              padding: 5px;
               // background-color: #52A49A;
               @include tb {
                 width: 50vw;

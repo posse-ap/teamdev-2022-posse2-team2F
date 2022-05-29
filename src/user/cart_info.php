@@ -72,7 +72,9 @@ if (isset($_POST['cart_delete'])) {
   <?php if($count == 0) :?>
     <div class="error">お気に入りにエージェントが登録されていません</div>
     <div class="cart-btn">
-        <a href="/userpage/result.php">一覧に戻る</a>
+        <a href="/userpage/result.php" class="result_back">一覧に戻る</a>
+        <a href="/userpage/info.php?id=<?=$id?>" class="info_back">詳細に戻る</a>
+
     </div>
   <?php else : ?>
   <form action="/user/form_cart.php" method="POST">
